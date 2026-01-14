@@ -22,11 +22,15 @@ To update your marketplace plugins:
 /plugin marketplace update
 ```
 
-## Available Plugins
+## What's included
+
+### Commands
 
 **dg** - Dagster CLI commands for working with runs and logs
   - `/dg:troubleshoot <run-id>` - Debug failing runs by analyzing error logs
   - `/dg:logs <run-id> [level] [limit]` - Retrieve and display logs for a run
+
+### Skills
 
 **dagster-conventions** - Comprehensive Dagster development conventions and best practices
 
