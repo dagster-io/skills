@@ -13,14 +13,14 @@ Add this marketplace to Claude Code:
 Install a plugin:
 
 ```
-/plugin install dg-troubleshoot@claude-plugins-dagster
+/plugin install dg@claude-plugins-dagster
 ```
 
 ## Available Plugins
 
-**dagster-conventions** - Comprehensive Dagster development conventions and best practices
+**dg** - Dagster CLI commands including `/dg:troubleshoot` to debug failing runs by fetching and analyzing logs
 
-**dg-troubleshoot** - Debug failing Dagster runs by fetching and analyzing run logs
+**dagster-conventions** - Comprehensive Dagster development conventions and best practices
 
 ---
 

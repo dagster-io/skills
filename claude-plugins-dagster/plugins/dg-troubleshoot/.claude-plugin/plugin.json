@@ -1,5 +1,5 @@
 {
-  "name": "dg-troubleshoot",
-  "description": "Adds a /dg-troubleshoot command to quickly debug Dagster runs",
+  "name": "dg",
+  "description": "Dagster CLI commands for debugging runs, analyzing logs, and troubleshooting",
   "version": "1.0.0"
 }
