@@ -1,14 +1,81 @@
-# Storage & Databases
+# Storage Integrations
 
-Relational databases, NoSQL stores, file systems, and specialized storage systems for data persistence.
-
-This category includes databases covered in other sections:
-- **Data warehouses** (Snowflake, BigQuery, etc.) - See `data-warehouses.md`
-- **Cloud storage** (S3, GCS, Azure Blob) - See `cloud-platforms.md`
+Data warehouses, databases, object storage, and table formats for persistent data storage and analytics.
 
 ---
 
-## Relational Databases
+## Data Warehouses
+
+### Snowflake
+**Package:** `dagster-snowflake` | **Support:** Dagster-supported
+
+Cloud data warehouse with IO managers for pandas, polars, and PySpark DataFrames. Store and query large-scale analytics data.
+
+**Use cases:**
+- Store processed analytics tables for BI tools
+- Query large datasets with SQL
+- Integrate with dbt for SQL transformations
+- Use as persistent storage for Dagster assets
+
+**Quick start:**
+```python
+from dagster_snowflake import SnowflakeResource
+from dagster_snowflake_pandas import SnowflakePandasIOManager
+
+snowflake = SnowflakeResource(
+    account="abc12345.us-east-1",
+    user=dg.EnvVar("SNOWFLAKE_USER"),
+    password=dg.EnvVar("SNOWFLAKE_PASSWORD"),
+    database="analytics",
+    schema="public"
+)
+
+# Use as IO Manager to auto-save DataFrames
+defs = dg.Definitions(
+    assets=[...],
+    resources={
+        "snowflake": snowflake,
+        "io_manager": SnowflakePandasIOManager(
+            resource=snowflake
+        )
+    }
+)
+```
+
+**Docs:** https://docs.dagster.io/integrations/libraries/snowflake
+
+---
+
+### BigQuery
+**Package:** `dagster-gcp` | **Support:** Dagster-supported
+
+Google's serverless data warehouse with IO managers for pandas and PySpark. Automatically scales for large queries.
+
+**Use cases:**
+- Run SQL analytics on petabyte-scale data
+- Store structured data for analysis
+- Query data with standard SQL
+- Integrate with GCP data pipeline
+
+**Quick start:**
+```python
+from dagster_gcp import BigQueryResource
+from dagster_gcp_pandas import BigQueryPandasIOManager
+
+bigquery = BigQueryResource(
+    project="my-project"
+)
+
+@dg.asset
+def query_bigquery(bigquery: BigQueryResource):
+    return bigquery.get_client().query(
+        "SELECT * FROM `project.dataset.table` LIMIT 1000"
+    ).to_dataframe()
+```
+
+**Docs:** https://docs.dagster.io/integrations/libraries/gcp
+
+---
 
 ### DuckDB
 **Package:** `dagster-duckdb` | **Support:** Dagster-supported
@@ -43,7 +110,77 @@ defs = dg.Definitions(
 
 ---
 
-### Postgres (PostgreSQL)
+### Redshift
+**Package:** `dagster-aws` | **Support:** Dagster-supported
+
+AWS managed data warehouse based on PostgreSQL, optimized for OLAP workloads.
+
+**Use cases:**
+- Store large analytics datasets on AWS
+- Query data with PostgreSQL-compatible SQL
+- Integrate with AWS data ecosystem
+- Run complex analytical queries
+
+**Quick start:**
+```python
+from dagster_aws.redshift import RedshiftResource
+
+redshift = RedshiftResource(
+    host="my-cluster.redshift.amazonaws.com",
+    port=5439,
+    user=dg.EnvVar("REDSHIFT_USER"),
+    password=dg.EnvVar("REDSHIFT_PASSWORD"),
+    database="analytics"
+)
+
+@dg.asset
+def redshift_query(redshift: RedshiftResource):
+    with redshift.get_connection() as conn:
+        return pd.read_sql(
+            "SELECT * FROM sales_summary",
+            conn
+        )
+```
+
+**Docs:** https://docs.dagster.io/integrations/libraries/aws
+
+---
+
+### Teradata
+**Package:** `dagster-teradata` | **Support:** Community-supported
+
+Enterprise data warehouse platform for large-scale analytics and parallel processing.
+
+**Use cases:**
+- Connect to enterprise Teradata deployments
+- Execute parallel queries on large datasets
+- Integrate Teradata with modern data stack
+- Migrate from Teradata to cloud warehouses
+
+**Quick start:**
+```python
+from dagster_teradata import TeradataResource
+
+teradata = TeradataResource(
+    host="teradata.company.com",
+    user=dg.EnvVar("TERADATA_USER"),
+    password=dg.EnvVar("TERADATA_PASSWORD")
+)
+
+@dg.asset
+def teradata_data(teradata: TeradataResource):
+    return teradata.execute_query(
+        "SELECT * FROM enterprise_data"
+    )
+```
+
+**Docs:** https://docs.dagster.io/integrations/libraries/teradata
+
+---
+
+## Relational Databases
+
+### Postgres
 **Package:** `dagster-postgres` | **Support:** Dagster-supported
 
 Open-source relational database with ACID compliance and rich feature set.
@@ -54,9 +191,26 @@ Open-source relational database with ACID compliance and rich feature set.
 - Application backend database
 - Dagster instance storage
 
-**Docs:** https://docs.dagster.io/integrations/libraries/postgres
+**Quick start:**
+```python
+from dagster_postgres import PostgresResource
+from dagster_postgres_pandas import PostgresPandasIOManager
 
-_(See data-warehouses.md for full details)_
+postgres = PostgresResource(
+    host="localhost",
+    port=5432,
+    user=dg.EnvVar("POSTGRES_USER"),
+    password=dg.EnvVar("POSTGRES_PASSWORD"),
+    database="analytics"
+)
+
+@dg.asset
+def postgres_table(postgres: PostgresResource):
+    with postgres.get_connection() as conn:
+        return pd.read_sql("SELECT * FROM users", conn)
+```
+
+**Docs:** https://docs.dagster.io/integrations/libraries/postgres
 
 ---
 
@@ -71,11 +225,29 @@ Popular open-source relational database management system.
 - Legacy system integration
 - Read replicas for analytics
 
+**Quick start:**
+```python
+from dagster_mysql import MySQLResource
+
+mysql = MySQLResource(
+    host="localhost",
+    port=3306,
+    user=dg.EnvVar("MYSQL_USER"),
+    password=dg.EnvVar("MYSQL_PASSWORD"),
+    database="production"
+)
+
+@dg.asset
+def mysql_data(mysql: MySQLResource):
+    with mysql.get_connection() as conn:
+        return pd.read_sql("SELECT * FROM orders", conn)
+```
+
 **Docs:** https://docs.dagster.io/integrations/libraries/mysql
 
-_(See data-warehouses.md for full details)_
-
 ---
+
+## NoSQL Databases
 
 ### MongoDB
 **Package:** `dagster-mongo` | **Support:** Community-supported
@@ -109,7 +281,7 @@ def mongo_data(mongo: MongoResource):
 
 ---
 
-## Vector & Search Databases
+## Vector Databases
 
 ### Weaviate
 **Package:** `dagster-weaviate` | **Support:** Community-supported
@@ -219,6 +391,72 @@ def qdrant_vectors(qdrant: QdrantResource):
 
 ---
 
+## Table Formats & Storage Layers
+
+### Delta Lake
+**Package:** `dagster-deltalake` | **Support:** Dagster-supported
+
+Open-source storage layer providing ACID transactions and time travel for data lakes.
+
+**Use cases:**
+- Reliable data lake storage with ACID guarantees
+- Time travel and data versioning
+- Schema evolution for data lakes
+- Integration with Spark and Databricks
+
+**Quick start:**
+```python
+from dagster_deltalake import DeltaLakeResource
+
+deltalake = DeltaLakeResource(
+    storage_options={
+        "AWS_ACCESS_KEY_ID": dg.EnvVar("AWS_KEY"),
+        "AWS_SECRET_ACCESS_KEY": dg.EnvVar("AWS_SECRET")
+    }
+)
+
+@dg.asset
+def delta_table(deltalake: DeltaLakeResource):
+    return deltalake.read_table(
+        "s3://bucket/delta/table"
+    )
+```
+
+**Docs:** https://docs.dagster.io/integrations/libraries/deltalake
+
+---
+
+### Iceberg
+**Package:** `dagster-iceberg` | **Support:** Community-supported
+
+Apache Iceberg table format for large analytic datasets with schema evolution and partition evolution.
+
+**Use cases:**
+- Manage large analytics tables in data lakes
+- Schema and partition evolution
+- Time travel queries
+- Multi-engine table access (Spark, Trino, etc.)
+
+**Quick start:**
+```python
+from dagster_iceberg import IcebergResource
+
+iceberg = IcebergResource(
+    catalog_uri="thrift://localhost:9083",
+    warehouse="s3://my-bucket/warehouse"
+)
+
+@dg.asset
+def iceberg_table(iceberg: IcebergResource):
+    return iceberg.read_table(
+        "database.table_name"
+    )
+```
+
+**Docs:** https://docs.dagster.io/integrations/libraries/iceberg
+
+---
+
 ## File & Object Storage
 
 ### LakeFS
@@ -287,36 +525,14 @@ def cloud_agnostic_storage(obstore: ObstoreResource):
 
 **Docs:** https://docs.dagster.io/integrations/libraries/obstore
 
----
-
-## Table Formats
-
-### Delta Lake
-**Package:** `dagster-deltalake` | **Support:** Dagster-supported
-
-ACID transactions and time travel for data lakes built on Parquet.
-
-**Docs:** https://docs.dagster.io/integrations/libraries/deltalake
-
-_(See data-warehouses.md for full details)_
-
----
-
-### Iceberg
-**Package:** `dagster-iceberg` | **Support:** Community-supported
-
-Apache Iceberg table format for large analytic datasets.
-
-**Docs:** https://docs.dagster.io/integrations/libraries/iceberg
-
-_(See data-warehouses.md for full details)_
+**Note**: For cloud-specific object storage (AWS S3, GCS, Azure Blob), see the Compute category's cloud platform integrations.
 
 ---
 
 ## Metadata & Catalog
 
 ### DataHub
-**Package:** `dagster-datahub` | **Support:** Community-supported
+**Package:** `dagster-datahub` | **Support:** Dagster-supported
 
 Metadata catalog for data discovery, lineage, and governance.
 
@@ -349,7 +565,7 @@ def publish_to_datahub(datahub: DataHubResource):
 ---
 
 ### Atlan
-**Package:** `dagster-atlan` | **Support:** Community-supported
+**Package:** `dagster-atlan` | **Support:** Dagster-supported
 
 Modern data catalog for discovery, collaboration, and governance.
 
@@ -413,123 +629,40 @@ def publish_to_secoda(secoda: SecodaResource):
 
 ---
 
-## Other Storage Systems
-
-### Census
-**Package:** `dagster-census` | **Support:** Community-supported
-
-Reverse ETL platform for syncing warehouse data to business tools.
-
-**Use cases:**
-- Sync warehouse data to CRMs
-- Populate marketing tools with customer data
-- Activate data in business applications
-- Operational analytics
-
-**Quick start:**
-```python
-from dagster_census import CensusResource
-
-census = CensusResource(
-    api_key=dg.EnvVar("CENSUS_API_KEY")
-)
-
-@dg.asset
-def trigger_census_sync(census: CensusResource):
-    # Trigger Census sync from warehouse to Salesforce
-    census.get_client().trigger_sync(
-        sync_id="sync-123"
-    )
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/census
-
----
-
-### SharePoint
-**Package:** `dagster-sharepoint` | **Support:** Community-supported
-
-Microsoft SharePoint integration for file storage and collaboration.
-
-**Use cases:**
-- Read files from SharePoint
-- Upload reports to SharePoint
-- Enterprise file system integration
-- Microsoft 365 integration
-
-**Quick start:**
-```python
-from dagster_sharepoint import SharePointResource
-
-sharepoint = SharePointResource(
-    site_url="https://company.sharepoint.com/sites/data",
-    client_id=dg.EnvVar("SP_CLIENT_ID"),
-    client_secret=dg.EnvVar("SP_CLIENT_SECRET")
-)
-
-@dg.asset
-def sharepoint_file(sharepoint: SharePointResource):
-    client = sharepoint.get_client()
-    file_content = client.download_file(
-        library="Documents",
-        file_path="data/report.xlsx"
-    )
-    return pd.read_excel(file_content)
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/sharepoint
-
----
-
 ## Storage Selection Guide
 
 | Type | Best For | Examples | Scale |
 |------|----------|----------|-------|
-| **Relational** | Structured, transactional | Postgres, MySQL | Small-Large |
-| **Analytics** | Analytical queries | DuckDB, Data warehouses | Any |
-| **Document** | Semi-structured | MongoDB | Medium-Large |
+| **Data Warehouses** | Analytical queries | Snowflake, BigQuery, Redshift | Petabytes |
+| **Relational** | Transactional data | Postgres, MySQL | Small-Large |
+| **NoSQL** | Semi-structured data | MongoDB | Medium-Large |
 | **Vector** | Embeddings, AI | Weaviate, Chroma, Qdrant | Medium-Large |
-| **Object** | Files, unstructured | S3, GCS, Azure Blob | Any |
-| **Table format** | Data lake tables | Delta, Iceberg | Large |
-| **Metadata** | Catalogs, lineage | DataHub, Atlan | N/A |
+| **Table Formats** | Data lake tables | Delta, Iceberg | Large |
+| **Object Storage** | Files, unstructured | S3, GCS, Azure Blob | Any |
+| **Metadata** | Catalogs, lineage | DataHub, Atlan, Secoda | N/A |
 
 ## Common Patterns
 
-### Local Development with DuckDB
-```python
-# Development
-local_io_manager = DuckDBPandasIOManager(
-    database="dev.duckdb"
-)
+### IO Manager Pattern
+Most warehouse integrations provide IO managers to automatically persist DataFrames:
 
-# Production
-prod_io_manager = SnowflakePandasIOManager(...)
+```python
+from dagster_<warehouse>_pandas import <Warehouse>PandasIOManager
 
 defs = dg.Definitions(
-    assets=[...],
+    assets=[my_asset],
     resources={
-        "io_manager": (
-            local_io_manager if dev_mode
-            else prod_io_manager
+        "io_manager": <Warehouse>PandasIOManager(
+            # connection config
         )
     }
 )
-```
 
-### Vector Storage for AI
-```python
+# Assets automatically save to warehouse
 @dg.asset
-def embeddings(openai: OpenAIResource) -> list[list[float]]:
-    # Generate embeddings
-    return openai.create_embeddings(documents)
-
-@dg.asset
-def vector_index(
-    embeddings: list[list[float]],
-    weaviate: WeaviateResource
-):
-    # Store in vector database
-    weaviate.store_vectors(embeddings)
+def my_table() -> pd.DataFrame:
+    return pd.DataFrame({"col": [1, 2, 3]})
+    # Automatically saved to warehouse as table
 ```
 
 ### Multi-Storage Pattern
@@ -554,13 +687,36 @@ def search_index(raw_data: pd.DataFrame, weaviate: WeaviateResource):
     weaviate.index_documents(raw_data)
 ```
 
+### Local Dev with DuckDB
+```python
+# Development
+local_io_manager = DuckDBPandasIOManager(
+    database="dev.duckdb"
+)
+
+# Production
+prod_io_manager = SnowflakePandasIOManager(...)
+
+defs = dg.Definitions(
+    assets=[...],
+    resources={
+        "io_manager": (
+            local_io_manager if dev_mode
+            else prod_io_manager
+        )
+    }
+)
+```
+
 ## Tips
 
-- **Development**: Use DuckDB/SQLite for local development, switch to cloud for production
+- **Development**: Use DuckDB for local development, production warehouse in deployment
+- **Cost**: BigQuery charges by query size, Snowflake by compute time
+- **Performance**: Use partitioning and clustering for large tables
+- **Schema**: Define schemas explicitly to avoid type inference issues
 - **Vector DBs**: Choose based on scale - Chroma for small, Qdrant/Weaviate for large
 - **Object storage**: Use cloud-native (S3/GCS/Azure) over databases for large files
 - **Table formats**: Delta/Iceberg add ACID to data lakes, worth the complexity
 - **Catalogs**: DataHub/Atlan provide discoverability for large data platforms
-- **Partitioning**: Use partitioning for large tables to improve query performance
 - **Compression**: Parquet with compression saves storage and improves performance
 - **Indexes**: Add indexes on frequently queried columns

@@ -1,6 +1,6 @@
-# Data Quality & Testing
+# Testing Integrations
 
-Validation frameworks for ensuring data quality, schema compliance, and testing data pipelines.
+Data quality and testing frameworks for validation, schema compliance, and ensuring data pipeline reliability.
 
 ---
 

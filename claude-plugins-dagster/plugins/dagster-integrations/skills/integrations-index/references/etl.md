@@ -1,4 +1,4 @@
-# ETL/ELT Tools
+# ETL Integrations
 
 Extract, transform, and load tools for data ingestion, transformation, and orchestration.
 
@@ -332,6 +332,40 @@ def sftp_file(sftp: SFTPResource):
 
 ---
 
+### PySpark
+**Package:** `dagster-pyspark` | **Support:** Dagster-supported
+
+Python API for Apache Spark enabling distributed data processing and transformation on large datasets across clusters.
+
+**Use cases:**
+- Process datasets too large for memory
+- Distributed ETL transformations across clusters
+- Large-scale data aggregations and joins
+- Transform data at petabyte scale
+
+**Quick start:**
+```python
+from dagster_pyspark import PySparkResource
+from pyspark.sql import DataFrame
+
+pyspark = PySparkResource(
+    spark_config={
+        "spark.executor.memory": "4g",
+        "spark.executor.cores": "2"
+    }
+)
+
+@dg.asset
+def transform_large_dataset(pyspark: PySparkResource) -> DataFrame:
+    spark = pyspark.spark_session
+    df = spark.read.parquet("s3://bucket/large-dataset")
+    return df.groupBy("category").agg({"amount": "sum"})
+```
+
+**Docs:** https://docs.dagster.io/integrations/libraries/pyspark
+
+---
+
 ## ETL Tool Selection Guide
 
 | Tool | Best For | Architecture | Complexity |
@@ -342,6 +376,7 @@ def sftp_file(sftp: SFTPResource):
 | **dlt** | Python-based extraction | EL (Python) | Medium |
 | **Sling** | High-speed replication | EL (CLI) | Low |
 | **Meltano** | Singer taps | ELT (OSS) | High |
+| **PySpark** | Distributed ETL | Transformation | High |
 
 ## Component-Based Integration Pattern
 
@@ -375,4 +410,5 @@ defs = project_defs
 - **Fivetran/Airbyte**: Component scaffold auto-discovers connectors
 - **dlt**: Great for custom API ingestion with automatic schema
 - **Sling**: Fastest for bulk database transfers
+- **PySpark**: Use for transformations too large for pandas/polars
 - **Incremental**: Most tools support incremental loading for efficiency

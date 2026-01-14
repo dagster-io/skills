@@ -1,6 +1,6 @@
-# AI & ML
+# AI Integrations
 
-Machine learning platforms, LLM APIs, and experiment tracking tools for AI-powered data workflows.
+AI integrations for machine learning platforms, LLM APIs, and experiment tracking tools.
 
 ---
 
@@ -213,43 +213,6 @@ def optimized_llm_call(notdiamond: NotDiamondResource):
 
 ---
 
-### Ray
-**Package:** `dagster-ray` | **Support:** Community-supported
-
-Distributed computing framework for scaling Python workloads and ML training.
-
-**Use cases:**
-- Distributed ML training
-- Parallel hyperparameter tuning
-- Scale Python functions across clusters
-- Ray Serve for model serving
-
-**Quick start:**
-```python
-from dagster_ray import ray_resource
-import ray
-
-ray_config = ray_resource.configured({
-    "address": "auto"  # or specific Ray cluster address
-})
-
-@dg.op(required_resource_keys={"ray"})
-def distributed_training(context):
-    ray.init(address=context.resources.ray.address)
-
-    @ray.remote
-    def train_model(data):
-        # Training logic
-        return model
-
-    results = ray.get([train_model.remote(d) for d in datasets])
-    return results
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/ray
-
----
-
 ## AI/ML Integration Selection
 
 | Integration | Best For | Type | Cost Model |
@@ -260,7 +223,6 @@ def distributed_training(context):
 | **MLflow** | Experiment tracking | Platform | Open-source |
 | **W&B** | Advanced ML tracking | Platform | Freemium |
 | **NotDiamond** | LLM optimization | Routing | Pay per call |
-| **Ray** | Distributed compute | Framework | Infrastructure cost |
 
 ## Common Patterns
 

@@ -1,86 +1,6 @@
-# Monitoring & Alerting
+# Monitoring Integrations
 
-Notification systems and monitoring platforms for pipeline observability, alerting, and incident management.
-
----
-
-### Slack
-**Package:** `dagster-slack` | **Support:** Dagster-supported
-
-Send notifications and alerts to Slack channels for pipeline monitoring and team communication.
-
-**Use cases:**
-- Alert team on pipeline failures
-- Send success notifications
-- Share data quality reports
-- Post daily pipeline summaries
-
-**Quick start:**
-```python
-from dagster_slack import SlackResource
-
-slack = SlackResource(
-    token=dg.EnvVar("SLACK_BOT_TOKEN")
-)
-
-@dg.asset
-def notify_completion(
-    context: dg.AssetExecutionContext,
-    slack: SlackResource
-):
-    slack.get_client().chat_postMessage(
-        channel="#data-alerts",
-        text=f"Asset {context.asset_key} completed successfully!"
-    )
-```
-
-**Using sensors:**
-```python
-from dagster_slack import make_slack_on_run_failure_sensor
-
-slack_failure_sensor = make_slack_on_run_failure_sensor(
-    channel="#alerts",
-    slack_token=dg.EnvVar("SLACK_BOT_TOKEN")
-)
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/slack
-
----
-
-### PagerDuty
-**Package:** `dagster-pagerduty` | **Support:** Dagster-supported
-
-Create incidents and send alerts to PagerDuty for on-call incident management.
-
-**Use cases:**
-- Create incidents for critical pipeline failures
-- Escalate data quality issues
-- On-call alerting for production issues
-- Integrate with incident response workflows
-
-**Quick start:**
-```python
-from dagster_pagerduty import PagerDutyResource
-
-pagerduty = PagerDutyResource(
-    routing_key=dg.EnvVar("PAGERDUTY_ROUTING_KEY")
-)
-
-@dg.asset
-def critical_alert(pagerduty: PagerDutyResource):
-    pagerduty.trigger_incident(
-        severity="critical",
-        summary="Data pipeline failure in production",
-        source="dagster-pipeline",
-        custom_details={
-            "pipeline": "daily_etl",
-            "error": "Connection timeout"
-        }
-    )
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/pagerduty
+Observability platforms and metrics systems for tracking pipeline performance, health, and operational metrics.
 
 ---
 
@@ -127,71 +47,6 @@ def monitored_asset(
 ```
 
 **Docs:** https://docs.dagster.io/integrations/libraries/datadog
-
----
-
-### Microsoft Teams
-**Package:** `dagster-msteams` | **Support:** Dagster-supported
-
-Send notifications to Microsoft Teams channels for pipeline monitoring.
-
-**Use cases:**
-- Alert teams using Microsoft Teams
-- Send pipeline status updates
-- Share data reports in Teams channels
-- Enterprise communication integration
-
-**Quick start:**
-```python
-from dagster_msteams import MSTeamsResource
-
-teams = MSTeamsResource(
-    hook_url=dg.EnvVar("MSTEAMS_WEBHOOK_URL")
-)
-
-@dg.asset
-def teams_notification(teams: MSTeamsResource):
-    teams.get_client().post_message(
-        title="Pipeline Complete",
-        message="Daily ETL pipeline finished successfully",
-        theme_color="00FF00"
-    )
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/msteams
-
----
-
-### Twilio
-**Package:** `dagster-twilio` | **Support:** Dagster-supported
-
-Send SMS messages and make phone calls for critical alerts.
-
-**Use cases:**
-- SMS alerts for critical failures
-- Phone call escalation for urgent issues
-- Send verification codes
-- Multi-channel alerting
-
-**Quick start:**
-```python
-from dagster_twilio import TwilioResource
-
-twilio = TwilioResource(
-    account_sid=dg.EnvVar("TWILIO_ACCOUNT_SID"),
-    auth_token=dg.EnvVar("TWILIO_AUTH_TOKEN")
-)
-
-@dg.asset
-def critical_sms_alert(twilio: TwilioResource):
-    twilio.get_client().messages.create(
-        from_="+1234567890",
-        to="+0987654321",
-        body="CRITICAL: Production pipeline failed"
-    )
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/twilio
 
 ---
 
@@ -271,99 +126,17 @@ def logged_asset(
 
 ---
 
-### Apprise
-**Package:** `dagster-apprise` | **Support:** Community-supported
-
-Universal notification library supporting 80+ services (Discord, Telegram, Email, etc.).
-
-**Use cases:**
-- Send notifications to multiple services
-- Use services without dedicated integrations
-- Centralized notification configuration
-- Multi-channel alerting
-
-**Quick start:**
-```python
-from dagster_apprise import AppriseResource
-
-apprise = AppriseResource(
-    urls=[
-        "discord://webhook_id/webhook_token",
-        "mailto://user:pass@gmail.com"
-    ]
-)
-
-@dg.asset
-def multi_channel_alert(apprise: AppriseResource):
-    apprise.notify(
-        title="Pipeline Alert",
-        body="Daily pipeline completed successfully"
-    )
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/apprise
-
----
-
-### DingTalk
-**Package:** `dagster-dingtalk` | **Support:** Community-supported
-
-Send notifications to DingTalk (popular in China) for team communication.
-
-**Use cases:**
-- Notify teams using DingTalk
-- Send pipeline alerts in Chinese organizations
-- Integration with Asian enterprise tools
-
-**Quick start:**
-```python
-from dagster_dingtalk import DingTalkResource
-
-dingtalk = DingTalkResource(
-    webhook_url=dg.EnvVar("DINGTALK_WEBHOOK"),
-    secret=dg.EnvVar("DINGTALK_SECRET")
-)
-
-@dg.asset
-def dingtalk_notification(dingtalk: DingTalkResource):
-    dingtalk.send_message(
-        "Pipeline completed successfully"
-    )
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/dingtalk
-
----
-
 ## Monitoring Tool Selection
 
-| Tool | Best For | Type | Urgency |
-|------|----------|------|---------|
-| **Slack** | Team communication | Chat | Low-Medium |
-| **MS Teams** | Enterprise Microsoft | Chat | Low-Medium |
-| **PagerDuty** | On-call incidents | Incident Mgmt | High |
-| **Twilio** | SMS/Voice alerts | Communication | Critical |
-| **Datadog** | Metrics & dashboards | Observability | All levels |
-| **Prometheus** | Time-series metrics | Metrics | All levels |
-| **Papertrail** | Log management | Logging | All levels |
-| **Apprise** | Multi-platform | Universal | All levels |
+| Tool | Best For | Type | Features |
+|------|----------|------|----------|
+| **Datadog** | Comprehensive observability | APM/Metrics/Logs | Dashboards, alerts, tracing |
+| **Prometheus** | Time-series metrics | Metrics | Open-source, Grafana integration |
+| **Papertrail** | Log aggregation | Logging | Search, retention, alerts |
 
 ## Common Patterns
 
-### Run Failure Sensor
-```python
-from dagster_slack import make_slack_on_run_failure_sensor
-
-@dg.run_failure_sensor
-def slack_on_failure(context: dg.RunFailureContext, slack: SlackResource):
-    slack.get_client().chat_postMessage(
-        channel="#alerts",
-        text=f"❌ Run {context.run_id} failed!\n"
-             f"Error: {context.failure_event.message}"
-    )
-```
-
-### Custom Metrics
+### Custom Metrics Tracking
 ```python
 @dg.asset
 def monitored_pipeline(
@@ -376,41 +149,109 @@ def monitored_pipeline(
         points=[(time.time(), record_count)],
         tags=["env:prod", "team:data"]
     )
+
+    # Track data quality metrics
+    datadog.get_client().metric.send(
+        metric="data.quality.score",
+        points=[(time.time(), quality_score)],
+        tags=[f"asset:{context.asset_key.path[-1]}"]
+    )
 ```
 
-### Multi-Channel Alerting
+### Performance Monitoring
 ```python
 @dg.asset
-def critical_pipeline(
-    slack: SlackResource,
-    pagerduty: PagerDutyResource,
-    twilio: TwilioResource
+def timed_asset(
+    context: dg.AssetExecutionContext,
+    prometheus: PrometheusResource
 ):
+    from prometheus_client import Histogram
+    import time
+
+    # Track execution time distribution
+    duration_histogram = Histogram(
+        "asset_duration_seconds",
+        "Asset execution duration",
+        buckets=[1, 5, 10, 30, 60, 300, 600]
+    )
+
+    start = time.time()
+    result = process_data()
+    duration = time.time() - start
+
+    duration_histogram.observe(duration)
+    prometheus.push_to_gateway(
+        job="dagster_pipeline",
+        registry=duration_histogram._registry
+    )
+
+    return result
+```
+
+### Log Aggregation
+```python
+@dg.asset
+def logged_pipeline(
+    context: dg.AssetExecutionContext,
+    papertrail: PapertrailResource
+):
+    papertrail.log_message(
+        f"Starting {context.asset_key}",
+        level="INFO"
+    )
+
     try:
-        result = process_critical_data()
-        slack.post_message("#alerts", "✅ Success")
+        result = process_data()
+        papertrail.log_message(
+            f"Completed {context.asset_key}: {len(result)} records",
+            level="INFO"
+        )
         return result
     except Exception as e:
-        # Alert multiple channels
-        slack.post_message("#alerts", f"❌ Failure: {e}")
-        pagerduty.trigger_incident(
-            severity="critical",
-            summary=str(e)
-        )
-        twilio.send_sms(
-            to="+1234567890",
-            body=f"CRITICAL: {e}"
+        papertrail.log_message(
+            f"Failed {context.asset_key}: {e}",
+            level="ERROR"
         )
         raise
 ```
 
+### Health Dashboard Pattern
+```python
+@dg.asset
+def health_metrics(datadog: DatadogResource):
+    """Track overall pipeline health metrics"""
+
+    # Asset freshness
+    datadog.get_client().metric.send(
+        metric="pipeline.assets.stale_count",
+        points=[(time.time(), count_stale_assets())],
+        tags=["env:prod"]
+    )
+
+    # Pipeline success rate
+    datadog.get_client().metric.send(
+        metric="pipeline.success_rate",
+        points=[(time.time(), calculate_success_rate())],
+        tags=["env:prod"]
+    )
+
+    # Data volume
+    datadog.get_client().metric.send(
+        metric="pipeline.data.volume_gb",
+        points=[(time.time(), get_total_data_volume())],
+        tags=["env:prod"]
+    )
+```
+
 ## Tips
 
-- **Alert fatigue**: Don't alert on every event - focus on actionable alerts
-- **Severity levels**: Use appropriate channels for different severity levels
-- **Context**: Include relevant context (run ID, asset, error message) in alerts
-- **Testing**: Test alerting integrations before production deployment
-- **Sensors**: Use sensors for automatic alerting on run/asset failures
-- **Dashboards**: Combine metrics tools (Datadog/Prometheus) with visualizations
-- **Escalation**: Use PagerDuty/Twilio for critical issues requiring immediate action
-- **Batching**: Consider batching non-critical notifications to reduce noise
+- **Dashboards**: Create dashboards to visualize pipeline health at a glance
+- **Metrics naming**: Use consistent naming conventions (e.g., `dagster.asset.duration`)
+- **Tags**: Use tags to filter and aggregate metrics by environment, team, asset type
+- **Baselines**: Establish baseline metrics to detect anomalies
+- **SLOs**: Define Service Level Objectives for critical data pipelines
+- **Retention**: Configure appropriate retention periods for logs and metrics
+- **Costs**: Monitor observability tool costs - high cardinality tags can be expensive
+- **Sampling**: For high-volume metrics, consider sampling to reduce costs
+- **Integration**: Combine with alerting tools (Slack, PagerDuty) for complete observability
+- **Documentation**: Document what each metric measures and when to be concerned

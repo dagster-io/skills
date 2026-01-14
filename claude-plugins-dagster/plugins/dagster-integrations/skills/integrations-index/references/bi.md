@@ -1,4 +1,4 @@
-# BI & Visualization
+# BI Integrations
 
 Business intelligence and visualization platforms for data exploration, dashboards, and analytics.
 

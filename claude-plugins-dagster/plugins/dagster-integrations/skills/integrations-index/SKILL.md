@@ -1,25 +1,43 @@
 ---
 name: integrations-index
-description: Comprehensive index of 82+ Dagster integrations including cloud platforms (AWS, Azure, GCP), data warehouses (Snowflake, BigQuery), ETL tools (dbt, Fivetran, Airbyte), AI/ML (OpenAI, Anthropic), data quality, monitoring, and more. Use when discovering integrations or finding the right tool for a use case.
+description: Comprehensive index of 82+ Dagster integrations organized by official tags.yml taxonomy including AI (OpenAI, Anthropic), ETL (dbt, Fivetran, Airbyte, PySpark), Storage (Snowflake, BigQuery), Compute (AWS, Databricks, Spark), BI (Looker, Tableau), Monitoring, Alerting, and Testing. Use when discovering integrations or finding the right tool for a use case.
 ---
 
 # Dagster Integrations Index
 
-Navigate 82+ Dagster integrations organized by category. Find cloud platforms, data warehouses, ETL tools, AI/ML integrations, and more.
+Navigate 82+ Dagster integrations organized by Dagster's official taxonomy. Find AI/ML tools, ETL platforms, data storage, compute services, BI tools, and monitoring integrations.
 
 ## Quick Reference by Category
 
-| Category | Integrations | Common Tools | Reference |
-|----------|--------------|--------------|-----------|
-| **Cloud Platforms** | 4 | AWS, Azure, GCP, Databricks | `references/cloud-platforms.md` |
-| **Data Warehouses** | 10 | Snowflake, BigQuery, Redshift, Postgres | `references/data-warehouses.md` |
-| **ETL/ELT Tools** | 8 | dbt, Fivetran, Airbyte, dlt, Sling | `references/etl-tools.md` |
-| **Data Processing** | 8 | Spark, PySpark, Dask, Pandas, Polars | `references/data-processing.md` |
-| **AI & ML** | 8 | OpenAI, Anthropic, MLflow, W&B | `references/ai-ml.md` |
-| **Data Quality** | 2 | Great Expectations, Pandera | `references/data-quality.md` |
-| **Monitoring & Alerting** | 9 | Slack, PagerDuty, Datadog, MS Teams | `references/monitoring.md` |
-| **BI & Visualization** | 7 | Looker, Tableau, PowerBI, Sigma, Hex | `references/bi-tools.md` |
-| **Storage & Databases** | 26 | DuckDB, Postgres, MySQL, MongoDB | `references/storage-databases.md` |
+| Category | Count | Common Tools | Reference |
+|----------|-------|--------------|-----------|
+| **AI & ML** | 6 | OpenAI, Anthropic, MLflow, W&B | `references/ai.md` |
+| **ETL/ELT** | 9 | dbt, Fivetran, Airbyte, PySpark | `references/etl.md` |
+| **Storage** | 35+ | Snowflake, BigQuery, Postgres, DuckDB | `references/storage.md` |
+| **Compute** | 15+ | AWS, Databricks, Spark, Docker, K8s | `references/compute.md` |
+| **BI & Visualization** | 7 | Looker, Tableau, PowerBI, Sigma | `references/bi.md` |
+| **Monitoring** | 3 | Datadog, Prometheus, Papertrail | `references/monitoring.md` |
+| **Alerting** | 6 | Slack, PagerDuty, MS Teams, Twilio | `references/alerting.md` |
+| **Testing** | 2 | Great Expectations, Pandera | `references/testing.md` |
+| **Other** | 2+ | Pandas, Polars | `references/other.md` |
+
+## Category Taxonomy
+
+This index aligns with Dagster's official documentation taxonomy from tags.yml:
+
+- **ai**: Artificial intelligence and machine learning integrations (LLM APIs, experiment tracking)
+- **etl**: Extract, transform, and load tools including data replication and transformation frameworks
+- **storage**: Databases, data warehouses, object storage, and table formats
+- **compute**: Cloud platforms, container orchestration, and distributed processing frameworks
+- **bi**: Business intelligence and visualization platforms
+- **monitoring**: Observability platforms and metrics systems for tracking performance
+- **alerting**: Notification and incident management systems for pipeline alerts
+- **testing**: Data quality validation and testing frameworks
+- **other**: Miscellaneous integrations including DataFrame libraries
+
+**Note**: Support levels (dagster-supported, community-supported) are shown inline in each integration entry.
+
+Last verified: 2026-01-14
 
 ## Top 10 Most Popular Integrations
 
@@ -78,96 +96,51 @@ Run distributed data processing jobs using Apache Spark.
 ### I need to...
 
 **Load data from external sources**
-- SaaS applications → [ETL Tools](#etl-tools) (Fivetran, Airbyte)
-- Files/databases → [ETL Tools](#etl-tools) (dlt, Sling, Meltano)
-- Cloud storage → [Cloud Platforms](#cloud-platforms) (AWS S3, GCS, Azure Blob)
+- SaaS applications → [ETL](#etl) (Fivetran, Airbyte)
+- Files/databases → [ETL](#etl) (dlt, Sling, Meltano)
+- Cloud storage → [Storage](#storage) (S3, GCS, Azure Blob)
 
 **Transform data**
-- SQL transformations → [ETL Tools](#etl-tools) (dbt)
-- DataFrame operations → [Data Processing](#data-processing) (Pandas, Polars, PySpark)
-- Large-scale processing → [Data Processing](#data-processing) (Spark, Dask)
+- SQL transformations → [ETL](#etl) (dbt)
+- Distributed transformations → [ETL](#etl) (PySpark)
+- DataFrame operations → [Other](#other) (Pandas, Polars)
+- Large-scale processing → [Compute](#compute) (Spark, Dask, Ray)
 
 **Store data**
-- Cloud data warehouse → [Data Warehouses](#data-warehouses) (Snowflake, BigQuery, Redshift)
-- Relational database → [Storage & Databases](#storage-databases) (Postgres, MySQL)
-- File storage → [Cloud Platforms](#cloud-platforms) (S3, GCS, Azure)
-- Analytics database → [Storage & Databases](#storage-databases) (DuckDB)
+- Cloud data warehouse → [Storage](#storage) (Snowflake, BigQuery, Redshift)
+- Relational database → [Storage](#storage) (Postgres, MySQL)
+- File/object storage → [Storage](#storage) (S3, GCS, Azure, LakeFS)
+- Analytics database → [Storage](#storage) (DuckDB)
+- Vector embeddings → [Storage](#storage) (Weaviate, Chroma, Qdrant)
 
 **Validate data quality**
-- Schema validation → [Data Quality](#data-quality) (Pandera)
-- Quality checks → [Data Quality](#data-quality) (Great Expectations)
+- Schema validation → [Testing](#testing) (Pandera)
+- Quality checks → [Testing](#testing) (Great Expectations)
 
 **Run ML workloads**
-- LLM integration → [AI & ML](#ai-ml) (OpenAI, Anthropic, Gemini)
-- Experiment tracking → [AI & ML](#ai-ml) (MLflow, W&B)
-- Model training → [Data Processing](#data-processing) (PySpark, Dask)
+- LLM integration → [AI](#ai) (OpenAI, Anthropic, Gemini)
+- Experiment tracking → [AI](#ai) (MLflow, W&B)
+- Distributed training → [Compute](#compute) (Ray, Spark)
+
+**Execute computation**
+- Cloud compute → [Compute](#compute) (AWS, Azure, GCP, Databricks)
+- Containers → [Compute](#compute) (Docker, Kubernetes)
+- Distributed processing → [Compute](#compute) (Spark, Dask, Ray)
 
 **Monitor pipelines**
-- Team notifications → [Monitoring & Alerting](#monitoring) (Slack, MS Teams)
-- Incident management → [Monitoring & Alerting](#monitoring) (PagerDuty, Datadog)
-- Metrics tracking → [Monitoring & Alerting](#monitoring) (Prometheus, Datadog)
+- Team notifications → [Alerting](#alerting) (Slack, MS Teams, PagerDuty)
+- Metrics tracking → [Monitoring](#monitoring) (Datadog, Prometheus)
+- Log aggregation → [Monitoring](#monitoring) (Papertrail)
 
 **Visualize data**
-- BI dashboards → [BI & Visualization](#bi-tools) (Looker, Tableau, PowerBI)
-- Analytics platform → [BI & Visualization](#bi-tools) (Sigma, Hex, Evidence)
+- BI dashboards → [BI](#bi) (Looker, Tableau, PowerBI)
+- Analytics platform → [BI](#bi) (Sigma, Hex, Evidence)
 
 ## Integration Categories
 
-### Cloud Platforms
-
-Major cloud providers with comprehensive service integrations for compute, storage, and managed services.
-
-**Key integrations:**
-- **AWS** - S3, Athena, Glue, ECS, EMR, Lambda, Redshift
-- **Azure** - Blob Storage, Data Lake, Synapse, Databricks
-- **GCP** - Cloud Storage, BigQuery, Dataproc, Cloud Run
-- **Databricks** - Unified analytics with Pipes integration
-
-See `references/cloud-platforms.md` for all cloud platform integrations.
-
-### Data Warehouses
-
-Cloud and on-premise data warehouses optimized for analytics queries and large-scale storage.
-
-**Key integrations:**
-- **Snowflake** - Cloud data warehouse with IO managers
-- **BigQuery** - Google's serverless data warehouse
-- **Redshift** - AWS managed data warehouse
-- **Postgres** - Open-source relational database
-- **Teradata** - Enterprise data warehouse
-
-See `references/data-warehouses.md` for all data warehouse integrations.
-
-### ETL Tools
-
-Extract, transform, and load tools for data ingestion and orchestration.
-
-**Key integrations:**
-- **dbt** - SQL-based transformation with automatic dependencies
-- **Fivetran** - Automated SaaS data ingestion
-- **Airbyte** - Open-source ELT platform
-- **dlt** - Python-based data loading tool
-- **Sling** - High-performance data replication
-- **Meltano** - ELT for the modern data stack
-
-See `references/etl-tools.md` for all ETL/ELT integrations.
-
-### Data Processing
-
-DataFrame libraries and distributed processing frameworks for data transformations.
-
-**Key integrations:**
-- **PySpark** - Python API for Apache Spark
-- **Pandas** - In-memory DataFrame library
-- **Polars** - Fast DataFrame library with columnar storage
-- **Dask** - Parallel computing with pandas-like API
-- **Spark** - Distributed data processing engine
-
-See `references/data-processing.md` for all data processing integrations.
-
 ### AI & ML
 
-Machine learning platforms, LLM APIs, and experiment tracking tools.
+Artificial intelligence and machine learning platforms, including LLM APIs and experiment tracking.
 
 **Key integrations:**
 - **OpenAI** - GPT models and embeddings API
@@ -177,35 +150,57 @@ Machine learning platforms, LLM APIs, and experiment tracking tools.
 - **Weights & Biases** - ML experiment tracking
 - **NotDiamond** - LLM routing and optimization
 
-See `references/ai-ml.md` for all AI/ML integrations.
+See `references/ai.md` for all AI/ML integrations.
 
-### Data Quality & Testing
+### ETL/ELT
 
-Validation frameworks for ensuring data quality and schema compliance.
-
-**Key integrations:**
-- **Great Expectations** - Data validation with expectations
-- **Pandera** - Statistical data validation for DataFrames
-
-See `references/data-quality.md` for all data quality integrations.
-
-### Monitoring & Alerting
-
-Notification systems and monitoring platforms for pipeline observability.
+Extract, transform, and load tools for data ingestion, transformation, and replication.
 
 **Key integrations:**
-- **Slack** - Team messaging and alerts
-- **PagerDuty** - Incident management
-- **Datadog** - Monitoring and observability
-- **MS Teams** - Microsoft Teams notifications
-- **Twilio** - SMS and voice notifications
-- **Prometheus** - Metrics collection
+- **dbt** - SQL-based transformation with automatic dependencies
+- **Fivetran** - Automated SaaS data ingestion (component-based)
+- **Airbyte** - Open-source ELT platform
+- **dlt** - Python-based data loading (component-based)
+- **Sling** - High-performance data replication (component-based)
+- **PySpark** - Distributed data transformation
+- **Meltano** - ELT for the modern data stack
 
-See `references/monitoring.md` for all monitoring integrations.
+See `references/etl.md` for all ETL/ELT integrations.
+
+### Storage
+
+Data warehouses, databases, object storage, vector databases, and table formats.
+
+**Key integrations:**
+- **Snowflake** - Cloud data warehouse with IO managers
+- **BigQuery** - Google's serverless data warehouse
+- **DuckDB** - In-process SQL analytics
+- **Postgres** - Open-source relational database
+- **Weaviate** - Vector database for AI search
+- **Delta Lake** - ACID transactions for data lakes
+- **DataHub** - Metadata catalog and lineage
+
+See `references/storage.md` for all storage integrations.
+
+### Compute
+
+Cloud platforms, container orchestration, and distributed processing frameworks.
+
+**Key integrations:**
+- **AWS** - Cloud compute services (Glue, EMR, Lambda)
+- **Databricks** - Unified analytics platform
+- **GCP** - Google Cloud compute (Dataproc, Cloud Run)
+- **Spark** - Distributed data processing engine
+- **Dask** - Parallel computing framework
+- **Docker** - Container execution with Pipes
+- **Kubernetes** - Cloud-native orchestration
+- **Ray** - Distributed computing for ML
+
+See `references/compute.md` for all compute integrations.
 
 ### BI & Visualization
 
-Business intelligence and visualization platforms for data exploration.
+Business intelligence and visualization platforms for analytics and reporting.
 
 **Key integrations:**
 - **Looker** - Google's BI platform
@@ -214,33 +209,68 @@ Business intelligence and visualization platforms for data exploration.
 - **Sigma** - Cloud analytics platform
 - **Hex** - Collaborative notebooks
 - **Evidence** - Markdown-based BI
+- **Cube** - Semantic layer platform
 
-See `references/bi-tools.md` for all BI integrations.
+See `references/bi.md` for all BI integrations.
 
-### Storage & Databases
+### Monitoring
 
-Relational databases, NoSQL stores, and specialized storage systems.
+Observability platforms and metrics systems for tracking pipeline performance.
 
 **Key integrations:**
-- **DuckDB** - In-process SQL analytics
-- **Postgres** - Relational database
-- **MySQL** - Open-source database
-- **MongoDB** - Document database
-- Many more specialized storage systems
+- **Datadog** - Comprehensive observability platform
+- **Prometheus** - Time-series metrics collection
+- **Papertrail** - Centralized log management
 
-See `references/storage-databases.md` for all storage integrations.
+See `references/monitoring.md` for all monitoring integrations.
+
+### Alerting
+
+Notification and incident management systems for pipeline alerts.
+
+**Key integrations:**
+- **Slack** - Team messaging and alerts
+- **PagerDuty** - Incident management for on-call
+- **MS Teams** - Microsoft Teams notifications
+- **Twilio** - SMS and voice notifications
+- **Apprise** - Universal notification platform
+- **DingTalk** - Team communication for Asian markets
+
+See `references/alerting.md` for all alerting integrations.
+
+### Testing
+
+Data quality validation and testing frameworks for ensuring data reliability.
+
+**Key integrations:**
+- **Great Expectations** - Data validation with expectations
+- **Pandera** - Statistical data validation for DataFrames
+
+See `references/testing.md` for all testing integrations.
+
+### Other
+
+Miscellaneous integrations including DataFrame libraries and utility tools.
+
+**Key integrations:**
+- **Pandas** - In-memory DataFrame library
+- **Polars** - Fast DataFrame library with columnar storage
+
+See `references/other.md` for other integrations.
 
 ## References
 
-- **Cloud Platforms**: `references/cloud-platforms.md`
-- **Data Warehouses**: `references/data-warehouses.md`
-- **ETL/ELT Tools**: `references/etl-tools.md`
-- **Data Processing**: `references/data-processing.md`
-- **AI & ML**: `references/ai-ml.md`
-- **Data Quality**: `references/data-quality.md`
-- **Monitoring & Alerting**: `references/monitoring.md`
-- **BI & Visualization**: `references/bi-tools.md`
-- **Storage & Databases**: `references/storage-databases.md`
+Integration details are organized in the following files:
+
+- **AI & ML**: `references/ai.md` - AI and ML platforms, LLM APIs, experiment tracking
+- **ETL/ELT**: `references/etl.md` - Data ingestion, transformation, and replication tools
+- **Storage**: `references/storage.md` - Warehouses, databases, object storage, vector DBs
+- **Compute**: `references/compute.md` - Cloud platforms, containers, distributed processing
+- **BI & Visualization**: `references/bi.md` - Business intelligence and analytics platforms
+- **Monitoring**: `references/monitoring.md` - Observability and metrics systems
+- **Alerting**: `references/alerting.md` - Notifications and incident management
+- **Testing**: `references/testing.md` - Data quality and validation frameworks
+- **Other**: `references/other.md` - DataFrame libraries and miscellaneous tools
 
 ## Using Integrations
 
