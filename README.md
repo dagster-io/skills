@@ -27,9 +27,11 @@ To update your marketplace plugins:
 ### Commands
 
 **dg** - Dagster CLI commands for working with runs and logs
-  - `/dg:troubleshoot <run-id>` - Debug failing runs by analyzing error logs
+  - `/dg:create-project <name>` - Create a new Dagster project with recommended structure
+  - `/dg:create-workspace <name>` - Initialize a workspace for managing multiple projects
   - `/dg:logs <run-id> [level] [limit]` - Retrieve and display logs for a run
   - `/dg:prototype <requirements>` - Build production-ready Dagster implementations with best practices, testing, and validation
+  - `/dg:troubleshoot <run-id>` - Debug failing runs by analyzing error logs
 
 ### Skills
 
