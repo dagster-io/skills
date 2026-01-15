@@ -1,6 +1,6 @@
-# Claude Marketplace for Dagster
+# Claude Plugins for Dagster
 
-A collection of Claude Code plugins for working with Dagster.
+A collection of Claude Code plugins for building workflows and data pipelines using Dagster.
 
 ## Installation
 
@@ -22,11 +22,11 @@ To update your marketplace plugins:
 /plugin marketplace update
 ```
 
-## What's included
+## Plugins
 
-### Commands
+### dg
 
-**dg** - Dagster CLI commands for building and debugging
+Commands for building and debugging.
 
 Build:
   - `/dg:create-project <name>` - Create a new Dagster project with recommended structure
@@ -37,11 +37,17 @@ Debug:
   - `/dg:logs <run-id> [level] [limit]` - Retrieve and display logs for a run
   - `/dg:troubleshoot <run-id>` - Debug failing runs by analyzing error logs
 
-### Skills
+### dagster-conventions
 
-**dagster-conventions** - Comprehensive Dagster development conventions and best practices
+Comprehensive Dagster development conventions and best practices.
 
-**dagster-integrations** - Comprehensive index of 82+ Dagster integrations including cloud platforms, data warehouses, ETL tools, AI/ML, data quality, monitoring, and more
+This skill provides expert guidance for Dagster data orchestration including assets, resources, schedules, sensors, partitions, testing, and ETL patterns.
+
+### dagster-integrations
+
+Comprehensive index of 82+ Dagster integrations including cloud platforms, data warehouses, ETL tools, AI/ML, data quality, monitoring, and more.
+
+This skill helps you discover and integrate with the right tools for your data pipelines.
 
 ---
 
