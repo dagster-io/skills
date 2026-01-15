@@ -11,7 +11,7 @@ Parameters:
 
 Run the `uvx create-dagster workspace` command with the provided path:
 
-    uvx create-dagster workspace $1
+    yes | uvx create-dagster workspace $1
 
 The command will:
 - Create a new directory (unless using `.`)

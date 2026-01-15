@@ -11,7 +11,7 @@ Parameters:
 
 Run the `uvx create-dagster project` command with the provided path:
 
-    uvx create-dagster project $1
+    yes | uvx create-dagster project $1
 
 The command will:
 - Create a new directory (unless using `.`)

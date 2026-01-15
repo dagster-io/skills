@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "dg",
-      "source": "./plugins/dg-troubleshoot",
+      "source": "./plugins/dg",
       "description": "Dagster CLI commands for debugging runs, analyzing logs, and troubleshooting"
     },
     {
