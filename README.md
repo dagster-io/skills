@@ -65,6 +65,10 @@ This skill provides comprehensive guidance for writing dignified Python code inc
 - CLI patterns and subprocess handling
 - API design and code organization best practices
 
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 <div align="center">
   <img alt="dagster logo" src="https://github.com/user-attachments/assets/6fbf8876-09b7-4f4a-8778-8c0bb00c5237" width="auto" height="16px">
 </div>
