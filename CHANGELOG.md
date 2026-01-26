@@ -22,6 +22,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.0.1] - 2026-01-26
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.0.1] - 2026-01-26
+
+### Added
 - Initial release of Dagster Claude Plugins marketplace
 - **dg**: CLI commands for Dagster development
   - `/dg:create-project` - Scaffold new Dagster projects
@@ -42,4 +56,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Pathlib operations and ABC-based interfaces
 
 [Unreleased]: https://github.com/dagster-io/claude-plugins-dagster/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/dagster-io/claude-plugins-dagster/releases/tag/v0.0.1
 [0.0.1]: https://github.com/dagster-io/claude-plugins-dagster/releases/tag/v0.0.1
