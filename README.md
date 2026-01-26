@@ -1,4 +1,8 @@
-# Claude Plugins for Dagster
+<div align="center">
+  <img width="auto" height="38px" alt="dagster-hearts-claude" src="https://github.com/user-attachments/assets/b162dddf-6a7e-459e-be06-29d34d637650" />
+</div>
+
+# Dagster Claude Plugins
 
 A collection of Claude Code plugins for building workflows and data pipelines using Dagster.
 
@@ -61,8 +65,6 @@ This skill provides comprehensive guidance for writing dignified Python code inc
 - CLI patterns and subprocess handling
 - API design and code organization best practices
 
----
-
 <div align="center">
-  <img alt="dagster logo" src="https://github.com/user-attachments/assets/6fbf8876-09b7-4f4a-8778-8c0bb00c5237" width="auto" height="32px">
+  <img alt="dagster logo" src="https://github.com/user-attachments/assets/6fbf8876-09b7-4f4a-8778-8c0bb00c5237" width="auto" height="16px">
 </div>
