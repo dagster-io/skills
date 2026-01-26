@@ -23,7 +23,7 @@ jobs:
       - name: Validate version format
         run: |
           VERSION="${{ inputs.version }}"
-          if ! echo "$VERSION" | grep -qE '^\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?$'; then
+          if ! echo "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$'; then
             echo "Error: Invalid version format: $VERSION"
             echo "Version must follow semantic versioning (X.Y.Z or X.Y.Z-prerelease)"
             exit 1
