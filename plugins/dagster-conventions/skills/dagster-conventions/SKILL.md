@@ -623,7 +623,7 @@ dg launch --job my_job                         # Execute a job
 
 # Partitions
 dg launch --assets my_asset --partition 2024-01-15              # Single partition
-dg launch --assets my_asset --partition-range "2024-01-01:2024-01-31"  # Backfill range
+dg launch --assets my_asset --partition-range "2024-01-01...2024-01-31"  # Backfill range
 
 # Configuration
 dg launch --assets my_asset --config-json '{"ops": {"my_asset": {"config": {"param": "value"}}}}'

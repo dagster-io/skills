@@ -39,8 +39,6 @@ Auto-invoke when users say:
 | "how do I launch with config" | `/dg:launch` | Config patterns needed |
 | "prototype a pipeline" | `/dg:prototype` | Need to build new assets first |
 | "best practices for assets" | `/dagster-conventions` | Learning patterns, not executing |
-| "debug failing run" | `/dg:troubleshoot` | Debugging existing failures |
-| "show me logs" | `/dg:logs` | Log retrieval needed |
 | "test my assets" (writing tests) | `/dagster-conventions` | Testing patterns, not execution |
 | "test my assets" (run them) | `/dg:launch` | Execution/validation |
 
@@ -115,7 +113,7 @@ User: "Materialize my daily asset for yesterday"
 ```
 User: "Backfill my assets for January"
 → Provide command with partition range:
-  dg launch --assets my_asset --partition-range "2024-01-01:2024-01-31"
+  dg launch --assets my_asset --partition-range "2024-01-01...2024-01-31"
 
 → Explain:
   - This launches all partitions in the range
@@ -147,17 +145,11 @@ User: "Launch my asset with custom config"
 
 ```
 User: "How do I load environment variables for my assets?"
-→ Provide multiple methods:
+→ Explain:
+  .env files are automatically loaded by Dagster.
 
-  Method 1 (Recommended): uv auto-loads .env
+  Use uv run for Python environment activation:
   uv run dg launch --assets my_asset
-
-  Method 2: Explicit sourcing
-  set -a; source .env; set +a
-  dg launch --assets my_asset
-
-  Method 3: Per-environment files
-  source .env.staging && dg launch --assets my_asset
 ```
 
 ### Job Execution
@@ -185,12 +177,6 @@ User: "My asset launch is failing"
 
   3. Check environment variables:
      echo $DATABASE_URL  # Example
-
-  4. Try with debug mode:
-     DAGSTER_DEBUG=1 dg launch --assets my_asset
-
-  5. For detailed debugging of failed runs:
-     Use /dg:troubleshoot command
 ```
 
 ### Selection Syntax Questions
@@ -272,18 +258,14 @@ dg launch --assets "*"
 
 ### Environment Variable Patterns
 
-Always recommend uv first for simplicity:
+.env files are automatically loaded:
 
 ```bash
-# Best: uv (auto-loads .env)
-uv run dg launch --assets my_asset
-
-# Alternative: manual sourcing
-set -a; source .env; set +a
+# Direct execution (Python env from project)
 dg launch --assets my_asset
 
-# Per-environment
-source .env.staging && dg launch --assets my_asset
+# With uv (activates Python environment)
+uv run dg launch --assets my_asset
 ```
 
 ### Partition Patterns
@@ -295,7 +277,7 @@ Show both single and range clearly:
 dg launch --assets my_asset --partition 2024-01-15
 
 # Range (backfill)
-dg launch --assets my_asset --partition-range "2024-01-01:2024-01-31"
+dg launch --assets my_asset --partition-range "2024-01-01...2024-01-31"
 
 # Combined with selection
 dg launch --assets "tag:schedule=daily" --partition 2024-01-15
@@ -316,41 +298,7 @@ Users may need to:
 
 ### After Launch
 
-- `/dg:troubleshoot` - Debug failures
-- `/dg:logs` - Retrieve detailed logs
 - `/dagster-conventions` - Improve asset patterns based on issues
-
-## Migration Support
-
-If users mention legacy commands, proactively help them migrate:
-
-**Legacy patterns to detect:**
-- "python -m dagster asset materialize"
-- "dagster asset materialize -a"
-- "dagster asset materialize --select"
-- "dagster job execute -j"
-
-**Migration response:**
-```
-I see you're using the legacy command. The modern equivalent is simpler:
-
-Legacy:
-  python -m dagster asset materialize -a my_asset
-
-Modern:
-  dg launch --assets my_asset
-
-Or with uv (auto-loads .env):
-  uv run dg launch --assets my_asset
-
-Benefits:
-- Simpler syntax
-- Better environment handling
-- Consistent with other dg commands
-- Access to latest features
-
-Would you like me to show you more modern patterns?
-```
 
 ## What Gets Provided
 
@@ -360,10 +308,9 @@ When you invoke this skill, you'll receive:
 2. **Asset selection patterns** - Tag, group, kind, wildcard syntax
 3. **Partition guidance** - Single partition and range examples
 4. **Configuration structure** - JSON config format and examples
-5. **Environment setup** - .env loading patterns (uv, shell)
+5. **Environment setup** - Note that .env files auto-load
 6. **Troubleshooting steps** - Validation and debugging commands
 7. **Cloud considerations** - Dagster Cloud and remote launcher behavior
-8. **Migration help** - Legacy to modern command translation
 
 ## Full Documentation Reference
 
@@ -373,11 +320,10 @@ For comprehensive coverage of all launch features, the underlying command docume
 - Complete asset selection syntax (tags, groups, kinds, owners, patterns)
 - Partition types (daily, static, multi-dimensional)
 - Configuration patterns (inline JSON, config files)
-- Environment variable methods (uv, shell sourcing, per-environment)
+- Environment variable behavior (.env auto-loading)
 - Job execution patterns
 - Advanced patterns (IDE integration, CI/CD)
 - Cloud/remote execution behavior
 - Complete troubleshooting guide
-- Migration guide from legacy commands
 
 Access the full documentation at: `commands/launch.md`

@@ -69,7 +69,7 @@ For assets with partition definitions:
 dg launch --assets my_daily_asset --partition 2024-01-15
 
 # Partition range (backfill)
-dg launch --assets my_asset --partition-range "2024-01-01:2024-01-31"
+dg launch --assets my_asset --partition-range "2024-01-01...2024-01-31"
 
 # Multiple partitioned assets
 dg launch --assets "tag:schedule=daily" --partition 2024-01-15
