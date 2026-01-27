@@ -233,23 +233,6 @@ Integration details are organized in the following files:
 - **Testing**: `references/testing.md` - Data quality and validation frameworks
 - **Other**: `references/other.md` - DataFrame libraries and miscellaneous tools
 
-## Generated Deep-Dive Skills
-
-For detailed integration-specific guidance, use the create-skill meta skill to generate focused documentation:
-
-```bash
-/dagster-integrations:create-skill <integration-name>
-```
-
-This creates comprehensive, SME-verified skills for specific integrations covering:
-- Quick start examples (component and pythonic approaches)
-- Configuration and authentication details
-- Common patterns and troubleshooting
-- Complete API reference
-
-**Example**: `/dagster-integrations:create-skill dbt`
-
-Generated skills are stored in `plugins/dagster-integrations/skills/generated/<integration>/` and can be updated incrementally as integrations evolve.
 
 ## Using Integrations
 
