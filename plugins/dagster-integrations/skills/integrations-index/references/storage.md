@@ -9,13 +9,15 @@ Data warehouses, databases, object storage, and table formats for persistent dat
 ### Snowflake
 **Package:** `dagster-snowflake` | **Support:** Dagster-supported
 
-Cloud data warehouse for storing and querying large-scale analytics data. Provides IO managers for pandas, polars, and PySpark DataFrames (see `io-managers.md`).
+Cloud data warehouse for storing and querying large-scale analytics data.
 
 **Use cases:**
 - Store processed analytics tables for BI tools
 - Query large datasets with SQL
 - Integrate with dbt for SQL transformations
 - Use as persistent storage for Dagster assets
+
+**For detailed guidance:** `/dagster-integrations:create-skill snowflake`
 
 **Quick start:**
 ```python
@@ -49,7 +51,7 @@ defs = dg.Definitions(
 ### BigQuery
 **Package:** `dagster-gcp` | **Support:** Dagster-supported
 
-Google's serverless data warehouse that automatically scales for large queries. Provides IO managers for pandas and PySpark (see `io-managers.md`).
+Google's serverless data warehouse that automatically scales for large queries.
 
 **Use cases:**
 - Run SQL analytics on petabyte-scale data
@@ -183,32 +185,12 @@ def teradata_data(teradata: TeradataResource):
 ### Postgres
 **Package:** `dagster-postgres` | **Support:** Dagster-supported
 
-Open-source relational database with ACID compliance and rich feature set.
+Postgres-backed storage for Dagster's event log, run storage, and schedule storage. This integration is for Dagster's internal storage, not for storing user data assets.
 
 **Use cases:**
-- Transactional data storage
-- Relational data modeling
-- Application backend database
-- Dagster instance storage
-
-**Quick start:**
-```python
-from dagster_postgres import PostgresResource
-from dagster_postgres_pandas import PostgresPandasIOManager
-
-postgres = PostgresResource(
-    host="localhost",
-    port=5432,
-    user=dg.EnvVar("POSTGRES_USER"),
-    password=dg.EnvVar("POSTGRES_PASSWORD"),
-    database="analytics"
-)
-
-@dg.asset
-def postgres_table(postgres: PostgresResource):
-    with postgres.get_connection() as conn:
-        return pd.read_sql("SELECT * FROM users", conn)
-```
+- Configure Dagster instance to use Postgres for metadata storage
+- Store run history and event logs in Postgres
+- Enable Postgres-backed schedule storage
 
 **Docs:** https://docs.dagster.io/integrations/libraries/postgres
 
@@ -372,20 +354,20 @@ Open-source storage layer providing ACID transactions and time travel for data l
 
 **Quick start:**
 ```python
-from dagster_deltalake import DeltaLakeResource
+from dagster_deltalake import DeltaTableResource, S3Config
 
-deltalake = DeltaLakeResource(
-    storage_options={
-        "AWS_ACCESS_KEY_ID": dg.EnvVar("AWS_KEY"),
-        "AWS_SECRET_ACCESS_KEY": dg.EnvVar("AWS_SECRET")
-    }
+deltalake = DeltaTableResource(
+    url="s3://bucket/delta/table",
+    storage_options=S3Config(
+        aws_access_key_id=dg.EnvVar("AWS_KEY"),
+        aws_secret_access_key=dg.EnvVar("AWS_SECRET")
+    )
 )
 
 @dg.asset
-def delta_table(deltalake: DeltaLakeResource):
-    return deltalake.read_table(
-        "s3://bucket/delta/table"
-    )
+def my_delta_table(deltalake: DeltaTableResource):
+    df = deltalake.load().to_pandas()
+    return df
 ```
 
 **Docs:** https://docs.dagster.io/integrations/libraries/deltalake
@@ -606,17 +588,6 @@ def publish_to_secoda(secoda: SecodaResource):
 | **Object Storage** | Files, unstructured | S3, GCS, Azure Blob | Any |
 | **Metadata** | Catalogs, lineage | DataHub, Atlan, Secoda | N/A |
 
-## IO Managers for Databases
-
-Most database integrations provide **IO Managers** that automatically persist DataFrames as tables. For detailed information on using database IO managers, see `references/io-managers.md`.
-
-**Available IO Managers:**
-- `SnowflakePandasIOManager`, `SnowflakePolarsIOManager`, `SnowflakePySparkIOManager`
-- `BigQueryPandasIOManager`, `BigQueryPySparkIOManager`
-- `DuckDBPandasIOManager`, `DuckDBPolarsIOManager`, `DuckDBPySparkIOManager`
-- `PostgresPandasIOManager`
-- `DeltaLakePandasIOManager`, `DeltaLakePolarsIOManager`
-
 ## Common Patterns
 
 ### Multi-Storage Pattern
@@ -644,5 +615,3 @@ def search_index(raw_data: pd.DataFrame, weaviate: WeaviateResource):
 ### Local Development Pattern
 
 Use DuckDB for local development and switch to production warehouse for deployment. This provides a fast, free local environment that mirrors production schemas.
-
-See `references/io-managers.md` for detailed examples of environment-based configuration.
