@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+- **dg**: Simplified `/dg:launch` skill documentation
+  - Clarified that `.env` files are automatically loaded by Dagster
+  - Updated partition range syntax to use `...` instead of `:` (e.g., `2024-01-01...2024-01-31`)
+  - Streamlined environment variable setup instructions
+  - Removed references to deprecated troubleshooting commands
+- **dagster-integrations**: Streamlined integrations-index skill documentation
+  - Removed "Top 10 Most Popular Integrations" section
+  - Updated last verified date to 2026-01-27
+- **dagster-conventions**: Updated skill documentation
+- Added `.claude/skills/` to `.gitignore`
 
 ### Deprecated
 
