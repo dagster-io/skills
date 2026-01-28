@@ -16,16 +16,17 @@ Transform data using SQL models with automatic dependency management, incrementa
 - Document data lineage and schemas
 
 **Quick start (Component-based - Recommended):**
+```bash
+# Scaffold a dbt component
+dg scaffold defs dagster_dbt.DbtProjectComponent my_dbt_project
+```
+
 ```yaml
 # defs/transform/defs.yaml
 type: dagster_dbt.DbtProjectComponent
 
 attributes:
-  project:
-    repo_url: https://github.com/dagster-io/jaffle-platform.git
-    repo_relative_path: jdbt
-  dbt:
-    target: dev
+  project: '{{ project_root }}/dbt'
 ```
 
 **Quick start (Pythonic):**
@@ -51,7 +52,7 @@ defs = dg.Definitions(
 **Docs:** https://docs.dagster.io/integrations/libraries/dbt
 
 **Key features:**
-- Component-based scaffolding with remote Git repositories
+- Component scaffolding with `dg scaffold defs dagster_dbt.DbtProjectComponent`
 - Automatic asset creation from dbt models
 - Incremental model support
 - dbt test integration
@@ -91,7 +92,7 @@ defs = dg.Definitions(
 **Docs:** https://docs.dagster.io/integrations/libraries/fivetran
 
 **Key features:**
-- Component scaffolding with `dagster-fivetran project scaffold`
+- Component scaffolding with `dg scaffold defs dagster_fivetran.FivetranAccountComponent`
 - Automatic connector discovery
 - Sync monitoring and error handling
 - Schema change tracking
@@ -184,7 +185,7 @@ defs = dg.Definitions(
 **Docs:** https://docs.dagster.io/integrations/libraries/dlt
 
 **Key features:**
-- Component scaffolding with `dagster-dlt project scaffold`
+- Component scaffolding with `dg scaffold defs dagster_dlt.DltLoadCollectionComponent`
 - Automatic schema evolution
 - State management for incremental loads
 - Data validation and contracts
@@ -238,111 +239,10 @@ defs = dg.Definitions(
 **Docs:** https://docs.dagster.io/integrations/libraries/sling
 
 **Key features:**
-- Component scaffolding with `dagster-sling project scaffold`
+- Component scaffolding with `dg scaffold defs dagster_sling.SlingReplicationCollectionComponent`
 - High-performance bulk transfers
 - Multiple source/destination support
 - Incremental and full-refresh modes
-
----
-
-### Meltano
-**Package:** `dagster-meltano` | **Support:** Community-supported
-
-ELT platform built on Singer taps and targets for the modern data stack.
-
-**Use cases:**
-- Singer tap orchestration
-- Configuration-based ELT pipelines
-- Open-source data integration
-- Custom tap/target development
-
-**Quick start:**
-```python
-from dagster_meltano import meltano_resource, meltano_run_op
-
-meltano = meltano_resource.configured({
-    "project_dir": "path/to/meltano/project"
-})
-
-@dg.op(required_resource_keys={"meltano"})
-def run_meltano_pipeline(context):
-    context.resources.meltano.run(
-        "run", "tap-github", "target-postgres"
-    )
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/meltano
-
----
-
-### Embedded ELT
-**Package:** `dagster-embedded-elt` | **Support:** Dagster-supported
-
-Framework for building embedded ELT pipelines with Sling directly in Python without external orchestration.
-
-**Use cases:**
-- Lightweight ELT without additional tools
-- Python-based data replication
-- Simple database sync jobs
-- Embedded in existing Dagster pipelines
-
-**Quick start:**
-```python
-from dagster_embedded_elt.sling import SlingResource, build_sling_asset
-
-sling = SlingResource(
-    connections=[
-        {"name": "MY_POSTGRES", "type": "postgres", ...},
-        {"name": "MY_DUCKDB", "type": "duckdb", ...}
-    ]
-)
-
-asset_def = build_sling_asset(
-    asset_spec=dg.AssetSpec(key="my_table"),
-    source_stream="MY_POSTGRES.public.users",
-    target_object="MY_DUCKDB.main.users",
-    mode="full-refresh"
-)
-
-defs = dg.Definitions(
-    assets=[asset_def],
-    resources={"sling": sling}
-)
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/embedded-elt
-
----
-
-### SFTP
-**Package:** `dagster-sftp` | **Support:** Community-supported
-
-Secure file transfer protocol integration for moving files between SFTP servers.
-
-**Use cases:**
-- Download files from SFTP servers
-- Upload processed data to SFTP
-- Integrate with legacy systems using SFTP
-- Secure file transfers
-
-**Quick start:**
-```python
-from dagster_sftp import SFTPResource
-
-sftp = SFTPResource(
-    host="sftp.example.com",
-    username=dg.EnvVar("SFTP_USER"),
-    password=dg.EnvVar("SFTP_PASSWORD")
-)
-
-@dg.asset
-def sftp_file(sftp: SFTPResource):
-    with sftp.get_connection() as client:
-        client.get("/remote/file.csv", "/local/file.csv")
-    return pd.read_csv("/local/file.csv")
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/sftp
 
 ---
 
@@ -389,7 +289,6 @@ def transform_large_dataset(pyspark: PySparkResource) -> DataFrame:
 | **Airbyte** | Open-source ELT | ELT (OSS/SaaS) | Medium |
 | **dlt** | Python-based extraction | EL (Python) | Medium |
 | **Sling** | High-speed replication | EL (CLI) | Low |
-| **Meltano** | Singer taps | ELT (OSS) | High |
 | **PySpark** | Distributed ETL | Transformation | High |
 
 ## Component-Based Integration Pattern
@@ -397,32 +296,23 @@ def transform_large_dataset(pyspark: PySparkResource) -> DataFrame:
 Many ETL tools use Dagster's component-based pattern:
 
 ```bash
-# 1. Scaffold the project
-dagster-<tool> project scaffold --project-name my_project
+# Scaffold a component
+dg scaffold defs dagster_<tool>.<ComponentClass> <component_name>
 
-# 2. Components auto-generate assets
-# Project structure with YAML config
-my_project/
-  ├── components.yaml          # Defines component instances
-  ├── lib/
-  │   └── components/
-  │       └── <tool>/
-  │           └── config.yaml  # Tool-specific config
+# Examples:
+dg scaffold defs dagster_dbt.DbtProjectComponent my_dbt_project
+dg scaffold defs dagster_fivetran.FivetranAccountComponent fivetran_sync
+dg scaffold defs dagster_dlt.DltLoadCollectionComponent github_ingest
+dg scaffold defs dagster_sling.SlingReplicationCollectionComponent data_sync
 ```
 
-```python
-# 3. Load in Dagster code
-from dagster import Definitions
-from my_project import defs as project_defs
+Components auto-generate assets from YAML configuration:
 
-defs = project_defs
+```yaml
+# defs/<component_name>/defs.yaml
+type: dagster_<tool>.<ComponentClass>
+
+attributes:
+  # Tool-specific configuration
 ```
 
-## Tips
-
-- **dbt**: Use `dbt_assets` for automatic asset generation from models
-- **Fivetran/Airbyte**: Component scaffold auto-discovers connectors
-- **dlt**: Great for custom API ingestion with automatic schema
-- **Sling**: Fastest for bulk database transfers
-- **PySpark**: Use for transformations too large for pandas/polars
-- **Incremental**: Most tools support incremental loading for efficiency

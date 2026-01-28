@@ -9,13 +9,14 @@ Data warehouses, databases, object storage, and table formats for persistent dat
 ### Snowflake
 **Package:** `dagster-snowflake` | **Support:** Dagster-supported
 
-Cloud data warehouse with IO managers for pandas, polars, and PySpark DataFrames. Store and query large-scale analytics data.
+Cloud data warehouse for storing and querying large-scale analytics data.
 
 **Use cases:**
 - Store processed analytics tables for BI tools
 - Query large datasets with SQL
 - Integrate with dbt for SQL transformations
 - Use as persistent storage for Dagster assets
+
 
 **Quick start:**
 ```python
@@ -49,7 +50,7 @@ defs = dg.Definitions(
 ### BigQuery
 **Package:** `dagster-gcp` | **Support:** Dagster-supported
 
-Google's serverless data warehouse with IO managers for pandas and PySpark. Automatically scales for large queries.
+Google's serverless data warehouse.
 
 **Use cases:**
 - Run SQL analytics on petabyte-scale data
@@ -183,32 +184,12 @@ def teradata_data(teradata: TeradataResource):
 ### Postgres
 **Package:** `dagster-postgres` | **Support:** Dagster-supported
 
-Open-source relational database with ACID compliance and rich feature set.
+Postgres-backed storage for Dagster's event log, run storage, and schedule storage. This integration is for Dagster's internal storage, not for storing user data assets.
 
 **Use cases:**
-- Transactional data storage
-- Relational data modeling
-- Application backend database
-- Dagster instance storage
-
-**Quick start:**
-```python
-from dagster_postgres import PostgresResource
-from dagster_postgres_pandas import PostgresPandasIOManager
-
-postgres = PostgresResource(
-    host="localhost",
-    port=5432,
-    user=dg.EnvVar("POSTGRES_USER"),
-    password=dg.EnvVar("POSTGRES_PASSWORD"),
-    database="analytics"
-)
-
-@dg.asset
-def postgres_table(postgres: PostgresResource):
-    with postgres.get_connection() as conn:
-        return pd.read_sql("SELECT * FROM users", conn)
-```
+- Configure Dagster instance to use Postgres for metadata storage
+- Store run history and event logs in Postgres
+- Enable Postgres-backed schedule storage
 
 **Docs:** https://docs.dagster.io/integrations/libraries/postgres
 
@@ -244,40 +225,6 @@ def mysql_data(mysql: MySQLResource):
 ```
 
 **Docs:** https://docs.dagster.io/integrations/libraries/mysql
-
----
-
-## NoSQL Databases
-
-### MongoDB
-**Package:** `dagster-mongo` | **Support:** Community-supported
-
-Document-oriented NoSQL database for flexible schema and high scalability.
-
-**Use cases:**
-- Store semi-structured data
-- High-write workloads
-- Flexible schemas
-- Document storage
-
-**Quick start:**
-```python
-from dagster_mongo import MongoResource
-
-mongo = MongoResource(
-    host="localhost",
-    port=27017,
-    database="mydb"
-)
-
-@dg.asset
-def mongo_data(mongo: MongoResource):
-    client = mongo.get_client()
-    collection = client["mydb"]["users"]
-    return list(collection.find({"status": "active"}))
-```
-
-**Docs:** https://docs.dagster.io/integrations/libraries/mongo
 
 ---
 
@@ -406,20 +353,20 @@ Open-source storage layer providing ACID transactions and time travel for data l
 
 **Quick start:**
 ```python
-from dagster_deltalake import DeltaLakeResource
+from dagster_deltalake import DeltaTableResource, S3Config
 
-deltalake = DeltaLakeResource(
-    storage_options={
-        "AWS_ACCESS_KEY_ID": dg.EnvVar("AWS_KEY"),
-        "AWS_SECRET_ACCESS_KEY": dg.EnvVar("AWS_SECRET")
-    }
+deltalake = DeltaTableResource(
+    url="s3://bucket/delta/table",
+    storage_options=S3Config(
+        aws_access_key_id=dg.EnvVar("AWS_KEY"),
+        aws_secret_access_key=dg.EnvVar("AWS_SECRET")
+    )
 )
 
 @dg.asset
-def delta_table(deltalake: DeltaLakeResource):
-    return deltalake.read_table(
-        "s3://bucket/delta/table"
-    )
+def my_delta_table(deltalake: DeltaTableResource):
+    df = deltalake.load().to_pandas()
+    return df
 ```
 
 **Docs:** https://docs.dagster.io/integrations/libraries/deltalake
@@ -635,35 +582,12 @@ def publish_to_secoda(secoda: SecodaResource):
 |------|----------|----------|-------|
 | **Data Warehouses** | Analytical queries | Snowflake, BigQuery, Redshift | Petabytes |
 | **Relational** | Transactional data | Postgres, MySQL | Small-Large |
-| **NoSQL** | Semi-structured data | MongoDB | Medium-Large |
 | **Vector** | Embeddings, AI | Weaviate, Chroma, Qdrant | Medium-Large |
 | **Table Formats** | Data lake tables | Delta, Iceberg | Large |
 | **Object Storage** | Files, unstructured | S3, GCS, Azure Blob | Any |
 | **Metadata** | Catalogs, lineage | DataHub, Atlan, Secoda | N/A |
 
 ## Common Patterns
-
-### IO Manager Pattern
-Most warehouse integrations provide IO managers to automatically persist DataFrames:
-
-```python
-from dagster_<warehouse>_pandas import <Warehouse>PandasIOManager
-
-defs = dg.Definitions(
-    assets=[my_asset],
-    resources={
-        "io_manager": <Warehouse>PandasIOManager(
-            # connection config
-        )
-    }
-)
-
-# Assets automatically save to warehouse
-@dg.asset
-def my_table() -> pd.DataFrame:
-    return pd.DataFrame({"col": [1, 2, 3]})
-    # Automatically saved to warehouse as table
-```
 
 ### Multi-Storage Pattern
 ```python
@@ -687,36 +611,6 @@ def search_index(raw_data: pd.DataFrame, weaviate: WeaviateResource):
     weaviate.index_documents(raw_data)
 ```
 
-### Local Dev with DuckDB
-```python
-# Development
-local_io_manager = DuckDBPandasIOManager(
-    database="dev.duckdb"
-)
+### Local Development Pattern
 
-# Production
-prod_io_manager = SnowflakePandasIOManager(...)
-
-defs = dg.Definitions(
-    assets=[...],
-    resources={
-        "io_manager": (
-            local_io_manager if dev_mode
-            else prod_io_manager
-        )
-    }
-)
-```
-
-## Tips
-
-- **Development**: Use DuckDB for local development, production warehouse in deployment
-- **Cost**: BigQuery charges by query size, Snowflake by compute time
-- **Performance**: Use partitioning and clustering for large tables
-- **Schema**: Define schemas explicitly to avoid type inference issues
-- **Vector DBs**: Choose based on scale - Chroma for small, Qdrant/Weaviate for large
-- **Object storage**: Use cloud-native (S3/GCS/Azure) over databases for large files
-- **Table formats**: Delta/Iceberg add ACID to data lakes, worth the complexity
-- **Catalogs**: DataHub/Atlan provide discoverability for large data platforms
-- **Compression**: Parquet with compression saves storage and improves performance
-- **Indexes**: Add indexes on frequently queried columns
+Use DuckDB for local development and switch to production warehouse for deployment. This provides a fast, free local environment that mirrors production schemas.

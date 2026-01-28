@@ -45,7 +45,7 @@ dg launch --job my_daily_job
 dg launch --assets my_partitioned_asset --partition 2024-01-15
 
 # Partition range (backfill)
-dg launch --assets my_asset --partition-range "2024-01-01:2024-01-31"
+dg launch --assets my_asset --partition-range "2024-01-01...2024-01-31"
 ```
 
 ---
@@ -191,26 +191,26 @@ Launch multiple partitions at once:
 
 ```bash
 # Date range (inclusive)
-dg launch --assets my_asset --partition-range "2024-01-01:2024-01-31"
+dg launch --assets my_asset --partition-range "2024-01-01...2024-01-31"
 
 # Recent partitions
-dg launch --assets my_asset --partition-range "2024-01-01:"  # From date to latest
+dg launch --assets my_asset --partition-range "2024-01-01..."  # From date to latest
 
 # Custom partition range
-dg launch --assets my_asset --partition-range "Q1:Q4"
+dg launch --assets my_asset --partition-range "Q1...Q4"
 ```
 
 **Common backfill scenarios:**
 
 ```bash
 # Backfill last 7 days
-dg launch --assets daily_metrics --partition-range "2024-01-08:2024-01-15"
+dg launch --assets daily_metrics --partition-range "2024-01-08...2024-01-15"
 
 # Backfill entire year
-dg launch --assets yearly_report --partition-range "2024-01-01:2024-12-31"
+dg launch --assets yearly_report --partition-range "2024-01-01...2024-12-31"
 
 # Backfill multiple assets for same range
-dg launch --assets "tag:schedule=daily" --partition-range "2024-01-01:2024-01-31"
+dg launch --assets "tag:schedule=daily" --partition-range "2024-01-01...2024-01-31"
 ```
 
 ### Static Partitions

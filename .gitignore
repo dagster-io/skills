@@ -1,3 +1,4 @@
 release_notes.md
 __pycache__/
 *.pyc
+.claude/skills/

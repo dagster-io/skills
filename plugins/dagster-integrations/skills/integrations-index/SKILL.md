@@ -50,59 +50,7 @@ This index aligns with Dagster's official documentation taxonomy from tags.yml:
 
 **Note**: Support levels (dagster-supported, community-supported) are shown inline in each integration entry.
 
-Last verified: 2026-01-14
-
-## Top 10 Most Popular Integrations
-
-### 1. dbt
-Transform data using SQL models with automatic dependency management and incremental updates.
-- **Package**: `dagster-dbt`
-- **Docs**: https://docs.dagster.io/integrations/libraries/dbt
-
-### 2. Snowflake
-Cloud data warehouse for analytics with IO managers for pandas, polars, and pyspark DataFrames.
-- **Package**: `dagster-snowflake`
-- **Docs**: https://docs.dagster.io/integrations/libraries/snowflake
-
-### 3. AWS
-Comprehensive AWS services including S3, Athena, Glue, ECS, EMR, and more.
-- **Package**: `dagster-aws`
-- **Docs**: https://docs.dagster.io/integrations/libraries/aws
-
-### 4. Databricks
-Unified analytics platform with PipesDatabricksClient for running code on Databricks clusters.
-- **Package**: `dagster-databricks`
-- **Docs**: https://docs.dagster.io/integrations/libraries/databricks
-
-### 5. Slack
-Send notifications and alerts to Slack channels for pipeline monitoring.
-- **Package**: `dagster-slack`
-- **Docs**: https://docs.dagster.io/integrations/libraries/slack
-
-### 6. Fivetran
-Orchestrate Fivetran connectors for automated data ingestion from SaaS applications.
-- **Package**: `dagster-fivetran`
-- **Docs**: https://docs.dagster.io/integrations/libraries/fivetran
-
-### 7. OpenAI
-Integrate OpenAI API for LLM-powered data processing and AI workflows.
-- **Package**: `dagster-openai`
-- **Docs**: https://docs.dagster.io/integrations/libraries/openai
-
-### 8. Airbyte
-Manage Airbyte connections for ELT data movement from various sources.
-- **Package**: `dagster-airbyte`
-- **Docs**: https://docs.dagster.io/integrations/libraries/airbyte
-
-### 9. Great Expectations
-Validate data quality with test suites and expectations.
-- **Package**: `dagster-ge`
-- **Docs**: https://docs.dagster.io/integrations/libraries/great-expectations
-
-### 10. PySpark
-Run distributed data processing jobs using Apache Spark.
-- **Package**: `dagster-pyspark`
-- **Docs**: https://docs.dagster.io/integrations/libraries/pyspark
+Last verified: 2026-01-27
 
 ## Finding the Right Integration
 
@@ -284,6 +232,7 @@ Integration details are organized in the following files:
 - **Alerting**: `references/alerting.md` - Notifications and incident management
 - **Testing**: `references/testing.md` - Data quality and validation frameworks
 - **Other**: `references/other.md` - DataFrame libraries and miscellaneous tools
+
 
 ## Using Integrations
 
