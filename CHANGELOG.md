@@ -40,8 +40,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   - Updated marketplace name from `dagster-claude-plugins` to `skills`
   - Updated package name from `claude-plugins-dagster` to `skills`
   - Updated all GitHub URLs from `dagster-io/claude-plugins-dagster` to `dagster-io/skills`
-  - Updated installation commands: `/plugin marketplace add dagster-io/skills` and `/plugin install
-    dg@skills`
+  - Updated installation commands: `/plugin marketplace add dagster-io/skills` and
+    `/plugin install dg@skills`
 - **all-plugins**: Reformatted all markdown documentation files to meet linting standards
   - Fixed trailing whitespace and end-of-file formatting
   - Applied consistent markdown formatting with Prettier
