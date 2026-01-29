@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the Dagster Claude Plugins will be documented in this file.
+All notable changes to Dagster Skills will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -10,6 +10,20 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 ### Changed
+
+- **docs**: Rebranded from "Dagster Claude Plugins" to "Dagster Skills"
+  - Updated README.md title and subtitle to reflect multi-tool compatibility
+  - Changed "Plugins" section to "Skills" throughout documentation
+  - Updated CONTRIBUTING.md title and all references from "plugins" to "skills"
+  - Added compatibility statement for Agent Skills-compatible tools (Claude Code, OpenCode, OpenAI
+    Codex, Pi)
+- **docs**: Added comprehensive multi-tool installation documentation
+  - Added "npx skills" installation method (`npx skills add dagster-io/skills`)
+  - Added manual installation instructions for OpenCode (`~/.config/opencode/skill/`)
+  - Added manual installation instructions for OpenAI Codex (`~/.codex/skills/`)
+  - Added manual installation instructions for Pi Agent (`~/.pi/agent/skills/`)
+  - Restructured README.md installation section with subsections for each method
+  - Preserved existing Claude Code marketplace installation method
 
 ### Deprecated
 

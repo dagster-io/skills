@@ -2,33 +2,62 @@
   <img width="auto" height="38px" alt="dagster-hearts-claude" src="https://github.com/user-attachments/assets/b162dddf-6a7e-459e-be06-29d34d637650" />
 </div>
 
-# Dagster Claude Plugins
+# Dagster Skills
 
 [![Lint](https://github.com/dagster-io/skills/actions/workflows/lint.yml/badge.svg)](https://github.com/dagster-io/skills/actions/workflows/lint.yml)
 
-A collection of Claude Code plugins for building workflows and data pipelines using Dagster.
+AI assistant skills for building workflows and data pipelines using Dagster.
+
+**Compatible with Claude Code, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible
+tools.**
 
 ## Installation
 
-Add this marketplace to Claude Code:
+### Claude Code (Marketplace)
+
+Install using the
+[Claude plugin marketplace](https://code.claude.com/docs/en/discover-plugins#add-from-github):
 
 ```
 /plugin marketplace add dagster-io/skills
 ```
 
-Install a plugin:
+### Using `npx skills`
 
-```
-/plugin install dg@skills
-```
+Install using the [`npx skills`](https://skills.sh/) command-line:
 
-To update your marketplace plugins:
-
-```
-/plugin marketplace update
+```bash
+npx skills add dagster-io/skills
 ```
 
-## Plugins
+This will install all skills to `~/.claude/skills/`.
+
+### Manual Installation
+
+Clone the repository and copy skills to your tool's skills directory:
+
+**OpenCode:**
+
+```bash
+git clone https://github.com/dagster-io/skills.git
+cp -r skills/plugins/* ~/.config/opencode/skill/
+```
+
+**OpenAI Codex:**
+
+```bash
+git clone https://github.com/dagster-io/skills.git
+cp -r skills/plugins/* ~/.codex/skills/
+```
+
+**Pi Agent:**
+
+```bash
+git clone https://github.com/dagster-io/skills.git
+cp -r skills/plugins/* ~/.pi/agent/skills/
+```
+
+## Skills
 
 ### dg
 

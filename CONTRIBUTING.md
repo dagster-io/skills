@@ -1,17 +1,20 @@
-# Contributing to Dagster Claude Plugins
+# Contributing to Dagster Skills
 
-Thank you for your interest in contributing to Dagster Claude Plugins! This document provides
-guidelines and instructions for contributing to this monorepo.
+Thank you for your interest in contributing to Dagster Skills! This document provides guidelines and
+instructions for contributing to this monorepo.
 
 ## Development Setup
 
-This repository contains Claude plugins for Dagster development. Each plugin is located in the
+This repository contains AI assistant skills for Dagster development. Each skill is located in the
 `plugins/` directory:
 
 - `dg` - CLI commands for Dagster development
 - `dagster-conventions` - Best practices and conventions
 - `dagster-integrations` - Integration index
 - `dignified-python` - Python coding standards
+
+These skills work with Claude Code, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible
+tools.
 
 ### Local Development
 
@@ -22,9 +25,9 @@ This repository contains Claude plugins for Dagster development. Each plugin is 
    cd skills
    ```
 
-2. Make your changes to the relevant plugin(s)
+2. Make your changes to the relevant skill(s)
 
-3. Test your changes locally using Claude Code
+3. Test your changes locally using your preferred AI assistant tool
 
 ## Making Changes
 
@@ -36,7 +39,7 @@ This repository contains Claude plugins for Dagster development. Each plugin is 
    git checkout -b your-feature-name
    ```
 
-2. **Make your changes** to the relevant plugin(s)
+2. **Make your changes** to the relevant skill(s)
 
 3. **Update CHANGELOG.md** - Add your changes under the `[Unreleased]` section:
 
@@ -45,19 +48,19 @@ This repository contains Claude plugins for Dagster development. Each plugin is 
 
    ### Added
 
-   - **plugin-name**: Description of new feature
+   - **skill-name**: Description of new feature
 
    ### Fixed
 
-   - **plugin-name**: Description of bug fix
+   - **skill-name**: Description of bug fix
 
    ### Changed
 
-   - **plugin-name**: Description of modification
+   - **skill-name**: Description of modification
    ```
 
    Use the appropriate category:
-   - **Added** - New features, new plugin capabilities
+   - **Added** - New features, new skill capabilities
    - **Changed** - Changes to existing functionality
    - **Deprecated** - Features that will be removed in future versions
    - **Removed** - Removed features
@@ -78,12 +81,12 @@ This repository contains Claude plugins for Dagster development. Each plugin is 
 
 ## Release Procedure
 
-This repository uses a monorepo versioning system where all plugins share the same version number.
+This repository uses a monorepo versioning system where all skills share the same version number.
 Releases are managed through an automated GitHub Actions workflow.
 
 ### Overview
 
-- **Versioning**: All plugins share a single version (e.g., 0.0.1)
+- **Versioning**: All skills share a single version (e.g., 0.0.1)
 - **Semantic Versioning**: We follow [semver](https://semver.org/) (MAJOR.MINOR.PATCH)
 - **Manual Releases**: Releases are triggered manually via GitHub Actions
 - **Changelog**: All changes are tracked in CHANGELOG.md
@@ -98,7 +101,7 @@ Choose the appropriate version bump based on the changes:
 
 - **Minor (0.X.0)** - New features, backward-compatible changes
   - Example: `0.0.2` → `0.1.0`
-  - New plugin capabilities, new commands
+  - New skill capabilities, new commands
   - Existing functionality continues to work
 
 - **Major (X.0.0)** - Breaking changes
@@ -133,7 +136,7 @@ As you make changes, add entries to the `[Unreleased]` section of CHANGELOG.md:
 
 **Tips:**
 
-- Prefix each entry with the plugin name in bold: `**plugin-name**:`
+- Prefix each entry with the skill name in bold: `**skill-name**:`
 - Write clear, concise descriptions
 - Use present tense ("Add" not "Added")
 - Update CHANGELOG.md in the same PR as your changes
@@ -402,7 +405,7 @@ You can view the linting workflow status in the "Checks" tab of your pull reques
 
 ### Python Code
 
-For Python code in plugins, follow the **dignified-python** standards:
+For Python code in skills, follow the **dignified-python** standards:
 
 - Use type annotations with modern syntax (`list[str]`, `str | None`)
 - Follow LBYL (Look Before You Leap) exception handling
@@ -431,4 +434,4 @@ If you have questions or need help:
 - Open an issue on GitHub
 - Check existing issues and discussions
 
-Thank you for contributing to Dagster Claude Plugins!
+Thank you for contributing to Dagster Skills!
