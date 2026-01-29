@@ -1,5 +1,5 @@
 [project]
-name = "claude-plugins-dagster"
+name = "skills"
 version = "0.0.5"
 description = "Claude plugins and skills for Dagster development"
 requires-python = ">=3.11"

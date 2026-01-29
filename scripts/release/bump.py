@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Version bumping script for Dagster Claude Plugins monorepo.
+Version bumping script for Dagster Skills monorepo.
 
 Updates version in all plugin.json files and CHANGELOG.md.
 """
@@ -75,24 +75,24 @@ def update_changelog(repo_root: Path, version: str) -> None:
     # Update comparison links at bottom
     # First, update the [Unreleased] comparison link
     content = re.sub(
-        r"\[Unreleased\]: https://github\.com/dagster-io/claude-plugins-dagster/compare/v[\d.]+(?:-[a-zA-Z0-9.]+)?\.\.\.HEAD",
-        f"[Unreleased]: https://github.com/dagster-io/claude-plugins-dagster/compare/v{version}...HEAD",
+        r"\[Unreleased\]: https://github\.com/dagster-io/skills/compare/v[\d.]+(?:-[a-zA-Z0-9.]+)?\.\.\.HEAD",
+        f"[Unreleased]: https://github.com/dagster-io/skills/compare/v{version}...HEAD",
         content,
     )
 
     # Add new version comparison link before the last existing one
     # Find the last version link
-    last_version_pattern = r"(\[\d+\.\d+\.\d+(?:-[a-zA-Z0-9.]+)?\]: https://github\.com/dagster-io/claude-plugins-dagster/releases/tag/v[\d.]+(?:-[a-zA-Z0-9.]+)?)\s*$"
+    last_version_pattern = r"(\[\d+\.\d+\.\d+(?:-[a-zA-Z0-9.]+)?\]: https://github\.com/dagster-io/skills/releases/tag/v[\d.]+(?:-[a-zA-Z0-9.]+)?)\s*$"
 
     if re.search(last_version_pattern, content):
         content = re.sub(
             last_version_pattern,
-            f"[{version}]: https://github.com/dagster-io/claude-plugins-dagster/releases/tag/v{version}\n\\1",
+            f"[{version}]: https://github.com/dagster-io/skills/releases/tag/v{version}\n\\1",
             content,
         )
     else:
         # If no version links exist yet, add one at the end
-        content += f"\n[{version}]: https://github.com/dagster-io/claude-plugins-dagster/releases/tag/v{version}\n"
+        content += f"\n[{version}]: https://github.com/dagster-io/skills/releases/tag/v{version}\n"
 
     with changelog_path.open("w") as f:
         f.write(content)

@@ -4,7 +4,7 @@
 
 # Dagster Claude Plugins
 
-[![Lint](https://github.com/dagster-io/claude-plugins-dagster/actions/workflows/lint.yml/badge.svg)](https://github.com/dagster-io/claude-plugins-dagster/actions/workflows/lint.yml)
+[![Lint](https://github.com/dagster-io/skills/actions/workflows/lint.yml/badge.svg)](https://github.com/dagster-io/skills/actions/workflows/lint.yml)
 
 A collection of Claude Code plugins for building workflows and data pipelines using Dagster.
 
@@ -13,13 +13,13 @@ A collection of Claude Code plugins for building workflows and data pipelines us
 Add this marketplace to Claude Code:
 
 ```
-/plugin marketplace add dagster-io/dagster-claude-plugins
+/plugin marketplace add dagster-io/skills
 ```
 
 Install a plugin:
 
 ```
-/plugin install dg@claude-plugins-dagster
+/plugin install dg@skills
 ```
 
 To update your marketplace plugins:

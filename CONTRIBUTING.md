@@ -18,8 +18,8 @@ This repository contains Claude plugins for Dagster development. Each plugin is 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/dagster-io/claude-plugins-dagster.git
-   cd claude-plugins-dagster
+   git clone https://github.com/dagster-io/skills.git
+   cd skills
    ```
 
 2. Make your changes to the relevant plugin(s)
@@ -157,7 +157,7 @@ Based on the changes, choose the appropriate version number following semantic v
 
 #### 3. Trigger the Release Workflow
 
-1. Navigate to the [Actions tab](https://github.com/dagster-io/claude-plugins-dagster/actions)
+1. Navigate to the [Actions tab](https://github.com/dagster-io/skills/actions)
 2. Click on "Release" in the left sidebar
 3. Click "Run workflow" button
 4. Enter the version number (e.g., `0.0.2`, `1.0.0`, or `1.0.0-beta`)
@@ -183,7 +183,7 @@ The workflow takes approximately 1-2 minutes to complete.
 After the workflow completes:
 
 1. **Check GitHub Releases**:
-   - Visit: https://github.com/dagster-io/claude-plugins-dagster/releases
+   - Visit: https://github.com/dagster-io/skills/releases
    - Verify the new release appears with correct version and notes
 
 2. **Verify plugin.json files**:
@@ -214,7 +214,7 @@ After the workflow completes:
 
 After a release, verify:
 
-- [ ] GitHub release created at https://github.com/dagster-io/claude-plugins-dagster/releases
+- [ ] GitHub release created at https://github.com/dagster-io/skills/releases
 - [ ] Release notes match CHANGELOG.md section
 - [ ] All 4 plugin.json files updated to new version
 - [ ] CHANGELOG.md has new version section with today's date

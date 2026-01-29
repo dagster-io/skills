@@ -35,6 +35,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- **all-plugins**: Renamed repository from `dagster-claude-plugins` / `claude-plugins-dagster` to
+  `skills`
+  - Updated marketplace name from `dagster-claude-plugins` to `skills`
+  - Updated package name from `claude-plugins-dagster` to `skills`
+  - Updated all GitHub URLs from `dagster-io/claude-plugins-dagster` to `dagster-io/skills`
+  - Updated installation commands: `/plugin marketplace add dagster-io/skills` and `/plugin install
+    dg@skills`
 - **all-plugins**: Reformatted all markdown documentation files to meet linting standards
   - Fixed trailing whitespace and end-of-file formatting
   - Applied consistent markdown formatting with Prettier
@@ -192,9 +199,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   - Modern type syntax (list[str], str | None)
   - Pathlib operations and ABC-based interfaces
 
-[Unreleased]: https://github.com/dagster-io/claude-plugins-dagster/compare/v0.0.5...HEAD
-[0.0.2]: https://github.com/dagster-io/claude-plugins-dagster/releases/tag/v0.0.2
-[0.0.3]: https://github.com/dagster-io/claude-plugins-dagster/releases/tag/v0.0.3
-[0.0.4]: https://github.com/dagster-io/claude-plugins-dagster/releases/tag/v0.0.4
-[0.0.5]: https://github.com/dagster-io/claude-plugins-dagster/releases/tag/v0.0.5
-[0.0.1]: https://github.com/dagster-io/claude-plugins-dagster/releases/tag/v0.0.1
+[Unreleased]: https://github.com/dagster-io/skills/compare/v0.0.5...HEAD
+[0.0.2]: https://github.com/dagster-io/skills/releases/tag/v0.0.2
+[0.0.3]: https://github.com/dagster-io/skills/releases/tag/v0.0.3
+[0.0.4]: https://github.com/dagster-io/skills/releases/tag/v0.0.4
+[0.0.5]: https://github.com/dagster-io/skills/releases/tag/v0.0.5
+[0.0.1]: https://github.com/dagster-io/skills/releases/tag/v0.0.1
