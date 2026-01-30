@@ -1,6 +1,9 @@
 ---
 name: dagster-best-practices
-description: Expert guidance for Dagster data orchestration including assets, resources, automation, testing, ETL patterns, and project structure. Use when deciding how to structure projects, choosing automation methods, designing assets, or understanding Dagster patterns and best practices.
+description:
+  Expert guidance for Dagster data orchestration including assets, resources, automation, testing,
+  ETL patterns, and project structure. Use when deciding how to structure projects, choosing
+  automation methods, designing assets, or understanding Dagster patterns and best practices.
 references:
   - assets
   - automation
@@ -12,7 +15,8 @@ references:
 
 # Dagster Best Practices Skill
 
-Expert guidance for building production-quality Dagster projects with recommended patterns and architectural decisions.
+Expert guidance for building production-quality Dagster projects with recommended patterns and
+architectural decisions.
 
 ## When to Use This Skill
 
@@ -82,18 +86,18 @@ What do you need guidance on?
 
 ## When to Use This Skill vs. Others
 
-| User Need | Use This Skill | Alternative Skill |
-|-----------|----------------|-------------------|
-| "what's the best way to X" | ✅ Yes - architectural guidance | |
-| "how do I structure assets" | ✅ Yes - asset design patterns | |
-| "which integration should I use" | ❌ No | `/dagster-integrations` |
-| "create an asset" | ❌ No | `/dg` for scaffolding |
-| "launch my assets" | ❌ No | `/dg` for execution |
-| "Python code standards" | ❌ No | `/dignified-python` |
-| "how do I test assets" | ✅ Yes - testing strategies | |
-| "schedule patterns" | ✅ Yes - automation guidance | |
-| "dbt best practices" | ✅ Yes - dbt patterns | |
-| "implement X pipeline" | ❌ First learn patterns here, then use `/dg` | |
+| User Need                        | Use This Skill                               | Alternative Skill       |
+| -------------------------------- | -------------------------------------------- | ----------------------- |
+| "what's the best way to X"       | ✅ Yes - architectural guidance              |                         |
+| "how do I structure assets"      | ✅ Yes - asset design patterns               |                         |
+| "which integration should I use" | ❌ No                                        | `/dagster-integrations` |
+| "create an asset"                | ❌ No                                        | `/dg` for scaffolding   |
+| "launch my assets"               | ❌ No                                        | `/dg` for execution     |
+| "Python code standards"          | ❌ No                                        | `/dignified-python`     |
+| "how do I test assets"           | ✅ Yes - testing strategies                  |                         |
+| "schedule patterns"              | ✅ Yes - automation guidance                 |                         |
+| "dbt best practices"             | ✅ Yes - dbt patterns                        |                         |
+| "implement X pipeline"           | ❌ First learn patterns here, then use `/dg` |                         |
 
 ## Core Philosophy
 

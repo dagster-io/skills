@@ -5,11 +5,14 @@ This directory contains comprehensive reference documentation for all `dg` CLI w
 ## Table of Contents
 
 ### Project Setup
+
 - **[create-project.md](./create-project.md)** - Create new Dagster projects
 - **[create-workspace.md](./create-workspace.md)** - Create multi-project workspaces
 
 ### Component Generation
-- **[scaffold.md](./scaffold.md)** - Scaffold components, assets, schedules, sensors, and integrations
+
+- **[scaffold.md](./scaffold.md)** - Scaffold components, assets, schedules, sensors, and
+  integrations
   - Core components (assets, schedules, sensors)
   - Integration scaffolding (dbt, Fivetran, dlt, Sling)
   - Inline components
@@ -19,6 +22,7 @@ This directory contains comprehensive reference documentation for all `dg` CLI w
   - Dynamic command discovery
 
 ### Execution
+
 - **[launch.md](./launch.md)** - Launch (materialize) assets and execute jobs
   - Asset selection syntax (by name, tag, group, kind, owner)
   - Partitions and partition ranges (backfills)
@@ -27,6 +31,7 @@ This directory contains comprehensive reference documentation for all `dg` CLI w
   - Cloud/remote execution
 
 ### Discovery
+
 - **[list.md](./list.md)** - List definitions, components, and environment variables
   - `dg list defs` - All registered definitions
   - `dg list components` - Available component types
@@ -35,6 +40,7 @@ This directory contains comprehensive reference documentation for all `dg` CLI w
   - `dg list component-tree` - Component hierarchy
 
 ### Monitoring
+
 - **[logs.md](./logs.md)** - View run logs and execution output
   - Recent runs
   - Specific run logs
@@ -44,12 +50,14 @@ This directory contains comprehensive reference documentation for all `dg` CLI w
   - Compute logs
 
 ### Development
+
 - **[prototype.md](./prototype.md)** - Generate production-ready asset implementations
   - Guided implementation workflow
   - Best practices integration
   - Full code generation (not just scaffolds)
 
 ### Debugging
+
 - **[troubleshoot.md](./troubleshoot.md)** - Debug failed runs and issues
   - Failure analysis
   - Common error patterns

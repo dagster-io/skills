@@ -52,54 +52,61 @@ This directory contains a comprehensive catalog of 82+ Dagster integrations orga
 
 ## Quick Reference by Category
 
-| Category | Count | Common Tools | Use When |
-|----------|-------|--------------|----------|
-| **AI & ML** | 6 | OpenAI, Anthropic, MLflow | LLM integration, experiment tracking |
-| **ETL/ELT** | 9 | dbt, Fivetran, Airbyte, dlt | Data ingestion, transformation |
-| **Storage** | 35+ | Snowflake, BigQuery, Postgres | Data warehousing, databases |
-| **Compute** | 15+ | AWS, Databricks, Spark | Cloud compute, distributed processing |
-| **BI** | 7 | Looker, Tableau, PowerBI | Data visualization, dashboards |
-| **Monitoring** | 3 | Datadog, Prometheus | Metrics, observability |
-| **Alerting** | 6 | Slack, PagerDuty, MS Teams | Notifications, incident management |
-| **Testing** | 2 | Great Expectations, Pandera | Data quality, validation |
-| **Other** | 2+ | Pandas, Polars | DataFrame operations |
+| Category       | Count | Common Tools                  | Use When                              |
+| -------------- | ----- | ----------------------------- | ------------------------------------- |
+| **AI & ML**    | 6     | OpenAI, Anthropic, MLflow     | LLM integration, experiment tracking  |
+| **ETL/ELT**    | 9     | dbt, Fivetran, Airbyte, dlt   | Data ingestion, transformation        |
+| **Storage**    | 35+   | Snowflake, BigQuery, Postgres | Data warehousing, databases           |
+| **Compute**    | 15+   | AWS, Databricks, Spark        | Cloud compute, distributed processing |
+| **BI**         | 7     | Looker, Tableau, PowerBI      | Data visualization, dashboards        |
+| **Monitoring** | 3     | Datadog, Prometheus           | Metrics, observability                |
+| **Alerting**   | 6     | Slack, PagerDuty, MS Teams    | Notifications, incident management    |
+| **Testing**    | 2     | Great Expectations, Pandera   | Data quality, validation              |
+| **Other**      | 2+    | Pandas, Polars                | DataFrame operations                  |
 
 ## Finding the Right Integration
 
 ### By Use Case
 
 **Data Ingestion:**
+
 - SaaS → Fivetran, Airbyte (etl.md)
 - Databases → dlt, Sling (etl.md)
 - APIs → Custom Python with Pandas (other.md)
 
 **Data Transformation:**
+
 - SQL → dbt (etl.md)
 - Distributed → PySpark (etl.md)
 - Local → Pandas, Polars (other.md)
 
 **Data Storage:**
+
 - Cloud warehouse → Snowflake, BigQuery, Redshift (storage.md)
 - OLTP database → Postgres, MySQL (storage.md)
 - Object storage → S3, GCS, Azure (storage.md)
 - Analytics → DuckDB (storage.md)
 
 **ML/AI:**
+
 - LLMs → OpenAI, Anthropic (ai.md)
 - Experiment tracking → MLflow, W&B (ai.md)
 - Vector search → Weaviate, Chroma (storage.md)
 
 **Orchestration:**
+
 - Cloud → Databricks, AWS Batch (compute.md)
 - Containers → Kubernetes, Docker (compute.md)
 - Distributed → Spark, Dask, Ray (compute.md)
 
 **Observability:**
+
 - Alerts → Slack, PagerDuty (alerting.md)
 - Metrics → Datadog, Prometheus (monitoring.md)
 - Data quality → Great Expectations, Pandera (testing.md)
 
 **Visualization:**
+
 - Traditional BI → Looker, Tableau, PowerBI (bi.md)
 - Modern analytics → Sigma, Hex (bi.md)
 
@@ -208,12 +215,14 @@ Last verified: 2026-01-27
 ## Cross-Skill Workflow
 
 **Discovery → Implementation:**
+
 1. Use `/dagster-integrations` to find the right tool
 2. Use `/dagster-best-practices` to learn patterns
 3. Use `/dg` to scaffold the integration
 4. Implement following learned patterns
 
 **Example:**
+
 ```
 User: "How do I load data from Salesforce?"
 → /dagster-integrations → references/etl.md → Find Fivetran

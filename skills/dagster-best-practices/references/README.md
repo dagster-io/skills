@@ -1,10 +1,12 @@
 # Dagster Best Practices Reference Documentation
 
-This directory contains expert guidance on Dagster patterns, architectural decisions, and production-ready development practices.
+This directory contains expert guidance on Dagster patterns, architectural decisions, and
+production-ready development practices.
 
 ## Table of Contents
 
 ### Core Concepts
+
 - **[assets.md](./assets.md)** - Asset design patterns and best practices
   - Basic asset patterns
   - Dependencies and lineage
@@ -14,6 +16,7 @@ This directory contains expert guidance on Dagster patterns, architectural decis
   - Asset testing
 
 ### Automation
+
 - **[automation.md](./automation.md)** - Automation strategies and patterns
   - Declarative Automation (recommended modern approach)
   - Schedules (time-based automation)
@@ -22,6 +25,7 @@ This directory contains expert guidance on Dagster patterns, architectural decis
   - Backfills and historical data processing
 
 ### Resource Management
+
 - **[resources.md](./resources.md)** - Resource patterns and dependency injection
   - Database connections
   - API clients
@@ -30,6 +34,7 @@ This directory contains expert guidance on Dagster patterns, architectural decis
   - Testing with mock resources
 
 ### Testing
+
 - **[testing.md](./testing.md)** - Testing strategies for Dagster projects
   - Unit testing assets
   - Integration tests
@@ -38,6 +43,7 @@ This directory contains expert guidance on Dagster patterns, architectural decis
   - Test fixtures and helpers
 
 ### ETL Patterns
+
 - **[etl-patterns.md](./etl-patterns.md)** - ETL/ELT patterns and integration guidance
   - dbt integration patterns
   - dlt pipeline patterns
@@ -46,6 +52,7 @@ This directory contains expert guidance on Dagster patterns, architectural decis
   - Data quality and validation
 
 ### Project Organization
+
 - **[project-structure.md](./project-structure.md)** - Project structure and organization
   - Single project layout
   - Workspace (multi-project) structure
@@ -57,16 +64,19 @@ This directory contains expert guidance on Dagster patterns, architectural decis
 
 ### Core Philosophy
 
-**Think in Assets**: Dagster is built around the asset abstraction—persistent objects like tables, files, or models that your pipeline produces.
+**Think in Assets**: Dagster is built around the asset abstraction—persistent objects like tables,
+files, or models that your pipeline produces.
 
 - **Clear Lineage**: Explicit dependencies define data flow
 - **Better Observability**: Track what data exists and how it was created
 - **Improved Testability**: Assets are just Python functions
 - **Declarative Pipelines**: Focus on _what_ to produce, not _how_ to execute
 
-**Assets over Ops**: For most data pipelines, prefer assets over ops. Use ops only when the asset abstraction doesn't fit (non-data workflows, complex execution patterns).
+**Assets over Ops**: For most data pipelines, prefer assets over ops. Use ops only when the asset
+abstraction doesn't fit (non-data workflows, complex execution patterns).
 
-**Environment Separation**: Use resources and `EnvVar` to maintain separate configurations for dev, staging, and production without code changes.
+**Environment Separation**: Use resources and `EnvVar` to maintain separate configurations for dev,
+staging, and production without code changes.
 
 ### Common Patterns
 
@@ -107,6 +117,7 @@ def compute_multiple_assets():
 ### Automation Strategies
 
 **Modern (Recommended): Declarative Automation**
+
 ```python
 @dg.asset(
     automation_condition=AutomationCondition.on_cron("0 0 * * *")
@@ -116,6 +127,7 @@ def daily_asset():
 ```
 
 **Traditional: Schedules**
+
 ```python
 daily_job = dg.define_asset_job("daily_job", selection="tag:schedule=daily")
 
@@ -126,6 +138,7 @@ daily_schedule = dg.ScheduleDefinition(
 ```
 
 **Event-Driven: Sensors**
+
 ```python
 @dg.sensor(job_name="my_job")
 def file_watcher_sensor(context):
@@ -204,24 +217,26 @@ Each reference document follows a consistent structure:
 
 ## When to Use Each Reference
 
-| Question | Reference |
-|----------|-----------|
-| "How do I structure my assets?" | assets.md |
-| "Should I use schedules or sensors?" | automation.md |
-| "How do I connect to databases?" | resources.md |
-| "How do I test my pipeline?" | testing.md |
-| "How do I integrate dbt?" | etl-patterns.md |
-| "How should I organize my project?" | project-structure.md |
+| Question                             | Reference            |
+| ------------------------------------ | -------------------- |
+| "How do I structure my assets?"      | assets.md            |
+| "Should I use schedules or sensors?" | automation.md        |
+| "How do I connect to databases?"     | resources.md         |
+| "How do I test my pipeline?"         | testing.md           |
+| "How do I integrate dbt?"            | etl-patterns.md      |
+| "How should I organize my project?"  | project-structure.md |
 
 ## Cross-Skill Workflow
 
 **Learning → Implementation:**
+
 1. Use `/dagster-best-practices` to learn patterns
 2. Use `/dg` to scaffold components following those patterns
 3. Use `/dagster-integrations` to discover integration libraries
 4. Use `/dignified-python` for Python code quality
 
 **Example:**
+
 ```
 User: "How should I structure my dbt integration?"
 → /dagster-best-practices (learn dbt patterns in etl-patterns.md)

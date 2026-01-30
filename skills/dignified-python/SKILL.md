@@ -1,6 +1,10 @@
 ---
 name: dignified-python
-description: Production Python coding standards with automatic version detection (3.10-3.13). Use when writing, reviewing, or refactoring Python to ensure adherence to modern type syntax, LBYL exception handling, pathlib operations, ABC-based interfaces, and production-tested patterns. Not Dagster-specific - applies to any Python project.
+description:
+  Production Python coding standards with automatic version detection (3.10-3.13). Use when writing,
+  reviewing, or refactoring Python to ensure adherence to modern type syntax, LBYL exception
+  handling, pathlib operations, ABC-based interfaces, and production-tested patterns. Not
+  Dagster-specific - applies to any Python project.
 references:
   - core-standards
   - cli-patterns
@@ -16,7 +20,8 @@ references:
 
 # Dignified Python Coding Standards Skill
 
-Production-quality Python coding standards for writing clean, maintainable, modern Python code (versions 3.10-3.13).
+Production-quality Python coding standards for writing clean, maintainable, modern Python code
+(versions 3.10-3.13).
 
 ## When to Use This Skill
 
@@ -30,21 +35,22 @@ Auto-invoke when users ask about:
 - "code review" / "improve this code"
 - Any Python code quality or standards question
 
-**Note**: This skill is **general Python standards**, not Dagster-specific. Use `/dagster-best-practices` for Dagster patterns.
+**Note**: This skill is **general Python standards**, not Dagster-specific. Use
+`/dagster-best-practices` for Dagster patterns.
 
 ## When to Use This Skill vs. Others
 
-| User Need | Use This Skill | Alternative Skill |
-|-----------|----------------|-------------------|
-| "make this pythonic" | ✅ Yes - Python standards | |
-| "is this good python" | ✅ Yes - code quality | |
-| "type hints" | ✅ Yes - typing guidance | |
-| "LBYL vs EAFP" | ✅ Yes - exception patterns | |
-| "pathlib vs os.path" | ✅ Yes - path handling | |
-| "best practices for dagster" | ❌ No | `/dagster-best-practices` |
-| "implement X pipeline" | ❌ No | `/dg` for implementation |
-| "which integration to use" | ❌ No | `/dagster-integrations` |
-| "CLI argument parsing" | ✅ Yes - CLI patterns | |
+| User Need                    | Use This Skill              | Alternative Skill         |
+| ---------------------------- | --------------------------- | ------------------------- |
+| "make this pythonic"         | ✅ Yes - Python standards   |                           |
+| "is this good python"        | ✅ Yes - code quality       |                           |
+| "type hints"                 | ✅ Yes - typing guidance    |                           |
+| "LBYL vs EAFP"               | ✅ Yes - exception patterns |                           |
+| "pathlib vs os.path"         | ✅ Yes - path handling      |                           |
+| "best practices for dagster" | ❌ No                       | `/dagster-best-practices` |
+| "implement X pipeline"       | ❌ No                       | `/dg` for implementation  |
+| "which integration to use"   | ❌ No                       | `/dagster-integrations`   |
+| "CLI argument parsing"       | ✅ Yes - CLI patterns       |                           |
 
 ## Core Knowledge (ALWAYS Loaded)
 
@@ -81,16 +87,19 @@ Pattern detection examples:
 The `references/` directory contains detailed guidance organized by topic:
 
 ### Core References
+
 - **`core-standards.md`** - Essential standards (always loaded)
 - **`cli-patterns.md`** - Command-line interface patterns (click, argparse)
 
 ### Version-Specific References (`references/versions/`)
+
 - **`python-3.10.md`** - Features available in Python 3.10+
 - **`python-3.11.md`** - Features available in Python 3.11+
 - **`python-3.12.md`** - Features available in Python 3.12+
 - **`python-3.13.md`** - Features available in Python 3.13+
 
 ### Advanced Topics (`references/advanced/`)
+
 - **`exception-handling.md`** - LBYL patterns, error boundaries
 - **`interfaces.md`** - ABC and Protocol patterns
 - **`typing-advanced.md`** - Advanced typing patterns

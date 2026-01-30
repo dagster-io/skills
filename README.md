@@ -8,11 +8,13 @@
 
 AI assistant skills for building workflows and data pipelines using Dagster.
 
-**Compatible with Claude Code, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible tools.**
+**Compatible with Claude Code, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible
+tools.**
 
 ## What's New (v0.0.7)
 
 **Simplified structure**: Consolidated from 9 skills to **4 simple skills** with flat organization:
+
 - ✅ Single `/dg` skill for all CLI operations (replaces 6 separate `/dg:*` skills)
 - ✅ Renamed `/dagster-conventions` → `/dagster-best-practices`
 - ✅ Renamed `/integrations-index` → `/dagster-integrations`
@@ -24,7 +26,8 @@ AI assistant skills for building workflows and data pipelines using Dagster.
 
 ### Claude Code
 
-Install using the [Claude plugin marketplace](https://code.claude.com/docs/en/discover-plugins#add-from-github):
+Install using the
+[Claude plugin marketplace](https://code.claude.com/docs/en/discover-plugins#add-from-github):
 
 ```
 /plugin marketplace add dagster-io/skills
@@ -72,12 +75,12 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 
 4 focused skills for Dagster development:
 
-| Skill | Purpose | When to Use |
-|-------|---------|-------------|
-| **`/dg`** | Dagster CLI operations | Create projects, scaffold components, launch assets, list definitions, view logs, troubleshoot |
-| **`/dagster-best-practices`** | Architectural guidance | Decide how to structure assets, choose automation, design resources, learn testing strategies |
-| **`/dagster-integrations`** | Integration catalog | Discover 82+ integrations (dbt, Fivetran, Snowflake, etc.) |
-| **`/dignified-python`** | Python standards | Write production-quality Python code (general, not Dagster-specific) |
+| Skill                         | Purpose                | When to Use                                                                                    |
+| ----------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------- |
+| **`/dg`**                     | Dagster CLI operations | Create projects, scaffold components, launch assets, list definitions, view logs, troubleshoot |
+| **`/dagster-best-practices`** | Architectural guidance | Decide how to structure assets, choose automation, design resources, learn testing strategies  |
+| **`/dagster-integrations`**   | Integration catalog    | Discover 82+ integrations (dbt, Fivetran, Snowflake, etc.)                                     |
+| **`/dignified-python`**       | Python standards       | Write production-quality Python code (general, not Dagster-specific)                           |
 
 ## Skill Details
 
@@ -86,6 +89,7 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 **Single skill for all `dg` CLI operations** (replaces previous 6 separate `/dg:*` skills).
 
 **Use when you need to:**
+
 - Create projects: "create a new dagster project"
 - Scaffold components: "scaffold an asset" / "add a dbt integration"
 - Launch assets: "run my assets" / "materialize customers asset"
@@ -93,9 +97,11 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 - View logs: "show logs for last run"
 - Troubleshoot: "debug this failed run"
 
-**Natural language invocation**: Just say what you want with `/dg` instead of using specific subcommands.
+**Natural language invocation**: Just say what you want with `/dg` instead of using specific
+subcommands.
 
 **Examples:**
+
 ```
 /dg create a new project called analytics
 /dg scaffold a dbt integration
@@ -105,6 +111,7 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 ```
 
 **What's included:**
+
 - Project creation (single project and workspaces)
 - Component scaffolding (assets, schedules, sensors, integrations)
 - Asset execution (launch with partitions, configs, environments)
@@ -115,9 +122,11 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 
 ### `/dagster-best-practices` - Architectural Guidance
 
-**Expert guidance for Dagster patterns and architectural decisions** (renamed from `/dagster-conventions`).
+**Expert guidance for Dagster patterns and architectural decisions** (renamed from
+`/dagster-conventions`).
 
 **Use when you need to:**
+
 - Structure assets: "how should I design my assets"
 - Choose automation: "schedules vs sensors vs automation conditions"
 - Manage resources: "how to handle database connections"
@@ -126,6 +135,7 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 - Project organization: "single project vs workspace"
 
 **What's included:**
+
 - Asset design patterns (dependencies, partitions, multi-assets)
 - Automation strategies (declarative automation, schedules, sensors)
 - Resource patterns (database connections, API clients, env vars)
@@ -134,6 +144,7 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 - Project structure (organization, components, code locations)
 
 **References:**
+
 - `references/assets.md` - Asset design patterns
 - `references/automation.md` - Automation strategies
 - `references/resources.md` - Resource patterns
@@ -146,12 +157,14 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 **Comprehensive catalog of 82+ Dagster integrations** (renamed from `/integrations-index`).
 
 **Use when you need to:**
+
 - Discover integrations: "which tool for data warehousing"
 - Compare options: "snowflake vs bigquery"
 - Find capabilities: "does dagster support dbt"
 - Choose integrations: "best ETL tool for my use case"
 
 **What's included:**
+
 - **AI & ML** (6): OpenAI, Anthropic, Gemini, MLflow, W&B
 - **ETL/ELT** (9): dbt, Fivetran, Airbyte, dlt, Sling, PySpark
 - **Storage** (35+): Snowflake, BigQuery, Postgres, S3, DuckDB, Weaviate
@@ -163,6 +176,7 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 - **Other** (2+): Pandas, Polars
 
 **References:**
+
 - `references/ai.md` - AI & ML platforms
 - `references/etl.md` - ETL/ELT tools
 - `references/storage.md` - Data storage
@@ -178,6 +192,7 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 **Production-quality Python coding standards** (general Python, not Dagster-specific).
 
 **Use when you need to:**
+
 - Code review: "is this good python" / "make this more pythonic"
 - Type hints: "how should I annotate this"
 - Exception handling: "LBYL vs EAFP patterns"
@@ -185,6 +200,7 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 - CLI patterns: "click usage patterns"
 
 **What's included:**
+
 - Modern type syntax (list[str], str | None)
 - LBYL exception handling patterns
 - Pathlib operations
@@ -195,6 +211,7 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 - API design principles
 
 **References:**
+
 - `references/core-standards.md` - Essential standards
 - `references/cli-patterns.md` - CLI patterns
 - `references/versions/python-3.10.md` - Python 3.10+ features
@@ -342,36 +359,41 @@ skills/
 
 ### Skill Name Changes
 
-| Old Skill | New Skill | Migration |
-|-----------|-----------|-----------|
-| `/dg:create-project` | `/dg create project` | Use natural language with `/dg` |
-| `/dg:create-workspace` | `/dg create workspace` | Use natural language with `/dg` |
-| `/dg:scaffold` | `/dg scaffold` | Use natural language with `/dg` |
-| `/dg:launch` | `/dg launch` | Use natural language with `/dg` |
-| `/dg:list` | `/dg list` | Use natural language with `/dg` |
-| `/dg:logs` | `/dg logs` | Use natural language with `/dg` |
-| `/dg:prototype` | `/dg prototype` | Use natural language with `/dg` |
-| `/dagster-conventions` | `/dagster-best-practices` | Use new name |
-| `/integrations-index` | `/dagster-integrations` | Use new name |
-| `/dignified-python` | `/dignified-python` | No change |
+| Old Skill              | New Skill                 | Migration                       |
+| ---------------------- | ------------------------- | ------------------------------- |
+| `/dg:create-project`   | `/dg create project`      | Use natural language with `/dg` |
+| `/dg:create-workspace` | `/dg create workspace`    | Use natural language with `/dg` |
+| `/dg:scaffold`         | `/dg scaffold`            | Use natural language with `/dg` |
+| `/dg:launch`           | `/dg launch`              | Use natural language with `/dg` |
+| `/dg:list`             | `/dg list`                | Use natural language with `/dg` |
+| `/dg:logs`             | `/dg logs`                | Use natural language with `/dg` |
+| `/dg:prototype`        | `/dg prototype`           | Use natural language with `/dg` |
+| `/dagster-conventions` | `/dagster-best-practices` | Use new name                    |
+| `/integrations-index`  | `/dagster-integrations`   | Use new name                    |
+| `/dignified-python`    | `/dignified-python`       | No change                       |
 
 ### What Changed
 
-**Consolidated CLI skills**: The 6 separate `/dg:*` skills are now a single `/dg` skill. Instead of invoking specific subcommands, use natural language:
+**Consolidated CLI skills**: The 6 separate `/dg:*` skills are now a single `/dg` skill. Instead of
+invoking specific subcommands, use natural language:
+
 - Before: `/dg:scaffold`
 - After: `/dg scaffold an asset` or just `/dg` with natural language
 
 **Renamed for clarity**:
+
 - `/dagster-conventions` → `/dagster-best-practices` (clearer purpose)
 - `/integrations-index` → `/dagster-integrations` (more discoverable)
 
 **Flattened structure**:
+
 - Before: `plugins/*/skills/*/SKILL.md` (nested)
 - After: `skills/*/SKILL.md` (flat)
 
 ### Why These Changes?
 
 Based on team feedback:
+
 - **Simpler**: 4 skills instead of 9 (55% reduction)
 - **More intuitive**: Natural language with `/dg` instead of remembering subcommands
 - **Clearer names**: "best-practices" is clearer than "conventions"
@@ -381,6 +403,7 @@ Based on team feedback:
 ### Update Your Workflow
 
 **Old workflow:**
+
 ```
 /dg:create-project my-analytics
 /dg:scaffold asset
@@ -389,6 +412,7 @@ Based on team feedback:
 ```
 
 **New workflow:**
+
 ```
 /dg create a project called my-analytics
 /dg scaffold an asset
@@ -397,6 +421,7 @@ Based on team feedback:
 ```
 
 or just:
+
 ```
 /dg create a project
 # Claude understands natural language and routes to appropriate references
@@ -404,11 +429,14 @@ or just:
 
 ## Philosophy
 
-**"At the end of the day it's all markdown"** - We keep it simple. Skills are lightweight markdown wrappers that guide AI assistants to the right reference documentation.
+**"At the end of the day it's all markdown"** - We keep it simple. Skills are lightweight markdown
+wrappers that guide AI assistants to the right reference documentation.
 
-**LLM-friendly**: Dense references with decision trees help AI navigate to the right information quickly.
+**LLM-friendly**: Dense references with decision trees help AI navigate to the right information
+quickly.
 
-**Self-selecting**: Users naturally invoke the skill they need based on clear descriptions. No complex categorization required.
+**Self-selecting**: Users naturally invoke the skill they need based on clear descriptions. No
+complex categorization required.
 
 **Discovery-first**: Encourage discovery workflows (`dg list components`) before scaffolding.
 

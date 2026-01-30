@@ -1,6 +1,10 @@
 ---
 name: dagster-integrations
-description: Comprehensive index of 82+ Dagster integrations organized by category. Includes AI (OpenAI, Anthropic), ETL (dbt, Fivetran, Airbyte, PySpark), Storage (Snowflake, BigQuery), Compute (AWS, Databricks, Spark), BI (Looker, Tableau), Monitoring, Alerting, and Testing. Use when discovering integrations or finding the right tool for a use case.
+description:
+  Comprehensive index of 82+ Dagster integrations organized by category. Includes AI (OpenAI,
+  Anthropic), ETL (dbt, Fivetran, Airbyte, PySpark), Storage (Snowflake, BigQuery), Compute (AWS,
+  Databricks, Spark), BI (Looker, Tableau), Monitoring, Alerting, and Testing. Use when discovering
+  integrations or finding the right tool for a use case.
 references:
   - ai
   - alerting
@@ -15,7 +19,8 @@ references:
 
 # Dagster Integrations Skill
 
-Comprehensive catalog of 82+ Dagster integrations organized by category to help you find the right tool for your data pipeline needs.
+Comprehensive catalog of 82+ Dagster integrations organized by category to help you find the right
+tool for your data pipeline needs.
 
 ## When to Use This Skill
 
@@ -80,16 +85,16 @@ What do you need to do?
 
 ## When to Use This Skill vs. Others
 
-| User Need | Use This Skill | Alternative Skill |
-|-----------|----------------|-------------------|
-| "which integration for X" | ✅ Yes - discover integrations | |
-| "does dagster support X" | ✅ Yes - check availability | |
-| "snowflake vs bigquery" | ✅ Yes - compare options | |
-| "best practices for X" | ❌ No | `/dagster-best-practices` |
-| "implement X integration" | ❌ First discover here, then use `/dg` | |
-| "how do I use dbt" | ❌ Discover here, learn patterns at `/dagster-best-practices` | |
-| "create new project" | ❌ No | `/dg` for scaffolding |
-| "scaffold dbt integration" | ❌ First discover here, then use `/dg` | |
+| User Need                  | Use This Skill                                                | Alternative Skill         |
+| -------------------------- | ------------------------------------------------------------- | ------------------------- |
+| "which integration for X"  | ✅ Yes - discover integrations                                |                           |
+| "does dagster support X"   | ✅ Yes - check availability                                   |                           |
+| "snowflake vs bigquery"    | ✅ Yes - compare options                                      |                           |
+| "best practices for X"     | ❌ No                                                         | `/dagster-best-practices` |
+| "implement X integration"  | ❌ First discover here, then use `/dg`                        |                           |
+| "how do I use dbt"         | ❌ Discover here, learn patterns at `/dagster-best-practices` |                           |
+| "create new project"       | ❌ No                                                         | `/dg` for scaffolding     |
+| "scaffold dbt integration" | ❌ First discover here, then use `/dg`                        |                           |
 
 ## Quick Reference by Category
 

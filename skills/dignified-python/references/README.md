@@ -5,6 +5,7 @@ Production-quality Python coding standards for writing clean, maintainable, mode
 ## Table of Contents
 
 ### Core Standards
+
 - **[core-standards.md](./core-standards.md)** - Essential Python standards (always apply)
   - Modern type syntax (list[str], str | None)
   - LBYL exception handling patterns
@@ -28,7 +29,7 @@ Production-quality Python coding standards for writing clean, maintainable, mode
 
 - **[python-3.11.md](./versions/python-3.11.md)** - Python 3.11+ features
   - Exception groups (ExceptionGroup)
-  - except* syntax
+  - except\* syntax
   - Self type
   - Variadic generics
 
@@ -75,6 +76,7 @@ Production-quality Python coding standards for writing clean, maintainable, mode
 ### Core Principles
 
 **Modern Type Syntax**: Use Python 3.10+ type syntax everywhere
+
 ```python
 # Good (modern)
 def process(items: list[str]) -> str | None:
@@ -87,6 +89,7 @@ def process(items: List[str]) -> Optional[str]:
 ```
 
 **LBYL Over EAFP**: Look Before You Leap, not Easier to Ask for Forgiveness than Permission
+
 ```python
 # Good (LBYL)
 if path.exists():
@@ -100,6 +103,7 @@ except FileNotFoundError:
 ```
 
 **Pathlib Over os.path**: Use pathlib for all file operations
+
 ```python
 # Good
 from pathlib import Path
@@ -115,6 +119,7 @@ if os.path.exists("config.yaml"):
 ```
 
 **Absolute Imports**: Never use relative imports
+
 ```python
 # Good
 from myproject.utils import helper
@@ -232,18 +237,18 @@ Based on detected version, appropriate version-specific features are recommended
 
 ## When to Read Each Reference
 
-| Situation | Reference |
-|-----------|-----------|
-| Writing any Python code | core-standards.md |
-| Building a CLI tool | cli-patterns.md |
-| Using Python 3.10 features | versions/python-3.10.md |
-| Using Python 3.11 features | versions/python-3.11.md |
-| Using Python 3.12 features | versions/python-3.12.md |
-| Using Python 3.13 features | versions/python-3.13.md |
-| Handling exceptions | advanced/exception-handling.md |
-| Designing interfaces | advanced/interfaces.md |
-| Complex type hints | advanced/typing-advanced.md |
-| API design decisions | advanced/api-design.md |
+| Situation                  | Reference                      |
+| -------------------------- | ------------------------------ |
+| Writing any Python code    | core-standards.md              |
+| Building a CLI tool        | cli-patterns.md                |
+| Using Python 3.10 features | versions/python-3.10.md        |
+| Using Python 3.11 features | versions/python-3.11.md        |
+| Using Python 3.12 features | versions/python-3.12.md        |
+| Using Python 3.13 features | versions/python-3.13.md        |
+| Handling exceptions        | advanced/exception-handling.md |
+| Designing interfaces       | advanced/interfaces.md         |
+| Complex type hints         | advanced/typing-advanced.md    |
+| API design decisions       | advanced/api-design.md         |
 
 ## Related Skills
 
@@ -251,13 +256,16 @@ Based on detected version, appropriate version-specific features are recommended
 - **`/dg`** - Dagster CLI operations
 - **`/dagster-integrations`** - Integration discovery
 
-**Important**: `/dignified-python` is for **general Python standards**, not Dagster-specific patterns. For Dagster patterns, use `/dagster-best-practices`.
+**Important**: `/dignified-python` is for **general Python standards**, not Dagster-specific
+patterns. For Dagster patterns, use `/dagster-best-practices`.
 
 ## Cross-Skill Usage
 
-Users invoke `/dignified-python` when they need Python code quality guidance, regardless of whether it's for a Dagster project or any other Python project.
+Users invoke `/dignified-python` when they need Python code quality guidance, regardless of whether
+it's for a Dagster project or any other Python project.
 
 **Workflow:**
+
 ```
 User: "Is this good Python code?"
 → /dignified-python (check core-standards.md)
@@ -292,9 +300,12 @@ Each reference document follows a consistent structure:
 
 ## Self-Selecting Usage
 
-Users only invoke `/dignified-python` when they want Python standards guidance. The skill description makes it clear it's for general Python quality, not Dagster-specific patterns, so users naturally select it when appropriate.
+Users only invoke `/dignified-python` when they want Python standards guidance. The skill
+description makes it clear it's for general Python quality, not Dagster-specific patterns, so users
+naturally select it when appropriate.
 
 **Users will invoke this when they want:**
+
 - Code review and quality improvements
 - Modern Python patterns
 - Type annotation guidance
@@ -302,6 +313,7 @@ Users only invoke `/dignified-python` when they want Python standards guidance. 
 - CLI implementation patterns
 
 **Users will NOT invoke this when they want:**
+
 - Dagster-specific patterns (they'll use `/dagster-best-practices`)
 - Creating Dagster projects (they'll use `/dg`)
 - Finding integrations (they'll use `/dagster-integrations`)

@@ -1,6 +1,9 @@
 ---
 name: dg
-description: Dagster CLI for project creation, scaffolding components, launching assets, listing definitions, viewing logs, and troubleshooting. Use when users want to interact with the dg command-line tool for any Dagster operation.
+description:
+  Dagster CLI for project creation, scaffolding components, launching assets, listing definitions,
+  viewing logs, and troubleshooting. Use when users want to interact with the dg command-line tool
+  for any Dagster operation.
 references:
   - create-project
   - create-workspace
@@ -14,7 +17,8 @@ references:
 
 # Dagster CLI (dg) Skill
 
-This skill helps users interact with the Dagster CLI (`dg`) for all project management, component scaffolding, asset execution, definition discovery, log retrieval, and troubleshooting operations.
+This skill helps users interact with the Dagster CLI (`dg`) for all project management, component
+scaffolding, asset execution, definition discovery, log retrieval, and troubleshooting operations.
 
 ## When to Use This Skill
 
@@ -100,7 +104,8 @@ Create new Dagster projects or workspaces:
 - **Single project**: `dg create project <name>` - For standalone applications
 - **Workspace**: `dg create workspace <name>` - For multiple related projects
 
-See [`references/create-project.md`](./references/create-project.md) and [`references/create-workspace.md`](./references/create-workspace.md) for detailed guidance.
+See [`references/create-project.md`](./references/create-project.md) and
+[`references/create-workspace.md`](./references/create-workspace.md) for detailed guidance.
 
 ### Component Scaffolding
 
@@ -116,9 +121,11 @@ Generate Dagster components, assets, and integrations:
 - **Inline components**: `dg scaffold defs inline-component <path> --typename <Name>`
 - **Component types**: `dg scaffold component <name>`
 
-**Discovery-first workflow**: Always use `dg list components` before scaffolding to see available types.
+**Discovery-first workflow**: Always use `dg list components` before scaffolding to see available
+types.
 
-See [`references/scaffold.md`](./references/scaffold.md) for comprehensive scaffolding documentation.
+See [`references/scaffold.md`](./references/scaffold.md) for comprehensive scaffolding
+documentation.
 
 ### Asset Execution
 
@@ -134,7 +141,8 @@ Launch (materialize) Dagster assets:
 - **Partition range**: `dg launch --assets my_asset --partition-range "2024-01-01...2024-01-31"`
 - **Specific job**: `dg launch --job my_daily_job`
 
-**Environment setup**: Use `.env` files with `uv run dg launch` or `set -a; source .env; set +a; dg launch`
+**Environment setup**: Use `.env` files with `uv run dg launch` or
+`set -a; source .env; set +a; dg launch`
 
 See [`references/launch.md`](./references/launch.md) for execution details.
 
@@ -189,20 +197,21 @@ See [`references/troubleshoot.md`](./references/troubleshoot.md) for debugging.
 
 ## When to Use This Skill vs. Others
 
-| User Need | Use This Skill (/dg) | Alternative Skill |
-|-----------|---------------------|-------------------|
-| "create an asset" | ✅ Yes - `/dg` → scaffold reference | |
-| "launch my assets" | ✅ Yes - `/dg` → launch reference | |
-| "list definitions" | ✅ Yes - `/dg` → list reference | |
-| "best practices for assets" | ❌ No | `/dagster-best-practices` |
-| "which integration to use" | ❌ No | `/dagster-integrations` |
-| "Python code standards" | ❌ No | `/dignified-python` |
-| "create project + best practices" | ✅ Yes, then cross-reference | `/dagster-best-practices` |
-| "scaffold dbt + learn patterns" | ✅ Yes, then cross-reference | `/dagster-integrations` |
+| User Need                         | Use This Skill (/dg)                | Alternative Skill         |
+| --------------------------------- | ----------------------------------- | ------------------------- |
+| "create an asset"                 | ✅ Yes - `/dg` → scaffold reference |                           |
+| "launch my assets"                | ✅ Yes - `/dg` → launch reference   |                           |
+| "list definitions"                | ✅ Yes - `/dg` → list reference     |                           |
+| "best practices for assets"       | ❌ No                               | `/dagster-best-practices` |
+| "which integration to use"        | ❌ No                               | `/dagster-integrations`   |
+| "Python code standards"           | ❌ No                               | `/dignified-python`       |
+| "create project + best practices" | ✅ Yes, then cross-reference        | `/dagster-best-practices` |
+| "scaffold dbt + learn patterns"   | ✅ Yes, then cross-reference        | `/dagster-integrations`   |
 
 ## Cross-Skill References
 
 ### Use `/dagster-best-practices` for:
+
 - Deciding how to structure assets
 - Choosing automation patterns (schedules vs sensors vs automation conditions)
 - Understanding when to use resources
@@ -211,12 +220,14 @@ See [`references/troubleshoot.md`](./references/troubleshoot.md) for debugging.
 - Project architecture decisions
 
 ### Use `/dagster-integrations` for:
+
 - Discovering available integration libraries
 - Understanding integration-specific patterns
 - Choosing between similar integrations
 - Learning integration best practices
 
 ### Use `/dignified-python` for:
+
 - Python type annotation standards
 - Exception handling patterns
 - CLI implementation guidelines
@@ -298,12 +309,15 @@ dg list component-tree
 ## Implementation Notes
 
 - This skill delegates to comprehensive reference documentation in `references/`
-- All `dg` CLI operations are covered (create, scaffold, launch, list, logs, prototype, troubleshoot)
-- **Dynamic command generation**: Some subcommands (like `scaffold defs`) are dynamically generated based on installed packages
+- All `dg` CLI operations are covered (create, scaffold, launch, list, logs, prototype,
+  troubleshoot)
+- **Dynamic command generation**: Some subcommands (like `scaffold defs`) are dynamically generated
+  based on installed packages
 - Always encourage **discovery-first workflows**: `dg list components` before `dg scaffold`
 - Provide **working examples** with realistic parameters
 - Guide users through **interactive disambiguation** when component names are ambiguous
-- Cross-reference other skills (`/dagster-best-practices`, `/dagster-integrations`) when architectural guidance is needed
+- Cross-reference other skills (`/dagster-best-practices`, `/dagster-integrations`) when
+  architectural guidance is needed
 
 ## Reference Documentation
 
@@ -320,6 +334,7 @@ Full detailed documentation for each workflow:
 
 ## See Also
 
-- **Architectural guidance**: `/dagster-best-practices` - Learn patterns for assets, automation, testing, project structure
+- **Architectural guidance**: `/dagster-best-practices` - Learn patterns for assets, automation,
+  testing, project structure
 - **Integration discovery**: `/dagster-integrations` - Find and understand integration libraries
 - **Python standards**: `/dignified-python` - Production Python code quality patterns

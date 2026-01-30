@@ -51,8 +51,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   - All skills now directly in `skills/` directory at repository root
   - Easier navigation and simpler mental model
 - **dg**: Changed from 6 namespaced skills to 1 comprehensive skill
-  - Replaced `/dg:create-project`, `/dg:create-workspace`, `/dg:scaffold`, `/dg:launch`,
-    `/dg:list`, `/dg:prototype` with single `/dg` skill
+  - Replaced `/dg:create-project`, `/dg:create-workspace`, `/dg:scaffold`, `/dg:launch`, `/dg:list`,
+    `/dg:prototype` with single `/dg` skill
   - Users now invoke with natural language: `/dg create a project` instead of `/dg:create-project`
   - All CLI documentation moved from `commands/` to `skills/dg/references/`
   - Added comprehensive decision tree for choosing right workflow
