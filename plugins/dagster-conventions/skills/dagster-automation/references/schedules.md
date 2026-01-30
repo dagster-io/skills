@@ -1,6 +1,7 @@
 # Schedules
 
-Schedules execute jobs at specified times using cron expressions. They trigger at exact cron tick times regardless of dependency status.
+Schedules execute jobs at specified times using cron expressions. They trigger at exact cron tick
+times regardless of dependency status.
 
 ## Basic Schedule
 
@@ -31,7 +32,8 @@ daily_schedule = dg.ScheduleDefinition(
 
 ## Schedules from Partitioned Assets/Jobs
 
-For partitioned assets or jobs, use `build_schedule_from_partitioned_job` to automatically create a schedule matching the partition cadence:
+For partitioned assets or jobs, use `build_schedule_from_partitioned_job` to automatically create a
+schedule matching the partition cadence:
 
 ```python
 from dagster import (

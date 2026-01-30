@@ -1,6 +1,7 @@
 # Declarative Automation: Operators
 
-Operators combine operands and other conditions into complex expressions using boolean logic and transformations.
+Operators combine operands and other conditions into complex expressions using boolean logic and
+transformations.
 
 ## Boolean Operators
 
@@ -40,7 +41,8 @@ condition = ~dg.AutomationCondition.any_deps_missing()
 
 ### since(reset_condition)
 
-Converts two events into a status. Becomes true when the operand becomes true and remains true until the reset condition becomes true.
+Converts two events into a status. Becomes true when the operand becomes true and remains true until
+the reset condition becomes true.
 
 ```python
 # True from when dependency updates until asset is requested
@@ -51,28 +53,33 @@ condition = dg.AutomationCondition.any_deps_updated().since(
 
 **Pattern:** `A.since(B)` means "A has occurred more recently than B"
 
-**Use case:** Create persistent states from transient events. For example, "upstream updated" is an event, but "upstream updated since I was last requested" is a status that stays true.
+**Use case:** Create persistent states from transient events. For example, "upstream updated" is an
+event, but "upstream updated since I was last requested" is a status that stays true.
 
 ### newly_true()
 
-Converts a status into an event. True only on the tick when the operand transitions from false to true.
+Converts a status into an event. True only on the tick when the operand transitions from false to
+true.
 
 ```python
 # True only on the tick when the asset becomes missing
 condition = dg.AutomationCondition.missing().newly_true()
 ```
 
-**Use case:** Prevent repeated actions during persistent states. For example, `missing()` stays true for many ticks, but `missing().newly_true()` is only true once when it becomes missing.
+**Use case:** Prevent repeated actions during persistent states. For example, `missing()` stays true
+for many ticks, but `missing().newly_true()` is only true once when it becomes missing.
 
 ### since_last_handled()
 
-Convenience method equivalent to `.since(newly_requested() | newly_updated() | initial_evaluation())`.
+Convenience method equivalent to
+`.since(newly_requested() | newly_updated() | initial_evaluation())`.
 
 ```python
 condition = dg.AutomationCondition.any_deps_updated().since_last_handled()
 ```
 
-True from when the condition becomes true until the asset is requested, updated, or the condition is first applied.
+True from when the condition becomes true until the asset is requested, updated, or the condition is
+first applied.
 
 ## Dependency Operators
 
@@ -86,7 +93,8 @@ condition = dg.AutomationCondition.any_deps_match(
 )
 ```
 
-Supports filtering with `.allow()` and `.ignore()` (see [Dependency Filtering](#dependency-filtering)).
+Supports filtering with `.allow()` and `.ignore()` (see
+[Dependency Filtering](#dependency-filtering)).
 
 ### all_deps_match(condition)
 
@@ -155,6 +163,7 @@ condition = dg.AutomationCondition.any_checks_match(
 ```
 
 **Parameters:**
+
 - `condition`: Condition to evaluate against checks
 - `blocking_only` (bool): If True, only considers blocking checks (default: False)
 
@@ -214,4 +223,5 @@ condition = (
 ).with_label("custom_condition")                        # Label
 ```
 
-This condition materializes the latest time partition when it becomes missing or dependencies update, but only if critical dependencies are not missing, and only once per update.
+This condition materializes the latest time partition when it becomes missing or dependencies
+update, but only if critical dependencies are not missing, and only once per update.

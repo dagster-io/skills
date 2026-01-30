@@ -1,6 +1,7 @@
 # Sensors
 
-Sensors poll for events at regular intervals and perform actions when events occur. They evaluate at discrete times controlled by `minimum_interval_seconds`.
+Sensors poll for events at regular intervals and perform actions when events occur. They evaluate at
+discrete times controlled by `minimum_interval_seconds`.
 
 ## Basic Sensor
 
@@ -28,7 +29,8 @@ def new_file_sensor(context: dg.SensorEvaluationContext):
 yield dg.RunRequest(run_key=filename)
 ```
 
-For a given sensor, only one run is created per unique `run_key`. Subsequent requests with the same key are skipped.
+For a given sensor, only one run is created per unique `run_key`. Subsequent requests with the same
+key are skipped.
 
 ## SkipReason
 
@@ -68,7 +70,8 @@ def new_file_sensor(context):
     ...
 ```
 
-The interval is a minimum, not exact. If evaluation takes longer than the interval, the next evaluation is delayed.
+The interval is a minimum, not exact. If evaluation takes longer than the interval, the next
+evaluation is delayed.
 
 ## Default Status
 
@@ -83,7 +86,8 @@ def auto_enabled_sensor(context):
     ...
 ```
 
-Without `RUNNING` status, sensors must be manually enabled in the Dagster UI under **Automation > Sensors**.
+Without `RUNNING` status, sensors must be manually enabled in the Dagster UI under **Automation >
+Sensors**.
 
 ## SensorEvaluationContext Properties
 

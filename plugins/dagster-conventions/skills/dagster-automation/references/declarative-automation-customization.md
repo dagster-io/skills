@@ -1,6 +1,7 @@
 # Declarative Automation: Customization
 
-Start with one of the three main conditions (`eager()`, `on_cron()`, `on_missing()`) and customize them using these patterns.
+Start with one of the three main conditions (`eager()`, `on_cron()`, `on_missing()`) and customize
+them using these patterns.
 
 ## Pattern 1: Removing Sub-conditions with without()
 
@@ -175,6 +176,7 @@ AutomationCondition.in_latest_time_window()
 ```
 
 **Key sub-conditions to customize:**
+
 - `in_latest_time_window()` - Restricts to latest partition
 - `any_deps_missing()` - Blocks on missing dependencies
 - `any_deps_in_progress()` - Waits for in-progress dependencies
@@ -188,6 +190,7 @@ AutomationCondition.in_latest_time_window()
 ```
 
 **Key sub-conditions to customize:**
+
 - `in_latest_time_window()` - Restricts to latest partition
 - `cron_tick_passed()` - Defines the schedule
 - `all_deps_updated_since_cron()` - Waits for dependencies
@@ -205,6 +208,7 @@ AutomationCondition.in_latest_time_window()
 ```
 
 **Key sub-conditions to customize:**
+
 - `in_latest_time_window()` - Restricts to latest partition
 - `missing().newly_true()` - Triggers only when becoming missing
 - `any_deps_missing()` - Blocks on missing dependencies
@@ -226,6 +230,7 @@ condition = (
 ```
 
 This condition:
+
 1. Uses `eager()` as the base
 2. Removes the latest partition restriction (updates all partitions)
 3. Ignores the "staging_data" dependency

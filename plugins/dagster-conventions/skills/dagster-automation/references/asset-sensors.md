@@ -1,6 +1,7 @@
 # Asset Sensors
 
-Asset sensors monitor asset materializations and trigger actions when specific assets are materialized.
+Asset sensors monitor asset materializations and trigger actions when specific assets are
+materialized.
 
 ## Basic Asset Sensor
 
@@ -16,7 +17,8 @@ def sales_data_sensor(context: dg.SensorEvaluationContext, asset_event: dg.Event
 
 ## When Triggered
 
-Asset sensors trigger when the monitored asset is materialized, providing access to the materialization event.
+Asset sensors trigger when the monitored asset is materialized, providing access to the
+materialization event.
 
 ## Cross-Job Dependencies
 
@@ -88,21 +90,25 @@ partition_key = asset_event.dagster_event.logging_tags.get("dagster/partition")
 
 ## Multi-Asset Sensors (Deprecated)
 
-`@multi_asset_sensor` monitors multiple assets but is deprecated. Use declarative automation instead for asset-to-asset dependencies.
+`@multi_asset_sensor` monitors multiple assets but is deprecated. Use declarative automation instead
+for asset-to-asset dependencies.
 
 ## Asset Sensors vs Declarative Automation
 
 **Use asset sensors when:**
+
 - Triggering side effects (notifications, external API calls)
 - Launching jobs imperatively with custom logic
 - Cross-code location dependencies with complex conditions
 
 **Use declarative automation when:**
+
 - Automating asset-to-asset execution
 - Defining dependencies based on asset state
 - Requiring sophisticated dependency logic
 
-Declarative automation is recommended for asset-centric workflows. Asset sensors remain useful for triggering non-asset actions in response to materializations.
+Declarative automation is recommended for asset-centric workflows. Asset sensors remain useful for
+triggering non-asset actions in response to materializations.
 
 ## Key Parameters
 
@@ -114,10 +120,12 @@ Declarative automation is recommended for asset-centric workflows. Asset sensors
 ## Context and Event
 
 **`context` (SensorEvaluationContext):**
+
 - `cursor`: State tracking
 - `instance`: DagsterInstance
 - `log`: Logger
 
 **`asset_event` (EventLogEntry):**
+
 - `dagster_event`: Event details including materialization metadata
 - `dagster_event.logging_tags`: Tags from the run (e.g., partition key)

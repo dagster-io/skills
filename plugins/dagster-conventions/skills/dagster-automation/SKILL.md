@@ -10,53 +10,58 @@ description:
 
 ## When to Use This Skill
 
-| If User Says...                               | Use This Section/Reference                                               |
-| --------------------------------------------- | ------------------------------------------------------------------------ |
-| "schedule this to run daily"                  | [Schedules Quick Reference](#schedules-quick-reference)                  |
-| "trigger when file arrives"                   | [Sensors Quick Reference](#sensors-quick-reference)                      |
-| "notify on job failure"                       | [Run Status Sensors Quick Reference](#run-status-sensors-quick-reference) |
-| "run after upstream updates"                  | [Declarative Automation](#declarative-automation-quick-reference)        |
-| "automation conditions"                       | [Declarative Automation](#declarative-automation-quick-reference)        |
-| "how do I customize eager()"                  | `references/declarative-automation-customization.md`                     |
-| "what operands are available"                 | `references/declarative-automation-operands.md`                          |
-| "status vs event"                             | `references/declarative-automation-advanced.md`                          |
-| "run grouping"                                | `references/declarative-automation-advanced.md`                          |
-| "which automation method should I use"        | [Selection Criteria](#selection-criteria)                                |
-| "cross-code location dependencies"            | `references/asset-sensors.md`                                            |
+| If User Says...                        | Use This Section/Reference                                                |
+| -------------------------------------- | ------------------------------------------------------------------------- |
+| "schedule this to run daily"           | [Schedules Quick Reference](#schedules-quick-reference)                   |
+| "trigger when file arrives"            | [Sensors Quick Reference](#sensors-quick-reference)                       |
+| "notify on job failure"                | [Run Status Sensors Quick Reference](#run-status-sensors-quick-reference) |
+| "run after upstream updates"           | [Declarative Automation](#declarative-automation-quick-reference)         |
+| "automation conditions"                | [Declarative Automation](#declarative-automation-quick-reference)         |
+| "how do I customize eager()"           | `references/declarative-automation-customization.md`                      |
+| "what operands are available"          | `references/declarative-automation-operands.md`                           |
+| "status vs event"                      | `references/declarative-automation-advanced.md`                           |
+| "run grouping"                         | `references/declarative-automation-advanced.md`                           |
+| "which automation method should I use" | [Selection Criteria](#selection-criteria)                                 |
+| "cross-code location dependencies"     | `references/asset-sensors.md`                                             |
 
 ## Core Philosophy
 
-**Schedules for Simplicity**: Use schedules when you need fixed-time execution without dependency logic. Do not attempt to use Declarative Automation in cases where a schedule would suffice.
+**Schedules for Simplicity**: Use schedules when you need fixed-time execution without dependency
+logic. Do not attempt to use Declarative Automation in cases where a schedule would suffice.
 
-**Sensors for Flexibility**: Use sensors when you need custom polling logic, external system integration, or imperative actions beyond asset execution.
+**Sensors for Flexibility**: Use sensors when you need custom polling logic, external system
+integration, or imperative actions beyond asset execution.
 
-**Prefer Declarative Automation For Complex Use Cases**: For asset-based pipelines, use declarative automation over schedules or sensors when possible. It provides:
+**Prefer Declarative Automation For Complex Use Cases**: For asset-based pipelines, use declarative
+automation over schedules or sensors when possible. It provides:
 
 - **Asset-native**: Set conditions directly on assets without separate job definitions
 - **Dependency-aware**: Automatically considers upstream state
 - **Composable**: Build complex conditions from simple building blocks
 - **Maintainable**: Conditions are declarative and easier to reason about
 
-**Think in Conditions**: Declarative automation uses a status/event model where conditions can be persistent states (statuses) or transient moments (events). Understanding this distinction is key to building correct automation.
+**Think in Conditions**: Declarative automation uses a status/event model where conditions can be
+persistent states (statuses) or transient moments (events). Understanding this distinction is key to
+building correct automation.
 
 ---
 
 ## Quick Reference
 
-| If you're writing...                   | Check this section/reference                                                     |
-| -------------------------------------- | -------------------------------------------------------------------------------- |
-| `ScheduleDefinition`                   | [Schedules](#schedules-quick-reference) or `references/schedules.md`             |
-| `@dg.sensor`                           | [Sensors](#sensors-quick-reference) or `references/sensors.md`                   |
-| `@dg.run_status_sensor`                | [Run Status Sensors](#run-status-sensors-quick-reference) or `references/run-status-sensors.md` |
-| `@dg.run_failure_sensor`               | [Run Status Sensors](#run-status-sensors-quick-reference) or `references/run-status-sensors.md` |
-| `@dg.asset_sensor`                     | [Asset Sensors](#asset-sensors-quick-reference) or `references/asset-sensors.md` |
-| `AutomationCondition.eager()`          | [Declarative Automation](#declarative-automation-quick-reference)                |
-| `AutomationCondition.on_cron()`        | [Declarative Automation](#declarative-automation-quick-reference)                |
-| `AutomationCondition.on_missing()`     | [Declarative Automation](#declarative-automation-quick-reference)                |
-| Custom automation conditions           | `references/declarative-automation-customization.md`                             |
-| `.since()` or `.newly_true()`          | `references/declarative-automation-operators.md`                                 |
-| `any_deps_match()` or `all_deps_match()` | `references/declarative-automation-operators.md`                              |
-| `.allow()` or `.ignore()`              | `references/declarative-automation-advanced.md`                                  |
+| If you're writing...                     | Check this section/reference                                                                    |
+| ---------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `ScheduleDefinition`                     | [Schedules](#schedules-quick-reference) or `references/schedules.md`                            |
+| `@dg.sensor`                             | [Sensors](#sensors-quick-reference) or `references/sensors.md`                                  |
+| `@dg.run_status_sensor`                  | [Run Status Sensors](#run-status-sensors-quick-reference) or `references/run-status-sensors.md` |
+| `@dg.run_failure_sensor`                 | [Run Status Sensors](#run-status-sensors-quick-reference) or `references/run-status-sensors.md` |
+| `@dg.asset_sensor`                       | [Asset Sensors](#asset-sensors-quick-reference) or `references/asset-sensors.md`                |
+| `AutomationCondition.eager()`            | [Declarative Automation](#declarative-automation-quick-reference)                               |
+| `AutomationCondition.on_cron()`          | [Declarative Automation](#declarative-automation-quick-reference)                               |
+| `AutomationCondition.on_missing()`       | [Declarative Automation](#declarative-automation-quick-reference)                               |
+| Custom automation conditions             | `references/declarative-automation-customization.md`                                            |
+| `.since()` or `.newly_true()`            | `references/declarative-automation-operators.md`                                                |
+| `any_deps_match()` or `all_deps_match()` | `references/declarative-automation-operators.md`                                                |
+| `.allow()` or `.ignore()`                | `references/declarative-automation-advanced.md`                                                 |
 
 ---
 
@@ -291,7 +296,8 @@ def downstream_asset(upstream_asset):
     ...
 ```
 
-**Behavior**: Triggers immediately when upstreams update, waits for missing/in-progress dependencies, only latest partition for time-partitioned assets.
+**Behavior**: Triggers immediately when upstreams update, waits for missing/in-progress
+dependencies, only latest partition for time-partitioned assets.
 
 #### on_cron() - Scheduled with Dependency Awareness
 
@@ -305,7 +311,8 @@ def daily_summary(hourly_data):
     ...
 ```
 
-**Behavior**: Waits for cron tick, then waits for all dependencies to update since that tick, executes immediately after.
+**Behavior**: Waits for cron tick, then waits for all dependencies to update since that tick,
+executes immediately after.
 
 #### on_missing() - Fill Missing Partitions
 
@@ -317,7 +324,8 @@ def backfill_asset(upstream):
     ...
 ```
 
-**Behavior**: Only materializes missing partitions added after condition was applied, waits for all upstream dependencies.
+**Behavior**: Only materializes missing partitions added after condition was applied, waits for all
+upstream dependencies.
 
 ### Combining Conditions
 
@@ -343,7 +351,9 @@ condition = ~dg.AutomationCondition.any_deps_missing()
 
 ### Customization Patterns
 
-See [references/declarative-automation-customization.md](references/declarative-automation-customization.md) for:
+See
+[references/declarative-automation-customization.md](references/declarative-automation-customization.md)
+for:
 
 - **Pattern 1**: `.without()` to remove sub-conditions
 - **Pattern 2**: `.replace()` to swap sub-conditions
@@ -354,6 +364,7 @@ See [references/declarative-automation-customization.md](references/declarative-
 **Works with**: Assets only (not ops/graphs)
 
 **Details**:
+
 - Core concepts: `references/declarative-automation.md`
 - Operands: `references/declarative-automation-operands.md`
 - Operators: `references/declarative-automation-operators.md`
@@ -364,13 +375,13 @@ See [references/declarative-automation-customization.md](references/declarative-
 
 ## Selection Criteria
 
-| Factor                  | Schedules                        | Sensors                           | Declarative Automation            |
-| ----------------------- | -------------------------------- | --------------------------------- | --------------------------------- |
-| **Pipeline structure**  | Assets or ops                    | Assets or ops                     | Assets only                       |
-| **Timing**              | Fixed schedule                   | Event-driven (polling)            | Condition-based                   |
-| **Dependency logic**    | None                             | Custom (you implement)            | Built-in (automatic)              |
-| **Complexity**          | Simple                           | Medium (requires state management)| High (requires condition understanding) |
-| **Use case**            | "Run daily at 9 AM"              | "Run when file arrives"           | "Run after upstream updates"      |
+| Factor                 | Schedules           | Sensors                            | Declarative Automation                  |
+| ---------------------- | ------------------- | ---------------------------------- | --------------------------------------- |
+| **Pipeline structure** | Assets or ops       | Assets or ops                      | Assets only                             |
+| **Timing**             | Fixed schedule      | Event-driven (polling)             | Condition-based                         |
+| **Dependency logic**   | None                | Custom (you implement)             | Built-in (automatic)                    |
+| **Complexity**         | Simple              | Medium (requires state management) | High (requires condition understanding) |
+| **Use case**           | "Run daily at 9 AM" | "Run when file arrives"            | "Run after upstream updates"            |
 
 **Decision tree**:
 

@@ -1,6 +1,7 @@
 # Run Status Sensors
 
-Run status sensors monitor runs for specific status changes and trigger actions when those statuses occur.
+Run status sensors monitor runs for specific status changes and trigger actions when those statuses
+occur.
 
 ## Run Failure Sensor
 
