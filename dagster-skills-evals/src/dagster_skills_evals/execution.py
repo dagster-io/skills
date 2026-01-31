@@ -1,5 +1,6 @@
 import json
 import subprocess
+import sys
 from dataclasses import dataclass
 from functools import cached_property
 from pathlib import Path
@@ -159,4 +160,6 @@ def execute_prompt(
     prompt: str, target_dir: str, include_plugins: bool = True
 ) -> ClaudeExecutionResult:
     plugins_dir = str(_PLUGINS_DIR) if include_plugins else None
-    return run_claude_headless(prompt=prompt, target_dir=target_dir, plugins_dir=plugins_dir)
+    result = run_claude_headless(prompt=prompt, target_dir=target_dir, plugins_dir=plugins_dir)
+    sys.stdout.write(result.conversation_summary())
+    return result
