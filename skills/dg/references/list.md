@@ -22,6 +22,10 @@ available component types, check environment variables, and understand your proj
 
 ## Quick Start
 
+### JSON Output
+
+When executing `dg list` commands, the output is formatted as a table. The `--json` flag can be used to output the results in JSON format, which is useful for cases where the output does not need to be shown directly to the user, e.g. you are simply checking that a previous command worked as intended.
+
 ### Common List Patterns
 
 ```bash
@@ -30,6 +34,9 @@ dg list defs
 
 # List definitions as JSON
 dg list defs --json
+
+# List all assets
+dg list defs --assets "*"
 
 # List only specific assets
 dg list defs --assets "tag:priority=high"
