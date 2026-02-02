@@ -16,7 +16,7 @@ def test_create_dagster_project(baseline_manager: BaselineManager):
         result = execute_prompt(prompt, tmp_dir)
 
         # make sure the skill was used
-        # assert "dg" in result.summary.skills_used
+        assert "dagster-skills:dg" in result.summary.skills_used
 
         # make sure the generated project is valid
         project_dir = Path(tmp_dir) / project_name
@@ -43,7 +43,7 @@ def test_scaffold_asset(baseline_manager: BaselineManager):
         result = execute_prompt(prompt, project_dir.as_posix())
 
         # make sure the skill was used
-        # assert "dg" in result.summary.skills_used
+        assert "dagster-skills:dg" in result.summary.skills_used
 
         # make sure the asset was scaffolded
         defs_result = subprocess.run(

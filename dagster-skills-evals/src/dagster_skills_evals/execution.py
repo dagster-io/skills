@@ -1,5 +1,6 @@
 import json
 import subprocess
+import sys
 from dataclasses import dataclass
 from functools import cached_property
 from pathlib import Path
@@ -8,8 +9,7 @@ from typing import Any
 from dagster_shared.record import record
 from dagster_shared.serdes import whitelist_for_serdes
 
-_PLUGINS_DIR = Path(__file__).parent.parent.parent.parent / "skills"
-assert _PLUGINS_DIR.exists()
+_PLUGINS_DIR = Path(__file__).parent.parent.parent.parent
 
 
 @whitelist_for_serdes
@@ -141,8 +141,7 @@ def run_claude_headless(
     ]
 
     if plugins_dir:
-        for subdir in Path(plugins_dir).iterdir():
-            cmd.extend(["--plugin-dir", str(subdir)])
+        cmd.extend(["--plugin-dir", plugins_dir])
 
     result = subprocess.run(
         cmd,
@@ -161,4 +160,6 @@ def execute_prompt(
     prompt: str, target_dir: str, include_plugins: bool = True
 ) -> ClaudeExecutionResult:
     plugins_dir = str(_PLUGINS_DIR) if include_plugins else None
-    return run_claude_headless(prompt=prompt, target_dir=target_dir, plugins_dir=plugins_dir)
+    result = run_claude_headless(prompt=prompt, target_dir=target_dir, plugins_dir=plugins_dir)
+    sys.stdout.write(result.conversation_summary())
+    return result
