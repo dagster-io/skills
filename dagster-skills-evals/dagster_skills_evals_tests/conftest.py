@@ -1,9 +1,14 @@
+import shutil
+import subprocess
+import tempfile
+from collections.abc import Iterator
 from pathlib import Path
 
 import pytest
 from dagster_shared.serdes import deserialize_value, serialize_value
 
 from dagster_skills_evals.execution import ClaudeExecutionResultSummary
+from dagster_skills_evals_tests.utils import unset_virtualenv
 
 
 class BaselineManager:
@@ -65,3 +70,31 @@ def baseline_manager(request) -> BaselineManager:
     baseline_dir = Path(__file__).parent / "__baselines__"
     update_mode = request.config.getoption("--snapshot-update")
     return BaselineManager(baseline_dir, test_name=request.node.name, update_mode=update_mode)
+
+
+@pytest.fixture(scope="session")
+def project_name() -> str:
+    return "acme_co_dataeng"
+
+
+@pytest.fixture(scope="session")
+def _empty_project(project_name: str) -> Iterator[Path]:
+    # base empty project that we'll copy into others to avoid having to
+    # run create-dagster for each test
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        subprocess.run(
+            ["uvx", "create-dagster", "project", project_name, "--no-uv-sync"],
+            cwd=tmp_dir,
+            check=False,
+        )
+        yield Path(tmp_dir) / project_name
+
+
+@pytest.fixture
+def empty_project_path(_empty_project: Path) -> Iterator[Path]:
+    with unset_virtualenv(), tempfile.TemporaryDirectory() as tmp_dir:
+        project_dir = Path(tmp_dir) / _empty_project.name
+        shutil.copytree(_empty_project, project_dir)
+        # Create a fresh venv in the copy
+        subprocess.run(["uv", "sync"], cwd=project_dir, check=True)
+        yield project_dir
