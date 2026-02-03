@@ -6,22 +6,22 @@
   "plugins": [
     {
       "name": "dg",
-      "source": "./plugins/dg",
+      "source": "./skills/dg",
       "description": "Dagster CLI commands for debugging runs, analyzing logs, and troubleshooting"
     },
     {
-      "name": "dagster-conventions",
-      "source": "./plugins/dagster-conventions",
+      "name": "dagster-best-practices",
+      "source": "./skills/dagster-best-practices",
       "description": "Comprehensive Dagster development conventions and best practices"
     },
     {
       "name": "dagster-integrations",
-      "source": "./plugins/dagster-integrations",
+      "source": "./skills/dagster-integrations",
       "description": "Comprehensive index of 82+ Dagster integrations for cloud platforms, data warehouses, ETL tools, AI/ML, and more"
     },
     {
       "name": "dignified-python",
-      "source": "./plugins/dignified-python",
+      "source": "./skills/dignified-python",
       "description": "Production-tested Python coding standards with version-aware type annotations, LBYL exception handling, and modern typing patterns. Includes guides for CLI patterns, subprocess handling, and Python 3.10-3.13 features."
     }
   ]
