@@ -11,6 +11,8 @@ description:
 Expert guidance for building production-quality Dagster projects. Routes you to detailed reference documentation for assets, automation, project structure, and CLI commands.
 
 > **IMPORTANT**: For new assets, schedules, or sensors, ALWAYS use `dg scaffold` before manual file creation. See [cli/scaffold.md](references/cli/scaffold.md).
+>
+> **Invoke EARLY**: If the task involves automation conditions, scheduling logic, or integration components (dbt, Fivetran, etc.), invoke this skill or the appropriate sub-skill BEFORE exploring the codebase. The references contain all needed patterns.
 
 ## Task Router
 
@@ -18,7 +20,7 @@ Expert guidance for building production-quality Dagster projects. Routes you to 
 | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | Create a project                                                    | Quick Reference below (use `uvx create-dagster project`)                                              |
 | **Add an asset/schedule/sensor**                                    | **[cli/scaffold.md](references/cli/scaffold.md)** (ALWAYS scaffold first) + pattern docs              |
-| Add integration component (dbt, Fivetran, Airbyte, Snowflake, etc.) | **dagster-integrations skill** (contains scaffolding, YAML schema, adapter requirements)              |
+| Add integration component (dbt, Fivetran, Airbyte, Snowflake, etc.) | **Invoke dagster-integrations skill** (contains scaffolding, YAML schema, adapter requirements)       |
 | Complex scheduling / different triggers per dependency              | [automation/declarative-automation/README.md](references/automation/declarative-automation/README.md) |
 | Run/materialize assets                                              | [cli/launch.md](references/cli/launch.md)                                                             |
 | Select specific assets                                              | [cli/asset-selection.md](references/cli/asset-selection.md)                                           |
@@ -38,8 +40,9 @@ Expert guidance for building production-quality Dagster projects. Routes you to 
 | create project, new project, init, setup                                                                         | Quick Reference below                                                                                 |
 | workspace, multi-project, multiple projects                                                                      | Quick Reference below                                                                                 |
 | scaffold, generate, create asset/schedule/sensor                                                                 | [cli/scaffold.md](references/cli/scaffold.md)                                                         |
-| dbt, fivetran, airbyte, snowflake, bigquery, external tool, integration component, dagster_dbt, dagster_fivetran | **dagster-integrations skill**                                                                        |
+| dbt, fivetran, airbyte, snowflake, bigquery, external tool, integration component, dagster_dbt, dagster_fivetran | **Invoke dagster-integrations skill directly**                                                        |
 | complex triggers, different triggers, hot/cold dependencies, conditional automation                              | [automation/declarative-automation/README.md](references/automation/declarative-automation/README.md) |
+| automation_condition, AutomationCondition, eager(), any_downstream_conditions                                    | [automation/declarative-automation/README.md](references/automation/declarative-automation/README.md) |
 | list, show, find, discover, what assets                                                                          | [cli/list.md](references/cli/list.md)                                                                 |
 | validate, check, verify, test config                                                                             | [cli/check.md](references/cli/check.md)                                                               |
 | launch, run, materialize, execute, backfill                                                                      | [cli/launch.md](references/cli/launch.md)                                                             |
@@ -62,9 +65,10 @@ uvx create-dagster workspace <name>          # For multiple related projects
 # Output confirms success—no verification needed
 
 # Scaffold (ALWAYS use for new definitions)
-dg scaffold defs dagster.asset defs/assets/my_asset.py
-dg scaffold defs dagster.schedule defs/schedules/daily.py
-dg scaffold defs dagster.sensor defs/sensors/file_watcher.py
+# NOTE: Paths are RELATIVE TO defs/ directory, not project root
+dg scaffold defs dagster.asset assets/my_asset.py
+dg scaffold defs dagster.schedule schedules/daily.py
+dg scaffold defs dagster.sensor sensors/file_watcher.py
 
 # Discover
 dg list defs
