@@ -8,9 +8,9 @@ at the individual model level.
 Depending on the user's request, choose the appropriate reference file:
 
 - Loading a dbt project into Dagster?
-  - dbt Core projects: [Component-Based Integration](references/component-based-integration.md)
+  - dbt Core projects: [Component-Based Integration](component-based-integration.md)
     - Note: the component-based approach is recommended for new projects as it is significantly simpler to configure and manage.
-  - dbt Cloud projects: [dbt Cloud Integration](references/dbt-cloud.md)
+  - dbt Cloud projects: [dbt Cloud Integration](dbt-cloud.md)
   - Note: ensure that `dagster-dbt` is installed in the project before scaffolding the component:
     - `uv`-compatible projects: `uv add dagster-dbt`
 - General questions about dbt and Dagster?

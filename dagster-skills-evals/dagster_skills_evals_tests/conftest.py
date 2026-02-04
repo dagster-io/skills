@@ -43,10 +43,39 @@ class BaselineManager:
         """Assert that the new summary is an improvement over the old summary."""
         if old is None:
             return
-        assert len(new.tools_used) <= len(new.tools_used)
-        assert new.input_tokens <= old.input_tokens
-        assert new.output_tokens <= old.output_tokens
-        assert new.execution_time_ms <= old.execution_time_ms
+
+        metrics = {
+            "tools_used": {
+                "baseline": len(old.tools_used),
+                "current": len(new.tools_used),
+                "delta": len(new.tools_used) - len(old.tools_used),
+            },
+            "input_tokens": {
+                "baseline": old.input_tokens,
+                "current": new.input_tokens,
+                "delta": new.input_tokens - old.input_tokens,
+            },
+            "output_tokens": {
+                "baseline": old.output_tokens,
+                "current": new.output_tokens,
+                "delta": new.output_tokens - old.output_tokens,
+            },
+            "execution_time_ms": {
+                "baseline": old.execution_time_ms,
+                "current": new.execution_time_ms,
+                "delta": new.execution_time_ms - old.execution_time_ms,
+            },
+        }
+
+        regressions = [name for name, m in metrics.items() if m["delta"] > 0]
+
+        if regressions:
+            import json
+
+            raise AssertionError(
+                f"Performance regression detected in: {', '.join(regressions)}\n"
+                + json.dumps(metrics, indent=2)
+            )
 
     def assert_improved(self, summary: ClaudeExecutionResultSummary) -> None:
         if self.update_mode:
