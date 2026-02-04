@@ -9,11 +9,21 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- **dagster-expert**: Comprehensive documentation of automation strategies (schedules, sensors, declarative automation)
+- **dagster-integrations**: Comprehensive documention of the `dagster-dbt` integration
+- `dagster_skills_evals`: Added comprehensive evaluation framework for testing skill performance
+
 ### Changed
+
+- **all-skills**: Significant simplifications of skills and references, improved routing logic and information architecture
+- **dagster-best-practices**: Renamed to `dagster-expert` and significantly refactored
 
 ### Deprecated
 
 ### Removed
+
+- **dg**: Removed the `/dg` skill and incorporated its functionality into `dagster-expert`
+- **all-skills**: Removed redundant, outdated, or incorrect content
 
 ### Fixed
 
