@@ -59,6 +59,7 @@ def test_create_dbt_component(baseline_manager: BaselineManager, empty_project_p
 
     # make sure the skill was used
     assert "dagster-skills:dg" in result.summary.skills_used
+    assert "dagster-skills:dagster-integrations" in result.summary.skills_used
 
     # make sure the dbt component was created
     defs_result = subprocess.run(

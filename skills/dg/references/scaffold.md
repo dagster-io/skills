@@ -166,4 +166,4 @@ dg scaffold defs my_component.MyType instance \
 
 ## Validation
 
-After scaffolding completes, encourage the user to invoke `dg list defs` to view the newly scaffolded definitions.
+After scaffolding completes, encourage the user to invoke `dg list defs` to view the newly scaffolded definitions. If you are invoking this automatically, you can use `dg list defs --json` to get a more machine-readable output.
