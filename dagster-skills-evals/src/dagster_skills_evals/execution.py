@@ -2,6 +2,7 @@ import json
 import subprocess
 import sys
 from dataclasses import dataclass
+from datetime import datetime
 from functools import cached_property
 from pathlib import Path
 from typing import Any
@@ -162,4 +163,12 @@ def execute_prompt(
     plugins_dir = str(_PLUGINS_DIR) if include_plugins else None
     result = run_claude_headless(prompt=prompt, target_dir=target_dir, plugins_dir=plugins_dir)
     sys.stdout.write(result.conversation_summary())
+
+    # Write full output to .full_logs directory
+    logs_dir = Path.cwd() / ".full_logs"
+    logs_dir.mkdir(exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    log_file = logs_dir / f"{timestamp}.json"
+    log_file.write_text(result.stdout)
+
     return result

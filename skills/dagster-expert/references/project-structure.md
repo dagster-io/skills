@@ -201,54 +201,22 @@ load_from:
 
 ---
 
-## dg CLI Scaffolding
+## Creating and Scaffolding Projects
 
-### Create New Project
+Use the `dg` CLI to create projects and scaffold Dagster objects. For detailed scaffolding commands and options, see the [CLI scaffold reference](./cli/scaffold.md).
+
+**Quick reference:**
 
 ```bash
+# Create new project
 uvx create-dagster my_project
-cd my_project
-```
 
-This creates:
-
-- Virtual environment with uv
-- Standard project layout
-- pyproject.toml with Dagster dependencies
-- definitions.py with autoloading
-
-### Scaffold Dagster Objects
-
-```bash
-# Scaffold asset file
+# Scaffold objects (see dg skill for full details)
 dg scaffold defs dagster.asset assets/new_asset.py
 
-# Scaffold job
-dg scaffold defs dagster.job jobs.py
-
-# Scaffold schedule
-dg scaffold defs dagster.schedule schedules.py
-
-# Scaffold sensor
-dg scaffold defs dagster.sensor sensors.py
-
-# Scaffold resources
-dg scaffold defs dagster.resources resources.py
-```
-
-### Validate Definitions
-
-```bash
+# Validate and run
 dg check defs
-# Output: All components validated successfully.
-# Output: All definitions loaded successfully.
-```
-
-### Development Server
-
-```bash
 dg dev
-# Starts Dagster UI at http://localhost:3000
 ```
 
 ---
