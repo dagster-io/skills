@@ -1,6 +1,6 @@
 ---
 name: dg
-description: Skill that enables interaction with Dagster projects (creating new projects, generating new definitions within existing projects, listing definitions, launching compute, viewing logs, and troubleshooting). Used whenever users have requests related to creating, understanding, or manipulating Dagster projects.
+description: Skill that enables interaction with Dagster projects (creating new projects, adding new definitions (assets, schedules, sensors, components) to existing projects, listing definitions, launching compute, viewing logs, and troubleshooting). Used whenever users have requests related to creating, understanding, or manipulating Dagster projects.
 ---
 
 # Dagster CLI (dg) Skill
