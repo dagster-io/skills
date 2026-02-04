@@ -4,13 +4,13 @@ Commands for discovering definitions, components, environment variables, and pro
 
 ## Subcommands
 
-| Command | Description |
-|---------|-------------|
-| `dg list defs` | List assets, jobs, schedules, sensors, resources |
-| `dg list components` | List available component types for scaffolding |
-| `dg list envs` | List environment variables and deployment status |
-| `dg list projects` | List projects in workspace |
-| `dg list component-tree` | Display component hierarchy |
+| Command                  | Description                                      |
+| ------------------------ | ------------------------------------------------ |
+| `dg list defs`           | List assets, jobs, schedules, sensors, resources |
+| `dg list components`     | List available component types for scaffolding   |
+| `dg list envs`           | List environment variables and deployment status |
+| `dg list projects`       | List projects in workspace                       |
+| `dg list component-tree` | Display component hierarchy                      |
 
 ---
 
@@ -28,12 +28,12 @@ dg list defs --path ./defs/sales          # Specific path
 
 **Options:**
 
-| Option | Description |
-|--------|-------------|
-| `--json` | Output as JSON |
+| Option                     | Description                                                                |
+| -------------------------- | -------------------------------------------------------------------------- |
+| `--json`                   | Output as JSON                                                             |
 | `-a, --assets <selection>` | Filter by asset selection (see [asset-selection.md](./asset-selection.md)) |
-| `-c, --columns <cols>` | Columns: `key`, `group`, `deps`, `kinds`, `description`, `tags`, `cron` |
-| `-p, --path <path>` | Filter by directory path |
+| `-c, --columns <cols>`     | Columns: `key`, `group`, `deps`, `kinds`, `description`, `tags`, `cron`    |
+| `-p, --path <path>`        | Filter by directory path                                                   |
 
 ---
 
@@ -49,12 +49,13 @@ dg list components --package dagster_dbt  # Filter by package
 
 **Options:**
 
-| Option | Description |
-|--------|-------------|
-| `--json` | Output as JSON |
+| Option                | Description            |
+| --------------------- | ---------------------- |
+| `--json`              | Output as JSON         |
 | `-p, --package <pkg>` | Filter by package name |
 
 **Use with scaffold:**
+
 ```bash
 dg list components --package dagster_dbt
 dg scaffold defs dagster_dbt.DbtProjectComponent my_dbt

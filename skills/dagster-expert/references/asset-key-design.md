@@ -31,7 +31,7 @@ sources:
   - name: fivetran_raw
     tables:
       - name: customers # Matches ["fivetran_raw", "customers"]
-      - name: orders    # Matches ["fivetran_raw", "orders"]
+      - name: orders # Matches ["fivetran_raw", "orders"]
 ```
 
 ### Pattern 2: Keys for Custom Dagster Assets
@@ -175,7 +175,7 @@ sources:
   - name: fivetran_raw
     tables:
       - name: customers # Matches ["fivetran_raw", "customers"]
-      - name: orders    # Matches ["fivetran_raw", "orders"]
+      - name: orders # Matches ["fivetran_raw", "orders"]
 ```
 
 ### When NOT to Override
@@ -249,12 +249,12 @@ Before deploying multi-component pipelines:
 
 ## Troubleshooting Common Issues
 
-| Issue | Cause | Fix |
-|-------|-------|-----|
-| dbt models missing dependencies | SQL doesn't use `{{ source('...') }}` | Add source references in SQL |
-| Asset keys don't match expectations | Default component keys too nested | Override `get_asset_spec()` to flatten |
-| Reverse ETL missing deps | Model names don't match | Use simple model names or configure explicitly |
-| Duplicate keys | Key collision | Check key generation logic, ensure unique prefixes |
+| Issue                               | Cause                                 | Fix                                                |
+| ----------------------------------- | ------------------------------------- | -------------------------------------------------- |
+| dbt models missing dependencies     | SQL doesn't use `{{ source('...') }}` | Add source references in SQL                       |
+| Asset keys don't match expectations | Default component keys too nested     | Override `get_asset_spec()` to flatten             |
+| Reverse ETL missing deps            | Model names don't match               | Use simple model names or configure explicitly     |
+| Duplicate keys                      | Key collision                         | Check key generation logic, ensure unique prefixes |
 
 ## References
 

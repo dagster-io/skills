@@ -1,13 +1,16 @@
+import json
 import shutil
 import subprocess
 import tempfile
 from collections.abc import Iterator
+from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import pytest
 from dagster_shared.serdes import deserialize_value, serialize_value
 
-from dagster_skills_evals.execution import ClaudeExecutionResultSummary
+from dagster_skills_evals.execution import ClaudeExecutionResult, ClaudeExecutionResultSummary
 from dagster_skills_evals_tests.utils import unset_virtualenv
 
 
@@ -25,6 +28,10 @@ class BaselineManager:
         return self.baseline_dir / f"{self.test_name}.json"
 
     @property
+    def logs_dir(self) -> Path:
+        return self.baseline_dir / "logs"
+
+    @property
     def baseline(self) -> ClaudeExecutionResultSummary | None:
         if not self.baseline_path.exists():
             return None
@@ -33,7 +40,16 @@ class BaselineManager:
 
     def save_baseline(self, summary: ClaudeExecutionResultSummary) -> None:
         with self.baseline_path.open("w") as f:
-            f.write(serialize_value(summary))
+            f.write(serialize_value(summary, indent=2))
+
+    def save_log(self, messages: list[dict[str, Any]]) -> Path:
+        """Save messages to a timestamped log file."""
+        self.logs_dir.mkdir(exist_ok=True)
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        log_path = self.logs_dir / f"{self.test_name}_{timestamp}.json"
+        with log_path.open("w") as f:
+            json.dump(messages, f, indent=2)
+        return log_path
 
     def _assert_improvement(
         self,
@@ -77,11 +93,12 @@ class BaselineManager:
                 + json.dumps(metrics, indent=2)
             )
 
-    def assert_improved(self, summary: ClaudeExecutionResultSummary) -> None:
+    def assert_improved(self, result: ClaudeExecutionResult) -> None:
         if self.update_mode:
-            self.save_baseline(summary)
+            self.save_baseline(result.summary)
 
-        self._assert_improvement(self.baseline, summary)
+        self.save_log(result.messages)
+        self._assert_improvement(self.baseline, result.summary)
 
 
 def pytest_addoption(parser):

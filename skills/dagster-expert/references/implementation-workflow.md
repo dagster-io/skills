@@ -21,6 +21,7 @@ Use this workflow when building new Dagster features or prototyping complete dat
 ### Analyze Requirements
 
 Determine:
+
 - What assets need to be created
 - What integrations are needed (see dagster-integrations skill)
 - Whether to use Components or Pythonic assets (or both)
@@ -94,6 +95,7 @@ dg scaffold defs my_module.components.ComponentName my_component
 #### 3. Configure in YAML
 
 Create `defs/<component_name>/defs.yaml`:
+
 - Set all required parameters
 - Reference environment variables appropriately (see [env-vars reference](./env-vars.md))
 - Configure component-specific settings
@@ -246,6 +248,7 @@ def customer_metrics_export(
 ```
 
 **Key patterns demonstrated:**
+
 - **Clear asset chain**: raw → cleaned → aggregated → enriched → exported
 - **Always include `kinds`**: Helps with filtering and organization
 - **Dependencies via parameters**: Each asset lists its dependencies as function parameters
@@ -300,6 +303,7 @@ When building multi-component pipelines (e.g., Fivetran → dbt → Hightouch), 
 **For complete guidance**, see the [Asset Key Design reference](./asset-key-design.md).
 
 **Quick summary:**
+
 - Use flat 2-level keys for dbt consumption: `["fivetran_raw", "customers"]`
 - Match expected key structure of downstream components
 - Override `get_asset_spec()` when subclassing integration components
@@ -355,6 +359,7 @@ attributes:
 ```
 
 **Benefits:**
+
 - No hardcoded asset keys → easier maintenance
 - Automatically includes new assets matching criteria
 - Self-documenting selection string

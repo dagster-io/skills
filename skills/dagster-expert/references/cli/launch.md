@@ -73,14 +73,14 @@ dg launch --assets my_asset --config-file config.yaml
 
 ## Options
 
-| Option | Description |
-|--------|-------------|
-| `--assets <selection>` | Asset selection string |
-| `--job <name>` | Job name to execute |
-| `--partition <key>` | Single partition key |
+| Option                      | Description                            |
+| --------------------------- | -------------------------------------- |
+| `--assets <selection>`      | Asset selection string                 |
+| `--job <name>`              | Job name to execute                    |
+| `--partition <key>`         | Single partition key                   |
 | `--partition-range <range>` | Partition range (inclusive, use `...`) |
-| `--config <json>` | Inline JSON configuration |
-| `--config-file <path>` | Configuration file path |
+| `--config <json>`           | Inline JSON configuration              |
+| `--config-file <path>`      | Configuration file path                |
 
 ---
 
