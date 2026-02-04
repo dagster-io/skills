@@ -209,7 +209,7 @@ def run_claude_headless(
 
 
 def execute_prompt(
-    prompt: str, target_dir: str, include_plugins: bool = False
+    prompt: str, target_dir: str, include_plugins: bool = True
 ) -> ClaudeExecutionResult:
     plugins_dir = str(_PLUGINS_DIR) if include_plugins else None
     return run_claude_headless(prompt=prompt, target_dir=target_dir, plugins_dir=plugins_dir)
