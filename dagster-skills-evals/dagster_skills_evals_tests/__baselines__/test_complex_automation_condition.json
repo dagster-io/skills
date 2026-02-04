@@ -1,1 +1,1 @@
-{"__class__": "ClaudeExecutionResultSummary", "execution_time_ms": 68936, "input_tokens": 43, "output_tokens": 4028, "skills_used": [], "tools_used": ["Glob", "Glob", "Bash", "Read", "Read", "Grep", "Edit", "Edit", "Edit", "Edit", "Read"]}
+{"__class__": "ClaudeExecutionResultSummary", "execution_time_ms": 59429, "input_tokens": 67, "output_tokens": 2462, "skills_used": ["dagster-best-practices"], "tools_used": ["Glob", "Glob", "Glob", "Bash", "Read", "Read", "Bash", "Read", "Skill", "Read", "Bash", "Read", "Read", "Read", "Read", "Edit"]}

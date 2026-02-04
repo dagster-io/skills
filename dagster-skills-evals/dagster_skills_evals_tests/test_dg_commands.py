@@ -87,16 +87,17 @@ def test_complex_automation_condition(baseline_manager: BaselineManager, empty_p
         @dg.asset(deps=["customer_events", "sales_data", "zip_codes"])
         def customer_summary() -> None: ...
 
-    write_function_body(
-        _original_source,
-        empty_project_path / "src" / "acme_co_dataeng" / "defs" / "customer_summary.py",
-    )
+    asset_path = empty_project_path / "src" / "acme_co_dataeng" / "defs" / "customer_summary.py"
+    write_function_body(_original_source, asset_path)
 
     result = execute_prompt(prompt, empty_project_path.as_posix())
-    baseline_manager.assert_improved(result.summary)
 
     # make sure the skill was used
-    assert "dagster-skills:dagster-best-practices" in result.summary.skills_used
+    assert (
+        # for some reason, the skill name isn't consistent
+        "dagster-skills:dagster-best-practices" in result.summary.skills_used
+        or "dagster-best-practices" in result.summary.skills_used
+    )
 
     # make sure the automation condition was added
     defs_result = subprocess.run(
@@ -107,4 +108,9 @@ def test_complex_automation_condition(baseline_manager: BaselineManager, empty_p
         text=True,
     )
     assert "customer_summary" in defs_result.stdout
+    assert "default_automation_condition_sensor" in defs_result.stdout
+    with asset_path.open() as f:
+        # should be using declarative automation with eager as the base condition
+        assert "dg.AutomationCondition.eager()" in f.read()
+
     baseline_manager.assert_improved(result.summary)
