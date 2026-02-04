@@ -56,6 +56,7 @@ def test_create_dbt_component(baseline_manager: BaselineManager, empty_project_p
     """
 
     result = execute_prompt(prompt, empty_project_path.as_posix())
+    baseline_manager.assert_improved(result)
 
     # make sure the skill was used
     assert "dagster-skills:dagster-expert" in result.summary.skills_used
