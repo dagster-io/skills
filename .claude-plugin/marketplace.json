@@ -5,13 +5,8 @@
   },
   "plugins": [
     {
-      "name": "dg",
-      "source": "./skills/dg",
-      "description": "Dagster CLI commands for debugging runs, analyzing logs, and troubleshooting"
-    },
-    {
-      "name": "dagster-best-practices",
-      "source": "./skills/dagster-best-practices",
+      "name": "dagster-expert",
+      "source": "./skills/dagster-expert",
       "description": "Comprehensive Dagster development conventions and best practices"
     },
     {
