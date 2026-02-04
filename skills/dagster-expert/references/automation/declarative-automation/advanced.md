@@ -11,6 +11,7 @@ Understanding the distinction between statuses and events is fundamental to buil
 **Statuses** are persistent conditions that remain true for multiple evaluation ticks.
 
 Examples:
+
 - `AutomationCondition.missing()` - Stays true until the partition is materialized
 - `AutomationCondition.in_progress()` - True while a run is executing
 - `AutomationCondition.in_latest_time_window()` - True for the latest time partition(s)
@@ -22,6 +23,7 @@ Examples:
 **Events** are transient conditions that are true only on a single evaluation tick.
 
 Examples:
+
 - `AutomationCondition.newly_updated()` - True only on the tick when materialization occurs
 - `AutomationCondition.code_version_changed()` - True only on the first tick after code changes
 - `AutomationCondition.cron_tick_passed()` - True only on the first tick after the cron tick
@@ -97,6 +99,7 @@ AutomationCondition.any_deps_match(
 ```
 
 When evaluating B:
+
 1. B checks if any dependencies are updated OR will be requested this tick
 2. A is marked as "will be requested" this tick
 3. B treats A as if it were already updated
@@ -171,6 +174,7 @@ condition.since(
 ```
 
 **Behavior**:
+
 - Becomes true when `condition` becomes true
 - Stays true until the asset is requested, updated, or the condition is first applied
 - Resets on initial evaluation to handle condition changes

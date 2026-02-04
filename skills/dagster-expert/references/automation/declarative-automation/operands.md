@@ -52,12 +52,14 @@ Operands are base conditions that evaluate to true or false for a given asset or
 **`cron_tick_passed(cron_schedule, cron_timezone)`**: True on the first evaluation after a tick of the specified cron schedule occurs.
 
 Parameters:
+
 - `cron_schedule` (str): Cron expression
 - `cron_timezone` (str): Timezone string (default: "UTC")
 
 **`in_latest_time_window(lookback_delta)`**: True for time partitions within the latest time window. For unpartitioned or non-time-partitioned assets, always true.
 
 Parameter:
+
 - `lookback_delta` (Optional[timedelta]): If provided, returns partitions within this delta of the latest window end. For daily partitions with `lookback_delta=timedelta(hours=48)`, returns the latest 2 partitions.
 
 **`will_be_requested()`**: True if the asset partition will be requested in the current tick. Used internally for run grouping (see [advanced.md](advanced.md)).

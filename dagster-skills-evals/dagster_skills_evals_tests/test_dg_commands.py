@@ -24,7 +24,7 @@ def test_create_dagster_project(baseline_manager: BaselineManager):
         subprocess.run(["uv", "run", "dg", "list", "projects"], cwd=project_dir, check=True)
         subprocess.run(["uv", "run", "dg", "list", "defs"], cwd=project_dir, check=True)
 
-        baseline_manager.assert_improved(result.summary)
+        baseline_manager.assert_improved(result)
 
 
 def test_scaffold_asset(baseline_manager: BaselineManager, empty_project_path: Path):
@@ -47,7 +47,7 @@ def test_scaffold_asset(baseline_manager: BaselineManager, empty_project_path: P
     )
     assert asset_name in defs_result.stdout
 
-    baseline_manager.assert_improved(result.summary)
+    baseline_manager.assert_improved(result)
 
 
 def test_create_dbt_component(baseline_manager: BaselineManager, empty_project_path: Path):
@@ -72,7 +72,7 @@ def test_create_dbt_component(baseline_manager: BaselineManager, empty_project_p
     assert "stg_payments" in defs_result.stdout
     assert "customers:not_null_customers_customer_id" in defs_result.stdout
 
-    baseline_manager.assert_improved(result.summary)
+    baseline_manager.assert_improved(result)
 
 
 def test_complex_automation_condition(baseline_manager: BaselineManager, empty_project_path: Path):
@@ -109,4 +109,4 @@ def test_complex_automation_condition(baseline_manager: BaselineManager, empty_p
         # should be using declarative automation with eager as the base condition
         assert "dg.AutomationCondition.eager()" in f.read()
 
-    baseline_manager.assert_improved(result.summary)
+    baseline_manager.assert_improved(result)

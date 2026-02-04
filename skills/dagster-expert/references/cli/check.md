@@ -4,11 +4,11 @@ Validate project configuration and definitions.
 
 ## Commands
 
-| Command | Description |
-|---------|-------------|
+| Command         | Description                         |
+| --------------- | ----------------------------------- |
 | `dg check defs` | Validate definitions load correctly |
-| `dg check yaml` | Validate YAML configuration files |
-| `dg check toml` | Validate TOML configuration files |
+| `dg check yaml` | Validate YAML configuration files   |
+| `dg check toml` | Validate TOML configuration files   |
 
 ---
 
@@ -22,6 +22,7 @@ dg check defs --verbose    # Detailed output
 ```
 
 **Use after:**
+
 - Scaffolding new definitions
 - Modifying existing definitions
 - Installing new dependencies

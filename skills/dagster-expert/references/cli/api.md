@@ -19,11 +19,11 @@ dg api log get <run-id> --limit 100
 
 **Options:**
 
-| Option | Description |
-|--------|-------------|
-| `--json` | Output as JSON |
+| Option            | Description                                   |
+| ----------------- | --------------------------------------------- |
+| `--json`          | Output as JSON                                |
 | `--level <level>` | Filter: DEBUG, INFO, WARNING, ERROR, CRITICAL |
-| `--limit <n>` | Maximum entries to return |
+| `--limit <n>`     | Maximum entries to return                     |
 
 ---
 

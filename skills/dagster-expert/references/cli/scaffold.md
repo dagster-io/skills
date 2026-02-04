@@ -2,7 +2,9 @@
 
 Scaffold Dagster definitions including Python objects (assets, schedules, sensors) and integration components.
 
-> **ALWAYS use `dg scaffold` for new definitions.** Do not manually create definition files.
+**ALWAYS use `dg scaffold` for new definitions.** Do not manually create definition files.
+
+**IMPORTANT**: All paths are relative to the `defs/` directory, NOT the current working directory or root of the project.
 
 ## Recommended Directory Structure
 
@@ -30,14 +32,14 @@ dg scaffold defs dagster.sensor <path>.py
 
 ```bash
 # Asset
-dg scaffold defs dagster.asset defs/assets/customers.py
-dg scaffold defs dagster.asset defs/assets/sales/revenue.py
+dg scaffold defs dagster.asset assets/customers.py
+dg scaffold defs dagster.asset assets/sales/revenue.py
 
 # Schedule
-dg scaffold defs dagster.schedule defs/schedules/daily_refresh.py
+dg scaffold defs dagster.schedule schedules/daily_refresh.py
 
 # Sensor
-dg scaffold defs dagster.sensor defs/sensors/file_watcher.py
+dg scaffold defs dagster.sensor sensors/file_watcher.py
 ```
 
 ---
@@ -63,6 +65,7 @@ dg scaffold defs dagster_sling.SlingReplicationComponent my_sling --json-params 
 ```
 
 **Find available components:**
+
 ```bash
 dg list components
 dg list components --package dagster_dbt
@@ -92,6 +95,7 @@ dg check defs && dg list defs
 ```
 
 This verifies:
+
 - Definition syntax is valid
 - All imports resolve correctly
 - Definition appears in the registry
@@ -103,6 +107,7 @@ This verifies:
 **Python objects:** Single `.py` file at specified path.
 
 **Integration components:** Directory with `defs.yaml`:
+
 ```
 defs/
 └── my_dbt/
