@@ -1,1 +1,38 @@
-{"__class__": "ClaudeExecutionResultSummary", "execution_time_ms": 17095, "input_tokens": 18, "output_tokens": 681, "skills_used": ["dagster-skills:dg"], "tools_used": ["Skill", "Read", "Bash"]}
+{
+  "__class__": "ClaudeExecutionResultSummary",
+  "execution_time_ms": 14508,
+  "input_tokens": 9,
+  "model_usage": [
+    {
+      "__class__": "ModelUsage",
+      "cache_creation_input_tokens": 4719,
+      "cache_read_input_tokens": 58630,
+      "input_tokens": 9,
+      "model": "claude-sonnet-4-5-20250929",
+      "output_tokens": 545
+    },
+    {
+      "__class__": "ModelUsage",
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "input_tokens": 2728,
+      "model": "claude-haiku-4-5-20251001",
+      "output_tokens": 41
+    }
+  ],
+  "narrative_summary": [
+    "- Invoked **dagster-skills:dagster-expert** skill to handle request for creating a new Dagster project",
+    "- Skill loaded and displayed documentation with quick reference commands for Dagster project setup",
+    "- Executed `uvx create-dagster project acme_co_dataeng --uv-sync` command to create the project",
+    "- Successfully created Dagster project with virtual environment and 94 packages installed (Dagster 1.12.13, Python 3.11.13)",
+    "- Provided user with next steps including activating virtual environment, navigating to project, and using `dg` CLI commands"
+  ],
+  "output_tokens": 545,
+  "skills_used": [
+    "dagster-skills:dagster-expert"
+  ],
+  "tools_used": [
+    "Skill",
+    "Bash"
+  ]
+}

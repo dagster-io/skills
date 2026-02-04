@@ -1,6 +1,6 @@
 import json
 import subprocess
-import sys
+import textwrap
 from dataclasses import dataclass
 from functools import cached_property
 from pathlib import Path
@@ -14,12 +14,24 @@ _PLUGINS_DIR = Path(__file__).parent.parent.parent.parent
 
 @whitelist_for_serdes
 @record
+class ModelUsage:
+    model: str
+    input_tokens: int
+    output_tokens: int
+    cache_read_input_tokens: int
+    cache_creation_input_tokens: int
+
+
+@whitelist_for_serdes
+@record
 class ClaudeExecutionResultSummary:
     input_tokens: int
     output_tokens: int
     execution_time_ms: int
     tools_used: list[str]
     skills_used: list[str]
+    model_usage: list[ModelUsage]
+    narrative_summary: list[str]
 
 
 @dataclass
@@ -34,6 +46,8 @@ class ClaudeExecutionResult:
             execution_time_ms=self.execution_time_ms,
             tools_used=[tool["name"] for tool in self.tool_usages],
             skills_used=[skill["skill"] for skill in self.skill_usages],
+            model_usage=self.model_usage,
+            narrative_summary=self.generate_narrative_summary(),
         )
 
     @property
@@ -119,6 +133,44 @@ class ClaudeExecutionResult:
                 result.append(tool_usage["input"])
         return result
 
+    @cached_property
+    def model_usage(self) -> list[ModelUsage]:
+        """Extract per-model token usage from the result event."""
+        model_usage_data = self._result_event.get("modelUsage", {})
+        return [
+            ModelUsage(
+                model=model,
+                input_tokens=data.get("inputTokens", 0),
+                output_tokens=data.get("outputTokens", 0),
+                cache_read_input_tokens=data.get("cacheReadInputTokens", 0),
+                cache_creation_input_tokens=data.get("cacheCreationInputTokens", 0),
+            )
+            for model, data in model_usage_data.items()
+        ]
+
+    def generate_narrative_summary(self) -> list[str]:
+        """Generate a narrative description of the session flow using Claude CLI."""
+        prompt = textwrap.dedent(f"""
+            Provide a concise narrative summary of the session flow and what steps
+            were taken. Focus on the high-level steps rather than exactly documenting
+            each turn. Output ONLY bullet points (no header or extraneous comments)
+            in sequential order. Do not use fancy formatting. Explicitly call out
+            the specific skills that are used.
+
+            Session events:
+            {json.dumps(self.messages, indent=2)}
+        """).strip()
+
+        result = subprocess.run(
+            ["claude", "--print", "--model", "sonnet"],
+            input=prompt,
+            capture_output=True,
+            text=True,
+            timeout=60,
+            check=False,
+        )
+        return result.stdout.strip().splitlines()
+
     def conversation_summary(self) -> str:
         return "\n".join([json.dumps(message, indent=2) for message in self.messages])
 
@@ -160,6 +212,4 @@ def execute_prompt(
     prompt: str, target_dir: str, include_plugins: bool = True
 ) -> ClaudeExecutionResult:
     plugins_dir = str(_PLUGINS_DIR) if include_plugins else None
-    result = run_claude_headless(prompt=prompt, target_dir=target_dir, plugins_dir=plugins_dir)
-    sys.stdout.write(result.conversation_summary())
-    return result
+    return run_claude_headless(prompt=prompt, target_dir=target_dir, plugins_dir=plugins_dir)

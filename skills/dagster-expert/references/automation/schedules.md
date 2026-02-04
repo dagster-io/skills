@@ -73,16 +73,16 @@ Each schedule run materializes the partition corresponding to the schedule time.
 
 Common cron patterns for schedules:
 
-| Cron Expression | Description                |
-| --------------- | -------------------------- |
-| `0 * * * *`     | Every hour                 |
-| `0 0 * * *`     | Daily at midnight          |
-| `0 9 * * *`     | Daily at 9 AM              |
-| `0 0 * * 1`     | Weekly on Monday           |
-| `0 0 1 * *`     | Monthly on the 1st         |
-| `0 0 1 1 *`     | Yearly on January 1st      |
-| `*/15 * * * *`  | Every 15 minutes           |
-| `0 9-17 * * 1-5`| Hourly, 9 AM-5 PM, weekdays|
+| Cron Expression  | Description                 |
+| ---------------- | --------------------------- |
+| `0 * * * *`      | Every hour                  |
+| `0 0 * * *`      | Daily at midnight           |
+| `0 9 * * *`      | Daily at 9 AM               |
+| `0 0 * * 1`      | Weekly on Monday            |
+| `0 0 1 * *`      | Monthly on the 1st          |
+| `0 0 1 1 *`      | Yearly on January 1st       |
+| `*/15 * * * *`   | Every 15 minutes            |
+| `0 9-17 * * 1-5` | Hourly, 9 AM-5 PM, weekdays |
 
 **Cron format**: `minute hour day_of_month month day_of_week`
 

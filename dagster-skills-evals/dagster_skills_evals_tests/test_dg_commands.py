@@ -16,7 +16,7 @@ def test_create_dagster_project(baseline_manager: BaselineManager):
         result = execute_prompt(prompt, tmp_dir)
 
         # make sure the skill was used
-        assert "dagster-skills:dg" in result.summary.skills_used
+        assert "dagster-skills:dagster-expert" in result.summary.skills_used
 
         # make sure the generated project is valid
         project_dir = Path(tmp_dir) / project_name
@@ -24,7 +24,7 @@ def test_create_dagster_project(baseline_manager: BaselineManager):
         subprocess.run(["uv", "run", "dg", "list", "projects"], cwd=project_dir, check=True)
         subprocess.run(["uv", "run", "dg", "list", "defs"], cwd=project_dir, check=True)
 
-        baseline_manager.assert_improved(result.summary)
+        baseline_manager.assert_improved(result)
 
 
 def test_scaffold_asset(baseline_manager: BaselineManager, empty_project_path: Path):
@@ -35,7 +35,7 @@ def test_scaffold_asset(baseline_manager: BaselineManager, empty_project_path: P
     result = execute_prompt(prompt, empty_project_path.as_posix())
 
     # make sure the skill was used
-    assert "dagster-skills:dg" in result.summary.skills_used
+    assert "dagster-skills:dagster-expert" in result.summary.skills_used
 
     # make sure the asset was scaffolded
     defs_result = subprocess.run(
@@ -47,7 +47,7 @@ def test_scaffold_asset(baseline_manager: BaselineManager, empty_project_path: P
     )
     assert asset_name in defs_result.stdout
 
-    baseline_manager.assert_improved(result.summary)
+    baseline_manager.assert_improved(result)
 
 
 def test_create_dbt_component(baseline_manager: BaselineManager, empty_project_path: Path):
@@ -58,7 +58,7 @@ def test_create_dbt_component(baseline_manager: BaselineManager, empty_project_p
     result = execute_prompt(prompt, empty_project_path.as_posix())
 
     # make sure the skill was used
-    assert "dagster-skills:dg" in result.summary.skills_used
+    assert "dagster-skills:dagster-expert" in result.summary.skills_used
     assert "dagster-skills:dagster-integrations" in result.summary.skills_used
 
     # make sure the dbt component was created
@@ -72,7 +72,7 @@ def test_create_dbt_component(baseline_manager: BaselineManager, empty_project_p
     assert "stg_payments" in defs_result.stdout
     assert "customers:not_null_customers_customer_id" in defs_result.stdout
 
-    baseline_manager.assert_improved(result.summary)
+    baseline_manager.assert_improved(result)
 
 
 def test_complex_automation_condition(baseline_manager: BaselineManager, empty_project_path: Path):
@@ -93,11 +93,7 @@ def test_complex_automation_condition(baseline_manager: BaselineManager, empty_p
     result = execute_prompt(prompt, empty_project_path.as_posix())
 
     # make sure the skill was used
-    assert (
-        # for some reason, the skill name isn't consistent
-        "dagster-skills:dagster-best-practices" in result.summary.skills_used
-        or "dagster-best-practices" in result.summary.skills_used
-    )
+    assert "dagster-skills:dagster-expert" in result.summary.skills_used
 
     # make sure the automation condition was added
     defs_result = subprocess.run(
@@ -113,4 +109,4 @@ def test_complex_automation_condition(baseline_manager: BaselineManager, empty_p
         # should be using declarative automation with eager as the base condition
         assert "dg.AutomationCondition.eager()" in f.read()
 
-    baseline_manager.assert_improved(result.summary)
+    baseline_manager.assert_improved(result)
