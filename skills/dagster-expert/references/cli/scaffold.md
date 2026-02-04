@@ -4,7 +4,10 @@ Scaffold Dagster definitions including Python objects (assets, schedules, sensor
 
 **ALWAYS use `dg scaffold` for new definitions.** Do not manually create definition files.
 
-**IMPORTANT**: All paths are relative to the `defs/` directory, NOT the current working directory or root of the project.
+> ⚠️ **PATHS ARE RELATIVE TO defs/ DIRECTORY, not project root**
+>
+> - ✅ CORRECT: `dg scaffold defs dagster.asset assets/my_asset.py`
+> - ❌ WRONG: `dg scaffold defs dagster.asset src/project/defs/assets/my_asset.py`
 
 ## Recommended Directory Structure
 
