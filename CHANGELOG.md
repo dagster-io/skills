@@ -18,16 +18,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **all-skills**: Significant simplifications of skills and references, improved routing logic and information architecture
 - **dagster-best-practices**: Renamed to `dagster-expert` and significantly refactored
 
-### Deprecated
-
 ### Removed
 
 - **dg**: Removed the `/dg` skill and incorporated its functionality into `dagster-expert`
 - **all-skills**: Removed redundant, outdated, or incorrect content
-
-### Fixed
-
-### Security
 
 ## [0.0.7] - 2026-01-30
 

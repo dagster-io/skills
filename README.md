@@ -61,49 +61,30 @@ cp -r skills/skills/* ~/.pi/agent/skills/
 
 ## Skills
 
-### `dg`
+### `dagster-expert`
 
-Comprehensive skill for all `dg` CLI operations. Use natural language to interact with the Dagster
-command-line tool.
-
-**What you can do:**
-
-- Create projects and workspaces
-- Scaffold components (assets, schedules, sensors, integrations)
-- Launch assets with partitions and configurations
-- List definitions and discover components
-- View logs and troubleshoot failures
-
-**Examples:**
-
-```
-/dg create a new project called analytics
-/dg scaffold a dbt integration
-/dg launch all assets with tag:priority=high
-/dg show me the logs for the last run
-/dg help me debug why my asset failed
-```
-
-### `dagster-best-practices`
-
-Expert guidance for Dagster patterns and architectural decisions.
+Expert guidance for building production-quality Dagster projects, covering CLI commands, asset patterns, automation strategies, and implementation workflows.
 
 **What you can do:**
 
-- Learn asset design patterns (dependencies, partitions, multi-assets)
-- Choose automation strategies (declarative automation, schedules, sensors)
-- Understand resource patterns (database connections, API clients, env vars)
-- Implement testing strategies (unit tests, integration tests, asset checks)
-- Apply ETL patterns (dbt, dlt, Sling integration patterns)
-- Organize project structure (single project vs workspace)
+- Create and scaffold projects, assets, schedules, and sensors
+- Understand asset patterns (dependencies, partitions, multi-assets, metadata)
+- Implement automation (declarative automation, schedules, sensors)
+- Use CLI commands (launch, list, check, scaffold, logs)
+- Design project structure and configure environments
+- Follow implementation workflows and best practices
+- Debug issues and validate project configuration
 
-**Example questions:**
+**Example prompts:**
 
 ```
-How should I structure my assets?
-When should I use schedules vs sensors?
-How do I test my data pipeline?
-What's the best way to integrate dbt?
+Create a new Dagster project called analytics
+How do I scaffold a new asset?
+Show me how to set up declarative automation
+What's the proper way to partition my assets?
+Help me debug why my materialization failed
+How should I structure my project for multiple pipelines?
+Launch all assets tagged with priority=high
 ```
 
 ### `dagster-integrations`
