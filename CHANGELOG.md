@@ -9,6 +9,20 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.0.8] - 2026-02-05
+
+### Added
+
 - **dagster-expert**: Comprehensive documentation of automation strategies (schedules, sensors, declarative automation)
 - **dagster-integrations**: Comprehensive documention of the `dagster-dbt` integration
 - `dagster_skills_evals`: Added comprehensive evaluation framework for testing skill performance
@@ -323,11 +337,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   - Modern type syntax (list[str], str | None)
   - Pathlib operations and ABC-based interfaces
 
-[Unreleased]: https://github.com/dagster-io/skills/compare/v0.0.7...HEAD
+[Unreleased]: https://github.com/dagster-io/skills/compare/v0.0.8...HEAD
 [0.0.7]: https://github.com/dagster-io/skills/releases/tag/v0.0.7
 [0.0.6]: https://github.com/dagster-io/skills/releases/tag/v0.0.6
 [0.0.5]: https://github.com/dagster-io/skills/releases/tag/v0.0.5
 [0.0.4]: https://github.com/dagster-io/skills/releases/tag/v0.0.4
 [0.0.3]: https://github.com/dagster-io/skills/releases/tag/v0.0.3
 [0.0.2]: https://github.com/dagster-io/skills/releases/tag/v0.0.2
+[0.0.8]: https://github.com/dagster-io/skills/releases/tag/v0.0.8
 [0.0.1]: https://github.com/dagster-io/skills/releases/tag/v0.0.1
