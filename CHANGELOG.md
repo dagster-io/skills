@@ -17,6 +17,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- **all-skills**: Fix plugin directory structure so Claude Code can discover skills. Each plugin source now includes `.claude-plugin/plugin.json` and places `SKILL.md` under `skills/<name>/` subdirectory matching the expected convention-based layout.
+
 ### Security
 
 ## [0.0.8] - 2026-02-05
