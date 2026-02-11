@@ -17,6 +17,20 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+### Security
+
+## [0.0.9] - 2026-02-11
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
 - **all-skills**: Fix plugin directory structure so Claude Code can discover skills. Each plugin source now includes `.claude-plugin/plugin.json` and places `SKILL.md` under `skills/<name>/` subdirectory matching the expected convention-based layout.
 
 ### Security
@@ -339,7 +353,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   - Modern type syntax (list[str], str | None)
   - Pathlib operations and ABC-based interfaces
 
-[Unreleased]: https://github.com/dagster-io/skills/compare/v0.0.8...HEAD
+[Unreleased]: https://github.com/dagster-io/skills/compare/v0.0.9...HEAD
 [0.0.7]: https://github.com/dagster-io/skills/releases/tag/v0.0.7
 [0.0.6]: https://github.com/dagster-io/skills/releases/tag/v0.0.6
 [0.0.5]: https://github.com/dagster-io/skills/releases/tag/v0.0.5
@@ -347,4 +361,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 [0.0.3]: https://github.com/dagster-io/skills/releases/tag/v0.0.3
 [0.0.2]: https://github.com/dagster-io/skills/releases/tag/v0.0.2
 [0.0.8]: https://github.com/dagster-io/skills/releases/tag/v0.0.8
+[0.0.9]: https://github.com/dagster-io/skills/releases/tag/v0.0.9
 [0.0.1]: https://github.com/dagster-io/skills/releases/tag/v0.0.1
