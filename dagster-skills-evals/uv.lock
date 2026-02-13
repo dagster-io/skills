@@ -41,16 +41,18 @@ wheels = [
 name = "dagster-skills-evals"
 version = "0.0.6"
 source = { editable = "." }
+dependencies = [
+    { name = "dagster-shared" },
+]
 
 [package.optional-dependencies]
 test = [
-    { name = "dagster-shared" },
     { name = "pytest" },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "dagster-shared", marker = "extra == 'test'" },
+    { name = "dagster-shared" },
     { name = "pytest", marker = "extra == 'test'", specifier = ">=8.0.0" },
 ]
 provides-extras = ["test"]

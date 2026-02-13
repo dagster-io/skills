@@ -7,11 +7,13 @@ name = "dagster_skills_evals"
 version = "0.0.6"
 description = "Utilities for evaluating the dagster-provided skills"
 requires-python = ">=3.13,<3.14"
+dependencies = [
+    "dagster_shared",
+]
 
 [project.optional-dependencies]
 test = [
     "pytest>=8.0.0",
-    "dagster_shared",
 ]
 
 [tool.pytest.ini_options]
