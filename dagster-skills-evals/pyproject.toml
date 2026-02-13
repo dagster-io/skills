@@ -13,6 +13,7 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
+    "dagster",
     "pytest>=8.0.0",
 ]
 
