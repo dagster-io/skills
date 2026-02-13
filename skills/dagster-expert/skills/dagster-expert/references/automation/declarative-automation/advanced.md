@@ -60,8 +60,8 @@ The default `eager()` condition uses this pattern:
 
 ```python
 (
-    AutomationCondition.newly_missing()
-    | AutomationCondition.any_deps_updated()
+    dg.AutomationCondition.newly_missing()
+    | dg.AutomationCondition.any_deps_updated()
 ).since_last_handled()
 ```
 
@@ -89,12 +89,12 @@ The `will_be_requested()` operand is true for assets that will be requested in t
 
 ```python
 # From any_deps_updated() definition:
-AutomationCondition.any_deps_match(
+dg.AutomationCondition.any_deps_match(
     (
-        AutomationCondition.newly_updated()
-        & ~AutomationCondition.executed_with_root_target()
+        dg.AutomationCondition.newly_updated()
+        & ~dg.AutomationCondition.executed_with_root_target()
     )
-    | AutomationCondition.will_be_requested()  # Enables run grouping
+    | dg.AutomationCondition.will_be_requested()  # Enables run grouping
 )
 ```
 
@@ -163,13 +163,15 @@ condition = dg.AutomationCondition.eager().allow(
 `since_last_handled()` is a convenience method that converts events to a status:
 
 ```python
+condition = dg.AutomationCondition.newly_missing()
+
 # These are equivalent:
 condition.since_last_handled()
 
 condition.since(
-    AutomationCondition.newly_requested()
-    | AutomationCondition.newly_updated()
-    | AutomationCondition.initial_evaluation()
+    dg.AutomationCondition.newly_requested()
+    | dg.AutomationCondition.newly_updated()
+    | dg.AutomationCondition.initial_evaluation()
 )
 ```
 
@@ -186,9 +188,9 @@ condition.since(
 ### any_deps_updated()
 
 ```python
-AutomationCondition.any_deps_match(
-    (AutomationCondition.newly_updated() & ~AutomationCondition.executed_with_root_target())
-    | AutomationCondition.will_be_requested()
+dg.AutomationCondition.any_deps_match(
+    (dg.AutomationCondition.newly_updated() & ~dg.AutomationCondition.executed_with_root_target())
+    | dg.AutomationCondition.will_be_requested()
 )
 ```
 
@@ -197,8 +199,8 @@ Checks if any dependency has newly updated (excluding same-run updates) OR will 
 ### any_deps_missing()
 
 ```python
-AutomationCondition.any_deps_match(
-    AutomationCondition.missing() & ~AutomationCondition.will_be_requested()
+dg.AutomationCondition.any_deps_match(
+    dg.AutomationCondition.missing() & ~dg.AutomationCondition.will_be_requested()
 )
 ```
 
@@ -206,10 +208,10 @@ Checks if any dependency is missing AND will NOT be requested this tick. Depende
 
 ### all_deps_updated_since_cron()
 
-```python
-AutomationCondition.all_deps_match(
-    AutomationCondition.newly_updated().since(
-        AutomationCondition.cron_tick_passed(cron_schedule, cron_timezone)
+```python nocheckundefined
+dg.AutomationCondition.all_deps_match(
+    dg.AutomationCondition.newly_updated().since(
+        dg.AutomationCondition.cron_tick_passed(cron_schedule, cron_timezone)
     )
 )
 ```

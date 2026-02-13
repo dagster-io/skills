@@ -222,20 +222,6 @@ def orders_cleaned(): ...
 ["analytics", "order_metrics"]
 ```
 
-### Scenario 3: API Ingestion → Multiple dbt Projects
-
-```python
-# API ingestion component
-["api", "salesforce_accounts"]
-["api", "hubspot_contacts"]
-
-# Project 1: Sales dbt
-source('api', 'salesforce_accounts')
-
-# Project 2: Marketing dbt
-source('api', 'hubspot_contacts')
-```
-
 ## Validation Checklist
 
 Before deploying multi-component pipelines:

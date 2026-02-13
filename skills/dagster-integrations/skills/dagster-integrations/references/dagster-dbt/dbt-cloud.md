@@ -32,12 +32,14 @@ from dagster_dbt import DbtCloudCredentials, DbtCloudWorkspace, dbt_cloud_assets
 dbt_cloud_credentials = DbtCloudCredentials(
     account_id=12345,
     token=dg.EnvVar("DBT_CLOUD_API_TOKEN"),
+    access_url="https://cloud.getdbt.com",
 )
 
 # Define workspace resource
 dbt_cloud = DbtCloudWorkspace(
     credentials=dbt_cloud_credentials,
-    job_id=67890,  # dbt Cloud job ID
+    project_id=67890,
+    environment_id=1,
 )
 
 

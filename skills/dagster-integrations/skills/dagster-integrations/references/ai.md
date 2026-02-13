@@ -131,7 +131,7 @@ Experiment tracking, model registry, and ML lifecycle management platform.
 
 **Quick start:**
 
-```python
+```python nocheck
 from dagster_mlflow import mlflow_tracking
 
 mlflow = mlflow_tracking.configured({
@@ -246,7 +246,7 @@ def optimized_llm_call(notdiamond: NotDiamondResource):
 
 ### LLM Processing Pipeline
 
-```python
+```python nocheck
 @dg.asset
 def raw_data() -> list[str]:
     return ["text1", "text2", "text3"]
@@ -271,7 +271,7 @@ def llm_processed_data(
 
 ### ML Experiment Tracking
 
-```python
+```python nocheck
 @dg.asset
 def train_model(mlflow: MLflowResource):
     import mlflow
@@ -294,7 +294,7 @@ def train_model(mlflow: MLflowResource):
 
 ### Embeddings Generation
 
-```python
+```python nocheck
 @dg.asset
 def generate_embeddings(
     documents: list[str],

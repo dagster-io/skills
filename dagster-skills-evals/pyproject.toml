@@ -14,7 +14,14 @@ dependencies = [
 [project.optional-dependencies]
 test = [
     "dagster",
+    "dagster-duckdb",
+    "dagster-fivetran",
+    "dagster-dbt",
+    "markdown-it-py",
+    "pandas",
+    "pyright",
     "pytest>=8.0.0",
+    "ruff",
 ]
 
 [tool.pytest.ini_options]

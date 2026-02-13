@@ -81,8 +81,10 @@ attributes:
 ### Required vs Optional Fields
 
 ```python
+from dataclasses import dataclass
+
 @dataclass
-class MyComponent(Component, Resolvable):
+class MyComponent(dg.Component, dg.Resolvable):
     # Required field - no default value
     required_field: str
 
@@ -95,8 +97,10 @@ class MyComponent(Component, Resolvable):
 Use `field(default_factory=...)` for mutable defaults:
 
 ```python
+from dataclasses import dataclass, field
+
 @dataclass
-class MyComponent(Component, Resolvable):
+class MyComponent(dg.Component, dg.Resolvable):
     # List field
     tags: list[str] = field(default_factory=list)
 
@@ -107,6 +111,7 @@ class MyComponent(Component, Resolvable):
 ### Nested Configuration
 
 ```python
+from dataclasses import dataclass
 from typing import Optional
 
 @dataclass
@@ -116,7 +121,7 @@ class ConnectionConfig:
     database: str
 
 @dataclass
-class MyComponent(Component, Resolvable):
+class MyComponent(dg.Component, dg.Resolvable):
     connection: ConnectionConfig
     backup_connection: Optional[ConnectionConfig] = None
 ```

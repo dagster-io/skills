@@ -272,7 +272,7 @@ def query_cube_metrics(cube: CubeResource):
 
 ### Data Refresh Pattern
 
-```python
+```python nocheck
 # Transform data in Dagster
 @dg.asset
 def analytics_table() -> pd.DataFrame:
@@ -297,7 +297,7 @@ def refreshed_dashboard(
 
 ### Scheduled Report Generation
 
-```python
+```python nocheck
 @dg.asset
 def daily_report(hex: HexResource):
     # Run Hex notebook that generates report
@@ -318,7 +318,7 @@ daily_schedule = dg.ScheduleDefinition(
 
 ### Multi-Tool Refresh
 
-```python
+```python nocheck
 @dg.asset
 def core_data() -> pd.DataFrame:
     return load_and_transform_data()

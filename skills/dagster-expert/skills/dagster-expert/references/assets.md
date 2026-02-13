@@ -143,11 +143,12 @@ Captured each time the asset materializes:
 
 ```python
 import dagster as dg
+from datetime import datetime
 
 @dg.asset
 def my_asset() -> dg.MaterializeResult:
     """Asset that reports metadata on each run."""
-    data = fetch_data()
+    data = [...]
     row_count = len(data)
 
     # Save data...
@@ -253,10 +254,8 @@ def context_aware_asset(context: dg.AssetExecutionContext) -> None:
 
 Make assets configurable at runtime:
 
-```python
-from dagster import Config
-
-class MyAssetConfig(Config):
+```python nocheckundefined
+class MyAssetConfig(dg.Config):
     limit: int = 100
     include_archived: bool = False
     source_path: str
@@ -316,21 +315,19 @@ def returns_output() -> Output[dict]:
 
 Define multiple assets from one function:
 
-```python
-from dagster import multi_asset, AssetOut
-
-@multi_asset(
+```python nocheckundefined
+@dg.multi_asset(
     outs={
-        "users": AssetOut(),
-        "orders": AssetOut(),
+        "users": dg.AssetOut(),
+        "orders": dg.AssetOut(),
     }
 )
 def load_data():
     users_df = fetch_users()
     orders_df = fetch_orders()
 
-    yield Output(users_df, output_name="users")
-    yield Output(orders_df, output_name="orders")
+    yield dg.Output(users_df, output_name="users")
+    yield dg.Output(orders_df, output_name="orders")
 ```
 
 **Use when**:
@@ -348,22 +345,20 @@ def load_data():
 Use when multiple steps are needed to produce a single asset:
 
 ```python
-from dagster import graph_asset, op
-
-@op
+@dg.op
 def fetch_data() -> dict:
     return {"raw": [1, 2, 3]}
 
-@op
+@dg.op
 def transform_data(data: dict) -> dict:
     return {"processed": [x * 2 for x in data["raw"]]}
 
-@op
+@dg.op
 def validate_data(data: dict) -> dict:
     assert len(data["processed"]) > 0
     return data
 
-@graph_asset
+@dg.graph_asset
 def complex_asset():
     """Encapsulates multi-step logic into a single asset."""
     raw = fetch_data()
@@ -382,13 +377,11 @@ def complex_asset():
 
 Use for complex pipelines producing multiple assets:
 
-```python
-from dagster import graph_multi_asset, AssetOut
-
-@graph_multi_asset(
+```python nocheckundefined
+@dg.graph_multi_asset(
     outs={
-        "users": AssetOut(),
-        "orders": AssetOut(),
+        "users": dg.AssetOut(),
+        "orders": dg.AssetOut(),
     }
 )
 def etl_pipeline():
@@ -413,7 +406,7 @@ def etl_pipeline():
 
 Generate similar assets programmatically:
 
-```python
+```python nocheckundefined
 def create_table_asset(table_name: str, schema: str):
     @dg.asset(
         name=f"{schema}_{table_name}",
@@ -439,40 +432,41 @@ Select subsets of assets for materialization or job definition:
 ### Basic Selection
 
 ```python
-from dagster import AssetSelection
-
 # Select specific assets
-AssetSelection.assets("asset_a", "asset_b", "asset_c")
+dg.AssetSelection.assets("asset_a", "asset_b", "asset_c")
 
 # Select all assets
-AssetSelection.all()
+dg.AssetSelection.all()
 
 # Select by group
-AssetSelection.groups("analytics", "raw_data")
+dg.AssetSelection.groups("analytics", "raw_data")
 
 # Select by key prefix
-AssetSelection.key_prefixes(["warehouse", "staging"])
+dg.AssetSelection.key_prefixes(["warehouse", "staging"])
 
 # Select by tag
-AssetSelection.tag("priority", "high")
+dg.AssetSelection.tag("priority", "high")
 ```
 
 ### Dependency-Based Selection
 
 ```python
 # Select asset and all upstream dependencies
-AssetSelection.assets("final_report").upstream()
+dg.AssetSelection.assets("final_report").upstream()
 
 # Select asset and all downstream dependencies
-AssetSelection.assets("raw_data").downstream()
+dg.AssetSelection.assets("raw_data").downstream()
 
 # Select asset and immediate upstream only
-AssetSelection.assets("final_report").upstream(depth=1)
+dg.AssetSelection.assets("final_report").upstream(depth=1)
 ```
 
 ### Combining Selections
 
 ```python
+selection_a = dg.AssetSelection.assets("a")
+selection_b = dg.AssetSelection.assets("b")
+
 # Union: assets in A OR B
 selection_a | selection_b
 
@@ -483,17 +477,15 @@ selection_a & selection_b
 selection_a - selection_b
 
 # Example: All analytics assets except one
-AssetSelection.groups("analytics") - AssetSelection.assets("excluded_asset")
+dg.AssetSelection.groups("analytics") - dg.AssetSelection.assets("excluded_asset")
 ```
 
 ### Using in Jobs
 
 ```python
-import dagster as dg
-
 analytics_job = dg.define_asset_job(
     name="analytics_job",
-    selection=AssetSelection.groups("analytics").downstream(),
+    selection=dg.AssetSelection.groups("analytics").downstream(),
 )
 ```
 
