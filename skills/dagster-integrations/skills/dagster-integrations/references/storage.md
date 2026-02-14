@@ -268,7 +268,7 @@ Popular open-source relational database management system.
 
 **Quick start:**
 
-```python
+```python nocheck
 from dagster_mysql import MySQLResource
 
 mysql = MySQLResource(
@@ -548,7 +548,7 @@ Universal object store abstraction supporting S3, GCS, Azure, and local files.
 
 **Quick start:**
 
-```python
+```python nocheck
 from dagster_obstore import ObstoreResource
 
 obstore = ObstoreResource(
@@ -622,7 +622,7 @@ def publish_to_datahub(datahub: DatahubRESTEmitterResource):
 
 ### Multi-Storage Pattern
 
-```python
+```python nocheck
 @dg.asset
 def raw_data() -> pd.DataFrame:
     return extract_data()

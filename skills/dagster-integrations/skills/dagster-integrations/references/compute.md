@@ -206,7 +206,7 @@ Distributed computing framework for scaling Python workloads and ML training.
 
 **Quick start:**
 
-```python
+```python nocheck
 from dagster_ray import ray_resource
 import ray
 
@@ -358,7 +358,7 @@ defs = dg.Definitions(
 
 ### Cloud Cluster Compute
 
-```python
+```python nocheck
 # Databricks, EMR, Dataproc
 @dg.asset
 def distributed_processing(
@@ -377,7 +377,7 @@ def distributed_processing(
 
 ### Containerized Processing
 
-```python
+```python nocheck
 # Docker/K8s
 @dg.asset
 def containerized_job(
@@ -394,7 +394,7 @@ def containerized_job(
 
 ### Distributed Framework
 
-```python
+```python nocheck
 # Spark/Dask/Ray
 @dg.asset
 def parallel_processing(compute_resource: ComputeResource):

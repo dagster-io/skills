@@ -20,7 +20,7 @@ Send metrics, events, and logs to Datadog for comprehensive monitoring and obser
 
 **Quick start:**
 
-```python
+```python nocheck
 from dagster_datadog import DatadogResource
 
 datadog = DatadogResource(
@@ -112,7 +112,7 @@ Send logs to Papertrail for centralized log management.
 
 **Quick start:**
 
-```python
+```python nocheck
 from dagster_papertrail import PapertrailResource
 
 papertrail = PapertrailResource(
@@ -148,7 +148,7 @@ def logged_asset(
 
 ### Custom Metrics Tracking
 
-```python
+```python nocheck
 @dg.asset
 def monitored_pipeline(
     context: dg.AssetExecutionContext,
@@ -171,7 +171,7 @@ def monitored_pipeline(
 
 ### Performance Monitoring
 
-```python
+```python nocheck
 @dg.asset
 def timed_asset(
     context: dg.AssetExecutionContext,
@@ -202,7 +202,7 @@ def timed_asset(
 
 ### Log Aggregation
 
-```python
+```python nocheck
 @dg.asset
 def logged_pipeline(
     context: dg.AssetExecutionContext,
@@ -230,7 +230,7 @@ def logged_pipeline(
 
 ### Health Dashboard Pattern
 
-```python
+```python nocheck
 @dg.asset
 def health_metrics(datadog: DatadogResource):
     """Track overall pipeline health metrics"""

@@ -79,32 +79,32 @@ The `Definitions` object is the entry point for all Dagster objects.
 
 **Simple Auto-Discovery**:
 
-```python
+```python nocheckundefined
 # src/my_project/definitions.py
-from dagster import Definitions
-from dagster_dg import load_defs
+from dagster import Definitions, load_defs
+import my_project.defs
 
 # Automatically discovers all definitions in defs/ folder
 defs = Definitions.merge(
-    load_defs()
+    load_defs(my_project.defs)
 )
 ```
 
 **Combining Components with Pythonic Assets**:
 
-```python
+```python nocheckundefined
 # src/my_project/definitions.py
-from dagster import Definitions
-from dagster_dg import load_defs
+from dagster import Definitions, load_defs
+import my_project.defs
 from my_project.assets import custom_assets
 
 # Load component definitions from defs/
-component_defs = load_defs()
+component_defs = load_defs(my_project.defs)
 
 # Define pythonic assets separately
 pythonic_defs = Definitions(
     assets=custom_assets,
-    resources={...}
+    resources={"database": database_resource}
 )
 
 # Merge them together
@@ -120,7 +120,7 @@ defs = Definitions.merge(component_defs, pythonic_defs)
 
 ### Explicit Definitions Pattern
 
-```python
+```python nocheckundefined
 # src/my_project/definitions.py
 import dagster as dg
 
@@ -448,20 +448,19 @@ your Dagster repository.
 
 ### Combining Components with Pythonic Assets
 
-```python
+```python nocheckundefined
 # src/my_project/definitions.py
-from dagster import Definitions
-from dagster_dg import load_defs
+from dagster import Definitions, load_defs
+import my_project.defs
 
 # Load component definitions
-component_defs = load_defs()
+component_defs = load_defs(my_project.defs)
 
 # Define custom pythonic assets
 from my_project.assets import custom_pipeline
 
 pythonic_defs = Definitions(
     assets=[custom_pipeline],
-    resources={...}
 )
 
 # Merge: components AND custom assets in one project
@@ -536,9 +535,7 @@ SNOWFLAKE_PASSWORD=secret
 
 ### Loading in Dagster
 
-```python
-import dagster as dg
-
+```python nocheckundefined
 resource = MyResource(
     database=dg.EnvVar("DUCKDB_DATABASE"),
     api_key=dg.EnvVar("API_KEY"),

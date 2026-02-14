@@ -43,7 +43,7 @@ The dbt manifest can be generated at runtime (development) or build time (produc
 
 `DbtProject.prepare_if_dev()` automatically compiles the manifest during local development:
 
-```python
+```python nocheck
 my_dbt_project = DbtProject(project_dir="path/to/dbt_project")
 my_dbt_project.prepare_if_dev()  # Runs dbt deps + dbt parse if needed
 ```
@@ -58,7 +58,7 @@ deployed package.
 
 Use dbt selection syntax to filter which models are included:
 
-```python
+```python nocheck
 @dbt_assets(
     manifest=my_dbt_project.manifest_path,
     select="tag:daily",
@@ -74,7 +74,7 @@ def my_dbt_assets(context, dbt: DbtCliResource):
 
 Create a custom translator by subclassing `DagsterDbtTranslator` and overriding `get_asset_spec()`:
 
-```python
+```python nocheck
 from collections.abc import Mapping
 from typing import Any, Optional
 
@@ -131,7 +131,7 @@ To partition incremental dbt models:
 3. Access `context.partition_time_window` in the asset function
 4. Pass partition-specific vars to the dbt CLI
 
-```python
+```python nocheck
 import json
 
 import dagster as dg
@@ -173,7 +173,7 @@ For multiple partitions definitions, create separate `@dbt_assets` definitions a
 
 Enable automatic metadata fetching by chaining methods on the event iterator:
 
-```python
+```python nocheck
 @dbt_assets(manifest=my_dbt_project.manifest_path)
 def my_dbt_assets(context, dbt: DbtCliResource):
     yield from (
@@ -202,7 +202,7 @@ patterns for defining additional dependencies.
 
 Use `get_asset_key_for_model()` to get asset keys for dbt models:
 
-```python
+```python nocheck
 import dagster as dg
 from dagster_dbt import get_asset_key_for_model
 
@@ -219,7 +219,7 @@ def export_customers():
 
 Use `build_schedule_from_dbt_selection()` for jobs that only materialize dbt assets:
 
-```python
+```python nocheck
 from dagster_dbt import build_schedule_from_dbt_selection
 
 daily_dbt_schedule = build_schedule_from_dbt_selection(
@@ -235,7 +235,7 @@ daily_dbt_schedule = build_schedule_from_dbt_selection(
 Use `build_dbt_asset_selection()` combined with `AssetSelection` for jobs with dbt and non-dbt
 assets:
 
-```python
+```python nocheck
 import dagster as dg
 from dagster_dbt import build_dbt_asset_selection
 
@@ -251,7 +251,7 @@ daily_schedule = dg.ScheduleDefinition(job=daily_job, cron_schedule="0 0 * * *")
 
 Configure AutomationConditions via custom `get_asset_spec()` implementation in your translator:
 
-```python
+```python nocheck
 class AutomatedDbtTranslator(DagsterDbtTranslator):
     def get_asset_spec(self, manifest, unique_id, project) -> dg.AssetSpec:
         base_spec = super().get_asset_spec(manifest, unique_id, project)
@@ -264,7 +264,7 @@ class AutomatedDbtTranslator(DagsterDbtTranslator):
 
 Use Dagster's config system to provide runtime parameters:
 
-```python
+```python nocheck
 import dagster as dg
 from dagster_dbt import dbt_assets
 

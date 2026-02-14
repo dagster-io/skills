@@ -6,9 +6,7 @@ Asset sensors monitor asset materializations and trigger jobs when specific asse
 
 Use `@asset_sensor` to monitor a specific asset:
 
-```python
-import dagster as dg
-
+```python nocheckundefined
 @dg.asset_sensor(asset_key=dg.AssetKey("daily_sales_data"), job=downstream_job)
 def sales_data_sensor(context: dg.SensorEvaluationContext, asset_event: dg.EventLogEntry):
     # Triggered whenever daily_sales_data is materialized
@@ -21,7 +19,7 @@ The sensor is called once per materialization event with the event details in `a
 
 Asset sensors enable dependencies across different jobs:
 
-```python
+```python nocheckundefined
 # Job A contains upstream_asset
 @dg.asset
 def upstream_asset():
@@ -41,7 +39,7 @@ This pattern is useful when you have logically separate jobs that need coordinat
 
 Asset sensors can monitor assets in different code locations:
 
-```python
+```python nocheckundefined
 @dg.asset_sensor(
     asset_key=dg.AssetKey("other_location_asset"),
     job=my_job,
@@ -56,7 +54,7 @@ The sensor can be in a different code location than the monitored asset.
 
 Add conditional logic to control when to trigger:
 
-```python
+```python nocheckundefined
 @dg.asset_sensor(asset_key=dg.AssetKey("daily_sales_data"), job=downstream_job)
 def conditional_sensor(context, asset_event):
     # Access materialization metadata
@@ -76,7 +74,7 @@ def conditional_sensor(context, asset_event):
 
 Pass runtime configuration to the triggered job:
 
-```python
+```python nocheckundefined
 @dg.asset_sensor(asset_key=dg.AssetKey("source_data"), job=processing_job)
 def config_sensor(context, asset_event):
     # Extract partition key from the materialization

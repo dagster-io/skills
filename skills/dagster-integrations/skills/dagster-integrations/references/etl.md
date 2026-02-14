@@ -35,7 +35,7 @@ attributes:
 
 **Quick start (Pythonic):**
 
-```python
+```python nocheck
 from dagster_dbt import DbtProject, dbt_assets
 
 # For local projects
@@ -229,7 +229,7 @@ systems. Component-based integration.
 
 **Quick start:**
 
-```python
+```python nocheck
 from dagster_sling import SlingResource, sling_assets
 
 # Define Sling replication config

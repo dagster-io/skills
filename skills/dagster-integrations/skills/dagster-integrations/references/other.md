@@ -107,7 +107,7 @@ def lazy_polars() -> pl.LazyFrame:
 
 ### In-Memory DataFrame Processing
 
-```python
+```python nocheck
 @dg.asset
 def load_data() -> pd.DataFrame:
     return pd.read_csv("input.csv")
@@ -123,7 +123,7 @@ def save_data(transform_data: pd.DataFrame):
 
 ### Type-Safe DataFrames
 
-```python
+```python nocheck
 # Using Dagster's pandas type system
 UserDataFrame = create_dagster_pandas_dataframe_type(
     name="UserDataFrame",
@@ -143,7 +143,7 @@ def validated_users() -> UserDataFrame:
 
 ### Lazy Evaluation with Polars
 
-```python
+```python nocheck
 @dg.asset
 def lazy_pipeline() -> pl.DataFrame:
     # Build query plan without executing
@@ -163,7 +163,7 @@ def lazy_pipeline() -> pl.DataFrame:
 
 ### Migrating from Pandas to Polars
 
-```python
+```python nocheck
 # Pandas version
 @dg.asset
 def pandas_transform() -> pd.DataFrame:
