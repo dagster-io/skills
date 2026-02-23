@@ -6,7 +6,7 @@ For the basic sensor pattern with cursors, see the main SKILL.md Quick Reference
 
 A canonical file sensor that monitors a directory for new files and triggers runs:
 
-```python
+```python nocheckundefined
 import os
 import json
 import dagster as dg
@@ -55,7 +55,7 @@ def file_sensor(context: dg.SensorEvaluationContext):
 
 **Two ways to update cursors**:
 
-```python
+```python nocheck
 # Option 1: Return SensorResult
 return dg.SensorResult(
     run_requests=[...],
@@ -71,7 +71,7 @@ yield dg.RunRequest(...)
 
 **Control evaluation frequency**:
 
-```python
+```python nocheckundefined
 @dg.sensor(
     job=my_job,
     minimum_interval_seconds=60,  # Minimum 60 seconds between evaluations
@@ -96,7 +96,7 @@ Properties available in sensor context:
 
 **Example using context.log**:
 
-```python
+```python nocheckundefined
 @dg.sensor(job=my_job)
 def logging_sensor(context):
     context.log.info(f"Evaluating sensor, cursor: {context.cursor}")

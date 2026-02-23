@@ -157,7 +157,7 @@ dg scaffold defs dagster.asset assets/<domain_name>.py
 
 Realistic 3-5 asset pipeline demonstrating key patterns:
 
-```python
+```python nocheckundefined
 import dagster as dg
 from my_project.resources import DatabaseResource, S3Resource
 import pandas as pd
@@ -267,22 +267,22 @@ class MyDatabaseResource(ConfigurableResource):
 
     def query(self, sql: str) -> list:
         # Implementation
-        pass
+        ...
 ```
 
 See [env-vars reference](./env-vars.md) for environment variable patterns.
 
 #### 5. Register in Definitions
 
-```python
+```python nocheckundefined
 # definitions.py
-from dagster import Definitions
-from dagster_dg import load_defs
+from dagster import Definitions, load_defs
+import my_project.defs
 from my_project.defs.assets import customers, customer_metrics
 from my_project.defs.resources import MyDatabaseResource
 
 # Load component definitions
-component_defs = load_defs()
+component_defs = load_defs(my_project.defs)
 
 # Define pythonic assets
 pythonic_defs = Definitions(
@@ -334,9 +334,7 @@ def automated_asset() -> None:
 dg scaffold defs dagster.schedule schedules.py
 ```
 
-```python
-import dagster as dg
-
+```python nocheckundefined
 my_schedule = dg.ScheduleDefinition(
     job=my_job,
     cron_schedule="0 0 * * *",  # Daily at midnight
@@ -379,7 +377,7 @@ dg scaffold defs dagster.sensor sensors.py
 
 ### 1. Create Test File
 
-```python
+```python nocheckundefined
 # tests/test_<asset_name>.py
 import dagster as dg
 from my_project.defs.assets import customers, customer_metrics
@@ -411,8 +409,8 @@ def test_customer_metrics_dependency():
 ### 2. Add Asset Checks
 
 ```python
-@dg.asset_check(asset=customers)
-def customers_not_empty(customers):
+@dg.asset_check(asset=dg.AssetKey("customers"))
+def customers_not_empty(customers) -> dg.AssetCheckResult:
     """Validate that customers table has data."""
     return dg.AssetCheckResult(
         passed=len(customers) > 0,

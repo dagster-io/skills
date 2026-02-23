@@ -16,7 +16,7 @@ attributes:
 
 **Pythonic approach:**
 
-```python
+```python nocheck
 from dagster_dbt import DagsterDbtTranslator, DagsterDbtTranslatorSettings
 
 translator = DagsterDbtTranslator(

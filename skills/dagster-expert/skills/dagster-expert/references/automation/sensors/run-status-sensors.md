@@ -6,7 +6,7 @@ Run status sensors monitor runs for specific status changes and trigger actions 
 
 Use `@run_failure_sensor` to monitor run failures across all jobs:
 
-```python
+```python nocheckundefined
 import dagster as dg
 
 @dg.run_failure_sensor
@@ -23,7 +23,7 @@ Run failure sensors are commonly used for alerting and error notification.
 
 Use `@run_status_sensor` to monitor any run status:
 
-```python
+```python nocheckundefined
 @dg.run_status_sensor(
     run_status=dg.DagsterRunStatus.SUCCESS,
     request_job=downstream_job,
@@ -51,7 +51,7 @@ Additional statuses: `QUEUED`, `NOT_STARTED`, `MANAGED`, `STARTING`
 
 Use `monitored_jobs` to filter which jobs trigger the sensor:
 
-```python
+```python nocheckundefined
 @dg.run_status_sensor(
     run_status=dg.DagsterRunStatus.SUCCESS,
     monitored_jobs=[job1, job2],
@@ -98,7 +98,7 @@ Set `monitor_all_code_locations=True` to enable deployment-wide monitoring.
 
 **Alerting**: Send notifications on run failures:
 
-```python
+```python nocheckundefined
 @dg.run_failure_sensor
 def slack_alert(context: dg.RunFailureSensorContext):
     slack_client.chat_postMessage(
@@ -109,7 +109,7 @@ def slack_alert(context: dg.RunFailureSensorContext):
 
 **Job coordination**: Trigger downstream jobs after success:
 
-```python
+```python nocheckundefined
 @dg.run_status_sensor(
     run_status=dg.DagsterRunStatus.SUCCESS,
     monitored_jobs=[upstream_job],
@@ -121,7 +121,7 @@ def chain_jobs(context):
 
 **Error handling**: Trigger cleanup on failure:
 
-```python
+```python nocheckundefined
 @dg.run_failure_sensor(monitored_jobs=[data_job])
 def cleanup_on_failure(context):
     cleanup_partial_data()

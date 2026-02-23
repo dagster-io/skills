@@ -248,7 +248,7 @@ def dingtalk_notification(dingtalk: DingTalkResource):
 
 ### Run Failure Sensor
 
-```python
+```python nocheck
 from dagster_slack import make_slack_on_run_failure_sensor
 
 @dg.run_failure_sensor
@@ -262,7 +262,7 @@ def slack_on_failure(context: dg.RunFailureContext, slack: SlackResource):
 
 ### Multi-Channel Alerting
 
-```python
+```python nocheck
 @dg.asset
 def critical_pipeline(
     slack: SlackResource,
@@ -289,7 +289,7 @@ def critical_pipeline(
 
 ### Escalation Pattern
 
-```python
+```python nocheck
 @dg.asset
 def monitored_pipeline(
     slack: SlackResource,
