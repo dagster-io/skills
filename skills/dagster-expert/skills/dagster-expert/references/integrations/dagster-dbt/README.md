@@ -1,5 +1,7 @@
 # dagster-dbt Integration Reference
 
+Docs: https://docs.dagster.io/integrations/libraries/dbt
+
 The dagster-dbt integration represents each dbt models as Dagster assets, enabling granular orchestration
 at the individual model level.
 
