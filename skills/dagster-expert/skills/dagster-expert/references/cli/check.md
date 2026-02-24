@@ -69,4 +69,4 @@ dg list defs            # Verify expected definitions appear
 
 - [scaffold.md](./scaffold.md) - Validate after scaffolding
 - [list.md](./list.md) - View definitions after validation
-- [project-setup.md](./project-setup.md) - Initial project setup
+- [project-structure.md](../project-structure.md) - Project structure reference
