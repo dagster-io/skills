@@ -8,9 +8,7 @@ instructions for contributing to this monorepo.
 This repository contains AI assistant skills for Dagster development. Each skill is located in the
 `plugins/` directory:
 
-- `dg` - CLI commands for Dagster development
-- `dagster-conventions` - Best practices and conventions
-- `dagster-integrations` - Integration index
+- `dagster-expert` - Comprehensive Dagster development guidance (includes integrations)
 - `dignified-python` - Python coding standards
 
 These skills work with Claude Code, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible
@@ -150,7 +148,7 @@ As you make changes, add entries to the `[Unreleased]` section of CHANGELOG.md:
 
 ### Changed
 
-- **dagster-integrations**: Updated integration count to 90+
+- **dagster-expert**: Updated integration count to 90+
 ```
 
 **Tips:**

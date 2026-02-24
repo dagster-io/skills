@@ -23,7 +23,7 @@ Use this workflow when building new Dagster features or prototyping complete dat
 Determine:
 
 - What assets need to be created
-- What integrations are needed (see dagster-integrations skill)
+- What integrations are needed (see [integrations reference](integrations/README.md))
 - Whether to use Components or Pythonic assets (or both)
 - Testing strategy
 - Automation requirements
@@ -43,7 +43,7 @@ dg list components
 dg docs integrations --json
 ```
 
-Consult the dagster-integrations skill for finding appropriate integrations.
+Consult the [integrations reference](integrations/README.md) for finding appropriate integrations.
 
 ---
 
@@ -581,7 +581,7 @@ If using automation:
 - [Resolvable Components Reference](./resolvable-components.md) - Modern component pattern
 - [Environment Variables Reference](./env-vars.md) - Environment configuration
 - [CLI Reference](./cli/) - CLI commands for scaffolding, launching, and validation
-- dagster-integrations skill - Finding and using integration components
+- [integrations reference](integrations/README.md) - Finding and using integration components
 
 ---
 

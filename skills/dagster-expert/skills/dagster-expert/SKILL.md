@@ -2,7 +2,7 @@
 name: dagster-expert
 description:
   Expert guidance for working with Dagster and the dg CLI. ALWAYS use before doing any task that requires
-  knowledge specific to Dagster, or that references assets, materialization, or data pipelines.
+  knowledge specific to Dagster, or that references assets, materialization, components, data tools or data pipelines.
   Common tasks may include creating a new project, adding new definitions, understanding the current project structure, answering general questions about the codebase (finding asset, schedule, sensor, component or job definitions), debugging issues, or providing deep information about a specific Dagster concept.
 ---
 
@@ -20,7 +20,7 @@ Expert guidance for building production-quality Dagster projects. Routes you to 
 | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | Create a project                                                    | Quick Reference below (use `uvx create-dagster project`)                                              |
 | **Add an asset/schedule/sensor**                                    | **[cli/scaffold.md](references/cli/scaffold.md)** (ALWAYS scaffold first) + pattern docs              |
-| Add integration component (dbt, Fivetran, Airbyte, Snowflake, etc.) | **Invoke dagster-integrations skill** (contains scaffolding, YAML schema, adapter requirements)       |
+| Add integration component (dbt, Fivetran, Airbyte, Snowflake, etc.) | **[integrations/README.md](references/integrations/README.md)** (contains scaffolding, YAML schema, adapter requirements) |
 | Complex scheduling / different triggers per dependency              | [automation/declarative-automation/README.md](references/automation/declarative-automation/README.md) |
 | Run/materialize assets                                              | [cli/launch.md](references/cli/launch.md)                                                             |
 | Select specific assets                                              | [cli/asset-selection.md](references/cli/asset-selection.md)                                           |
@@ -40,7 +40,7 @@ Expert guidance for building production-quality Dagster projects. Routes you to 
 | create project, new project, init, setup                                                                         | Quick Reference below                                                                                 |
 | workspace, multi-project, multiple projects                                                                      | Quick Reference below                                                                                 |
 | scaffold, generate, create asset/schedule/sensor                                                                 | [cli/scaffold.md](references/cli/scaffold.md)                                                         |
-| dbt, fivetran, airbyte, snowflake, bigquery, external tool, integration component, dagster_dbt, dagster_fivetran | **Invoke dagster-integrations skill directly**                                                        |
+| dbt, fivetran, airbyte, snowflake, bigquery, external tool, integration component, dagster_dbt, dagster_fivetran | **[integrations/README.md](references/integrations/README.md)**                                       |
 | complex triggers, different triggers, hot/cold dependencies, conditional automation                              | [automation/declarative-automation/README.md](references/automation/declarative-automation/README.md) |
 | automation_condition, AutomationCondition, eager(), any_downstream_conditions                                    | [automation/declarative-automation/README.md](references/automation/declarative-automation/README.md) |
 | list, show, find, discover, what assets                                                                          | [cli/list.md](references/cli/list.md)                                                                 |
@@ -107,4 +107,4 @@ uv run dg launch --assets my_asset
 
 ## Related Skills
 
-- **dagster-integrations** - Find and configure integration components (dbt, Fivetran, Sling, etc.)
+- **[integrations](references/integrations/README.md)** - Find and configure integration components (dbt, Fivetran, Sling, etc.)

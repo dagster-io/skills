@@ -23,7 +23,7 @@
   "narrative_summary": [
     "- User requested creation of a new dbt component named 'acme_dbt' pointing to the jaffle_shop repository",
     "- Invoked **dagster-expert skill** to get guidance on creating dbt components",
-    "- dagster-expert skill routed to **dagster-integrations skill** for dbt-specific instructions",
+    "- dagster-expert skill routed to **integrations reference** for dbt-specific instructions",
     "- Read dagster-dbt integration reference documentation to understand component-based approach",
     "- Created todo list with 4 tasks: install dagster-dbt, check database adapter, install adapter library, scaffold component",
     "- Installed `dagster-dbt` library using `uv add dagster-dbt`",
@@ -38,7 +38,7 @@
   "output_tokens": 3202,
   "skills_used": [
     "dagster-skills:dagster-expert",
-    "dagster-skills:dagster-integrations"
+    "dagster-skills:dagster-expert"
   ],
   "tools_used": [
     "Skill",

@@ -49,7 +49,7 @@ Auto-invoke when users ask about:
 | "pathlib vs os.path"         | ✅ Yes - path handling      |                           |
 | "best practices for dagster" | ❌ No                       | `/dagster-best-practices` |
 | "implement X pipeline"       | ❌ No                       | `/dg` for implementation  |
-| "which integration to use"   | ❌ No                       | `/dagster-integrations`   |
+| "which integration to use"   | ❌ No                       | `/dagster-expert`         |
 | "CLI argument parsing"       | ✅ Yes - CLI patterns       |                           |
 
 ## Core Knowledge (ALWAYS Loaded)
