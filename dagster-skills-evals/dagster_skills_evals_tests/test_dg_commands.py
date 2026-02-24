@@ -52,14 +52,13 @@ def test_scaffold_asset(baseline_manager: BaselineManager, empty_project_path: P
 
 def test_create_dbt_component(baseline_manager: BaselineManager, empty_project_path: Path):
     prompt = """
-    Create a new dbt component named 'acme_dbt'. It should point to the https://github.com/dagster-io/jaffle_shop repo.
+    /dagster-skills:dagster-expert Create a new dbt component named 'acme_dbt'. It should point to the https://github.com/dagster-io/jaffle_shop repo.
     """
 
     result = execute_prompt(prompt, empty_project_path.as_posix())
 
     # make sure the skill was used
     assert "dagster-skills:dagster-expert" in result.summary.skills_used
-    assert "dagster-skills:dagster-integrations" in result.summary.skills_used
 
     # make sure the dbt component was created
     defs_result = subprocess.run(

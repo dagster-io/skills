@@ -10,8 +10,6 @@ Sensors poll for events at regular intervals and trigger actions when conditions
 
 **RunRequest and SkipReason**: Sensors yield `RunRequest` objects to launch runs or `SkipReason` to explain why no run was triggered. The `run_key` parameter on `RunRequest` prevents duplicate runs.
 
-**Basic example**: See the main SKILL.md for a simple file sensor pattern with cursor state management.
-
 ## Choosing a Sensor Type
 
 Use the appropriate sensor type based on what you're monitoring:

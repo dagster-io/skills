@@ -74,7 +74,7 @@ dg list components
 dg list components --package dagster_dbt
 ```
 
-**For integration-specific configuration and parameters, use the dagster-integrations skill.**
+**For integration-specific configuration and parameters, use the [integrations reference](../integrations/README.md).**
 
 ---
 
@@ -124,4 +124,4 @@ defs/
 - [list.md](./list.md) - Discover component types with `dg list components`
 - [check.md](./check.md) - Validate definitions after scaffolding
 - [launch.md](./launch.md) - Test scaffolded assets
-- **dagster-integrations skill** - Integration-specific configuration and parameters
+- **[integrations reference](../integrations/README.md)** - Integration-specific configuration and parameters

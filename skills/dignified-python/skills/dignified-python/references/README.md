@@ -254,7 +254,7 @@ Based on detected version, appropriate version-specific features are recommended
 
 - **`/dagster-best-practices`** - Dagster-specific patterns (not general Python)
 - **`/dg`** - Dagster CLI operations
-- **`/dagster-integrations`** - Integration discovery
+- **`/dagster-expert`** - Dagster expertise including integrations
 
 **Important**: `/dignified-python` is for **general Python standards**, not Dagster-specific
 patterns. For Dagster patterns, use `/dagster-best-practices`.
@@ -316,4 +316,4 @@ naturally select it when appropriate.
 
 - Dagster-specific patterns (they'll use `/dagster-best-practices`)
 - Creating Dagster projects (they'll use `/dg`)
-- Finding integrations (they'll use `/dagster-integrations`)
+- Finding integrations (they'll use `/dagster-expert`)
