@@ -19,6 +19,7 @@ undefined-name checks while preserving syntax and type checking:
 
 import json
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -67,6 +68,7 @@ def _collect_python_blocks() -> list[tuple[str, str, bool]]:
     return blocks
 
 
+
 def _prepare_code(code: str) -> str:
     if "import dagster" not in code:
         code = "import dagster as dg\n" + code
@@ -75,6 +77,9 @@ def _prepare_code(code: str) -> str:
 
 def _label_to_filename(label: str) -> str:
     return label.replace("/", "__").replace(":", "_L") + ".py"
+
+
+VENV_DIR = Path(sys.prefix)
 
 
 def _run_pyright_on_blocks(
@@ -86,7 +91,12 @@ def _run_pyright_on_blocks(
         return {}
 
     with tempfile.TemporaryDirectory() as tmpdir:
-        (Path(tmpdir) / "pyrightconfig.json").write_text(json.dumps(pyright_config))
+        config = {
+            "venvPath": str(VENV_DIR.parent),
+            "venv": VENV_DIR.name,
+            **(pyright_config or {}),
+        }
+        (Path(tmpdir) / "pyrightconfig.json").write_text(json.dumps(config))
 
         file_to_label: dict[str, str] = {}
         for label, code in blocks:
@@ -158,3 +168,5 @@ def test_python_code_block_ruff(label: str, code: str) -> None:
 def test_python_code_block_pyright(label: str, pyright_errors: dict[str, list[str]]) -> None:
     errors = pyright_errors.get(label, [])
     assert not errors, "\n".join(errors)
+
+
