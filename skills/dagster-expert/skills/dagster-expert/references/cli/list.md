@@ -1,3 +1,10 @@
+---
+description: "dg list command: discover and inspect definitions, assets, and components."
+triggers:
+  - "list, show, find, discover, what assets"
+  - "dg list"
+---
+
 # dg list - Discovery and Inspection
 
 Commands for discovering definitions, components, environment variables, and project structure.

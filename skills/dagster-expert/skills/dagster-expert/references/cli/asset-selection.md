@@ -1,3 +1,10 @@
+---
+description: Asset selection syntax for filtering by tag, group, kind, upstream, and downstream.
+triggers:
+  - "select, filter, tag, group, kind"
+  - "upstream, downstream, asset selection syntax"
+---
+
 # Asset Selection Syntax
 
 Reference for the asset selection syntax used by `dg list defs --assets` and `dg launch --assets`.

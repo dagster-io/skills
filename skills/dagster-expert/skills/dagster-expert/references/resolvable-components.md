@@ -1,3 +1,10 @@
+---
+description: Resolvable components pattern for creating custom Dagster components with auto-generated YAML schemas.
+triggers:
+  - "custom component, resolvable pattern"
+  - "component YAML schema, dataclass fields"
+---
+
 # Resolvable Components Pattern
 
 ## Overview

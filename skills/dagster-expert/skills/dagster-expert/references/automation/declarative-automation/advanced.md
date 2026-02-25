@@ -1,3 +1,10 @@
+---
+description: "Advanced declarative automation: status vs events, run grouping, and filtering."
+triggers:
+  - "advanced declarative automation"
+  - "status vs events, run grouping, filtering"
+---
+
 # Declarative Automation: Advanced Concepts
 
 This document covers advanced topics for deep understanding of the declarative automation system.

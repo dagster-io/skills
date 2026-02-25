@@ -1,3 +1,10 @@
+---
+description: Declarative automation operands — base condition building blocks like missing() and newly_updated().
+triggers:
+  - "automation operand, missing, newly_updated"
+  - "base condition building block"
+---
+
 # Declarative Automation: Operands
 
 Operands are base conditions that evaluate to true or false for a given asset or asset partition. They represent fundamental states and events.

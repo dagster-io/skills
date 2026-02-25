@@ -1,3 +1,10 @@
+---
+description: Basic sensor patterns for file watching and custom polling with cursors.
+triggers:
+  - "file sensor, custom polling, cursor"
+  - "basic sensor, event-driven trigger"
+---
+
 # Basic Sensors
 
 For the basic sensor pattern with cursors, see the main SKILL.md Quick Reference section.

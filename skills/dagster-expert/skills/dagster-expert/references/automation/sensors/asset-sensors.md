@@ -1,3 +1,10 @@
+---
+description: Asset sensors that trigger on asset materialization events.
+triggers:
+  - "asset sensor, materialization trigger"
+  - "react to asset update"
+---
+
 # Asset Sensors
 
 Asset sensors monitor asset materializations and trigger jobs when specific assets are materialized.

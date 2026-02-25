@@ -1,4 +1,4 @@
-.PHONY: help install lint format test clean
+.PHONY: help install lint format test clean generate-index
 
 help:  ## Show this help message
 	@echo "Available targets:"
@@ -25,6 +25,9 @@ format:  ## Auto-fix formatting issues
 test:  ## Run all tests using tox
 	@echo "Running tests..."
 	@cd dagster-skills-evals && tox
+
+generate-index:  ## Auto-generate SKILL.md index from front matter
+	python scripts/generate_skill_index.py skills/dagster-expert/skills/dagster-expert
 
 clean:  ## Clean up cache and temporary files
 	@echo "Cleaning up..."

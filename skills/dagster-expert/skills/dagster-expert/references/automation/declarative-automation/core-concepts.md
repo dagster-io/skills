@@ -1,3 +1,10 @@
+---
+description: "Core declarative automation concepts: eager(), on_cron(), and on_missing() conditions."
+triggers:
+  - "eager, on_cron, on_missing"
+  - "declarative automation basics, AutomationCondition"
+---
+
 # Declarative Automation: Core Concepts
 
 For basic examples, see the main SKILL.md Quick Reference section on Declarative Automation.

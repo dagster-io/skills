@@ -6,83 +6,9 @@ description:
   Common tasks may include creating a new project, adding new definitions, understanding the current project structure, answering general questions about the codebase (finding asset, schedule, sensor, component or job definitions), debugging issues, or providing deep information about a specific Dagster concept.
 ---
 
-# Dagster Expert Skill
+## Project Exploration
 
-Expert guidance for building production-quality Dagster projects. Routes you to detailed reference documentation for assets, automation, project structure, and CLI commands.
-
-> **IMPORTANT**: For new assets, schedules, or sensors, ALWAYS use `dg scaffold` before manual file creation. See [cli/scaffold.md](references/cli/scaffold.md).
->
-> **Invoke EARLY**: If the task involves automation conditions, scheduling logic, or integration components (dbt, Fivetran, etc.), invoke this skill or the appropriate sub-skill BEFORE exploring the codebase. The references contain all needed patterns.
-
-## Task Router
-
-| What do you need?                                                   | Reference                                                                                                                 |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Create a project                                                    | Quick Reference below (use `uvx create-dagster project`)                                                                  |
-| **Add an asset/schedule/sensor**                                    | **[cli/scaffold.md](references/cli/scaffold.md)** (ALWAYS scaffold first) + pattern docs                                  |
-| Add integration component (dbt, Fivetran, Airbyte, Snowflake, etc.) | **[integrations/README.md](references/integrations/README.md)** (contains scaffolding, YAML schema, adapter requirements) |
-| Complex scheduling / different triggers per dependency              | [automation/declarative-automation/README.md](references/automation/declarative-automation/README.md)                     |
-| Run/materialize assets                                              | [cli/launch.md](references/cli/launch.md)                                                                                 |
-| Select specific assets                                              | [cli/asset-selection.md](references/cli/asset-selection.md)                                                               |
-| List definitions                                                    | [cli/list.md](references/cli/list.md)                                                                                     |
-| Validate project                                                    | [cli/check.md](references/cli/check.md)                                                                                   |
-| Understand asset patterns                                           | [assets.md](references/assets.md)                                                                                         |
-| Understand project layout                                           | [project-structure.md](references/project-structure.md)                                                                   |
-| Set up automation                                                   | [automation/README.md](references/automation/README.md)                                                                   |
-| Debug/get logs                                                      | [cli/api.md](references/cli/api.md)                                                                                       |
-| Configure env vars                                                  | [env-vars.md](references/env-vars.md)                                                                                     |
-| Implementation workflow                                             | [implementation-workflow.md](references/implementation-workflow.md)                                                       |
-
-## Keyword Router
-
-| Keywords                                                                                                         | Reference                                                                                             |
-| ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| create project, new project, init, setup                                                                         | Quick Reference below                                                                                 |
-| workspace, multi-project, multiple projects                                                                      | Quick Reference below                                                                                 |
-| scaffold, generate, create asset/schedule/sensor                                                                 | [cli/scaffold.md](references/cli/scaffold.md)                                                         |
-| dbt, fivetran, airbyte, snowflake, bigquery, external tool, integration component, dagster_dbt, dagster_fivetran | **[integrations/README.md](references/integrations/README.md)**                                       |
-| complex triggers, different triggers, hot/cold dependencies, conditional automation                              | [automation/declarative-automation/README.md](references/automation/declarative-automation/README.md) |
-| automation_condition, AutomationCondition, eager(), any_downstream_conditions                                    | [automation/declarative-automation/README.md](references/automation/declarative-automation/README.md) |
-| list, show, find, discover, what assets                                                                          | [cli/list.md](references/cli/list.md)                                                                 |
-| validate, check, verify, test config                                                                             | [cli/check.md](references/cli/check.md)                                                               |
-| launch, run, materialize, execute, backfill                                                                      | [cli/launch.md](references/cli/launch.md)                                                             |
-| select, filter, tag, group, kind, upstream, downstream                                                           | [cli/asset-selection.md](references/cli/asset-selection.md)                                           |
-| logs, debug, troubleshoot run                                                                                    | [cli/api.md](references/cli/api.md)                                                                   |
-| deploy, plus, cloud                                                                                              | [cli/api.md](references/cli/api.md)                                                                   |
-| asset, dependency, metadata, partition                                                                           | [assets.md](references/assets.md)                                                                     |
-| schedule, cron, time-based                                                                                       | [automation/schedules.md](references/automation/schedules.md)                                         |
-| sensor, event-driven, trigger                                                                                    | [automation/sensors/](references/automation/sensors/)                                                 |
-| declarative automation, conditions                                                                               | [automation/declarative-automation/](references/automation/declarative-automation/)                   |
-| project structure, code location, definitions                                                                    | [project-structure.md](references/project-structure.md)                                               |
-| environment variables, env, config                                                                               | [env-vars.md](references/env-vars.md)                                                                 |
-
-## Quick Reference
-
-```bash
-# Project Setup
-uvx create-dagster project <name> --uv-sync  # --uv-sync creates venv and installs deps
-uvx create-dagster workspace <name>          # For multiple related projects
-# Output confirms success—no verification needed
-
-# Scaffold (ALWAYS use for new definitions)
-# NOTE: Paths are RELATIVE TO defs/ directory, not project root
-dg scaffold defs dagster.asset assets/my_asset.py
-dg scaffold defs dagster.schedule schedules/daily.py
-dg scaffold defs dagster.sensor sensors/file_watcher.py
-
-# Discover
-dg list defs
-dg list defs --assets "group:analytics"
-dg list components
-
-# Validate
-dg check defs
-
-# Launch
-dg launch --assets "tag:priority=high"
-dg launch --assets "+my_asset"  # with upstream
-dg launch --assets my_asset --partition 2024-01-15
-```
+ONLY explore the existing project structure if it is strictly necessary to accomplish the user's goal. In many cases, existing CLI tools will have sufficient understanding of the project structure, meaning listing and reading existing files is wasteful and unnecessary.
 
 ## Core Dagster Concepts
 
@@ -105,6 +31,29 @@ uv run dg list defs
 uv run dg launch --assets my_asset
 ```
 
-## Related Skills
+## Reference Index
 
-- **[integrations](references/integrations/README.md)** - Find and configure integration components (dbt, Fivetran, Sling, etc.)
+<!-- BEGIN GENERATED INDEX -->
+
+- [asset-key-design](./references/asset-key-design.md) — Asset key design patterns for multi-component pipelines (e.g. Fivetran → dbt → Hightouch). _(asset key design or naming; multi-component pipeline key alignment)_
+- [assets](./references/assets.md) — Asset patterns including dependencies, metadata, partitions, and multi-asset definitions. _(asset definition or pattern; dependency, metadata, partition, multi-asset)_
+- [env-vars](./references/env-vars.md) — Environment variable configuration for Dagster projects across different environments. _(environment variables, env, config; different environments, staging, production)_
+- [implementation-workflow](./references/implementation-workflow.md) — Complete workflow for building production-ready Dagster implementations. _(implementation workflow or step-by-step guide; how to build a Dagster project from scratch)_
+- [project-structure](./references/project-structure.md) — Project structure patterns including code locations, definitions, and directory layout. _(project structure, code location, definitions; directory layout, project organization)_
+- [resolvable-components](./references/resolvable-components.md) — Resolvable components pattern for creating custom Dagster components with auto-generated YAML schemas. _(custom component, resolvable pattern; component YAML schema, dataclass fields)_
+- [automation/choosing-automation](./references/automation/choosing-automation.md) — Decision tree for choosing between schedules, sensors, and declarative automation. _(which automation approach, schedule vs sensor vs declarative; set up automation, choose automation type)_
+- [automation/schedules](./references/automation/schedules.md) — Schedule-based automation using cron expressions and timezones. _(schedule, cron, time-based automation; recurring execution, periodic run)_
+- [automation/declarative-automation](./references/automation/declarative-automation/INDEX.md) — Declarative automation using AutomationCondition for asset-centric condition-based orchestration. _(declarative automation, AutomationCondition, conditions; eager, on_cron, on_missing, complex triggers)_
+- [automation/sensors/asset-sensors](./references/automation/sensors/asset-sensors.md) — Asset sensors that trigger on asset materialization events. _(asset sensor, materialization trigger; react to asset update)_
+- [automation/sensors/basic-sensors](./references/automation/sensors/basic-sensors.md) — Basic sensor patterns for file watching and custom polling with cursors. _(file sensor, custom polling, cursor; basic sensor, event-driven trigger)_
+- [automation/sensors/run-status-sensors](./references/automation/sensors/run-status-sensors.md) — Run status sensors that monitor run success, failure, and trigger actions. _(run status sensor, success/failure monitoring; run completion trigger, alerting on run status)_
+- [cli/api](./references/cli/api.md) — dg api and dg plus commands: API access, Dagster Plus authentication, logs, and debugging. _(logs, debug, troubleshoot run; deploy, plus, cloud, dg api)_
+- [cli/asset-selection](./references/cli/asset-selection.md) — Asset selection syntax for filtering by tag, group, kind, upstream, and downstream. _(select, filter, tag, group, kind; upstream, downstream, asset selection syntax)_
+- [cli/check](./references/cli/check.md) — dg check command: validate project configuration and definitions. _(validate, check, verify, test config; dg check)_
+- [cli/create-dagster](./references/cli/create-dagster.md) — Create a new Dagster project using the `uvx create-dagster` command. _(create a new Dagster project; initial project setup)_
+- [cli/launch](./references/cli/launch.md) — dg launch command: materialize assets, execute jobs, and run backfills. _(launch, run, materialize, execute, backfill; dg launch)_
+- [cli/list](./references/cli/list.md) — dg list command: discover and inspect definitions, assets, and components. _(list, show, find, discover, what assets; dg list)_
+- [cli/scaffold](./references/cli/scaffold.md) — dg scaffold command: create assets, schedules, sensors, and integration components. _(scaffold, generate, create asset/schedule/sensor; dg scaffold, new definition)_
+- [components/state-backed-components](./references/components/state-backed-components.md) — State-backed components pattern for Dagster. _(state-backed component; component with state)_
+- [integrations](./references/integrations/INDEX.md) — Integration libraries index for 40+ tools and technologies (dbt, Fivetran, Snowflake, AWS, etc.). _(integration, external tool, dagster-_; dbt, fivetran, airbyte, snowflake, bigquery, sling, aws, gcp)\*
+<!-- END GENERATED INDEX -->

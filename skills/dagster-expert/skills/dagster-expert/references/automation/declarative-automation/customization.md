@@ -1,3 +1,10 @@
+---
+description: Customizing declarative automation conditions with without(), replace(), allow(), and ignore().
+triggers:
+  - "customize automation condition"
+  - "without, replace, allow, ignore condition"
+---
+
 # Declarative Automation: Customization
 
 Start with one of the three main conditions (`eager()`, `on_cron()`, `on_missing()`) and customize them using these patterns.

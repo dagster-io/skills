@@ -1,3 +1,10 @@
+---
+description: Schedule-based automation using cron expressions and timezones.
+triggers:
+  - "schedule, cron, time-based automation"
+  - "recurring execution, periodic run"
+---
+
 # Schedules
 
 Basic schedule patterns are covered in the main SKILL.md Quick Reference. This reference covers advanced schedule configuration and partitioned job automation.

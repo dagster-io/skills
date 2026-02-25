@@ -1,3 +1,10 @@
+---
+description: Project structure patterns including code locations, definitions, and directory layout.
+triggers:
+  - "project structure, code location, definitions"
+  - "directory layout, project organization"
+---
+
 # Project Structure Reference
 
 ## Pattern Summary

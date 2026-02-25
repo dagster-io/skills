@@ -1,3 +1,10 @@
+---
+description: "dg check command: validate project configuration and definitions."
+triggers:
+  - "validate, check, verify, test config"
+  - "dg check"
+---
+
 # dg check - Project Validation
 
 Validate project configuration and definitions.

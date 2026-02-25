@@ -1,5 +1,7 @@
 import json
+import os
 import subprocess
+import sys
 import textwrap
 from dataclasses import dataclass
 from functools import cached_property
@@ -9,7 +11,7 @@ from typing import Any
 from dagster_shared.record import record
 from dagster_shared.serdes import whitelist_for_serdes
 
-_PLUGINS_DIR = Path(__file__).parent.parent.parent.parent
+_PLUGINS_DIR = Path(__file__).parent.parent.parent.parent / "skills" / "dagster-expert"
 
 
 @whitelist_for_serdes
@@ -203,7 +205,9 @@ def run_claude_headless(
         text=True,
         timeout=timeout,
         check=False,
+        env={**os.environ, "DISABLE_PROMPT_CACHING": "true"},
     )
+    sys.stdout.write(result.stdout)
 
     return ClaudeExecutionResult(cli_result=result)
 

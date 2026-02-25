@@ -1,3 +1,10 @@
+---
+description: "dg launch command: materialize assets, execute jobs, and run backfills."
+triggers:
+  - "launch, run, materialize, execute, backfill"
+  - "dg launch"
+---
+
 # dg launch - Materialize Assets
 
 Materialize Dagster assets or execute jobs.

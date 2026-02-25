@@ -1,3 +1,10 @@
+---
+description: How Dagster parses dbt project dependencies and patterns for defining additional upstream dependencies.
+triggers:
+  - "dbt dependency, upstream asset"
+  - "dbt source, dependency parsing"
+---
+
 # Dependencies
 
 ## How Dependencies Work

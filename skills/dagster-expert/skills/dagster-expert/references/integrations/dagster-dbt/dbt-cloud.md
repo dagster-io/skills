@@ -1,3 +1,10 @@
+---
+description: Integrating dbt Cloud projects into Dagster for cloud-based dbt orchestration.
+triggers:
+  - "dbt Cloud, cloud-based dbt"
+  - "dbt Cloud integration"
+---
+
 # dbt Cloud Integration
 
 The dagster-dbt library provides integration with dbt Cloud via the v2 API (recommended) for
