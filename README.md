@@ -19,6 +19,10 @@ Install using the
 
 ```
 /plugin marketplace add dagster-io/skills
+
+/plugin install dagster-expert@dagster-skills
+
+/dagster-skills:dagster-expert "What's an asset?"
 ```
 
 ### Using `npx skills`
