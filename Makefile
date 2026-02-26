@@ -18,8 +18,8 @@ format:  ## Auto-fix formatting issues
 	@echo "Formatting markdown files..."
 	@npx prettier --write "**/*.md"
 	@echo "Formatting Python files..."
-	@ruff format scripts/
-	@ruff check --fix scripts/
+	@ruff format dagster-skills-evals/
+	@ruff check --fix dagster-skills-evals/
 	@echo "Formatting complete!"
 
 test:  ## Run all tests using tox
@@ -27,7 +27,7 @@ test:  ## Run all tests using tox
 	@cd dagster-skills-evals && tox
 
 generate-index:  ## Auto-generate SKILL.md index from front matter
-	python scripts/generate_skill_index.py skills/dagster-expert/skills/dagster-expert
+	cd dagster-skills-evals && uv run dagster-skills generate-index ../skills/dagster-expert/skills/dagster-expert
 
 clean:  ## Clean up cache and temporary files
 	@echo "Cleaning up..."

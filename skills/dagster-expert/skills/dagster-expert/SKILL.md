@@ -24,7 +24,7 @@ Brief definitions only (see reference files for detailed examples):
 
 ## UV Compatibility
 
-Projects use `uv` for dependency management:
+Projects typically use `uv` for dependency management:
 
 ```bash
 uv run dg list defs
@@ -35,25 +35,25 @@ uv run dg launch --assets my_asset
 
 <!-- BEGIN GENERATED INDEX -->
 
-- [asset-key-design](./references/asset-key-design.md) — Asset key design patterns for multi-component pipelines (e.g. Fivetran → dbt → Hightouch). _(asset key design or naming; multi-component pipeline key alignment)_
-- [assets](./references/assets.md) — Asset patterns including dependencies, metadata, partitions, and multi-asset definitions. _(asset definition or pattern; dependency, metadata, partition, multi-asset)_
-- [env-vars](./references/env-vars.md) — Environment variable configuration for Dagster projects across different environments. _(environment variables, env, config; different environments, staging, production)_
-- [implementation-workflow](./references/implementation-workflow.md) — Complete workflow for building production-ready Dagster implementations. _(implementation workflow or step-by-step guide; how to build a Dagster project from scratch)_
-- [project-structure](./references/project-structure.md) — Project structure patterns including code locations, definitions, and directory layout. _(project structure, code location, definitions; directory layout, project organization)_
-- [resolvable-components](./references/resolvable-components.md) — Resolvable components pattern for creating custom Dagster components with auto-generated YAML schemas. _(custom component, resolvable pattern; component YAML schema, dataclass fields)_
-- [automation/choosing-automation](./references/automation/choosing-automation.md) — Decision tree for choosing between schedules, sensors, and declarative automation. _(which automation approach, schedule vs sensor vs declarative; set up automation, choose automation type)_
-- [automation/schedules](./references/automation/schedules.md) — Schedule-based automation using cron expressions and timezones. _(schedule, cron, time-based automation; recurring execution, periodic run)_
-- [automation/declarative-automation](./references/automation/declarative-automation/INDEX.md) — Declarative automation using AutomationCondition for asset-centric condition-based orchestration. _(declarative automation, AutomationCondition, conditions; eager, on_cron, on_missing, complex triggers)_
-- [automation/sensors/asset-sensors](./references/automation/sensors/asset-sensors.md) — Asset sensors that trigger on asset materialization events. _(asset sensor, materialization trigger; react to asset update)_
-- [automation/sensors/basic-sensors](./references/automation/sensors/basic-sensors.md) — Basic sensor patterns for file watching and custom polling with cursors. _(file sensor, custom polling, cursor; basic sensor, event-driven trigger)_
-- [automation/sensors/run-status-sensors](./references/automation/sensors/run-status-sensors.md) — Run status sensors that monitor run success, failure, and trigger actions. _(run status sensor, success/failure monitoring; run completion trigger, alerting on run status)_
-- [cli/api](./references/cli/api.md) — dg api and dg plus commands: API access, Dagster Plus authentication, logs, and debugging. _(logs, debug, troubleshoot run; deploy, plus, cloud, dg api)_
-- [cli/asset-selection](./references/cli/asset-selection.md) — Asset selection syntax for filtering by tag, group, kind, upstream, and downstream. _(select, filter, tag, group, kind; upstream, downstream, asset selection syntax)_
-- [cli/check](./references/cli/check.md) — dg check command: validate project configuration and definitions. _(validate, check, verify, test config; dg check)_
-- [cli/create-dagster](./references/cli/create-dagster.md) — Create a new Dagster project using the `uvx create-dagster` command. _(create a new Dagster project; initial project setup)_
-- [cli/launch](./references/cli/launch.md) — dg launch command: materialize assets, execute jobs, and run backfills. _(launch, run, materialize, execute, backfill; dg launch)_
-- [cli/list](./references/cli/list.md) — dg list command: discover and inspect definitions, assets, and components. _(list, show, find, discover, what assets; dg list)_
-- [cli/scaffold](./references/cli/scaffold.md) — dg scaffold command: create assets, schedules, sensors, and integration components. _(scaffold, generate, create asset/schedule/sensor; dg scaffold, new definition)_
-- [components/state-backed-components](./references/components/state-backed-components.md) — State-backed components pattern for Dagster. _(state-backed component; component with state)_
-- [integrations](./references/integrations/INDEX.md) — Integration libraries index for 40+ tools and technologies (dbt, Fivetran, Snowflake, AWS, etc.). _(integration, external tool, dagster-_; dbt, fivetran, airbyte, snowflake, bigquery, sling, aws, gcp)\*
+- [asset-key-design](./references/asset-key-design.md) — Asset key design patterns for multi-component pipelines (e.g. Fivetran → dbt → Hightouch). (asset key design or naming; multi-component pipeline key alignment)
+- [assets](./references/assets.md) — Asset patterns including dependencies, metadata, partitions, and multi-asset definitions. (asset definition or pattern; dependency, metadata, partition, multi-asset)
+- [env-vars](./references/env-vars.md) — Environment variable configuration for Dagster projects across different environments. (environment variables, env, config; different environments, staging, production)
+- [implementation-workflow](./references/implementation-workflow.md) — Complete workflow for building production-ready Dagster implementations. (implementation workflow or step-by-step guide; how to build a Dagster project from scratch)
+- [project-structure](./references/project-structure.md) — Project structure patterns including code locations, definitions, and directory layout. (project structure, code location, definitions; directory layout, project organization)
+- [resolvable-components](./references/resolvable-components.md) — Resolvable components pattern for creating custom Dagster components with auto-generated YAML schemas. (custom component, resolvable pattern; component YAML schema, dataclass fields)
+- [automation/choosing-automation](./references/automation/choosing-automation.md) — Decision tree for choosing between schedules, sensors, and declarative automation. (which automation approach, schedule vs sensor vs declarative; set up automation, choose automation type)
+- [automation/schedules](./references/automation/schedules.md) — Schedule-based automation using cron expressions and timezones. (schedule, cron, time-based automation; recurring execution, periodic run)
+- [automation/declarative-automation](./references/automation/declarative-automation/INDEX.md) — Declarative automation using AutomationCondition for asset-centric condition-based orchestration. (declarative automation, AutomationCondition, conditions; eager, on_cron, on_missing, complex triggers)
+- [automation/sensors/asset-sensors](./references/automation/sensors/asset-sensors.md) — Asset sensors that trigger on asset materialization events. (asset sensor, materialization trigger; react to asset update)
+- [automation/sensors/basic-sensors](./references/automation/sensors/basic-sensors.md) — Basic sensor patterns for file watching and custom polling with cursors. (file sensor, custom polling, cursor; basic sensor, event-driven trigger)
+- [automation/sensors/run-status-sensors](./references/automation/sensors/run-status-sensors.md) — Run status sensors that monitor run success, failure, and trigger actions. (run status sensor, success/failure monitoring; run completion trigger, alerting on run status)
+- [cli/api](./references/cli/api.md) — dg api and dg plus commands: API access, Dagster Plus authentication, logs, and debugging. (logs, debug, troubleshoot run; deploy, plus, cloud, dg api)
+- [cli/asset-selection](./references/cli/asset-selection.md) — Asset selection syntax for filtering by tag, group, kind, upstream, and downstream. (select, filter, tag, group, kind; upstream, downstream, asset selection syntax)
+- [cli/check](./references/cli/check.md) — dg check command: validate project configuration and definitions. (validate, check, verify, test config; dg check)
+- [cli/create-dagster](./references/cli/create-dagster.md) — Create a new Dagster project using the `uvx create-dagster` command. (create a new Dagster project; initial project setup)
+- [cli/launch](./references/cli/launch.md) — dg launch command: materialize assets, execute jobs, and run backfills. (launch, run, materialize, execute, backfill; dg launch)
+- [cli/list](./references/cli/list.md) — dg list command: discover and inspect definitions, assets, and components. (list, show, find, discover, what assets; dg list)
+- [cli/scaffold](./references/cli/scaffold.md) — dg scaffold command: create assets, schedules, sensors, and integration components. (scaffold, generate, create asset/schedule/sensor; dg scaffold, new definition)
+- [components/state-backed-components](./references/components/state-backed-components.md) — State-backed components pattern for Dagster. (state-backed component; component with state)
+- [integrations](./references/integrations/INDEX.md) — Integration libraries index for 40+ tools and technologies (dbt, Fivetran, Snowflake, AWS, etc.). (integration, external tool, dagster-\*; dbt, fivetran, airbyte, snowflake, bigquery, sling, aws, gcp)
 <!-- END GENERATED INDEX -->

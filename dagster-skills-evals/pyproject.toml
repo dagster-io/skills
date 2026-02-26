@@ -9,7 +9,14 @@ description = "Utilities for evaluating the dagster-provided skills"
 requires-python = ">=3.13,<3.14"
 dependencies = [
     "dagster_shared",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0",
+    "rich>=13.0.0",
+    "typer>=0.15.0",
 ]
+
+[project.scripts]
+dagster-skills = "dagster_skills_evals.cli:app"
 
 [project.optional-dependencies]
 test = [
@@ -73,6 +80,7 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # Allow unused imports in __init__.py files
+"**/cli/*.py" = ["B008"]  # typer.Argument/Option in defaults is the intended pattern
 
 [tool.ruff.lint.isort]
-known-first-party = ["scripts"]
+known-first-party = ["dagster_skills_evals"]
