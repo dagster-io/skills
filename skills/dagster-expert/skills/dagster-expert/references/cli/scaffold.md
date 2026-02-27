@@ -1,3 +1,10 @@
+---
+description: "dg scaffold command: create assets, schedules, sensors, and integration components."
+triggers:
+  - "scaffold, generate, create asset/schedule/sensor"
+  - "dg scaffold, new definition"
+---
+
 # dg scaffold - Create Definitions
 
 Scaffold Dagster definitions including Python objects (assets, schedules, sensors) and integration components.
@@ -74,7 +81,7 @@ dg list components
 dg list components --package dagster_dbt
 ```
 
-**For integration-specific configuration and parameters, use the [integrations reference](../integrations/README.md).**
+**For integration-specific configuration and parameters, use the [integrations reference](../integrations/INDEX.md).**
 
 ---
 
@@ -124,4 +131,4 @@ defs/
 - [list.md](./list.md) - Discover component types with `dg list components`
 - [check.md](./check.md) - Validate definitions after scaffolding
 - [launch.md](./launch.md) - Test scaffolded assets
-- **[integrations reference](../integrations/README.md)** - Integration-specific configuration and parameters
+- **[integrations reference](../integrations/INDEX.md)** - Integration-specific configuration and parameters

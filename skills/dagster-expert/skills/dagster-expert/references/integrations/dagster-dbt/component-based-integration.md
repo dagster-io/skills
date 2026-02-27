@@ -1,7 +1,16 @@
+---
+description: DbtProjectComponent configuration and customization for dbt Core projects in Dagster.
+triggers:
+  - "DbtProjectComponent configuration, customize dbt component"
+  - "dbt component settings, dbt translation"
+---
+
 # Component-Based Integration
 
 The Component-based approach uses `DbtProjectComponent` to define dbt assets via YAML configuration.
 This is the recommended approach for new projects.
+
+> For initial setup and scaffolding, see [Scaffolding](scaffolding.md).
 
 ## Overview
 
@@ -22,55 +31,6 @@ local development (defaults to `true`).
 
 In CI/CD, use `dg utils refresh-defs-state` or `dg plus deploy refresh-defs-state` to compile the
 manifest before deployment.
-
-## Project Setup
-
-### Colocated Projects
-
-Provide a local path to a dbt project within your Dagster repository:
-
-```yaml
-type: dagster_dbt.DbtProjectComponent
-attributes:
-  project: "{{ context.project_root }}/dbt_project"
-```
-
-Scaffold this with the following command:
-
-```bash
-dg scaffold defs dagster_dbt.DbtProjectComponent <component name> --project-path <path to dbt project>
-```
-
-### Remote Git Repositories
-
-Provide a Git URL and path to the dbt project within the repository:
-
-```yaml
-type: dagster_dbt.DbtProjectComponent
-attributes:
-  project:
-    repo_url: https://github.com/org/dbt-project.git
-    repo_relative_path: path/to/dbt
-```
-
-During `dg utils refresh-defs-state`, the component automatically clones the repository and compiles
-the manifest.
-
-Scaffold this with the following command:
-
-```bash
-dg scaffold defs dagster_dbt.DbtProjectComponent <component name> --git-url <git url> --project-path <repo-relative path to dbt project, default '.'>
-```
-
-### Important: Adapter Libraries
-
-Most dbt projects will use an adapter library to connect to the specific database technology being used. This adapter library will be in a `dbt-<database>` (e.g. `dbt-snowflake`, `dbt-bigquery`, `dbt-duckdb`) package, which you should add to the project. For `uv`-based projects, this can be done with `uv add dbt-<database>`.
-
-You can determine which database technology to use by:
-
-- Asking the user
-- Looking at the profiles.yml file in the dbt project and scanning for which database(s) it uses
-- Attempting to execute the dagster code without the adapter library installed and seeing which errors are thrown
 
 ## Basic Configuration
 

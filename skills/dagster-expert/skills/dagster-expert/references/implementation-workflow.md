@@ -1,3 +1,10 @@
+---
+description: Complete workflow for building production-ready Dagster implementations.
+triggers:
+  - "implementation workflow or step-by-step guide"
+  - "how to build a Dagster project from scratch"
+---
+
 # Dagster Implementation Workflow
 
 Complete workflow for building production-ready Dagster implementations following best practices.
@@ -23,7 +30,7 @@ Use this workflow when building new Dagster features or prototyping complete dat
 Determine:
 
 - What assets need to be created
-- What integrations are needed (see [integrations reference](integrations/README.md))
+- What integrations are needed (see [integrations reference](integrations/INDEX.md))
 - Whether to use Components or Pythonic assets (or both)
 - Testing strategy
 - Automation requirements
@@ -43,7 +50,7 @@ dg list components
 dg docs integrations --json
 ```
 
-Consult the [integrations reference](integrations/README.md) for finding appropriate integrations.
+Consult the [integrations reference](integrations/INDEX.md) for finding appropriate integrations.
 
 ---
 
@@ -580,8 +587,8 @@ If using automation:
 - [Asset Key Design Reference](./asset-key-design.md) - Multi-component pipeline key design
 - [Resolvable Components Reference](./resolvable-components.md) - Modern component pattern
 - [Environment Variables Reference](./env-vars.md) - Environment configuration
-- [CLI Reference](./cli/) - CLI commands for scaffolding, launching, and validation
-- [integrations reference](integrations/README.md) - Finding and using integration components
+- [CLI Scaffold Reference](./cli/scaffold.md) - Scaffolding new definitions
+- [integrations reference](integrations/INDEX.md) - Finding and using integration components
 
 ---
 

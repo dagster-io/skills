@@ -1,3 +1,10 @@
+---
+description: Environment variable configuration for Dagster projects across different environments.
+triggers:
+  - "environment variables, env, config"
+  - "different environments, staging, production"
+---
+
 # Environment Variables Reference
 
 ## Overview

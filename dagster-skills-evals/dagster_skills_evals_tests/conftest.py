@@ -5,7 +5,6 @@ import tempfile
 from collections.abc import Iterator
 from datetime import datetime
 from pathlib import Path
-from typing import Any
 
 import pytest
 from dagster_shared.serdes import deserialize_value, serialize_value
@@ -42,14 +41,23 @@ class BaselineManager:
         with self.baseline_path.open("w") as f:
             f.write(serialize_value(summary, indent=2))
 
-    def save_log(self, messages: list[dict[str, Any]]) -> Path:
-        """Save messages to a timestamped log file."""
-        self.logs_dir.mkdir(exist_ok=True)
+    def save_log(self, result: ClaudeExecutionResult) -> Path:
+        """Save execution results to a timestamped run directory.
+
+        Creates: logs/{test_name}/{timestamp}/summary.json, stdout.txt, stderr.txt
+        """
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        log_path = self.logs_dir / f"{self.test_name}_{timestamp}.json"
-        with log_path.open("w") as f:
-            json.dump(messages, f, indent=2)
-        return log_path
+        run_dir = self.logs_dir / self.test_name / timestamp
+        run_dir.mkdir(parents=True, exist_ok=True)
+
+        with (run_dir / "summary.json").open("w") as f:
+            json.dump(result.messages, f, indent=2)
+        with (run_dir / "stdout.txt").open("w") as f:
+            f.write(result.stdout)
+        with (run_dir / "stderr.txt").open("w") as f:
+            f.write(result.stderr)
+
+        return run_dir
 
     def _assert_improvement(
         self,
@@ -97,7 +105,7 @@ class BaselineManager:
         if self.update_mode:
             self.save_baseline(result.summary)
 
-        self.save_log(result.messages)
+        self.save_log(result)
         self._assert_improvement(self.baseline, result.summary)
 
 

@@ -1,3 +1,10 @@
+---
+description: "@dbt_assets decorator for programmatic dbt integration with maximum flexibility."
+triggers:
+  - "dbt_assets decorator, pythonic dbt"
+  - "programmatic dbt integration"
+---
+
 # Pythonic Integration
 
 The Pythonic approach uses the `@dbt_assets` decorator to define dbt assets programmatically. This

@@ -1,3 +1,10 @@
+---
+description: How dbt tests map to Dagster asset checks for data quality validation.
+triggers:
+  - "dbt test, asset check"
+  - "dbt data quality, test mapping"
+---
+
 # Asset Checks
 
 dbt tests are loaded as Dagster asset checks by default (enabled in dagster-dbt 0.23.0+).

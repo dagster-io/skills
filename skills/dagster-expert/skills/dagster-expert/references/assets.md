@@ -1,3 +1,10 @@
+---
+description: Asset patterns including dependencies, metadata, partitions, and multi-asset definitions.
+triggers:
+  - "asset definition or pattern"
+  - "dependency, metadata, partition, multi-asset"
+---
+
 # Asset Patterns Reference
 
 ## Pattern Summary

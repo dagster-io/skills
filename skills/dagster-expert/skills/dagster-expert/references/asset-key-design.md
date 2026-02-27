@@ -1,3 +1,10 @@
+---
+description: Asset key design patterns for multi-component pipelines (e.g. Fivetran → dbt → Hightouch).
+triggers:
+  - "asset key design or naming"
+  - "multi-component pipeline key alignment"
+---
+
 # Asset Key Design for Multi-Component Pipelines
 
 ## Overview

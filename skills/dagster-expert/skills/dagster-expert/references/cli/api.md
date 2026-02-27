@@ -1,3 +1,10 @@
+---
+description: "dg api and dg plus commands: API access, Dagster Plus authentication, logs, and debugging."
+triggers:
+  - "logs, debug, troubleshoot run"
+  - "deploy, plus, cloud, dg api"
+---
+
 # dg api / dg plus
 
 API access and Dagster Plus authentication.

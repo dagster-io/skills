@@ -1,3 +1,10 @@
+---
+description: Declarative automation operators for combining and transforming conditions (since, any_deps_match).
+triggers:
+  - "automation operator, since, any_deps_match"
+  - "combining conditions, boolean operators"
+---
+
 # Declarative Automation: Operators
 
 Operators combine operands and other conditions into complex expressions using boolean logic and transformations.
