@@ -1,0 +1,29 @@
+{
+  "__class__": "ClaudeExecutionResultSummary",
+  "execution_time_ms": 11711,
+  "input_tokens": 19597,
+  "model_usage": [
+    {
+      "__class__": "ModelUsage",
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 27896,
+      "input_tokens": 19597,
+      "model": "claude-sonnet-4-6",
+      "output_tokens": 620
+    }
+  ],
+  "narrative_summary": [
+    "- User asked how to fix missing environment variables when running pipelines locally",
+    "- Assistant read the `env-vars.md` reference file to gather information on environment variable configuration in Dagster",
+    "- Assistant read the `cli/list/envs.md` reference file for details on the `dg list envs` command",
+    "- Assistant read the `cli/plus/pull/env.md` reference file for details on pulling env vars from Dagster Plus",
+    "- Assistant synthesized the information and responded with a structured guide covering: using `dg list envs` to identify missing vars, creating a local `.env` file, and (for Dagster Plus users) using `dg plus login` + `dg plus pull env` to sync vars from the cloud"
+  ],
+  "output_tokens": 620,
+  "skills_used": [],
+  "tools_used": [
+    "Read",
+    "Read",
+    "Read"
+  ]
+}

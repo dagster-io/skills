@@ -1,0 +1,35 @@
+{
+  "__class__": "ClaudeExecutionResultSummary",
+  "execution_time_ms": 14433,
+  "input_tokens": 27110,
+  "model_usage": [
+    {
+      "__class__": "ModelUsage",
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 41844,
+      "input_tokens": 27110,
+      "model": "claude-sonnet-4-6",
+      "output_tokens": 578
+    },
+    {
+      "__class__": "ModelUsage",
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "input_tokens": 1106,
+      "model": "claude-haiku-4-5-20251001",
+      "output_tokens": 32
+    }
+  ],
+  "narrative_summary": [
+    "- User asked what Dagster components they currently have access to",
+    "- Assistant read the reference file at `skills/dagster-expert/references/cli/list/components.md` to understand the `dg list components` command",
+    "- Assistant ran `uv run dg list components` to get the live list of available component types",
+    "- Assistant presented the 7 available components in a formatted table, noting the version mismatch warning between `dagster-shared` and `dagster-dbt`"
+  ],
+  "output_tokens": 578,
+  "skills_used": [],
+  "tools_used": [
+    "Read",
+    "Bash"
+  ]
+}

@@ -37,7 +37,7 @@ Determine:
 
 ### Review Current Project Structure
 
-Use [dg CLI commands](./cli/list.md):
+Use [dg list defs](./cli/list/defs.md):
 
 ```bash
 dg list defs
@@ -91,7 +91,7 @@ For custom components (not using built-in integrations):
 dg scaffold component ComponentName
 ```
 
-See [CLI scaffold reference](./cli/scaffold.md) for full scaffolding details.
+See [CLI scaffold defs reference](./cli/scaffold/defs.md) for full scaffolding details.
 
 #### 2. Create Component Definitions
 
@@ -587,7 +587,7 @@ If using automation:
 - [Asset Key Design Reference](./asset-key-design.md) - Multi-component pipeline key design
 - [Resolvable Components Reference](./resolvable-components.md) - Modern component pattern
 - [Environment Variables Reference](./env-vars.md) - Environment configuration
-- [CLI Scaffold Reference](./cli/scaffold.md) - Scaffolding new definitions
+- [CLI Scaffold Reference](./cli/scaffold/defs.md) - Scaffolding new definitions
 - [integrations reference](integrations/INDEX.md) - Finding and using integration components
 
 ---

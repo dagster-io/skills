@@ -102,3 +102,58 @@ def test_complex_automation_condition(baseline_manager: BaselineManager, empty_p
         assert "dg.AutomationCondition.eager()" in f.read()
 
     baseline_manager.assert_improved(result)
+
+
+def test_get_run_failure_logs(baseline_manager: BaselineManager):
+    run_id = "ca5aba5e-fade-bead-cafe-dec0de5c0de5"
+    prompt = f"/dagster-expert What command would you run to figure out why this run failed: https://acme_co.dagster.cloud/prod/runs/{run_id}?"
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        result = execute_prompt(prompt, tmp_dir)
+
+        # should recommend the correct command from the reference docs
+        assert f"dg api log get {run_id}" in result.conversation_summary()
+        assert "--level ERROR" in result.conversation_summary()
+
+        baseline_manager.assert_improved(result)
+
+
+def test_missing_env_vars(baseline_manager: BaselineManager):
+    prompt = "/dagster-expert I can't run my dagster Plus pipelines locally because I'm missing some required env vars, how can I fix this?"
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        result = execute_prompt(prompt, tmp_dir)
+
+        summary = result.conversation_summary()
+        # should recommend pulling env vars from Plus
+        assert "dg plus pull env" in summary
+
+        baseline_manager.assert_improved(result)
+
+
+def test_list_available_components(baseline_manager: BaselineManager):
+    prompt = "/dagster-expert What components do I currently have access to?"
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        result = execute_prompt(prompt, tmp_dir)
+
+        summary = result.conversation_summary()
+        # should recommend listing available component types
+        assert "dg list components" in summary
+
+        baseline_manager.assert_improved(result)
+
+
+def test_complex_asset_selection(baseline_manager: BaselineManager):
+    prompt = "/dagster-expert How can I select all my dbt assets that have an immediate upstream fivetran asset as a dependency? Just give me the command, do not run it."
+
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        result = execute_prompt(prompt, tmp_dir)
+
+        summary = result.conversation_summary()
+
+        # should reference asset selection syntax with kind selectors
+        assert "kind:fivetran+1" in summary.lower()
+        assert "kind:dbt" in summary.lower()
+
+        baseline_manager.assert_improved(result)

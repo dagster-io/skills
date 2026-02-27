@@ -1,21 +1,14 @@
 ---
 description: "dg check command: validate project configuration and definitions."
 triggers:
-  - "validate, check, verify, test config"
+  - "validate yaml, validate definitions, check, verify"
+  - "validate project config"
   - "dg check"
 ---
 
 # dg check - Project Validation
 
 Validate project configuration and definitions.
-
-## Commands
-
-| Command         | Description                         |
-| --------------- | ----------------------------------- |
-| `dg check defs` | Validate definitions load correctly |
-| `dg check yaml` | Validate YAML configuration files   |
-| `dg check toml` | Validate TOML configuration files   |
 
 ---
 
@@ -69,11 +62,3 @@ dg check yaml           # Config syntax
 dg check defs           # Definitions load
 dg list defs            # Verify expected definitions appear
 ```
-
----
-
-## See Also
-
-- [scaffold.md](./scaffold.md) - Validate after scaffolding
-- [list.md](./list.md) - View definitions after validation
-- [project-structure.md](../project-structure.md) - Project structure reference

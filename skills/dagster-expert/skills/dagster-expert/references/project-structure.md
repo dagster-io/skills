@@ -210,7 +210,7 @@ load_from:
 
 ## Creating and Scaffolding Projects
 
-Use the `dg` CLI to create projects and scaffold Dagster objects. For detailed scaffolding commands and options, see the [CLI scaffold reference](./cli/scaffold.md).
+Use the `dg` CLI to create projects and scaffold Dagster objects. For detailed scaffolding commands and options, see the [CLI scaffold reference](./cli/scaffold/defs.md).
 
 **Quick reference:**
 

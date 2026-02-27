@@ -1,13 +1,13 @@
 ---
-description: "dg launch command: materialize assets, execute jobs, and run backfills."
+description: "dg launch command: materialize assets and execute jobs locally."
 triggers:
-  - "launch, run, materialize, execute, backfill"
   - "dg launch"
+  - "execute locally"
 ---
 
-# dg launch - Materialize Assets
+# dg launch
 
-Materialize Dagster assets or execute jobs.
+The `dg launch` command can be used to execute runs of assets or jobs LOCALLY, and in-process. This can be useful in development workflows, but will NOT execute runs on a remote Dagster deployment.
 
 ## Basic Usage
 
@@ -16,40 +16,13 @@ dg launch --assets <selection>
 dg launch --job <job_name>
 ```
 
-**Examples:**
-
-```bash
-# Single asset
-dg launch --assets customers
-
-# Multiple assets
-dg launch --assets customers,orders,products
-
-# All assets
-dg launch --assets "*"
-
-# By metadata
-dg launch --assets "tag:priority=high"
-dg launch --assets "group:analytics"
-dg launch --assets "kind:dbt"
-
-# Combined selection
-dg launch --assets "tag:schedule=daily and kind:dbt"
-
-# With traversals (upstream/downstream)
-dg launch --assets "+customers"      # All upstream + customers
-dg launch --assets "customers+"      # Customers + all downstream
-dg launch --assets "+2 customers"    # 2 levels upstream + customers
-
-# Execute job
-dg launch --job daily_job
-```
-
 See [asset-selection.md](./asset-selection.md) for complete selection syntax.
 
 ---
 
 ## Partitions
+
+For partitioned assets, the `--partition` option can be used to specify a single partition key to execute, or a range of partition keys if the asset has a BackfillPolicy that supports executing multiple partition keys at once.
 
 ```bash
 # Single partition
@@ -67,6 +40,8 @@ dg launch --assets regional_asset --partition us-west
 ---
 
 ## Configuration
+
+The `--config` option can be used to provide inline JSON configuration for the run.
 
 ```bash
 # Inline JSON
@@ -100,10 +75,3 @@ dg list defs --assets "tag:priority=high and kind:dbt"
 # Then launch
 dg launch --assets "tag:priority=high and kind:dbt"
 ```
-
----
-
-## See Also
-
-- [asset-selection.md](./asset-selection.md) - Complete selection syntax including traversals and functions
-- [list.md](./list.md) - Preview assets before launching
