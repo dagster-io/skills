@@ -9,11 +9,15 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+Improved skill selection logic and routing.
+
 ### Changed
 
 ### Deprecated
 
 ### Removed
+
+Removed the dagster-integrations skill, and incorporated its functionality into the dagster-expert skill.
 
 ### Fixed
 
