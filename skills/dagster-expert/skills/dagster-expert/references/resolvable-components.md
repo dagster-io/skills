@@ -191,6 +191,64 @@ attributes:
   asset_selection: "tag:schedule=daily and tag:domain=finance"
 ```
 
+## Multi-Asset Component Design
+
+Components that invoke a pipeline or API producing multiple assets should declare those assets in YAML rather than hard-coding them in Python. This makes the component reusable across different configurations.
+
+### Design Principles
+
+1. **Configuration over code** — Asset definitions (names, keys, dependencies) should be YAML-configurable, not hard-coded in Python
+2. **Expose an `assets` field** — Let users declare what assets the component produces via YAML
+3. **Resources live outside the component** — Configure resources in `defs/resources.py` using `dg scaffold defs dagster.resource resources.py`, not inside `build_defs()`
+
+### Reference Architectures
+
+Two official Dagster components demonstrate good multi-asset design:
+
+- **dbt** ([source](https://github.com/dagster-io/dagster/blob/master/python_modules/libraries/dagster-dbt/dagster_dbt/components/dbt_project/component.py)) — Reads a project manifest to discover assets. Allows per-asset customization via `get_asset_spec()`.
+- **Fivetran** ([source](https://github.com/dagster-io/dagster/blob/master/python_modules/libraries/dagster-fivetran/dagster_fivetran/components/workspace_component/component.py)) — Queries an API to discover connectors/tables, creates one asset per table.
+
+See also: [DSLs to the Rescue](https://dagster.io/blog/dsls-to-the-rescue) for best practices on designing component YAML schemas.
+
+### Example: Multi-Asset API Component
+
+```python
+from dataclasses import dataclass, field
+import dagster as dg
+
+@dataclass
+class APIIngestionComponent(dg.Component, dg.Resolvable):
+    """Ingests data from a REST API. Assets are declared in YAML."""
+
+    api_endpoint: str
+    tables: list[str] = field(default_factory=list)
+
+    def build_defs(self, context: dg.ComponentLoadContext) -> dg.Definitions:
+        assets = []
+        for table in self.tables:
+            @dg.asset(
+                key=dg.AssetKey(["api_raw", table]),
+                kinds={"api", "python"},
+            )
+            def ingest(context: dg.AssetExecutionContext, _table=table):
+                import requests
+                response = requests.get(f"{self.api_endpoint}/{_table}")
+                return response.json()
+
+            assets.append(ingest)
+        return dg.Definitions(assets=assets)
+```
+
+```yaml
+type: my_project.components.APIIngestionComponent
+attributes:
+  api_endpoint: "https://api.example.com"
+  tables:
+    - customers
+    - orders
+    - products
+```
+
 ## Best Practices
 
 1. **Type hints are mandatory** - Required for schema generation

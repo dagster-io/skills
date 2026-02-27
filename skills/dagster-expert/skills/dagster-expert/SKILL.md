@@ -35,7 +35,7 @@ uv run dg launch --assets my_asset
 
 <!-- BEGIN GENERATED INDEX -->
 
-- [asset-key-design](./references/asset-key-design.md) — Asset key design patterns for multi-component pipelines (e.g. Fivetran → dbt → Hightouch). (asset key design or naming; multi-component pipeline key alignment)
+- [asset-key-design](./references/asset-key-design.md) — Asset key design patterns for multi-component pipelines (e.g. Fivetran → dbt → Hightouch). (asset key design or naming; multi-component pipeline key alignment; demo mode key consistency, demo vs production asset keys)
 - [assets](./references/assets.md) — Asset patterns including dependencies, metadata, partitions, and multi-asset definitions. (asset definition or pattern; dependency, metadata, partition, multi-asset)
 - [env-vars](./references/env-vars.md) — Environment variable configuration for Dagster projects across different environments. (environment variables, env, config; different environments, staging, production)
 - [implementation-workflow](./references/implementation-workflow.md) — Complete workflow for building production-ready Dagster implementations. (implementation workflow or step-by-step guide; how to build a Dagster project from scratch)

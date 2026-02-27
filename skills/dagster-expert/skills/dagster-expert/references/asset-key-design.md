@@ -3,6 +3,7 @@ description: Asset key design patterns for multi-component pipelines (e.g. Fivet
 triggers:
   - "asset key design or naming"
   - "multi-component pipeline key alignment"
+  - "demo mode key consistency, demo vs production asset keys"
 ---
 
 # Asset Key Design for Multi-Component Pipelines
@@ -98,6 +99,58 @@ Use simple model names from dbt (typically single-level keys):
 ["integration", "object"]      # ["salesforce", "accounts"]
 ["stage", "table"]             # ["staging", "orders"]
 ```
+
+## Demo Mode and Production Key Consistency
+
+When components support a `demo_mode` flag, **asset keys must be identical** in both demo and production mode. Only the function body should differ — demo mode mocks external calls while production mode uses real connections.
+
+### Why This Matters
+
+- Downstream components (dbt, reverse ETL) reference assets by key
+- Switching from demo to production mode should not break the asset graph
+- `dg list defs` output should be identical regardless of mode
+
+### Correct Pattern
+
+```python
+@dataclass
+class MyIngestionComponent(Component, Resolvable):
+    api_endpoint: str
+    tables: list[str]
+    demo_mode: bool = False
+
+    def build_defs(self, context: ComponentLoadContext) -> dg.Definitions:
+        assets = []
+        for table in self.tables:
+            @dg.asset(
+                key=dg.AssetKey(["raw", table]),  # Same key in both modes
+                kinds={"api", "python"},
+            )
+            def ingest(context: dg.AssetExecutionContext, _table=table):
+                if self.demo_mode:
+                    context.log.info(f"Demo: mocking {_table}")
+                    return {"status": "demo", "rows": 100}
+                else:
+                    import requests
+                    return requests.get(f"{self.api_endpoint}/{_table}").json()
+
+            assets.append(ingest)
+        return dg.Definitions(assets=assets)
+```
+
+### Anti-Pattern: Different Keys Per Mode
+
+```python
+# ❌ WRONG: Different keys break downstream references
+def build_defs(self, context):
+    if self.demo_mode:
+        return dg.Definitions(assets=[self._build_demo_assets()])  # ["demo", "table"]
+    return dg.Definitions(assets=[self._build_real_assets()])       # ["raw", "table"]
+```
+
+### Verification
+
+After toggling `demo_mode` in YAML, run `dg list defs` in both modes and confirm the asset keys and dependency graph are identical.
 
 ## Verifying Asset Key Alignment
 
