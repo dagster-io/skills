@@ -91,31 +91,6 @@ How should I structure my project for multiple pipelines?
 Launch all assets tagged with priority=high
 ```
 
-### `dagster-integrations`
-
-Comprehensive catalog of 82+ Dagster integrations organized by category.
-
-**What's included:**
-
-- **AI & ML**: OpenAI, Anthropic, Gemini, MLflow, W&B
-- **ETL/ELT**: dbt, Fivetran, Airbyte, dlt, Sling, PySpark
-- **Storage**: Snowflake, BigQuery, Postgres, S3, DuckDB, Weaviate
-- **Compute**: AWS, Azure, GCP, Databricks, Spark, Kubernetes
-- **BI**: Looker, Tableau, PowerBI, Sigma, Hex
-- **Monitoring**: Datadog, Prometheus, Papertrail
-- **Alerting**: Slack, PagerDuty, MS Teams, Discord, Twilio
-- **Testing**: Great Expectations, Pandera
-- **Other**: Pandas, Polars
-
-**Example questions:**
-
-```
-Which tool should I use for data warehousing?
-Does Dagster support dbt?
-How do I compare Snowflake vs BigQuery?
-What integrations are available for ML?
-```
-
 ### `dignified-python`
 
 Production-quality Python coding standards for modern Python.
