@@ -18,7 +18,6 @@ undefined-name checks while preserving syntax and type checking:
 """
 
 import json
-import re
 import subprocess
 import sys
 import tempfile
@@ -27,12 +26,31 @@ from pathlib import Path
 import pytest
 from markdown_it import MarkdownIt
 
+from dagster_skills_evals.markdown import extract_local_links
+
 SKILLS_DIR = Path(__file__).resolve().parent.parent.parent / "skills"
-SKILL_DIRS = ["dagster-expert"]
 
 # Focused rule for doc code blocks — undefined names.
 # Syntax errors are always reported by ruff regardless of selection.
 RUFF_SELECT = "F821"
+
+
+def _discover_skill_dirs() -> list[str]:
+    """Find all skill directories under skills/ that contain a SKILL.md."""
+    if not SKILLS_DIR.is_dir():
+        return []
+    return sorted(
+        d.name
+        for d in SKILLS_DIR.iterdir()
+        if d.is_dir() and (d / "skills" / d.name / "SKILL.md").is_file()
+    )
+
+
+_ALL_SKILL_DIRS = _discover_skill_dirs()
+
+# Skills must pass link validation and have annotated code blocks before being included.
+# Add new skills here after auditing. See _discover_skill_dirs() for auto-detection.
+SKILL_DIRS = [d for d in _ALL_SKILL_DIRS if d in {"dagster-expert"}]
 
 
 def _collect_python_blocks() -> list[tuple[str, str, bool]]:
@@ -174,27 +192,6 @@ def test_python_code_block_pyright(label: str, pyright_errors: dict[str, list[st
 # Link validation helpers and tests
 # ---------------------------------------------------------------------------
 
-_LINK_RE = re.compile(r"\[([^\]]*)\]\(([^)]+)\)")
-
-
-def _extract_local_links(md_path: Path) -> list[tuple[str, Path]]:
-    """Extract local file links from a markdown file, resolving them to absolute paths."""
-    content = md_path.read_text()
-    results: list[tuple[str, Path]] = []
-    for _, raw_target in _LINK_RE.findall(content):
-        if raw_target.startswith(("http://", "https://", "#")):
-            continue
-        # Strip anchor fragments from the target
-        target = raw_target.split("#")[0]
-        if not target:
-            continue
-        resolved = (md_path.parent / target).resolve()
-        # Directory links resolve to README.md inside the directory
-        if resolved.is_dir() or target.endswith("/"):
-            resolved = resolved / "README.md"
-        results.append((target, resolved))
-    return results
-
 
 def _collect_link_cases() -> list[tuple[str, str, Path]]:
     """Collect all (label, raw_link, resolved_path) for parametrized link validation."""
@@ -204,20 +201,10 @@ def _collect_link_cases() -> list[tuple[str, str, Path]]:
         if not skill_dir.is_dir():
             continue
         for md_path in sorted(skill_dir.rglob("*.md")):
-            content = md_path.read_text()
-            for line_no, line in enumerate(content.splitlines(), 1):
-                for _, target in _LINK_RE.findall(line):
-                    if target.startswith(("http://", "https://", "#")):
-                        continue
-                    clean_target = target.split("#")[0]
-                    if not clean_target:
-                        continue
-                    resolved = (md_path.parent / clean_target).resolve()
-                    if resolved.is_dir() or clean_target.endswith("/"):
-                        resolved = resolved / "README.md"
-                    rel = md_path.relative_to(SKILLS_DIR)
-                    label = f"{rel}:{line_no}"
-                    cases.append((label, target, resolved))
+            for link in extract_local_links(md_path):
+                rel = link.source_file.relative_to(SKILLS_DIR)
+                label = f"{rel}:{link.line_number}"
+                cases.append((label, link.raw_target, link.resolved_path))
     return cases
 
 
@@ -256,8 +243,8 @@ def _compute_reachable_files() -> dict[str, set[Path]]:
             reachable.add(current)
 
             if current.suffix == ".md" and current.is_file():
-                for _, target_path in _extract_local_links(current):
-                    resolved = target_path.resolve()
+                for link in extract_local_links(current):
+                    resolved = link.resolved_path
                     reachable.add(resolved)
                     if resolved.suffix == ".md" and resolved not in visited:
                         queue.append(resolved)

@@ -57,9 +57,9 @@ All three main conditions can be customized:
 
 <!-- BEGIN GENERATED INDEX -->
 
-- [advanced](./advanced.md) — Advanced declarative automation: status vs events, run grouping, and filtering. _(advanced declarative automation; status vs events, run grouping, filtering)_
-- [core-concepts](./core-concepts.md) — Core declarative automation concepts: eager(), on*cron(), and on_missing() conditions. *(eager, on*cron, on_missing; declarative automation basics, AutomationCondition)*
-- [customization](./customization.md) — Customizing declarative automation conditions with without(), replace(), allow(), and ignore(). _(customize automation condition; without, replace, allow, ignore condition)_
-- [operands](./operands.md) — Declarative automation operands — base condition building blocks like missing() and newly*updated(). *(automation operand, missing, newly*updated; base condition building block)*
-- [operators](./operators.md) — Declarative automation operators for combining and transforming conditions (since, any*deps_match). *(automation operator, since, any*deps_match; combining conditions, boolean operators)*
+- [advanced](./advanced.md) — Advanced declarative automation: status vs events, run grouping, and filtering. (advanced declarative automation; status vs events, run grouping, filtering)
+- [core-concepts](./core-concepts.md) — Core declarative automation concepts: eager(), on_cron(), and on_missing() conditions. (eager, on_cron, on_missing; declarative automation basics, AutomationCondition)
+- [customization](./customization.md) — Customizing declarative automation conditions with without(), replace(), allow(), and ignore(). (customize automation condition; without, replace, allow, ignore condition)
+- [operands](./operands.md) — Declarative automation operands — base condition building blocks like missing() and newly_updated(). (automation operand, missing, newly_updated; base condition building block)
+- [operators](./operators.md) — Declarative automation operators for combining and transforming conditions (since, any_deps_match). (automation operator, since, any_deps_match; combining conditions, boolean operators)
 <!-- END GENERATED INDEX -->

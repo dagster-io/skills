@@ -279,6 +279,10 @@ version = "0.0.6"
 source = { editable = "." }
 dependencies = [
     { name = "dagster-shared" },
+    { name = "pydantic" },
+    { name = "pyyaml" },
+    { name = "rich" },
+    { name = "typer" },
 ]
 
 [package.optional-dependencies]
@@ -303,9 +307,13 @@ requires-dist = [
     { name = "dagster-shared" },
     { name = "markdown-it-py", marker = "extra == 'test'" },
     { name = "pandas", marker = "extra == 'test'" },
+    { name = "pydantic", specifier = ">=2.0.0" },
     { name = "pyright", marker = "extra == 'test'" },
     { name = "pytest", marker = "extra == 'test'", specifier = ">=8.0.0" },
+    { name = "pyyaml", specifier = ">=6.0" },
+    { name = "rich", specifier = ">=13.0.0" },
     { name = "ruff", marker = "extra == 'test'" },
+    { name = "typer", specifier = ">=0.15.0" },
 ]
 provides-extras = ["test"]
 
