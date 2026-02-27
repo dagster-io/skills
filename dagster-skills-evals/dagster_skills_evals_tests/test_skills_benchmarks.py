@@ -2,9 +2,13 @@ import subprocess
 import tempfile
 from pathlib import Path
 
+import pytest
+
 from dagster_skills_evals.execution import execute_prompt
 from dagster_skills_evals_tests.conftest import BaselineManager
 from dagster_skills_evals_tests.utils import unset_virtualenv, write_function_body
+
+pytestmark = pytest.mark.benchmark
 
 
 def test_create_dagster_project(baseline_manager: BaselineManager):

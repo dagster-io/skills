@@ -2,7 +2,7 @@
 
 Dagster provides integration libraries for a range of tools and technologies. This reference directory contains detailed information about specific integrations.
 
-Integration libraries are typically named `dagster-<technology>`, where `<technology>` is the name of the tool or technology being integrated. Integrations marked as *(community)* are maintained by the community rather than the Dagster team.
+Integration libraries are typically named `dagster-<technology>`, where `<technology>` is the name of the tool or technology being integrated. Integrations marked as _(community)_ are maintained by the community rather than the Dagster team.
 
 All integration reference files contain a link to the official documentation for the integration library, which can be referenced in cases where the local documentation does not provide sufficient information.
 
@@ -13,13 +13,13 @@ All integration reference files contain a link to the official documentation for
 - [dagster-aws](./dagster-aws/README.md) - Integration with various AWS tools.
 - [dagster-azure](./dagster-azure/README.md) - Integration with Azure.
 - [dagster-celery](./dagster-celery/README.md) - Integration with Celery.
-- [dagster-census](./dagster-census/README.md) *(community)* - Integration with Census.
+- [dagster-census](./dagster-census/README.md) _(community)_ - Integration with Census.
 - [dagster-dask](./dagster-dask/README.md) - Integration with Dask.
 - [dagster-databricks](./dagster-databricks/README.md) - Integration with Databricks.
 - [dagster-datadog](./dagster-datadog/README.md) - Integration with Datadog.
 - [dagster-datahub](./dagster-datahub/README.md) - Integration with DataHub.
 - [dagster-dbt](./dagster-dbt/README.md) - Integration with dbt Core and dbt Cloud.
-- [dagster-deltalake](./dagster-deltalake/README.md) *(community)* - Integration with Delta Lake.
+- [dagster-deltalake](./dagster-deltalake/README.md) _(community)_ - Integration with Delta Lake.
 - [dagster-docker](./dagster-docker/README.md) - Integration with Docker.
 - [dagster-duckdb](./dagster-duckdb/README.md) - Integration with DuckDB.
 - [dagster-fivetran](./dagster-fivetran/README.md) - Integration with Fivetran.
@@ -27,7 +27,7 @@ All integration reference files contain a link to the official documentation for
 - [dagster-github](./dagster-github/README.md) - Integration with GitHub.
 - [dagster-great-expectations](./dagster-great-expectations/README.md) - Integration with Great Expectations.
 - [dagster-hightouch](./dagster-hightouch/README.md) - Integration with Hightouch.
-- [dagster-iceberg](./dagster-iceberg/README.md) *(community)* - Integration with Iceberg.
+- [dagster-iceberg](./dagster-iceberg/README.md) _(community)_ - Integration with Iceberg.
 - [dagster-jupyter](./dagster-jupyter/README.md) - Integration with Jupyter.
 - [dagster-k8s](./dagster-k8s/README.md) - Integration with Kubernetes.
 - [dagster-looker](./dagster-looker/README.md) - Integration with Looker.
@@ -40,7 +40,7 @@ All integration reference files contain a link to the official documentation for
 - [dagster-pandas](./dagster-pandas/README.md) - Integration with Pandas.
 - [dagster-pandera](./dagster-pandera/README.md) - Integration with Pandera.
 - [dagster-papertrail](./dagster-papertrail/README.md) - Integration with Papertrail.
-- [dagster-polars](./dagster-polars/README.md) *(community)* - Integration with Polars.
+- [dagster-polars](./dagster-polars/README.md) _(community)_ - Integration with Polars.
 - [dagster-postgres](./dagster-postgres/README.md) - Integration with PostgreSQL.
 - [dagster-powerbi](./dagster-powerbi/README.md) - Integration with Power BI.
 - [dagster-prometheus](./dagster-prometheus/README.md) - Integration with Prometheus.
@@ -53,4 +53,4 @@ All integration reference files contain a link to the official documentation for
 - [dagster-ssh](./dagster-ssh/README.md) - Integration with SSH.
 - [dagster-tableau](./dagster-tableau/README.md) - Integration with Tableau.
 - [dagster-twilio](./dagster-twilio/README.md) - Integration with Twilio.
-- [dagster-wandb](./dagster-wandb/README.md) *(community)* - Integration with Weights & Biases.
+- [dagster-wandb](./dagster-wandb/README.md) _(community)_ - Integration with Weights & Biases.
