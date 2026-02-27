@@ -35,7 +35,7 @@ uv run dg launch --assets my_asset
 
 <!-- BEGIN GENERATED INDEX -->
 
-- [asset-key-design](./references/asset-key-design.md) — Asset key design patterns for multi-component pipelines (e.g. Fivetran → dbt → Hightouch). (asset key design or naming; multi-component pipeline key alignment)
+- [asset-key-design](./references/asset-key-design.md) — Asset key design patterns for multi-component pipelines (e.g. Fivetran → dbt → Hightouch). (asset key design or naming; multi-component pipeline key alignment; demo mode key consistency, demo vs production asset keys)
 - [assets](./references/assets.md) — Asset patterns including dependencies, metadata, partitions, and multi-asset definitions. (asset definition or pattern; dependency, metadata, partition, multi-asset)
 - [env-vars](./references/env-vars.md) — Environment variable configuration for Dagster projects across different environments. (environment variables, env, config; different environments, staging, production)
 - [implementation-workflow](./references/implementation-workflow.md) — Complete workflow for building production-ready Dagster implementations. (implementation workflow or step-by-step guide; how to build a Dagster project from scratch)
@@ -54,6 +54,7 @@ uv run dg launch --assets my_asset
 - [cli/launch](./references/cli/launch.md) — dg launch command: materialize assets, execute jobs, and run backfills. (launch, run, materialize, execute, backfill; dg launch)
 - [cli/list](./references/cli/list.md) — dg list command: discover and inspect definitions, assets, and components. (list, show, find, discover, what assets; dg list)
 - [cli/scaffold](./references/cli/scaffold.md) — dg scaffold command: create assets, schedules, sensors, and integration components. (scaffold, generate, create asset/schedule/sensor; dg scaffold, new definition)
+- [components/integration-components](./references/components/integration-components.md) — Integration component patterns including availability, config-file vs API-based types, subclassing, asset kinds, and troubleshooting. (integration component, component availability, which integrations have components; config-file vs API component, subclass component, override build_defs, override get_asset_spec, asset kinds)
 - [components/state-backed-components](./references/components/state-backed-components.md) — State-backed components pattern for Dagster. (state-backed component; component with state)
 - [integrations](./references/integrations/INDEX.md) — Integration libraries index for 40+ tools and technologies (dbt, Fivetran, Snowflake, AWS, etc.). (integration, external tool, dagster-\*; dbt, fivetran, airbyte, snowflake, bigquery, sling, aws, gcp)
 <!-- END GENERATED INDEX -->
