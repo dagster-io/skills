@@ -1,0 +1,25 @@
+{
+  "__class__": "ClaudeExecutionResultSummary",
+  "execution_time_ms": 6987,
+  "input_tokens": 17294,
+  "model_usage": [
+    {
+      "__class__": "ModelUsage",
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 27896,
+      "input_tokens": 17294,
+      "model": "claude-sonnet-4-6",
+      "output_tokens": 326
+    }
+  ],
+  "narrative_summary": [
+    "- User asked how to select dbt assets that have an immediate upstream Fivetran asset as a dependency using asset selection syntax",
+    "- Read the asset selection reference file at `skills/dagster-expert/references/cli/asset-selection.md` to review traversal syntax",
+    "- Explained the correct selection syntax: `kind:fivetran+1 and kind:dbt` \u2014 selecting 1 level downstream of Fivetran assets intersected with dbt assets"
+  ],
+  "output_tokens": 326,
+  "skills_used": [],
+  "tools_used": [
+    "Read"
+  ]
+}

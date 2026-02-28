@@ -39,13 +39,13 @@ Reference for the asset selection syntax used by `dg list defs --assets` and `dg
 
 ## Traversals
 
-| Syntax        | Description               | Example           |
-| ------------- | ------------------------- | ----------------- |
-| `+asset`      | All upstream dependencies | `+customers`      |
-| `asset+`      | All downstream dependents | `customers+`      |
-| `+N asset`    | N levels upstream         | `+2 customers`    |
-| `asset N+`    | N levels downstream       | `customers 2+`    |
-| `+N asset M+` | N up, M down              | `+1 customers 2+` |
+| Syntax     | Description               | Example             |
+| ---------- | ------------------------- | ------------------- |
+| `+expr`    | All upstream dependencies | `+customers`        |
+| `expr+`    | All downstream dependents | `customers+`        |
+| `N+expr`   | N levels upstream         | `2+kind:dbt`        |
+| `expr+N`   | N levels downstream       | `group:sales+1`     |
+| `N+expr+M` | N up, M down              | `1+key:customers+2` |
 
 ## Examples
 
@@ -66,24 +66,12 @@ dg launch --assets "group:sales or group:marketing"
 dg launch --assets "not kind:dbt"
 
 # With traversals
-dg launch --assets "+customers"           # customers + all upstream
-dg launch --assets "customers+"           # customers + all downstream
-dg launch --assets "+2 customers"         # customers + 2 levels upstream
-dg launch --assets "+customers 1+"        # all upstream + 1 level downstream
+dg launch --assets "+kind:dbt"            # all upstream of dbt assets
+dg launch --assets "group:sales+"         # group:sales + all downstream
+dg launch --assets "2+key:customers"      # customers + 2 levels upstream
+dg launch --assets "kind:python+1"        # kind:python + 1 level downstream
 
 # With functions
 dg launch --assets "sinks(group:analytics)"  # terminal assets in group
 dg launch --assets "roots(kind:dbt)"         # source dbt assets
 ```
-
-## Preview Before Launch
-
-```bash
-# Verify selection before materializing
-dg list defs --assets "tag:priority=high and kind:dbt"
-```
-
-## See Also
-
-- [launch.md](./launch.md) - Materialize assets
-- [list.md](./list.md) - List definitions with asset filtering
