@@ -31,9 +31,27 @@ def downstream_asset(upstream_asset):
 - Triggers immediately when any upstream updates
 - Waits for all upstreams to be materialized or in-progress
 - Does not execute if any dependencies are missing
+- **Does not execute if any dependencies are currently in-progress** (waits for all deps to finish first)
 - Does not execute if the asset is already in-progress
 - For time-partitioned assets, only considers the latest partition
 - For static/dynamic-partitioned assets, considers all partitions
+
+**Full expanded form**:
+
+```python
+(
+    dg.AutomationCondition.in_latest_time_window()          # latest partition only (time-partitioned)
+    & (
+        dg.AutomationCondition.newly_missing()
+        | dg.AutomationCondition.any_deps_updated()
+    ).since_last_handled()                                  # trigger event, persisted until handled
+    & ~dg.AutomationCondition.any_deps_missing()            # no deps missing
+    & ~dg.AutomationCondition.any_deps_in_progress()        # no deps currently running
+    & ~dg.AutomationCondition.in_progress()                 # asset itself not running
+).with_label("eager")
+```
+
+The `~any_deps_in_progress()` guard is critical: it prevents the asset from firing until ALL upstream deps have finished materializing. Without it, the asset would fire each time an individual dep completes, causing redundant executions when multiple deps update in quick succession (e.g., from the same scheduled job).
 
 **Use when**: You want updates to propagate downstream immediately without waiting for a schedule.
 
@@ -56,6 +74,17 @@ def daily_summary(hourly_data):
 - After the tick, waits for all dependencies to update since that tick
 - Once all dependencies are updated, executes immediately
 - For time-partitioned assets, only considers the latest partition
+  **Full expanded form**:
+
+```python
+(
+    dg.AutomationCondition.in_latest_time_window()
+    & dg.AutomationCondition.cron_tick_passed(
+        cron_schedule, cron_timezone
+    ).since_last_handled()
+    & dg.AutomationCondition.all_deps_updated_since_cron(cron_schedule, cron_timezone)
+).with_label(f"on_cron({cron_schedule}, {cron_timezone})")
+```
 
 **Use when**: You want scheduled execution but only after upstream data is ready. More intelligent than simple schedules.
 
@@ -76,8 +105,26 @@ def backfill_asset(upstream):
 - Only considers partitions added after the condition was applied (not historical)
 - Waits for all upstream dependencies to be available
 - For time-partitioned assets, only considers the latest partition
+  **Full expanded form**:
+
+```python
+(
+    dg.AutomationCondition.in_latest_time_window()
+    & (
+        dg.AutomationCondition.missing()
+        .newly_true()
+        .since_last_handled()
+        .with_label("missing_since_last_handled")
+    )
+    & ~dg.AutomationCondition.any_deps_missing()
+).with_label("on_missing")
+```
 
 **Use when**: You want to fill in missing partitions as upstream data becomes available. Good for backfilling or catching up.
+
+## Identifying Built-in vs Custom Conditions from the API
+
+When debugging DA behavior via `dg api asset get`, the `automation_condition.expanded_label` field shows the condition tree as a list of strings. Compare this against the full expanded forms above to determine if the asset is using a built-in condition or a custom one with missing guards. When you see a condition that looks similar to but doesn't match a built-in, always identify the missing sub-conditions and explain how their absence changes behavior.
 
 ## Evaluation by Sensor
 

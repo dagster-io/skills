@@ -1,16 +1,16 @@
 ---
-description: "dg api log get: retrieve and filter run logs from Dagster Plus."
+description: "dg api run get-events: retrieve and filter run logs/events from Dagster Plus."
 triggers:
   - "run logs, get logs, debug run"
   - "filter logs by level, event type, step"
 ---
 
-# dg api log get - Run Log Retrieval
+# dg api run get-events - Run Log Retrieval
 
-Retrieve logs for a specific run from Dagster Plus. Requires authentication via `dg plus login` or `--api-token`.
+Retrieve logs/events for a specific run from Dagster Plus. Requires authentication via `dg plus login` or `--api-token`.
 
 ```bash
-dg api log get <run-id>
+dg api run get-events <run-id>
 ```
 
 ---
@@ -36,29 +36,29 @@ dg api log get <run-id>
 
 ```bash
 # Get all logs for a run
-dg api log get 8a7b6c5d-1234-5678-9abc-def012345678
+dg api run get-events 8a7b6c5d-1234-5678-9abc-def012345678
 
 # Filter to errors only
-dg api log get <run-id> --level ERROR
+dg api run get-events <run-id> --level ERROR
 
 # Filter to errors and warnings
-dg api log get <run-id> --level ERROR --level WARNING
+dg api run get-events <run-id> --level ERROR --level WARNING
 
 # Filter by event type
-dg api log get <run-id> --event-type STEP_FAILURE
+dg api run get-events <run-id> --event-type STEP_FAILURE
 
 # Filter by step
-dg api log get <run-id> --step my_asset
+dg api run get-events <run-id> --step my_asset
 
 # Combine filters with JSON output
-dg api log get <run-id> --level ERROR --step my_asset --json
+dg api run get-events <run-id> --level ERROR --step my_asset --json
 
 # Paginate through large log sets
-dg api log get <run-id> --limit 100
-dg api log get <run-id> --limit 100 --cursor <cursor-from-previous>
+dg api run get-events <run-id> --limit 100
+dg api run get-events <run-id> --limit 100 --cursor <cursor-from-previous>
 
 # Target a specific deployment (typically unnecessary as `dg plus login` sets a default deployment)
-dg api log get <run-id> --deployment prod
+dg api run get-events <run-id> --deployment prod
 ```
 
 ---
