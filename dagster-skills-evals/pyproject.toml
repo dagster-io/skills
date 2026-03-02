@@ -17,6 +17,7 @@ dependencies = [
 
 [project.scripts]
 dagster-skills = "dagster_skills_evals.cli:app"
+dg-eval = "dagster_skills_evals.cli:app"
 
 [project.optional-dependencies]
 test = [

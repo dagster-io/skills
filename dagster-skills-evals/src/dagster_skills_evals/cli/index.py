@@ -6,7 +6,7 @@ from pydantic import ValidationError
 from dagster_skills_evals.console import console
 from dagster_skills_evals.markdown import parse_frontmatter, parse_frontmatter_raw
 
-app = typer.Typer()
+app = typer.Typer(context_settings={"help_option_names": ["-h", "--help"]})
 
 _BEGIN_MARKER = "<!-- BEGIN GENERATED INDEX -->"
 _END_MARKER = "<!-- END GENERATED INDEX -->"

@@ -1,3 +1,4 @@
+import contextlib
 import json
 import os
 import subprocess
@@ -29,6 +30,7 @@ class ModelUsage:
 class ClaudeExecutionResultSummary:
     input_tokens: int
     output_tokens: int
+    cost_usd: float
     execution_time_ms: int
     tools_used: list[str]
     skills_used: list[str]
@@ -45,6 +47,7 @@ class ClaudeExecutionResult:
         return ClaudeExecutionResultSummary(
             input_tokens=self.input_tokens,
             output_tokens=self.output_tokens,
+            cost_usd=self.cost_usd,
             execution_time_ms=self.execution_time_ms,
             tools_used=[tool["name"] for tool in self.tool_usages],
             skills_used=[skill["skill"] for skill in self.skill_usages],
@@ -75,6 +78,10 @@ class ClaudeExecutionResult:
             if event.get("type") == "result":
                 return event
         raise ValueError("No result event found in execution output")
+
+    @property
+    def cost_usd(self) -> float:
+        return self._result_event.get("total_cost_usd", 0.0)
 
     @property
     def execution_time_ms(self) -> int:
@@ -217,3 +224,57 @@ def execute_prompt(
 ) -> ClaudeExecutionResult:
     plugins_dir = str(_PLUGINS_DIR) if include_plugins else None
     return run_claude_headless(prompt=prompt, target_dir=target_dir, plugins_dir=plugins_dir)
+
+
+def execute_prompt_stream_json(
+    prompt: str,
+    target_dir: str,
+    extra_args: list[str] | None = None,
+    timeout: int = 300,
+) -> ClaudeExecutionResult:
+    """Run Claude CLI with stream-json output format.
+
+    Parses NDJSON stdout into a JSON array for ClaudeExecutionResult._json_output.
+    """
+    cmd = [
+        "claude",
+        "--print",
+        "--output-format",
+        "stream-json",
+        "--no-session-persistence",
+        "--dangerously-skip-permissions",
+        "--verbose",
+        "--model",
+        "sonnet",
+    ]
+
+    if extra_args:
+        cmd.extend(extra_args)
+
+    result = subprocess.run(
+        cmd,
+        cwd=target_dir,
+        input=prompt,
+        capture_output=True,
+        text=True,
+        timeout=timeout,
+        check=False,
+        env={**os.environ, "DISABLE_PROMPT_CACHING": "true"},
+    )
+
+    # Parse NDJSON lines into a list of events
+    events: list[dict] = []
+    for raw_line in result.stdout.splitlines():
+        stripped = raw_line.strip()
+        if stripped:
+            with contextlib.suppress(json.JSONDecodeError):
+                events.append(json.loads(stripped))
+
+    completed = subprocess.CompletedProcess(
+        args=cmd,
+        returncode=result.returncode,
+        stdout=json.dumps(events),
+        stderr=result.stderr,
+    )
+
+    return ClaudeExecutionResult(cli_result=completed)
