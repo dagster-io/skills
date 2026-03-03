@@ -77,6 +77,8 @@ def daily_summary(hourly_data):
   **Full expanded form**:
 
 ```python
+cron_schedule = "0 1 * * *"
+cron_timezone = "US/Eastern"
 (
     dg.AutomationCondition.in_latest_time_window()
     & dg.AutomationCondition.cron_tick_passed(

@@ -9,13 +9,29 @@ triggers:
 
 All `dg api` subcommands have the following options / flags:
 
-| Option                      | Description                                                     |
-| --------------------------- | --------------------------------------------------------------- |
-| `--json`                    | Output in JSON format                                           |
-| `--response-schema`         | Print the json schema for the response of this command and exit |
-| `-d, --deployment <name>`   | Target a specific deployment                                    |
-| `-o, --organization <name>` | Target a specific organization                                  |
-| `--api-token <token>`       | Dagster Cloud API token (alternative to `dg plus login`)        |
+## --json
+
+Output in JSON format.
+
+## --response-schema
+
+Print the JSON schema for the response of this command and exit.
+
+## -d, --deployment
+
+Target a specific deployment.
+
+## -o, --organization
+
+Target a specific organization.
+
+## --api-token
+
+Dagster Cloud API token (alternative to `dg plus login`).
+
+## --view-graphql
+
+Print GraphQL queries and responses to stderr for debugging.
 
 ## Tips
 
