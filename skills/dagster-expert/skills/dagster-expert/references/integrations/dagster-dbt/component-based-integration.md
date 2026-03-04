@@ -16,7 +16,7 @@ This is the recommended approach for new projects.
 
 `DbtProjectComponent` is a StateBackedComponent that automatically compiles and caches your dbt
 project's manifest. See
-[StateBackedComponents](../../components/state-backed-components.md) for general
+[StateBackedComponents](../../components/state-backed/using.md) for general
 state management patterns.
 
 ### dbt-Specific State Management

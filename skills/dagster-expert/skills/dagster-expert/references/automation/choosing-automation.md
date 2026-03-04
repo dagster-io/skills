@@ -13,20 +13,11 @@ Dagster provides three main approaches to automation: schedules for time-based e
 
 Choose your automation approach based on your use case:
 
-```
-What are you trying to automate?
-
-├─ Fixed time-based execution?
-│  └─ Schedules (schedules.md)
-│
-├─ Event-driven automation?
-│  ├─ File arrives or external event → Basic Sensors (../sensors/basic-sensors.md)
-│  ├─ Asset materialization completes → Asset Sensors (../sensors/asset-sensors.md)
-│  └─ Run status changes (success/failure) → Run Status Sensors (../sensors/run-status-sensors.md)
-│
-└─ Modern asset-centric automation with conditions?
-   └─ Declarative Automation (declarative-automation/) (recommended for asset pipelines)
-```
+- Simple, fixed time-based execution → **Schedules**
+- Custom polling logic → **Basic Sensors**
+- Launching jobs in response to asset materialization events → **Asset Sensors**
+- Triggering compute based on run success/failure → **Run Status Sensors**
+- Partition-aware scheduling, declarative/asset-based scheduling, scheduling depending on asset graph state and materialization events → **Declarative Automation**
 
 ## Core Concepts
 
@@ -66,4 +57,4 @@ group_job = dg.define_asset_job(
 
 **Sensors**: Poll for external events and trigger runs. Best for file arrivals, API events, or custom conditions.
 
-**Declarative Automation**: Set conditions directly on assets. Best for complex dependency logic and asset-centric workflows.
+**Declarative Automation**: Set conditions directly on assets. Best for complex dependency logic and asset-centric workflows. Automatic handling of asset and partition state and dependencies.

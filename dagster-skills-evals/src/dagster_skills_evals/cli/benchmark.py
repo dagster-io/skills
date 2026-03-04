@@ -23,14 +23,27 @@ __all__ = ["benchmark"]
 class _BenchmarkRun:
     result: ClaudeExecutionResult
     summary: ClaudeExecutionResultSummary
+    tmp_dir: str
 
 
 def _build_summary(
-    result: ClaudeExecutionResult, *, skip_narrative: bool
+    result: ClaudeExecutionResult,
+    *,
+    skip_narrative: bool,
+    narrative_context: str | None = None,
 ) -> ClaudeExecutionResultSummary:
     """Build a summary, optionally skipping the expensive narrative generation."""
     if not skip_narrative:
-        return result.summary
+        return ClaudeExecutionResultSummary(
+            input_tokens=result.input_tokens,
+            output_tokens=result.output_tokens,
+            cost_usd=result.cost_usd,
+            execution_time_ms=result.execution_time_ms,
+            tools_used=[tool["name"] for tool in result.tool_usages],
+            skills_used=[skill["skill"] for skill in result.skill_usages],
+            model_usage=result.model_usage,
+            narrative_summary=result.generate_narrative_summary(narrative_context),
+        )
 
     return ClaudeExecutionResultSummary(
         input_tokens=result.input_tokens,
@@ -90,6 +103,7 @@ def _run_benchmarks(
     treatment_setup_script: Path | None,
     baseline_extra_args: list[str],
     treatment_extra_args: list[str],
+    narrative_context: str | None = None,
 ) -> tuple[_BenchmarkRun, _BenchmarkRun]:
     """Execute both benchmark runs. When quiet=False, shows a live spinner."""
     total_phases = 2 if skip_narrative else 3
@@ -102,39 +116,49 @@ def _run_benchmarks(
             timeout=timeout,
         )
 
-    def _run_baseline() -> ClaudeExecutionResult:
+    def _run_baseline() -> tuple[ClaudeExecutionResult, str]:
         tmp_dir = tempfile.mkdtemp(prefix="dg-eval-baseline-")
         _run_setup_scripts(tmp_dir, setup_script, baseline_setup_script)
-        return _execute(tmp_dir, baseline_extra_args)
+        return _execute(tmp_dir, baseline_extra_args), tmp_dir
 
-    def _run_treatment() -> ClaudeExecutionResult:
+    def _run_treatment() -> tuple[ClaudeExecutionResult, str]:
         tmp_dir = tempfile.mkdtemp(prefix="dg-eval-treatment-")
         _run_setup_scripts(tmp_dir, setup_script, treatment_setup_script)
-        return _execute(tmp_dir, treatment_extra_args)
+        return _execute(tmp_dir, treatment_extra_args), tmp_dir
 
     if quiet:
-        result_baseline = _run_baseline()
-        result_treatment = _run_treatment()
-        summary_baseline = _build_summary(result_baseline, skip_narrative=skip_narrative)
-        summary_treatment = _build_summary(result_treatment, skip_narrative=skip_narrative)
+        result_baseline, baseline_tmp_dir = _run_baseline()
+        result_treatment, treatment_tmp_dir = _run_treatment()
+        summary_baseline = _build_summary(
+            result_baseline, skip_narrative=skip_narrative, narrative_context=narrative_context
+        )
+        summary_treatment = _build_summary(
+            result_treatment, skip_narrative=skip_narrative, narrative_context=narrative_context
+        )
     else:
         with SpinnerDisplay() as display:
             display.set_phase(1, total_phases, "Running baseline")
-            result_baseline = _run_baseline()
+            result_baseline, baseline_tmp_dir = _run_baseline()
 
             display.set_phase(2, total_phases, "Running treatment")
-            result_treatment = _run_treatment()
+            result_treatment, treatment_tmp_dir = _run_treatment()
 
             if not skip_narrative:
                 display.set_phase(3, total_phases, "Generating narrative summaries")
-            summary_baseline = _build_summary(result_baseline, skip_narrative=skip_narrative)
-            summary_treatment = _build_summary(result_treatment, skip_narrative=skip_narrative)
+            summary_baseline = _build_summary(
+                result_baseline, skip_narrative=skip_narrative, narrative_context=narrative_context
+            )
+            summary_treatment = _build_summary(
+                result_treatment, skip_narrative=skip_narrative, narrative_context=narrative_context
+            )
 
             display.finish()
 
     return (
-        _BenchmarkRun(result=result_baseline, summary=summary_baseline),
-        _BenchmarkRun(result=result_treatment, summary=summary_treatment),
+        _BenchmarkRun(result=result_baseline, summary=summary_baseline, tmp_dir=baseline_tmp_dir),
+        _BenchmarkRun(
+            result=result_treatment, summary=summary_treatment, tmp_dir=treatment_tmp_dir
+        ),
     )
 
 
@@ -164,6 +188,11 @@ def benchmark(
     timeout: int = typer.Option(300, "--timeout", "-t", help="Timeout in seconds per run."),
     skip_narrative: bool = typer.Option(
         False, "--skip-narrative", help="Skip narrative summary generation."
+    ),
+    narrative_context: str | None = typer.Option(
+        None,
+        "--narrative-context",
+        help="Extra context to include in narrative summary generation.",
     ),
     output_json: bool = typer.Option(False, "--json", help="Output results as JSON to stdout."),
 ) -> None:
@@ -208,6 +237,7 @@ def benchmark(
         treatment_setup_script=treatment_setup_script,
         baseline_extra_args=baseline_extra_args,
         treatment_extra_args=treatment_extra_args,
+        narrative_context=narrative_context,
     )
 
     # Save logs
@@ -220,6 +250,8 @@ def benchmark(
                 "baseline": _summary_to_dict(result_baseline.summary),
                 "treatment": _summary_to_dict(result_treatment.summary),
                 "logs_dir": str(resolved_logs),
+                "baseline_dir": result_baseline.tmp_dir,
+                "treatment_dir": result_treatment.tmp_dir,
             },
             sys.stdout,
             indent=2,
@@ -228,4 +260,6 @@ def benchmark(
     else:
         render_comparison(result_baseline.summary, result_treatment.summary)
         console.print()
+        console.print(f"[dim]Baseline dir:  {result_baseline.tmp_dir}[/dim]")
+        console.print(f"[dim]Treatment dir: {result_treatment.tmp_dir}[/dim]")
         console.print(f"[dim]Logs saved to: {resolved_logs}[/dim]")

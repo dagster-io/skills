@@ -157,14 +157,15 @@ class ClaudeExecutionResult:
             for model, data in model_usage_data.items()
         ]
 
-    def generate_narrative_summary(self) -> list[str]:
+    def generate_narrative_summary(self, narrative_context: str | None = None) -> list[str]:
         """Generate a narrative description of the session flow using Claude CLI."""
+        extra = f"\n\nAdditional context: {narrative_context}" if narrative_context else ""
         prompt = textwrap.dedent(f"""
             Provide a concise narrative summary of the session flow and what steps
             were taken. Focus on the high-level steps rather than exactly documenting
             each turn. Output ONLY bullet points (no header or extraneous comments)
             in sequential order. Do not use fancy formatting. Explicitly call out
-            the specific skills that are used.
+            the specific skills that are used.{extra}
 
             Session events:
             {json.dumps(self.messages, indent=2)}

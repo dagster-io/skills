@@ -33,6 +33,8 @@ Each component type has a corresponding subcommand that accept provide additiona
 
 Additional arguments can be provided either via flags directly, or using `--json-params` to provide a JSON object.
 
+**Important**: After scaffolding a custom component with `dg scaffold component`, run `dg list components` to get the exact registered type path before using it here. The path includes the file module name — e.g., `my_project.lib.my_component.MyComponent`, not `my_project.lib.MyComponent`.
+
 ```bash
 dg scaffold defs some_lib.SomeComponent my_component
 

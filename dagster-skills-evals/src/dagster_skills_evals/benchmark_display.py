@@ -149,3 +149,42 @@ def render_comparison(
                 border_style="green",
             )
         )
+
+
+def render_single_run(summary: ClaudeExecutionResultSummary) -> None:
+    """Render stats for a single execution run."""
+    metrics_table = Table(title="Execution Summary", show_header=True, header_style="bold")
+    metrics_table.add_column("Metric", style="bold")
+    metrics_table.add_column("Value", justify="right")
+
+    metrics_table.add_row("Input Tokens", f"{summary.input_tokens:,}")
+    metrics_table.add_row("Output Tokens", f"{summary.output_tokens:,}")
+    metrics_table.add_row("Cost", f"${summary.cost_usd:.4f}")
+    metrics_table.add_row("Execution Time", f"{summary.execution_time_ms / 1000:.1f}s")
+    metrics_table.add_row("Tool Calls", str(len(summary.tools_used)))
+    metrics_table.add_row("Skills Used", str(len(summary.skills_used)))
+
+    console.print()
+    console.print(metrics_table)
+
+    if summary.tools_used:
+        tools_table = Table(title="Tool Usage", show_header=True, header_style="bold")
+        tools_table.add_column("Category", style="bold")
+        tools_table.add_column("Details")
+
+        tools_table.add_row("Tools", ", ".join(summary.tools_used))
+        if summary.skills_used:
+            tools_table.add_row("Skills Invoked", ", ".join(summary.skills_used))
+
+        console.print()
+        console.print(tools_table)
+
+    if summary.narrative_summary:
+        console.print()
+        console.print(
+            Panel(
+                "\n".join(summary.narrative_summary),
+                title="Narrative Summary",
+                border_style="green",
+            )
+        )
