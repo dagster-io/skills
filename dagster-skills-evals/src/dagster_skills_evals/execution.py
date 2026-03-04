@@ -81,7 +81,7 @@ class ClaudeExecutionResult:
 
     @property
     def cost_usd(self) -> float:
-        return self._result_event.get("total_cost_usd", 0.0)
+        return float(self._result_event.get("total_cost_usd", 0))
 
     @property
     def execution_time_ms(self) -> int:

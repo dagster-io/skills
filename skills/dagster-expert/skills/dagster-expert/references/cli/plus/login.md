@@ -38,5 +38,5 @@ After login, `dg list envs` shows deployment scope status (Dev/Branch/Full) and 
 
 ## See Also
 
-- [../api/log.md](../api/log.md) - Retrieve run logs (requires authentication)
+- [../api/run/get-events.md](../api/run/get-events.md) - Retrieve run logs (requires authentication)
 - [../list/envs.md](../list/envs.md) - `dg list envs` shows Plus deployment status after login
