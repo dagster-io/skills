@@ -31,6 +31,10 @@ core.workflow(
         core.move("", "public/skills"),
     ],
     mode = "ITERATIVE",
+
+    # This will cause the sync to fail if any transformations are not
+    # reversible (i.e. can be run in reverse and arrive at the original commit
+    # diff).
     reversible_check = True,
 
     # Commits written to dagster-io/internal record the corresponding
