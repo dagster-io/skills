@@ -1,3 +1,0 @@
-{
-  "python.defaultInterpreterPath": "${workspaceFolder}/dagster-skills-evals/.venv/bin/python"
-}
