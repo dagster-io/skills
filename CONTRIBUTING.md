@@ -98,7 +98,7 @@ source .venv/bin/activate
 
 ## Release Procedure
 
-This repository uses a monorepo versioning system where all skills share the same version number.
+This repository uses a versioning system where all skills share the same version number.
 Releases are managed through an automated GitHub Actions workflow.
 
 ### Overview
