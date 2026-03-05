@@ -1,7 +1,7 @@
 # Contributing to Dagster Skills
 
 Thank you for your interest in contributing to Dagster Skills! This document provides guidelines and
-instructions for contributing to this repository.
+instructions for contributing to this monorepo.
 
 ## Development Setup
 

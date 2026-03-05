@@ -1,0 +1,41 @@
+"""
+Copybara configuration for syncing commits from dagster-io/skills master to internal monorepo.
+"""
+
+def _skip_synced_from_internal(ctx):
+    """Skip commits that originated from dagster-io/internal so we don't double-commit them."""
+    if ctx.find_label("Internal-RevId"):
+        core.fail_with_noop("Skipping commit that originated from dagster-io/internal.")
+
+core.workflow(
+    name = "sync-internal",
+    origin = git.origin(
+        url = "file:///workspace/build/buildkite/dagster/copybara-skills-to-internal",
+        ref = "master",
+    ),
+    destination = git.destination(
+        url = "https://github.com/dagster-io/internal.git",
+        fetch = "master",
+        push = "master",
+    ),
+    origin_files = glob(["**"]),
+    destination_files = glob(["public/skills/**"]),
+    authoring = authoring.pass_thru("Dagster Devtools <devtools@dagsterlabs.com>"),
+    transformations = [
+        # Skip any commit that originated from dagster-io/internal. This
+        # prevents echoing the same commit back to dagster-io/internal.
+        core.dynamic_transform(impl = _skip_synced_from_internal),
+
+        # Mount all contents of dagster-io/skills on the public/skills
+        # subdirectory for the dagster-io/internal commit.
+        core.move("", "public/skills"),
+    ],
+    mode = "ITERATIVE",
+    reversible_check = True,
+
+    # Commits written to dagster-io/internal record the corresponding
+    # dagster-io/skills commit hash under "Skills-RevId" instead of the default
+    # "GitOrigin-RevId". This ensures ITERATIVE mode tracking and loop
+    # prevention are scoped to this sync pair.
+    custom_rev_id = "Skills-RevId",
+)
