@@ -9,6 +9,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+Improved skill selection logic and routing.
+
+Added detailed documentation on creating high-quality custom components.
+
 ### Changed
 
 ### Deprecated
