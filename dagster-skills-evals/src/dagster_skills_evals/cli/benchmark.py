@@ -1,6 +1,5 @@
 import json
 import shlex
-import subprocess
 import sys
 import tempfile
 from dataclasses import dataclass
@@ -9,6 +8,12 @@ from pathlib import Path
 import typer
 
 from dagster_skills_evals.benchmark_display import SpinnerDisplay, render_comparison
+from dagster_skills_evals.cli._shared import (
+    build_summary,
+    run_setup_scripts,
+    save_run_logs,
+    summary_to_dict,
+)
 from dagster_skills_evals.console import console
 from dagster_skills_evals.execution import (
     ClaudeExecutionResult,
@@ -24,73 +29,6 @@ class _BenchmarkRun:
     result: ClaudeExecutionResult
     summary: ClaudeExecutionResultSummary
     tmp_dir: str
-
-
-def _build_summary(
-    result: ClaudeExecutionResult,
-    *,
-    skip_narrative: bool,
-    narrative_context: str | None = None,
-) -> ClaudeExecutionResultSummary:
-    """Build a summary, optionally skipping the expensive narrative generation."""
-    if not skip_narrative:
-        return ClaudeExecutionResultSummary(
-            input_tokens=result.input_tokens,
-            output_tokens=result.output_tokens,
-            cost_usd=result.cost_usd,
-            execution_time_ms=result.execution_time_ms,
-            tools_used=[tool["name"] for tool in result.tool_usages],
-            skills_used=[skill["skill"] for skill in result.skill_usages],
-            model_usage=result.model_usage,
-            narrative_summary=result.generate_narrative_summary(narrative_context),
-        )
-
-    return ClaudeExecutionResultSummary(
-        input_tokens=result.input_tokens,
-        output_tokens=result.output_tokens,
-        cost_usd=result.cost_usd,
-        execution_time_ms=result.execution_time_ms,
-        tools_used=[tool["name"] for tool in result.tool_usages],
-        skills_used=[skill["skill"] for skill in result.skill_usages],
-        model_usage=result.model_usage,
-        narrative_summary=[],
-    )
-
-
-def _save_run_logs(run_dir: Path, result: ClaudeExecutionResult) -> None:
-    """Save execution logs to a directory (mirrors BaselineManager.save_log pattern)."""
-    run_dir.mkdir(parents=True, exist_ok=True)
-
-    with (run_dir / "summary.json").open("w") as f:
-        json.dump(result.messages, f, indent=2)
-    with (run_dir / "stdout.txt").open("w") as f:
-        f.write(result.stdout)
-    with (run_dir / "stderr.txt").open("w") as f:
-        f.write(result.stderr)
-
-
-def _summary_to_dict(summary: ClaudeExecutionResultSummary) -> dict:
-    """Convert a summary to a JSON-serializable dict."""
-    return {
-        "input_tokens": summary.input_tokens,
-        "output_tokens": summary.output_tokens,
-        "cost_usd": summary.cost_usd,
-        "execution_time_ms": summary.execution_time_ms,
-        "tools_used": summary.tools_used,
-        "skills_used": summary.skills_used,
-    }
-
-
-def _run_setup_scripts(
-    tmp_dir: str,
-    setup_script: Path | None,
-    run_specific_script: Path | None,
-) -> None:
-    """Run setup scripts in the given directory."""
-    if setup_script:
-        subprocess.run(str(setup_script.resolve()), cwd=tmp_dir, shell=True, check=True)
-    if run_specific_script:
-        subprocess.run(str(run_specific_script.resolve()), cwd=tmp_dir, shell=True, check=True)
 
 
 def _run_benchmarks(
@@ -118,21 +56,21 @@ def _run_benchmarks(
 
     def _run_baseline() -> tuple[ClaudeExecutionResult, str]:
         tmp_dir = tempfile.mkdtemp(prefix="dg-eval-baseline-")
-        _run_setup_scripts(tmp_dir, setup_script, baseline_setup_script)
+        run_setup_scripts(tmp_dir, setup_script, baseline_setup_script)
         return _execute(tmp_dir, baseline_extra_args), tmp_dir
 
     def _run_treatment() -> tuple[ClaudeExecutionResult, str]:
         tmp_dir = tempfile.mkdtemp(prefix="dg-eval-treatment-")
-        _run_setup_scripts(tmp_dir, setup_script, treatment_setup_script)
+        run_setup_scripts(tmp_dir, setup_script, treatment_setup_script)
         return _execute(tmp_dir, treatment_extra_args), tmp_dir
 
     if quiet:
         result_baseline, baseline_tmp_dir = _run_baseline()
         result_treatment, treatment_tmp_dir = _run_treatment()
-        summary_baseline = _build_summary(
+        summary_baseline = build_summary(
             result_baseline, skip_narrative=skip_narrative, narrative_context=narrative_context
         )
-        summary_treatment = _build_summary(
+        summary_treatment = build_summary(
             result_treatment, skip_narrative=skip_narrative, narrative_context=narrative_context
         )
     else:
@@ -145,10 +83,10 @@ def _run_benchmarks(
 
             if not skip_narrative:
                 display.set_phase(3, total_phases, "Generating narrative summaries")
-            summary_baseline = _build_summary(
+            summary_baseline = build_summary(
                 result_baseline, skip_narrative=skip_narrative, narrative_context=narrative_context
             )
-            summary_treatment = _build_summary(
+            summary_treatment = build_summary(
                 result_treatment, skip_narrative=skip_narrative, narrative_context=narrative_context
             )
 
@@ -241,14 +179,14 @@ def benchmark(
     )
 
     # Save logs
-    _save_run_logs(resolved_logs / "baseline", result_baseline.result)
-    _save_run_logs(resolved_logs / "treatment", result_treatment.result)
+    save_run_logs(resolved_logs / "baseline", result_baseline.result)
+    save_run_logs(resolved_logs / "treatment", result_treatment.result)
 
     if output_json:
         json.dump(
             {
-                "baseline": _summary_to_dict(result_baseline.summary),
-                "treatment": _summary_to_dict(result_treatment.summary),
+                "baseline": summary_to_dict(result_baseline.summary),
+                "treatment": summary_to_dict(result_treatment.summary),
                 "logs_dir": str(resolved_logs),
                 "baseline_dir": result_baseline.tmp_dir,
                 "treatment_dir": result_treatment.tmp_dir,

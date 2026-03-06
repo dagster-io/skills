@@ -1,6 +1,5 @@
 import json
 import shlex
-import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -8,75 +7,16 @@ from pathlib import Path
 import typer
 
 from dagster_skills_evals.benchmark_display import SpinnerDisplay, render_single_run
-from dagster_skills_evals.console import console
-from dagster_skills_evals.execution import (
-    ClaudeExecutionResult,
-    ClaudeExecutionResultSummary,
-    execute_prompt_stream_json,
+from dagster_skills_evals.cli._shared import (
+    build_summary,
+    run_setup_scripts,
+    save_run_logs,
+    summary_to_dict,
 )
+from dagster_skills_evals.console import console
+from dagster_skills_evals.execution import execute_prompt_stream_json
 
 __all__ = ["run"]
-
-
-def _build_summary(
-    result: ClaudeExecutionResult,
-    *,
-    skip_narrative: bool,
-    narrative_context: str | None = None,
-) -> ClaudeExecutionResultSummary:
-    """Build a summary, optionally skipping the expensive narrative generation."""
-    if not skip_narrative:
-        return ClaudeExecutionResultSummary(
-            input_tokens=result.input_tokens,
-            output_tokens=result.output_tokens,
-            cost_usd=result.cost_usd,
-            execution_time_ms=result.execution_time_ms,
-            tools_used=[tool["name"] for tool in result.tool_usages],
-            skills_used=[skill["skill"] for skill in result.skill_usages],
-            model_usage=result.model_usage,
-            narrative_summary=result.generate_narrative_summary(narrative_context),
-        )
-
-    return ClaudeExecutionResultSummary(
-        input_tokens=result.input_tokens,
-        output_tokens=result.output_tokens,
-        cost_usd=result.cost_usd,
-        execution_time_ms=result.execution_time_ms,
-        tools_used=[tool["name"] for tool in result.tool_usages],
-        skills_used=[skill["skill"] for skill in result.skill_usages],
-        model_usage=result.model_usage,
-        narrative_summary=[],
-    )
-
-
-def _save_run_logs(run_dir: Path, result: ClaudeExecutionResult) -> None:
-    """Save execution logs to a directory."""
-    run_dir.mkdir(parents=True, exist_ok=True)
-
-    with (run_dir / "summary.json").open("w") as f:
-        json.dump(result.messages, f, indent=2)
-    with (run_dir / "stdout.txt").open("w") as f:
-        f.write(result.stdout)
-    with (run_dir / "stderr.txt").open("w") as f:
-        f.write(result.stderr)
-
-
-def _summary_to_dict(summary: ClaudeExecutionResultSummary) -> dict:
-    """Convert a summary to a JSON-serializable dict."""
-    return {
-        "input_tokens": summary.input_tokens,
-        "output_tokens": summary.output_tokens,
-        "cost_usd": summary.cost_usd,
-        "execution_time_ms": summary.execution_time_ms,
-        "tools_used": summary.tools_used,
-        "skills_used": summary.skills_used,
-    }
-
-
-def _run_setup_scripts(tmp_dir: str, setup_script: Path | None) -> None:
-    """Run setup scripts in the given directory."""
-    if setup_script:
-        subprocess.run(str(setup_script.resolve()), cwd=tmp_dir, shell=True, check=True)
 
 
 def run(
@@ -123,21 +63,21 @@ def run(
     tmp_dir = tempfile.mkdtemp(prefix="dg-eval-run-")
 
     if output_json:
-        _run_setup_scripts(tmp_dir, setup_script)
+        run_setup_scripts(tmp_dir, setup_script)
         result = execute_prompt_stream_json(
             prompt=prompt,
             target_dir=tmp_dir,
             extra_args=extra_args or None,
             timeout=timeout,
         )
-        summary = _build_summary(
+        summary = build_summary(
             result, skip_narrative=skip_narrative, narrative_context=narrative_context
         )
     else:
         total_phases = 1 if skip_narrative else 2
         with SpinnerDisplay() as display:
             display.set_phase(1, total_phases, "Running prompt")
-            _run_setup_scripts(tmp_dir, setup_script)
+            run_setup_scripts(tmp_dir, setup_script)
             result = execute_prompt_stream_json(
                 prompt=prompt,
                 target_dir=tmp_dir,
@@ -147,19 +87,19 @@ def run(
 
             if not skip_narrative:
                 display.set_phase(2, total_phases, "Generating narrative summary")
-            summary = _build_summary(
+            summary = build_summary(
                 result, skip_narrative=skip_narrative, narrative_context=narrative_context
             )
 
             display.finish()
 
     # Save logs
-    _save_run_logs(resolved_logs, result)
+    save_run_logs(resolved_logs, result)
 
     if output_json:
         json.dump(
             {
-                "result": _summary_to_dict(summary),
+                "result": summary_to_dict(summary),
                 "logs_dir": str(resolved_logs),
                 "run_dir": tmp_dir,
             },

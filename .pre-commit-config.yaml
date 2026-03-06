@@ -14,7 +14,7 @@ repos:
     rev: v0.16.0
     hooks:
       - id: markdownlint-cli2
-        args: ["--config", ".markdownlint-cli2.yaml"]
+        args: ["--config", "public/skills/.markdownlint-cli2.yaml"]
 
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
@@ -24,7 +24,7 @@ repos:
 
   # Python linting and formatting
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.8.4
+    rev: v0.15.0
     hooks:
       - id: ruff
         args: [--fix]

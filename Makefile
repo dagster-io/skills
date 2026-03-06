@@ -12,7 +12,7 @@ install:  ## Install pre-commit hooks
 
 lint:  ## Run all linting checks
 	@echo "Running linting checks..."
-	@pre-commit run --all-files
+	@pre-commit run --files $$(git ls-files -- .)
 
 format:  ## Auto-fix formatting issues
 	@echo "Formatting markdown files..."

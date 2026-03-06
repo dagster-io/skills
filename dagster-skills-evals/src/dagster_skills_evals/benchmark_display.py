@@ -1,3 +1,5 @@
+import time
+
 from rich.live import Live
 from rich.panel import Panel
 from rich.spinner import Spinner
@@ -15,9 +17,10 @@ class SpinnerDisplay:
         self._label = ""
         self._done = False
         self._live: Live | None = None
+        self._phase_start: float | None = None
 
     def __enter__(self):
-        self._live = Live(self._render(), console=console, refresh_per_second=4)
+        self._live = Live(self, console=console, refresh_per_second=4)
         self._live.__enter__()
         return self
 
@@ -28,21 +31,27 @@ class SpinnerDisplay:
     def set_phase(self, phase: int, total_phases: int, label: str) -> None:
         self._label = f"[{phase}/{total_phases}] {label}"
         self._done = False
+        self._phase_start = time.monotonic()
         if self._live:
-            self._live.update(self._render())
+            self._live.refresh()
 
     def finish(self) -> None:
         self._done = True
         self._label = "Done"
+        self._phase_start = None
         if self._live:
-            self._live.update(self._render())
+            self._live.refresh()
 
-    def _render(self) -> Panel:
+    def __rich__(self) -> Panel:
         content = Table.grid(padding=(0, 1))
         if self._done:
             content.add_row(Text("✓", style="green bold"), Text(self._label))
         else:
-            content.add_row(Spinner("dots"), Text(self._label or "Starting..."))
+            label = self._label or "Starting..."
+            if self._phase_start is not None:
+                elapsed = int(time.monotonic() - self._phase_start)
+                label = f"{label} ({elapsed}s)"
+            content.add_row(Spinner("dots"), Text(label))
         return Panel(content, border_style="blue")
 
 
