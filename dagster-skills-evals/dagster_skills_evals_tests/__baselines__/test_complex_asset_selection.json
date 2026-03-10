@@ -19,7 +19,6 @@
     "- Answered using traversal syntax: `kind:fivetran+1 and kind:dbt` \u2014 selecting 1 level downstream of fivetran assets intersected with dbt assets"
   ],
   "output_tokens": 326,
-  "skills_used": [],
   "tools_used": [
     "ToolSearch",
     "Read"

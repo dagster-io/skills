@@ -22,7 +22,6 @@ def build_summary(
             cost_usd=result.cost_usd,
             execution_time_ms=result.execution_time_ms,
             tools_used=[tool["name"] for tool in result.tool_usages],
-            skills_used=[skill["skill"] for skill in result.skill_usages],
             model_usage=result.model_usage,
             narrative_summary=result.generate_narrative_summary(narrative_context),
         )
@@ -33,7 +32,6 @@ def build_summary(
         cost_usd=result.cost_usd,
         execution_time_ms=result.execution_time_ms,
         tools_used=[tool["name"] for tool in result.tool_usages],
-        skills_used=[skill["skill"] for skill in result.skill_usages],
         model_usage=result.model_usage,
         narrative_summary=[],
     )
@@ -59,7 +57,6 @@ def summary_to_dict(summary: ClaudeExecutionResultSummary) -> dict:
         "cost_usd": summary.cost_usd,
         "execution_time_ms": summary.execution_time_ms,
         "tools_used": summary.tools_used,
-        "skills_used": summary.skills_used,
     }
 
 

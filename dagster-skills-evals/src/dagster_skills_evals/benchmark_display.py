@@ -113,12 +113,6 @@ def render_comparison(
         str(len(baseline.tools_used)),
         _delta_text(len(baseline.tools_used), len(treatment.tools_used)),
     )
-    metrics_table.add_row(
-        "Skills Used",
-        str(len(baseline.skills_used)),
-        str(len(treatment.skills_used)),
-    )
-
     console.print()
     console.print(metrics_table)
 
@@ -132,9 +126,6 @@ def render_comparison(
             tools_table.add_row("Baseline", ", ".join(baseline.tools_used))
         if treatment.tools_used:
             tools_table.add_row("Treatment", ", ".join(treatment.tools_used))
-        if treatment.skills_used:
-            tools_table.add_row("Skills Invoked", ", ".join(treatment.skills_used))
-
         console.print()
         console.print(tools_table)
 
@@ -171,8 +162,6 @@ def render_single_run(summary: ClaudeExecutionResultSummary) -> None:
     metrics_table.add_row("Cost", f"${summary.cost_usd:.4f}")
     metrics_table.add_row("Execution Time", f"{summary.execution_time_ms / 1000:.1f}s")
     metrics_table.add_row("Tool Calls", str(len(summary.tools_used)))
-    metrics_table.add_row("Skills Used", str(len(summary.skills_used)))
-
     console.print()
     console.print(metrics_table)
 
@@ -182,8 +171,6 @@ def render_single_run(summary: ClaudeExecutionResultSummary) -> None:
         tools_table.add_column("Details")
 
         tools_table.add_row("Tools", ", ".join(summary.tools_used))
-        if summary.skills_used:
-            tools_table.add_row("Skills Invoked", ", ".join(summary.skills_used))
 
         console.print()
         console.print(tools_table)

@@ -1,29 +1,33 @@
 {
   "__class__": "ClaudeExecutionResultSummary",
-  "cost_usd": 0.23235,
-  "execution_time_ms": 14143,
-  "input_tokens": 43555,
+  "execution_time_ms": 14433,
+  "input_tokens": 27110,
   "model_usage": [
     {
       "__class__": "ModelUsage",
       "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 0,
-      "input_tokens": 43555,
+      "cache_read_input_tokens": 41844,
+      "input_tokens": 27110,
       "model": "claude-sonnet-4-6",
-      "output_tokens": 583
+      "output_tokens": 578
+    },
+    {
+      "__class__": "ModelUsage",
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "input_tokens": 1106,
+      "model": "claude-haiku-4-5-20251001",
+      "output_tokens": 32
     }
   ],
   "narrative_summary": [
     "- User asked what Dagster components they currently have access to",
-    "- Loaded `Bash` and `Read` tools via `ToolSearch`",
-    "- Read the reference file at `skills/dagster-expert/references/cli/list/components.md` to find the correct CLI command (`dg list components`)",
-    "- Ran `uv run dg list components` via Bash to list available component types",
-    "- Presented the 8 available component types in a formatted table with descriptions and a usage example for scaffolding"
+    "- Assistant read the reference file at `skills/dagster-expert/references/cli/list/components.md` to understand the `dg list components` command",
+    "- Assistant ran `uv run dg list components` to get the live list of available component types",
+    "- Assistant presented the 7 available components in a formatted table, noting the version mismatch warning between `dagster-shared` and `dagster-dbt`"
   ],
-  "output_tokens": 583,
-  "skills_used": [],
+  "output_tokens": 578,
   "tools_used": [
-    "ToolSearch",
     "Read",
     "Bash"
   ]

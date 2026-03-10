@@ -33,7 +33,6 @@ class ClaudeExecutionResultSummary:
     cost_usd: float
     execution_time_ms: int
     tools_used: list[str]
-    skills_used: list[str]
     model_usage: list[ModelUsage]
     narrative_summary: list[str]
 
@@ -50,7 +49,6 @@ class ClaudeExecutionResult:
             cost_usd=self.cost_usd,
             execution_time_ms=self.execution_time_ms,
             tools_used=[tool["name"] for tool in self.tool_usages],
-            skills_used=[skill["skill"] for skill in self.skill_usages],
             model_usage=self.model_usage,
             narrative_summary=self.generate_narrative_summary(),
         )
@@ -132,14 +130,6 @@ class ClaudeExecutionResult:
                                 "input": item.get("input", {}),
                             }
                         )
-        return result
-
-    @cached_property
-    def skill_usages(self) -> list[dict[str, Any]]:
-        result = []
-        for tool_usage in self.tool_usages:
-            if tool_usage["name"] == "Skill":
-                result.append(tool_usage["input"])
         return result
 
     @cached_property
