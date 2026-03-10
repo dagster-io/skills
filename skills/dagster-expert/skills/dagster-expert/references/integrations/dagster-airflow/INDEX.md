@@ -1,5 +1,5 @@
 ---
-description: Integration with Apache Airflow for running Dagster pipelines in Airflow.
+title: Integration with Apache Airflow for running Dagster pipelines in Airflow.
 triggers:
   - "airflow, apache airflow, DAG"
 ---

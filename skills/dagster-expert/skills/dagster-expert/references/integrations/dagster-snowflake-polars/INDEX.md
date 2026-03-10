@@ -1,5 +1,5 @@
 ---
-description: Integration with Snowflake and Polars for DataFrame IO managers.
+title: Integration with Snowflake and Polars for DataFrame IO managers.
 triggers:
   - "snowflake polars, snowflake dataframe"
 ---

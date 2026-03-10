@@ -1,5 +1,5 @@
 ---
-description: Integration with Delta Lake and Polars for DataFrame IO managers.
+title: Integration with Delta Lake and Polars for DataFrame IO managers.
 triggers:
   - "delta lake polars, deltalake dataframe"
 ---

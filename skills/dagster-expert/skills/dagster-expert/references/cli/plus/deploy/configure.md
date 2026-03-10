@@ -1,5 +1,5 @@
 ---
-description: "dg plus deploy configure: scaffold configuration to allow a git repo to be deployed to Dagster Plus."
+title: "dg plus deploy configure"
 triggers:
   - "Deploying to Dagster Plus, Github Actions, GitLab CI"
   - "CI/CD configuration"

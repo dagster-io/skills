@@ -1,5 +1,5 @@
 ---
-description: Integration with DuckDB and PySpark for DataFrame IO managers.
+title: Integration with DuckDB and PySpark for DataFrame IO managers.
 triggers:
   - "duckdb pyspark, duckdb spark"
 ---

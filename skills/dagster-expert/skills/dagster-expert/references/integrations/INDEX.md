@@ -1,5 +1,5 @@
 ---
-description: Integration libraries index for 40+ tools and technologies (dbt, Fivetran, Snowflake, AWS, etc.).
+title: Integration libraries index for 40+ tools and technologies (dbt, Fivetran, Snowflake, AWS, etc.).
 type: index
 triggers:
   - "integration, external tool, dagster-\\*"
@@ -18,66 +18,66 @@ All integration reference files contain a link to the official documentation for
 
 <!-- BEGIN GENERATED INDEX -->
 
-- [dagster-airbyte](./dagster-airbyte/INDEX.md) — Integration with Airbyte for EL (Extract-Load) syncs as Dagster assets. (airbyte, extract-load sync)
-- [dagster-airflow](./dagster-airflow/INDEX.md) — Integration with Apache Airflow for running Dagster pipelines in Airflow. (airflow, apache airflow, DAG)
-- [dagster-airlift](./dagster-airlift/INDEX.md) — Integration with Airflow for migrating and co-orchestrating Airflow DAGs. (airflow, airlift, DAG migration)
-- [dagster-aws](./dagster-aws/INDEX.md) — Integration with AWS services (S3, ECS, Lambda, etc.). (aws, s3, ecs, lambda, amazon)
-- [dagster-azure](./dagster-azure/INDEX.md) — Integration with Azure services (ADLS, Blob Storage, etc.). (azure, adls, blob storage, microsoft cloud)
-- [dagster-celery](./dagster-celery/INDEX.md) — Integration with Celery for distributed task execution. (celery, distributed task queue)
-- [dagster-celery-docker](./dagster-celery-docker/INDEX.md) — Integration with Celery and Docker for distributed containerized execution. (celery docker, distributed container execution)
-- [dagster-celery-k8s](./dagster-celery-k8s/INDEX.md) — Integration with Celery and Kubernetes for distributed container orchestration. (celery kubernetes, celery k8s, distributed orchestration)
-- [dagster-census](./dagster-census/INDEX.md) — Integration with Census for reverse ETL syncs (community-maintained). (census, reverse ETL)
-- [dagster-dask](./dagster-dask/INDEX.md) — Integration with Dask for parallel and distributed computing. (dask, parallel computing)
-- [dagster-databricks](./dagster-databricks/INDEX.md) — Integration with Databricks for Spark-based data processing. (databricks, spark cluster)
-- [dagster-datadog](./dagster-datadog/INDEX.md) — Integration with Datadog for monitoring and observability. (datadog, monitoring, observability)
-- [dagster-datahub](./dagster-datahub/INDEX.md) — Integration with DataHub for metadata management and data cataloging. (datahub, metadata, data catalog)
-- [dagster-dbt](./dagster-dbt/INDEX.md) — Integration with dbt Core and dbt Cloud for model-level orchestration. (dbt, dbt Core, dbt Cloud; dagster-dbt, dbt model, dbt project)
-- [dagster-deltalake](./dagster-deltalake/INDEX.md) — Integration with Delta Lake for lakehouse storage (community-maintained). (delta lake, lakehouse)
-- [dagster-deltalake-pandas](./dagster-deltalake-pandas/INDEX.md) — Integration with Delta Lake and Pandas for DataFrame IO managers. (delta lake pandas, deltalake dataframe)
-- [dagster-deltalake-polars](./dagster-deltalake-polars/INDEX.md) — Integration with Delta Lake and Polars for DataFrame IO managers. (delta lake polars, deltalake dataframe)
-- [dagster-dlt](./dagster-dlt/INDEX.md) — Integration with dlt (data load tool) for declarative data pipelines. (dlt, data load tool, declarative pipelines)
-- [dagster-docker](./dagster-docker/INDEX.md) — Integration with Docker for containerized execution. (docker, container execution)
-- [dagster-duckdb](./dagster-duckdb/INDEX.md) — Integration with DuckDB for in-process analytical queries. (duckdb, analytical database)
-- [dagster-duckdb-pandas](./dagster-duckdb-pandas/INDEX.md) — Integration with DuckDB and Pandas for DataFrame IO managers. (duckdb pandas, duckdb dataframe)
-- [dagster-duckdb-polars](./dagster-duckdb-polars/INDEX.md) — Integration with DuckDB and Polars for DataFrame IO managers. (duckdb polars, duckdb dataframe)
-- [dagster-duckdb-pyspark](./dagster-duckdb-pyspark/INDEX.md) — Integration with DuckDB and PySpark for DataFrame IO managers. (duckdb pyspark, duckdb spark)
-- [dagster-embedded-elt](./dagster-embedded-elt/INDEX.md) — Integration for embedded ELT with Sling and dlt support. (embedded elt, sling, dlt, extract load transform)
-- [dagster-fivetran](./dagster-fivetran/INDEX.md) — Integration with Fivetran for managed EL (Extract-Load) connectors. (fivetran, managed connectors, extract-load)
-- [dagster-gcp](./dagster-gcp/INDEX.md) — Integration with Google Cloud Platform (BigQuery, GCS, etc.). (gcp, bigquery, gcs, google cloud)
-- [dagster-gcp-pandas](./dagster-gcp-pandas/INDEX.md) — Integration with GCP BigQuery and Pandas for DataFrame IO managers. (gcp pandas, bigquery pandas, bigquery dataframe)
-- [dagster-gcp-pyspark](./dagster-gcp-pyspark/INDEX.md) — Integration with GCP BigQuery and PySpark for DataFrame IO managers. (gcp pyspark, bigquery pyspark, bigquery spark)
-- [dagster-github](./dagster-github/INDEX.md) — Integration with GitHub for repository event handling. (github, repository events)
-- [dagster-great-expectations](./dagster-great-expectations/INDEX.md) — Integration with Great Expectations for data validation and testing. (great expectations, data validation)
-- [dagster-hightouch](./dagster-hightouch/INDEX.md) — Integration with Hightouch for reverse ETL and data activation. (hightouch, reverse ETL, data activation)
-- [dagster-iceberg](./dagster-iceberg/INDEX.md) — Integration with Apache Iceberg for table format management (community-maintained). (iceberg, table format)
-- [dagster-jupyter](./dagster-jupyter/INDEX.md) — Integration with Jupyter for notebook-based assets. (jupyter, notebook asset)
-- [dagster-k8s](./dagster-k8s/INDEX.md) — Integration with Kubernetes for container orchestration and execution. (kubernetes, k8s, container orchestration)
-- [dagster-looker](./dagster-looker/INDEX.md) — Integration with Looker for BI dashboard assets. (looker, BI dashboard)
-- [dagster-mlflow](./dagster-mlflow/INDEX.md) — Integration with MLflow for ML experiment tracking and model management. (mlflow, ML tracking, model management)
-- [dagster-msteams](./dagster-msteams/INDEX.md) — Integration with Microsoft Teams for notifications and alerts. (microsoft teams, msteams, notifications)
-- [dagster-mysql](./dagster-mysql/INDEX.md) — Integration with MySQL for database storage backends. (mysql, database backend)
-- [dagster-omni](./dagster-omni/INDEX.md) — Integration with Omni for analytics and BI. (omni, analytics)
-- [dagster-openai](./dagster-openai/INDEX.md) — Integration with OpenAI for LLM-powered assets. (openai, LLM, AI integration)
-- [dagster-pagerduty](./dagster-pagerduty/INDEX.md) — Integration with PagerDuty for incident management alerts. (pagerduty, incident management, alerting)
-- [dagster-pandas](./dagster-pandas/INDEX.md) — Integration with Pandas for DataFrame type checking and validation. (pandas, dataframe validation)
-- [dagster-pandera](./dagster-pandera/INDEX.md) — Integration with Pandera for DataFrame schema validation. (pandera, schema validation)
-- [dagster-papertrail](./dagster-papertrail/INDEX.md) — Integration with Papertrail for log management. (papertrail, log management)
-- [dagster-polars](./dagster-polars/INDEX.md) — Integration with Polars for fast DataFrame processing (community-maintained). (polars, fast dataframe)
-- [dagster-polytomic](./dagster-polytomic/INDEX.md) — Integration with Polytomic for data syncing. (polytomic, data sync)
-- [dagster-postgres](./dagster-postgres/INDEX.md) — Integration with PostgreSQL for database storage backends. (postgres, postgresql, database backend)
-- [dagster-powerbi](./dagster-powerbi/INDEX.md) — Integration with Power BI for BI dashboard assets. (power bi, powerbi, BI dashboard)
-- [dagster-prometheus](./dagster-prometheus/INDEX.md) — Integration with Prometheus for metrics collection. (prometheus, metrics)
-- [dagster-pyspark](./dagster-pyspark/INDEX.md) — Integration with PySpark for distributed data processing. (pyspark, spark, distributed processing)
-- [dagster-sigma](./dagster-sigma/INDEX.md) — Integration with Sigma for BI and analytics assets. (sigma, BI analytics)
-- [dagster-slack](./dagster-slack/INDEX.md) — Integration with Slack for notifications and alerts. (slack, notifications, chat alerts)
-- [dagster-sling](./dagster-sling/INDEX.md) — Integration with Sling for EL (Extract-Load) data replication. (sling, data replication, extract-load)
-- [dagster-snowflake](./dagster-snowflake/INDEX.md) — Integration with Snowflake for cloud data warehouse operations. (snowflake, cloud data warehouse)
-- [dagster-snowflake-pandas](./dagster-snowflake-pandas/INDEX.md) — Integration with Snowflake and Pandas for DataFrame IO managers. (snowflake pandas, snowflake dataframe)
-- [dagster-snowflake-polars](./dagster-snowflake-polars/INDEX.md) — Integration with Snowflake and Polars for DataFrame IO managers. (snowflake polars, snowflake dataframe)
-- [dagster-snowflake-pyspark](./dagster-snowflake-pyspark/INDEX.md) — Integration with Snowflake and PySpark for DataFrame IO managers. (snowflake pyspark, snowflake spark)
-- [dagster-spark](./dagster-spark/INDEX.md) — Integration with Apache Spark for distributed data processing. (spark, distributed processing)
-- [dagster-ssh](./dagster-ssh/INDEX.md) — Integration with SSH for remote command execution. (ssh, remote execution)
-- [dagster-tableau](./dagster-tableau/INDEX.md) — Integration with Tableau for BI dashboard assets. (tableau, BI dashboard)
-- [dagster-twilio](./dagster-twilio/INDEX.md) — Integration with Twilio for SMS and communication. (twilio, SMS, communication)
-- [dagster-wandb](./dagster-wandb/INDEX.md) — Integration with Weights and Biases for ML experiment tracking (community-maintained). (wandb, weights and biases, ML tracking)
+- [dagster-airbyte](./dagster-airbyte/INDEX.md) — Airbyte extract-load syncs as Dagster assets
+- [Integration with Apache Airflow for running Dagster pipelines in Airflow.](./dagster-airflow/INDEX.md) — airflow, apache airflow, DAG
+- [dagster-airlift](./dagster-airlift/INDEX.md) — migrating or co-orchestrating Airflow DAGs with Dagster
+- [dagster-aws](./dagster-aws/INDEX.md) — AWS services (S3, ECS, Lambda) from Dagster
+- [dagster-azure](./dagster-azure/INDEX.md) — Azure services (ADLS, Blob Storage) from Dagster
+- [dagster-celery](./dagster-celery/INDEX.md) — distributed task execution with Celery
+- [Integration with Celery and Docker for distributed containerized execution.](./dagster-celery-docker/INDEX.md) — celery docker, distributed container execution
+- [Integration with Celery and Kubernetes for distributed container orchestration.](./dagster-celery-k8s/INDEX.md) — celery kubernetes, celery k8s, distributed orchestration
+- [dagster-census](./dagster-census/INDEX.md) — reverse ETL syncs with Census
+- [dagster-dask](./dagster-dask/INDEX.md) — parallel and distributed computing with Dask
+- [dagster-databricks](./dagster-databricks/INDEX.md) — Spark-based data processing on Databricks
+- [dagster-datadog](./dagster-datadog/INDEX.md) — monitoring and observability with Datadog
+- [dagster-datahub](./dagster-datahub/INDEX.md) — metadata management and data cataloging with DataHub
+- [dagster-dbt](./dagster-dbt/INDEX.md) — integrating dbt Core or dbt Cloud with Dagster
+- [dagster-deltalake](./dagster-deltalake/INDEX.md) — lakehouse storage with Delta Lake
+- [Integration with Delta Lake and Pandas for DataFrame IO managers.](./dagster-deltalake-pandas/INDEX.md) — delta lake pandas, deltalake dataframe
+- [Integration with Delta Lake and Polars for DataFrame IO managers.](./dagster-deltalake-polars/INDEX.md) — delta lake polars, deltalake dataframe
+- [Integration with dlt (data load tool) for declarative data pipelines.](./dagster-dlt/INDEX.md) — dlt, data load tool, declarative pipelines
+- [dagster-docker](./dagster-docker/INDEX.md) — containerized execution with Docker
+- [dagster-duckdb](./dagster-duckdb/INDEX.md) — in-process analytical queries with DuckDB
+- [Integration with DuckDB and Pandas for DataFrame IO managers.](./dagster-duckdb-pandas/INDEX.md) — duckdb pandas, duckdb dataframe
+- [Integration with DuckDB and Polars for DataFrame IO managers.](./dagster-duckdb-polars/INDEX.md) — duckdb polars, duckdb dataframe
+- [Integration with DuckDB and PySpark for DataFrame IO managers.](./dagster-duckdb-pyspark/INDEX.md) — duckdb pyspark, duckdb spark
+- [Integration for embedded ELT with Sling and dlt support.](./dagster-embedded-elt/INDEX.md) — embedded elt, sling, dlt, extract load transform
+- [dagster-fivetran](./dagster-fivetran/INDEX.md) — managed extract-load connectors with Fivetran
+- [dagster-gcp](./dagster-gcp/INDEX.md) — Google Cloud Platform (BigQuery, GCS) from Dagster
+- [Integration with GCP BigQuery and Pandas for DataFrame IO managers.](./dagster-gcp-pandas/INDEX.md) — gcp pandas, bigquery pandas, bigquery dataframe
+- [Integration with GCP BigQuery and PySpark for DataFrame IO managers.](./dagster-gcp-pyspark/INDEX.md) — gcp pyspark, bigquery pyspark, bigquery spark
+- [dagster-github](./dagster-github/INDEX.md) — GitHub repository event handling from Dagster
+- [dagster-great-expectations](./dagster-great-expectations/INDEX.md) — data validation and testing with Great Expectations
+- [dagster-hightouch](./dagster-hightouch/INDEX.md) — reverse ETL and data activation with Hightouch
+- [dagster-iceberg](./dagster-iceberg/INDEX.md) — Apache Iceberg table format management
+- [dagster-jupyter](./dagster-jupyter/INDEX.md) — notebook-based assets with Jupyter
+- [dagster-k8s](./dagster-k8s/INDEX.md) — Kubernetes container orchestration and execution
+- [dagster-looker](./dagster-looker/INDEX.md) — Looker BI dashboard assets
+- [dagster-mlflow](./dagster-mlflow/INDEX.md) — ML experiment tracking and model management with MLflow
+- [dagster-msteams](./dagster-msteams/INDEX.md) — Microsoft Teams notifications and alerts from Dagster
+- [dagster-mysql](./dagster-mysql/INDEX.md) — MySQL as a Dagster storage backend
+- [dagster-omni](./dagster-omni/INDEX.md) — analytics and BI with Omni
+- [dagster-openai](./dagster-openai/INDEX.md) — LLM-powered assets with OpenAI
+- [dagster-pagerduty](./dagster-pagerduty/INDEX.md) — incident management alerts with PagerDuty
+- [dagster-pandas](./dagster-pandas/INDEX.md) — Pandas DataFrame type checking and validation
+- [dagster-pandera](./dagster-pandera/INDEX.md) — DataFrame schema validation with Pandera
+- [dagster-papertrail](./dagster-papertrail/INDEX.md) — log management with Papertrail
+- [dagster-polars](./dagster-polars/INDEX.md) — fast DataFrame processing with Polars
+- [Integration with Polytomic for data syncing.](./dagster-polytomic/INDEX.md) — polytomic, data sync
+- [dagster-postgres](./dagster-postgres/INDEX.md) — PostgreSQL as a Dagster storage backend
+- [dagster-powerbi](./dagster-powerbi/INDEX.md) — Power BI dashboard assets
+- [dagster-prometheus](./dagster-prometheus/INDEX.md) — metrics collection with Prometheus
+- [dagster-pyspark](./dagster-pyspark/INDEX.md) — distributed data processing with PySpark
+- [dagster-sigma](./dagster-sigma/INDEX.md) — BI and analytics assets with Sigma
+- [dagster-slack](./dagster-slack/INDEX.md) — Slack notifications or alerts from Dagster
+- [dagster-sling](./dagster-sling/INDEX.md) — EL data replication with Sling
+- [dagster-snowflake](./dagster-snowflake/INDEX.md) — interacting with Snowflake from Dagster
+- [Integration with Snowflake and Pandas for DataFrame IO managers.](./dagster-snowflake-pandas/INDEX.md) — snowflake pandas, snowflake dataframe
+- [Integration with Snowflake and Polars for DataFrame IO managers.](./dagster-snowflake-polars/INDEX.md) — snowflake polars, snowflake dataframe
+- [Integration with Snowflake and PySpark for DataFrame IO managers.](./dagster-snowflake-pyspark/INDEX.md) — snowflake pyspark, snowflake spark
+- [dagster-spark](./dagster-spark/INDEX.md) — distributed data processing with Apache Spark
+- [dagster-ssh](./dagster-ssh/INDEX.md) — remote command execution via SSH
+- [dagster-tableau](./dagster-tableau/INDEX.md) — Tableau BI dashboard assets
+- [dagster-twilio](./dagster-twilio/INDEX.md) — SMS and communication with Twilio
+- [dagster-wandb](./dagster-wandb/INDEX.md) — ML experiment tracking with Weights & Biases
 <!-- END GENERATED INDEX -->

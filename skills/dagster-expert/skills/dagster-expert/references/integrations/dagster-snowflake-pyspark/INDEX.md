@@ -1,5 +1,5 @@
 ---
-description: Integration with Snowflake and PySpark for DataFrame IO managers.
+title: Integration with Snowflake and PySpark for DataFrame IO managers.
 triggers:
   - "snowflake pyspark, snowflake spark"
 ---

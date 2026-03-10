@@ -1,5 +1,5 @@
 ---
-description: Integration with Delta Lake and Pandas for DataFrame IO managers.
+title: Integration with Delta Lake and Pandas for DataFrame IO managers.
 triggers:
   - "delta lake pandas, deltalake dataframe"
 ---

@@ -1,5 +1,5 @@
 ---
-description: Integration with DuckDB and Pandas for DataFrame IO managers.
+title: Integration with DuckDB and Pandas for DataFrame IO managers.
 triggers:
   - "duckdb pandas, duckdb dataframe"
 ---

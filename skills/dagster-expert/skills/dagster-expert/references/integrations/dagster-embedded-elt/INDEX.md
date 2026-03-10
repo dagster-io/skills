@@ -1,5 +1,5 @@
 ---
-description: Integration for embedded ELT with Sling and dlt support.
+title: Integration for embedded ELT with Sling and dlt support.
 triggers:
   - "embedded elt, sling, dlt, extract load transform"
 ---

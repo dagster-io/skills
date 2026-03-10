@@ -1,5 +1,5 @@
 ---
-description: Integration with Snowflake and Pandas for DataFrame IO managers.
+title: Integration with Snowflake and Pandas for DataFrame IO managers.
 triggers:
   - "snowflake pandas, snowflake dataframe"
 ---

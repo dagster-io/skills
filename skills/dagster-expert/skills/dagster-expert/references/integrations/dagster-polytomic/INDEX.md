@@ -1,5 +1,5 @@
 ---
-description: Integration with Polytomic for data syncing.
+title: Integration with Polytomic for data syncing.
 triggers:
   - "polytomic, data sync"
 ---

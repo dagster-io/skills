@@ -1,5 +1,5 @@
 ---
-description: Integration with GCP BigQuery and PySpark for DataFrame IO managers.
+title: Integration with GCP BigQuery and PySpark for DataFrame IO managers.
 triggers:
   - "gcp pyspark, bigquery pyspark, bigquery spark"
 ---

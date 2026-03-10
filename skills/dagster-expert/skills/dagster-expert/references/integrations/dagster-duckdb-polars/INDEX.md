@@ -1,5 +1,5 @@
 ---
-description: Integration with DuckDB and Polars for DataFrame IO managers.
+title: Integration with DuckDB and Polars for DataFrame IO managers.
 triggers:
   - "duckdb polars, duckdb dataframe"
 ---

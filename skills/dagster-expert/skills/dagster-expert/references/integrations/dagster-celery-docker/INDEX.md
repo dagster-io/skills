@@ -1,5 +1,5 @@
 ---
-description: Integration with Celery and Docker for distributed containerized execution.
+title: Integration with Celery and Docker for distributed containerized execution.
 triggers:
   - "celery docker, distributed container execution"
 ---
