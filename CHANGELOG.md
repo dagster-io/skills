@@ -9,6 +9,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+Improved documentation on creating and using components in complex scenarios.
+
+Added detailed documentation on using a suite of new CLI commands for interacting with the Dagster+ API.
+
 ### Changed
 
 ### Deprecated

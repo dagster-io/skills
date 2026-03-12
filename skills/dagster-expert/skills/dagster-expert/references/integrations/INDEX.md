@@ -20,7 +20,6 @@ All integration reference files contain a link to the official documentation for
 
 ### Discovery Workflow (library exists)
 
-
 ```bash
 # Install the integration library
 uv add dagster-<technology>
@@ -60,7 +59,6 @@ See [Designing Component Integrations](../components/designing-component-integra
 <!-- BEGIN GENERATED INDEX -->
 
 - [dagster-airbyte](./dagster-airbyte/INDEX.md) — Airbyte extract-load syncs as Dagster assets
-- [dagster-airflow](./dagster-airflow/INDEX.md) — airflow, apache airflow, DAG
 - [dagster-airlift](./dagster-airlift/INDEX.md) — migrating or co-orchestrating Airflow DAGs with Dagster
 - [dagster-aws](./dagster-aws/INDEX.md) — AWS services (S3, ECS, Lambda) from Dagster
 - [dagster-azure](./dagster-azure/INDEX.md) — Azure services (ADLS, Blob Storage) from Dagster

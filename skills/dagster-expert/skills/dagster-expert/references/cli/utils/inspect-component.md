@@ -25,4 +25,3 @@ All flags are mutually exclusive — only one can be used at a time.
 - **`--defs-yaml-example-values`** — Print a YAML template populated with example values, useful for code generation.
 
 With no flags, all available metadata is printed (description + scaffold params schema + component schema).
-

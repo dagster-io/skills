@@ -28,7 +28,8 @@ config:
   MD018: true   # No space after hash on atx style header
   MD019: true   # Multiple spaces after hash on atx style header
   MD023: true   # Headers must start at the beginning of the line
-  MD025: true   # Multiple top level headers in the same document
+  MD025:        # Multiple top level headers in the same document
+    front_matter_title: ""
   MD026: false  # Trailing punctuation in header (allow for plugin documentation)
   MD027: true   # Multiple spaces after blockquote symbol
   MD028: true   # Blank line inside blockquote
@@ -49,6 +50,9 @@ config:
   MD051: false  # Link fragments should be valid (references across files may not validate)
   MD053: true   # Link definitions should be needed
   MD056: false  # Table column count (allow flexible table formatting)
+
+# Recognize YAML frontmatter (regex uses 's' flag, so ^ and $ match string boundaries only)
+frontMatter: '^---\n[\s\S]*?\n---\n'
 
 # Ignore patterns
 ignores:

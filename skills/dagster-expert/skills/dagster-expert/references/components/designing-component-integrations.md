@@ -153,6 +153,7 @@ When the external tool supports executing an arbitrary subset of the assets defi
 **When NOT to use**: The external tool executes all assets atomically (e.g. a Fivetran connector sync runs all tables together — no per-table control).
 
 **Key changes**:
+
 1. Add `can_subset=True` to the `@dg.multi_asset()` decorator in the `_build_multi_asset` helper
 2. Mark each `AssetSpec` with `skippable=True` so Dagster knows individual assets can be skipped when subsetting
 3. Pass `context` through to `execute()`:
