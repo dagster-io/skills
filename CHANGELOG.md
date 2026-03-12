@@ -9,6 +9,20 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.0.12] - 2026-03-12
+
+### Added
+
 Improved documentation on creating and using components in complex scenarios.
 
 Added detailed documentation on using a suite of new CLI commands for interacting with the Dagster+ API.
@@ -393,7 +407,7 @@ Removed the dagster-integrations skill, and incorporated its functionality into 
   - Modern type syntax (list[str], str | None)
   - Pathlib operations and ABC-based interfaces
 
-[Unreleased]: https://github.com/dagster-io/skills/compare/v0.0.11...HEAD
+[Unreleased]: https://github.com/dagster-io/skills/compare/v0.0.12...HEAD
 [0.0.7]: https://github.com/dagster-io/skills/releases/tag/v0.0.7
 [0.0.6]: https://github.com/dagster-io/skills/releases/tag/v0.0.6
 [0.0.5]: https://github.com/dagster-io/skills/releases/tag/v0.0.5
@@ -404,4 +418,5 @@ Removed the dagster-integrations skill, and incorporated its functionality into 
 [0.0.9]: https://github.com/dagster-io/skills/releases/tag/v0.0.9
 [0.0.10]: https://github.com/dagster-io/skills/releases/tag/v0.0.10
 [0.0.11]: https://github.com/dagster-io/skills/releases/tag/v0.0.11
+[0.0.12]: https://github.com/dagster-io/skills/releases/tag/v0.0.12
 [0.0.1]: https://github.com/dagster-io/skills/releases/tag/v0.0.1
