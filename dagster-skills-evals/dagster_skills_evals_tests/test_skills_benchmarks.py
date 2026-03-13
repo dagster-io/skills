@@ -79,7 +79,7 @@ def test_complex_automation_condition(baseline_manager: BaselineManager, empty_p
     """
 
     def _original_source():
-        import dagster as dg  # noqa: PLC0415
+        import dagster as dg
 
         @dg.asset(deps=["customer_events", "sales_data", "zip_codes"])
         def customer_summary() -> None: ...
@@ -195,18 +195,14 @@ Make sure to verify that the new tags are included in the asset definitions.
             check=True,
         )
         defs_json = json.loads(defs_result.stdout)
-        assets = {a["key"]: a for a in defs_json["assets"]}
+        assets = {a["asset_key"]: a for a in defs_json["assets"]}
 
         for key in ["a", "b", "c"]:
             assert key in assets, f"Asset '{key}' not found in defs"
 
-        def _parse_tags(tag_list: list[str]) -> dict[str, str]:
-            """Parse tags from '"key"="value"' format to a dict."""
-            result = {}
-            for tag in tag_list:
-                k, v = tag.split("=", 1)
-                result[k.strip('"')] = v.strip('"')
-            return result
+        def _parse_tags(tag_list: list[dict]) -> dict[str, str]:
+            """Parse tags from {key, value} dict format to a flat dict."""
+            return {tag["key"]: tag["value"] for tag in tag_list}
 
         # Check cluster_id tag on all assets
         for key in ["a", "b", "c"]:

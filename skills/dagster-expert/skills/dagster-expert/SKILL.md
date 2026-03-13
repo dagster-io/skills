@@ -57,58 +57,14 @@ For every question, identify which reference file(s) are relevant using the inde
 - [create-dagster](./references/cli/create-dagster.md) — creating a new Dagster project from scratch
 - [dg dev](./references/cli/dev.md) — starting a local Dagster development instance
 - [dg launch](./references/cli/launch.md) — materializing assets or executing jobs locally
-- [dg api: General](./references/cli/api/general.md) — always read before using any dg api subcommand
-- [dg api agent get](./references/cli/api/agent/get.md) — details about a specific Dagster Plus agent
-- [dg api agent list](./references/cli/api/agent/list.md) — listing agents in Dagster Plus
-- [dg api alert-policy list](./references/cli/api/alert-policy/list.md) — listing alert policies in Dagster Plus
-- [dg api alert-policy sync](./references/cli/api/alert-policy/sync.md) — syncing alert policies from YAML definition
-- [dg api artifact download](./references/cli/api/artifact/download.md) — downloading an artifact from Dagster Plus
-- [dg api artifact upload](./references/cli/api/artifact/upload.md) — uploading an artifact to Dagster Plus
-- [dg api asset get-evaluations](./references/cli/api/asset/get-evaluations.md) — automation condition evaluation history for an asset
-- [dg api asset get-events](./references/cli/api/asset/get-events.md) — materialization or observation event history for an asset
-- [dg api asset get-health](./references/cli/api/asset/get-health.md) — getting asset health or runtime status
-- [dg api asset get](./references/cli/api/asset/get.md) — details about a specific asset
-- [dg api asset list](./references/cli/api/asset/list.md) — querying which assets exist in a deployment
-- [dg api code-location add](./references/cli/api/code-location/add.md) — adding or updating a code location in Dagster Plus
-- [dg api code-location delete](./references/cli/api/code-location/delete.md) — deleting a code location from Dagster Plus
-- [dg api code-location get](./references/cli/api/code-location/get.md) — details about a specific code location
-- [dg api code-location list](./references/cli/api/code-location/list.md) — listing code locations in Dagster Plus
-- [dg api deployment delete](./references/cli/api/deployment/delete.md) — deleting a deployment from Dagster Plus
-- [dg api deployment get](./references/cli/api/deployment/get.md) — details about a specific deployment
-- [dg api deployment list](./references/cli/api/deployment/list.md) — listing deployments in Dagster Plus
-- [dg api deployment settings-get](./references/cli/api/deployment/settings-get.md) — getting deployment-level settings in Dagster Plus
-- [dg api deployment settings-set](./references/cli/api/deployment/settings-set.md) — setting deployment settings in Dagster Plus
-- [dg api organization saml-remove](./references/cli/api/organization/saml-remove.md) — removing SAML metadata from Dagster Plus
-- [dg api organization saml-upload](./references/cli/api/organization/saml-upload.md) — uploading SAML metadata for SSO in Dagster Plus
-- [dg api organization settings-get](./references/cli/api/organization/settings-get.md) — getting organization-level settings in Dagster Plus
-- [dg api organization settings-set](./references/cli/api/organization/settings-set.md) — setting organization settings in Dagster Plus
-- [dg api run get-events](./references/cli/api/run/get-events.md) — debugging a run by reading its logs; filtering run events by level or step
-- [dg api run get](./references/cli/api/run/get.md) — details about a specific run
-- [dg api run list](./references/cli/api/run/list.md) — listing or filtering runs
-- [dg api schedule get](./references/cli/api/schedule/get.md) — details about a specific schedule
-- [dg api schedule list](./references/cli/api/schedule/list.md) — listing schedules in Dagster Plus
-- [dg api secret get](./references/cli/api/secret/get.md) — details about a specific secret
-- [dg api secret list](./references/cli/api/secret/list.md) — listing secrets in Dagster Plus
-- [dg api sensor get](./references/cli/api/sensor/get.md) — details about a specific sensor
-- [dg api sensor list](./references/cli/api/sensor/list.md) — listing sensors in Dagster Plus
-- [dg list component-tree](./references/cli/list/component-tree.md) — viewing the component instance hierarchy
-- [dg list components](./references/cli/list/components.md) — seeing available component types for scaffolding
-- [dg list defs](./references/cli/list/defs.md) — listing or filtering registered definitions
-- [dg list envs](./references/cli/list/envs.md) — seeing which environment variables the project requires
-- [dg list projects](./references/cli/list/projects.md) — listing projects in the current workspace
-- [dg plus login](./references/cli/plus/login.md) — authenticating with Dagster Plus
-- [dg plus config set](./references/cli/plus/config/set.md) — set Dagster Plus CLI configuration values
-- [dg plus config view](./references/cli/plus/config/view.md) — view current Dagster Plus CLI configuration
-- [dg plus create ci-api-token](./references/cli/plus/create/ci-api-token.md) — creating a CI/CD API token for Dagster Plus
-- [dg plus deploy configure](./references/cli/plus/deploy/configure.md) — Deploying to Dagster Plus, Github Actions, GitLab CI; CI/CD configuration
-- [dg plus deploy](./references/cli/plus/deploy/deploy.md) — ad-hoc deployment to Dagster Plus
-- [dg plus integrations dbt manage-manifest](./references/cli/plus/integrations/dbt-manage-manifest.md) — auto-managing dbt manifest uploads to Dagster Plus
-- [dg plus pull env](./references/cli/plus/pull/env.md) — pulling environment variables from Dagster Plus into a local .env file
+- [dg list components](./references/cli/list-components.md) — seeing available component types for scaffolding
+- [dg list defs](./references/cli/list-defs.md) — listing or filtering registered definitions
+- [Dagster Plus API](./references/cli/api/INDEX.md) — dg api, programmatically querying or managing Dagster Plus resources (assets, runs, deployments, code locations, schedules, sensors, secrets, etc.)
+- [dg list](./references/cli/list/INDEX.md) — exploring project structure (component tree, environment variables, workspace projects)
+- [Dagster Plus CLI](./references/cli/plus/INDEX.md) — dg plus, Dagster Plus authentication, configuration, and deployment; logging in, setting config, creating API tokens, deploying code, pulling env vars, managing dbt manifests
 - [dg scaffold component](./references/cli/scaffold/component.md) — creating a custom reusable component type
 - [dg scaffold defs](./references/cli/scaffold/defs.md) — adding new definitions (assets, schedules, sensors, components) to a project
-- [dg utils inspect-component](./references/cli/utils/inspect-component.md) — inspecting a component type's description, schema, or examples
-- [dg utils integrations](./references/cli/utils/integrations.md) — viewing the integration index
-- [dg utils refresh-defs-state](./references/cli/utils/refresh-defs-state.md) — refreshing cached state for state-backed components
+- [dg utilities](./references/cli/utils/INDEX.md) — dg utils, inspecting component types, viewing integrations, refreshing state-backed component cache
 - [Creating Components](./references/components/creating-components.md) — building a new custom component from scratch
 - [Designing Component Integrations](./references/components/designing-component-integrations.md) — designing a component that wraps an external service or tool; custom integrations
 - [Resolved Framework](./references/components/resolved-framework.md) — defining custom YAML schema types using Resolver, Model, or Resolvable
