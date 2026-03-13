@@ -79,7 +79,7 @@ def test_complex_automation_condition(baseline_manager: BaselineManager, empty_p
     """
 
     def _original_source():
-        import dagster as dg
+        import dagster as dg  # noqa: PLC0415
 
         @dg.asset(deps=["customer_events", "sales_data", "zip_codes"])
         def customer_summary() -> None: ...

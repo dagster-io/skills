@@ -94,7 +94,7 @@ class BaselineManager:
         regressions = [name for name, m in metrics.items() if m["delta"] > 0]
 
         if regressions:
-            import json
+            import json  # noqa: PLC0415
 
             raise AssertionError(
                 f"Performance regression detected in: {', '.join(regressions)}\n"

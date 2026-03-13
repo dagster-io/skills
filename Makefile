@@ -12,7 +12,10 @@ install:  ## Install pre-commit hooks
 
 lint:  ## Run all linting checks
 	@echo "Running linting checks..."
-	@pre-commit run --files $$(git ls-files -- .)
+	@cd "$(CURDIR)" && npx markdownlint-cli2 --config .markdownlint-cli2.yaml $$(git ls-files -- '*.md')
+	@cd "$(CURDIR)" && npx prettier --check $$(git ls-files -- '*.md')
+	@cd "$(CURDIR)" && ruff check --config dagster-skills-evals/pyproject.toml $$(git ls-files -- '*.py')
+	@cd "$(CURDIR)" && ruff format --config dagster-skills-evals/pyproject.toml --check $$(git ls-files -- '*.py')
 
 format:  ## Auto-fix formatting issues
 	@echo "Formatting markdown files..."
