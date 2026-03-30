@@ -160,7 +160,7 @@ class MyComponent(dg.StateBackedComponent, dg.Model, dg.Resolvable):
 
 ### Tool's native format (for tools with existing artifacts)
 
-Write tool artifacts directly and read them with the tool's own parser. Best when the tool already produces a well-defined artifact format. Used by DbtProjectComponent (writes dbt manifest, reads it with dbt's manifest parser).
+Write tool artifacts directly and read them with the tool's own parser. Best when the tool already produces a well-defined artifact format. Used by DbtProjectComponent (copies the entire dbt project directory into the state path via `shutil.copytree`, including running `dbt deps` if necessary; `build_defs_from_state` then reads the manifest from within that full project copy).
 
 ```python nocheckundefined
 class MyToolComponent(dg.StateBackedComponent, dg.Resolvable):

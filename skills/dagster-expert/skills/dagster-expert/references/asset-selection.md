@@ -89,6 +89,7 @@ sel = dg.AssetSelection.from_coercible("tag:priority=high and kind:dbt")
 ### Parsing Selection Strings
 
 `dg.AssetSelection.from_coercible()` converts a selection string (or other coercible types) into an `AssetSelection` object. It accepts:
+
 - A selection string (parsed using the same grammar as the UI and CLI)
 - An existing `AssetSelection` instance (returned as-is)
 - A sequence of strings (each parsed and unioned together)

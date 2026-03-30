@@ -17,11 +17,11 @@ The framework controls when refresh happens based on the configured management s
 
 ## State Management Strategies
 
-| Strategy                       | Storage                             | Refresh Mechanism                                            | Best For                                   |
-| ------------------------------ | ----------------------------------- | ------------------------------------------------------------ | ------------------------------------------ |
-| `LOCAL_FILESYSTEM`             | `.local_defs_state/` in project dir | `dg utils refresh-defs-state` in CI before building artifact | Most deployments                           |
-| `VERSIONED_STATE_STORAGE`      | Cloud storage (S3/GCS/Azure)        | `dg utils refresh-defs-state` or independent of deploys      | Decoupling state updates from image builds |
-| `LEGACY_CODE_SERVER_SNAPSHOTS` | In-memory                           | Auto-refresh on every code server load                       | Not recommended; changing in 1.13.0        |
+| Strategy                       | Storage                                         | Refresh Mechanism                                            | Best For                                           |
+| ------------------------------ | ----------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------- |
+| `LOCAL_FILESYSTEM`             | `.local_defs_state/` in project dir             | `dg utils refresh-defs-state` in CI before building artifact | Most deployments                                   |
+| `VERSIONED_STATE_STORAGE`      | Cloud storage (S3 on Dagster+, or S3/GCS/Azure) | `dg utils refresh-defs-state` or independent of deploys      | Dagster+ (automatic); decoupling state from builds |
+| `LEGACY_CODE_SERVER_SNAPSHOTS` | In-memory                                       | Auto-refresh on every code server load                       | Not recommended; changing in 1.13.0                |
 
 ### LOCAL_FILESYSTEM
 
@@ -41,10 +41,18 @@ my_project/
 
 ### VERSIONED_STATE_STORAGE
 
-State is stored in cloud storage with UUID-based versioning. Enables state updates without rebuilding deployment artifacts. Requires `dagster.yaml` configuration:
+State is stored in cloud storage with UUID-based versioning. Enables state updates without rebuilding deployment artifacts.
+
+#### Dagster+ (automatic)
+
+On Dagster+, `VERSIONED_STATE_STORAGE` works automatically with no user configuration. Dagster+ uploads and downloads state to an S3 bucket managed by Dagster Labs. Simply set `management_type: VERSIONED_STATE_STORAGE` on your component and Dagster+ handles the rest.
+
+#### OSS / self-hosted (manual configuration)
+
+For OSS or self-hosted deployments, you must configure `dagster.yaml` with a storage backend:
 
 ```yaml
-# dagster.yaml
+# dagster.yaml (OSS / self-hosted only — not needed on Dagster+)
 defs_state_storage:
   module: dagster._core.storage.defs_state.blob_storage_state_storage
   class: UPathDefsStateStorage
@@ -55,6 +63,10 @@ defs_state_storage:
 ### LEGACY_CODE_SERVER_SNAPSHOTS
 
 In-memory state that auto-refreshes on every code server load. This is the current default for backwards compatibility but is **not recommended**. The default will change in version 1.13.0. Explicitly set `management_type` to `LOCAL_FILESYSTEM` or `VERSIONED_STATE_STORAGE` instead.
+
+### State Storage Availability
+
+All code location loads and run processes require access to the configured `DefsStateStorage`, as state is downloaded in all of these cases. The configured storage must be high-availability.
 
 ## Configuring State-Backed Components
 
@@ -131,6 +143,62 @@ Or scaffold a complete CI/CD workflow with state refresh included:
 ```bash
 uv run dg scaffold github-actions
 ```
+
+### Programmatic State Refresh (Without Redeploying)
+
+A component can produce a job that calls `self.refresh_state(project_root)`, decoupling state refresh from the deploy cycle entirely. This job can be triggered via manual runs, schedules, sensors, or the GraphQL API.
+
+```python nocheckundefined
+import asyncio
+import dagster as dg
+
+
+class MyApiComponent(dg.StateBackedComponent, dg.Model, dg.Resolvable):
+    api_url: str
+
+    # ... defs_state_config, write_state_to_path, build_defs_from_state ...
+
+    def build_defs_from_state(
+        self, context: dg.ComponentLoadContext, state_path: Path | None
+    ) -> dg.Definitions:
+        assets = ...  # build assets from state
+        op_name = f"refresh_state_{hash(self.defs_state_config.key) % 10**8}"
+
+        @dg.op(name=op_name)
+        def refresh_my_api_state():
+            asyncio.run(self.refresh_state(context.project_root))
+
+        @dg.job(name="refresh_my_api_component_state")
+        def refresh_job():
+            refresh_my_api_state()
+
+        return dg.Definitions(assets=assets, jobs=[refresh_job])
+```
+
+After the job runs, the new state is persisted. On Dagster+, use "Refresh definitions state" in the UI or the `refreshDefsState` GraphQL mutation to pick up the new versions (see below). On OSS, the next code location reload automatically uses the latest state.
+
+## Code Location Reloads and Versioned State
+
+How state updates become visible depends on the deployment model:
+
+- **Dagster+**: Each code location load is pinned to specific defs state versions. A normal code location reload does **not** automatically pick up new state versions. To pull in the latest versions, use the "Refresh definitions state" option in the code location dropdown menu in the Dagster UI, or call the `refreshDefsState` GraphQL mutation:
+
+```graphql
+mutation RefreshDefsStateMutation($locationName: String!) {
+  refreshDefsState(locationName: $locationName) {
+    ... on WorkspaceEntry {
+      locationName
+    }
+    ... on RefreshDefsStateError {
+      message
+    }
+  }
+}
+```
+
+- **OSS / self-hosted**: There is no version pinning. Every code location reload reads the latest state from the configured storage backend. State updates are visible immediately after reload.
+
+This distinction matters when using programmatic refresh or CI/CD pipelines that update state independently of deploys — on Dagster+, you must explicitly request the new versions; on OSS, a reload is sufficient.
 
 ## Common State-Backed Components
 
