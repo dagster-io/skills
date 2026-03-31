@@ -73,4 +73,5 @@ For every question, identify which reference file(s) are relevant using the inde
 - [Creating State-Backed Components](./references/components/state-backed/creating.md) — building a component that fetches and caches external state
 - [Using State-Backed Components](./references/components/state-backed/using.md) — managing state-backed components in production, CI/CD, or refreshing state
 - [Integration libraries index for 40+ tools and technologies (dbt, Fivetran, Snowflake, AWS, etc.).](./references/integrations/INDEX.md) — integration, external tool, dagster-\*; dbt, fivetran, airbyte, snowflake, bigquery, sling, aws, gcp
+- [Migration Guides](./references/migration/INDEX.md) — migrating sensors to declarative automation, upgrading to modern Dagster patterns
 <!-- END GENERATED INDEX -->
