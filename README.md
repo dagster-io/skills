@@ -4,8 +4,6 @@
 
 # Dagster Skills
 
-[![Lint](https://github.com/dagster-io/skills/actions/workflows/lint.yml/badge.svg)](https://github.com/dagster-io/skills/actions/workflows/lint.yml)
-
 AI assistant skills for building workflows and data pipelines using Dagster.
 
 **Compatible with Claude Code, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible tools.**
