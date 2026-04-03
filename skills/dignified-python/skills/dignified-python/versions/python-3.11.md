@@ -3,7 +3,7 @@
 
 # Type Annotations - Python 3.11
 
-This document provides complete, canonical type annotation guidance for Python 3.11.
+This document captures the dignified-python house-style type annotation guidance for Python 3.11.
 
 ## Overview
 

@@ -3,8 +3,8 @@
 
 # Type Annotations - Python 3.10
 
-This document provides complete, canonical type annotation guidance for Python 3.10. This is the
-baseline for modern Python type syntax.
+This document captures the dignified-python house-style type annotation guidance for Python 3.10.
+This is the baseline for modern Python type syntax.
 
 ## Overview
 
