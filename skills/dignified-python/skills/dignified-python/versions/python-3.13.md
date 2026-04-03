@@ -3,7 +3,7 @@
 
 # Type Annotations - Python 3.13
 
-This document captures the dignified-python house-style type annotation guidance for Python 3.13.
+This document captures type annotation guidance for Python 3.13.
 Python 3.13 implements PEP 649 (Deferred Evaluation of Annotations), fundamentally changing how
 annotations are evaluated.
 

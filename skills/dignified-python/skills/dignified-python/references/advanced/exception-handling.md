@@ -59,25 +59,28 @@ def _get_bigquery_sample(sql_client, table_name):
 Do not replace parser calls with incomplete string-shape checks such as `str.isdigit()` or
 hand-rolled ISO date heuristics. Those checks often reject valid inputs and accept invalid ones.
 
+When the same try/parse/default pattern recurs, extract a generic helper:
+
+```python
+from typing import TypeVar, Callable
+
+T = TypeVar("T")
+
+def try_parse(parse: Callable[[str], T], value: str, default: T) -> T:
+    """Parse *value* with *parse*, returning *default* on ValueError."""
+    try:
+        return parse(value)
+    except ValueError:
+        return default
+```
+
+Usage:
+
 ```python
 from datetime import datetime
 
-# CORRECT: Let int() do the authoritative parse
-def parse_port(user_input: str) -> int:
-    try:
-        port = int(user_input)
-    except ValueError:
-        return 80
-    if 0 <= port <= 65535:
-        return port
-    return 80
-
-# CORRECT: Let fromisoformat() do the authoritative parse
-def parse_timestamp(timestamp_str: str) -> datetime | None:
-    try:
-        return datetime.fromisoformat(timestamp_str)
-    except ValueError:
-        return None
+port = try_parse(int, user_input, 80)
+ts = try_parse(datetime.fromisoformat, timestamp_str, None)
 ```
 
 Use a separate pre-check only when you intentionally accept a narrower format than the parser and

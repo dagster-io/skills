@@ -1,11 +1,10 @@
 ---
 name: dignified-python
 description:
-  Opinionated production Python house style with automatic version detection (3.10-3.13). Use when
+  Opinionated production Python standards with automatic version detection (3.10-3.13). Use when
   writing, reviewing, or refactoring Python in repos that want modern type syntax, explicit
   condition checks where practical, pathlib operations, interface guidance, and pragmatic
-  production patterns. This is a team style guide, not a universal statement of Python best
-  practice.
+  production patterns.
 references:
   - dignified-python-core
   - cli-patterns
@@ -19,10 +18,10 @@ references:
   - references/advanced/typing-advanced
 ---
 
-# Dignified Python House Style
+# Dignified Python
 
 Opinionated Python guidance for writing clean, maintainable, modern Python code (versions
-3.10-3.13). Treat these rules as a house style for this skill, not as universal Python law.
+3.10-3.13).
 
 ## When to Use This Skill
 
@@ -37,7 +36,7 @@ Auto-invoke when users ask about:
 - Any Python code quality or standards question
 
 **Note**: This skill is **general-purpose Python style guidance**, not Dagster-specific. It
-captures one explicit, LBYL-leaning house style; project conventions can override it when needed.
+captures one explicit, LBYL-leaning set of conventions; project conventions can override it when needed.
 
 ## When to Use This Skill vs. Others
 
@@ -163,7 +162,7 @@ This skill's reference material is organized by topic:
 
 ## How to Use This Skill
 
-1. **Core knowledge** is loaded automatically (house-style defaults, pathlib, imports,
+1. **Core knowledge** is loaded automatically (defaults, pathlib, imports,
    anti-patterns)
 2. **Version detection** happens once - identify the minimum Python version and load the appropriate
    version file

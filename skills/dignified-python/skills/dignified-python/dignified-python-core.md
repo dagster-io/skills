@@ -18,9 +18,6 @@ For detailed reference material, see the "When to Read Each Reference" section i
 ## Default Stance: Prefer Explicit Preconditions
 
 This skill leans LBYL when a cheap, precise precondition keeps intent clearer than a `try/except`.
-That is a house-style preference, not a universal Python rule.
-
-Many patterns below follow that bias.
 
 ```python
 # CORRECT: Check first

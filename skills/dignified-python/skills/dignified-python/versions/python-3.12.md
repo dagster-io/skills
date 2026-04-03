@@ -3,7 +3,7 @@
 
 # Type Annotations - Python 3.12
 
-This document captures the dignified-python house-style type annotation guidance for Python 3.12.
+This document captures type annotation guidance for Python 3.12.
 
 ## Overview
 

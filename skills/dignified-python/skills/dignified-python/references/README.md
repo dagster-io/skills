@@ -1,6 +1,6 @@
 # Dignified Python Reference Documentation
 
-Opinionated Python house style for writing clean, maintainable, modern Python code.
+Opinionated Python standards for writing clean, maintainable, modern Python code.
 
 ## Table of Contents
 
@@ -89,7 +89,7 @@ def process(items: List[str]) -> Optional[str]:
     pass
 ```
 
-**Prefer LBYL When It Is Cheap and Precise**: This house style leans toward explicit precondition
+**Prefer LBYL When It Is Cheap and Precise**: This skill leans toward explicit precondition
 checks for routine branching, while still using targeted `try/except` blocks when parsing or API
 calls are the authoritative test.
 
@@ -283,7 +283,7 @@ User: "How should I structure my Dagster assets?"
 
 ## Production Patterns
 
-These standards reflect one production-tested house style rather than universal Python law:
+These standards reflect production-tested conventions:
 
 - ✅ **Modern type syntax** - Improves IDE support and type checking
 - ✅ **LBYL patterns** - More explicit and easier to debug than EAFP
