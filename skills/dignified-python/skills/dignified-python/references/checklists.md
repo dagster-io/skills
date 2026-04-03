@@ -11,10 +11,10 @@ description: All decision checklists consolidated for final review before commit
 ## Before Writing `try/except`
 
 - [ ] Is this at an error boundary? (CLI/API level)
-- [ ] Can I check the condition proactively? (LBYL)
+- [ ] Can I check the condition proactively with a cheap, precise test?
+- [ ] If not, is a small `try/except` around the authoritative operation clearer?
 - [ ] Am I adding meaningful context, or just hiding?
-- [ ] Is third-party API forcing me to use exceptions? (No LBYL check exists—not even format
-      validation)
+- [ ] Is a third-party API forcing me to use exceptions because no precise pre-check exists?
 - [ ] Have I encapsulated the violation?
 - [ ] Am I catching specific exceptions, not broad?
 - [ ] If catching at error boundary, am I logging/warning? (Never silently swallow)
@@ -25,8 +25,9 @@ description: All decision checklists consolidated for final review before commit
 
 ## Before Path Operations
 
-- [ ] Did I check `.exists()` before `.resolve()`?
-- [ ] Did I check `.exists()` before `.is_relative_to()`?
+- [ ] Am I checking `.exists()` because filesystem presence matters for this operation?
+- [ ] If missing paths should fail during `.resolve()`, did I pass `strict=True`?
+- [ ] Am I treating `.is_relative_to()` as a boolean check instead of wrapping it for `ValueError`?
 - [ ] Am I using `pathlib.Path`, not `os.path`?
 - [ ] Did I specify `encoding="utf-8"`?
 
@@ -51,7 +52,8 @@ description: All decision checklists consolidated for final review before commit
 - [ ] Is this a minimal interface (1-2 methods)? -> Protocol may be simpler
 - [ ] Do I need shared method implementations? -> Use ABC
 
-**Default for erk internal code: ABC. Default for external library facades: Protocol.**
+**Default for internal application code you own: ABC. Default for external library facades:
+Protocol.**
 
 ---
 

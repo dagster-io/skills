@@ -10,12 +10,13 @@ description:
 
 ---
 
-## When Exceptions ARE Acceptable
+## When Exceptions Are a Good Fit
 
-Exceptions are ONLY acceptable at:
+This skill prefers explicit condition checks when they are cheap and precise, but exceptions are
+the right tool in a few common situations:
 
 1. **Error boundaries** (CLI/API level)
-2. **Third-party API compatibility** (when no alternative exists)
+2. **Operations where the call itself is the authoritative test**
 3. **Adding context before re-raising**
 
 ### 1. Error Boundaries
@@ -24,13 +25,13 @@ Exceptions are ONLY acceptable at:
 # ACCEPTABLE: CLI command error boundary
 @click.command("create")
 @click.pass_obj
-def create(ctx: ErkContext, name: str) -> None:
-    """Create a worktree."""
+def create(ctx: AppContext, name: str) -> None:
+    """Create a resource."""
     try:
-        create_worktree(ctx, name)
+        create_resource(ctx, name)
     except subprocess.CalledProcessError as e:
         click.echo(f"Error: Git command failed: {e.stderr}", err=True)
-        raise SystemExit(1)
+        raise SystemExit(1) from e
 ```
 
 ### 2. Third-Party API Compatibility
@@ -49,43 +50,41 @@ def _get_bigquery_sample(sql_client, table_name):
         return sql_client.run_query(f"SELECT * FROM {table_name} ORDER BY RAND()...")
 ```
 
-> **The test for "no alternative exists"**: Can you validate or check the condition BEFORE calling
-> the API? If yes (even using a different function/method), use LBYL. The exception only applies
-> when the API provides NO way to determine success a priori—you literally must attempt the
-> operation to know if it will work.
+> **The test for "use LBYL first"**: Can you validate the condition with a cheap, precise check
+> before calling the API? If yes, prefer that. If the operation itself is the authoritative
+> validator, a small `try/except` is often clearer.
 
-### What Does NOT Qualify as Third-Party API Compatibility
+### Prefer Real Parsers Over Brittle Pre-Checks
 
-Standard library functions with known LBYL alternatives do NOT qualify:
+Do not replace parser calls with incomplete string-shape checks such as `str.isdigit()` or
+hand-rolled ISO date heuristics. Those checks often reject valid inputs and accept invalid ones.
+
+When the same try/parse/default pattern recurs, extract a generic helper:
 
 ```python
-# WRONG: int() has LBYL alternative (str.isdigit)
-try:
-    port = int(user_input)
-except ValueError:
-    port = 80
+from typing import TypeVar, Callable
 
-# CORRECT: Check before calling
-if user_input.lstrip('-+').isdigit():
-    port = int(user_input)
-else:
-    port = 80
+T = TypeVar("T")
 
-# WRONG: datetime.fromisoformat() can be validated first
-try:
-    dt = datetime.fromisoformat(timestamp_str)
-except ValueError:
-    dt = None
-
-# CORRECT: Validate format before parsing
-def _is_iso_format(s: str) -> bool:
-    return len(s) >= 10 and s[4] == "-" and s[7] == "-"
-
-if _is_iso_format(timestamp_str):
-    dt = datetime.fromisoformat(timestamp_str)
-else:
-    dt = None
+def try_parse(parse: Callable[[str], T], value: str, default: T) -> T:
+    """Parse *value* with *parse*, returning *default* on ValueError."""
+    try:
+        return parse(value)
+    except ValueError:
+        return default
 ```
+
+Usage:
+
+```python
+from datetime import datetime
+
+port = try_parse(int, user_input, 80)
+ts = try_parse(datetime.fromisoformat, timestamp_str, None)
+```
+
+Use a separate pre-check only when you intentionally accept a narrower format than the parser and
+can state that rule precisely.
 
 ### 3. Adding Context Before Re-raising
 

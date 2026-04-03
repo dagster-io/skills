@@ -1,27 +1,27 @@
 ---
 name: dignified-python
 description:
-  Production Python coding standards with automatic version detection (3.10-3.13). Use when writing,
-  reviewing, or refactoring Python to ensure adherence to modern type syntax, LBYL exception
-  handling, pathlib operations, ABC-based interfaces, and production-tested patterns. Not
-  Dagster-specific - applies to any Python project.
+  Opinionated production Python standards with automatic version detection (3.10-3.13). Use when
+  writing, reviewing, or refactoring Python in repos that want modern type syntax, explicit
+  condition checks where practical, pathlib operations, interface guidance, and pragmatic
+  production patterns.
 references:
-  - core-standards
+  - dignified-python-core
   - cli-patterns
   - versions/python-3.10
   - versions/python-3.11
   - versions/python-3.12
   - versions/python-3.13
-  - advanced/api-design
-  - advanced/exception-handling
-  - advanced/interfaces
-  - advanced/typing-advanced
+  - references/advanced/api-design
+  - references/advanced/exception-handling
+  - references/advanced/interfaces
+  - references/advanced/typing-advanced
 ---
 
-# Dignified Python Coding Standards Skill
+# Dignified Python
 
-Production-quality Python coding standards for writing clean, maintainable, modern Python code
-(versions 3.10-3.13).
+Opinionated Python guidance for writing clean, maintainable, modern Python code (versions
+3.10-3.13).
 
 ## When to Use This Skill
 
@@ -35,8 +35,8 @@ Auto-invoke when users ask about:
 - "code review" / "improve this code"
 - Any Python code quality or standards question
 
-**Note**: This skill is **general Python standards**, not Dagster-specific. Use
-`/dagster-best-practices` for Dagster patterns.
+**Note**: This skill is **general-purpose Python style guidance**, not Dagster-specific. It
+captures one explicit, LBYL-leaning set of conventions; project conventions can override it when needed.
 
 ## When to Use This Skill vs. Others
 
@@ -79,19 +79,19 @@ detect specific patterns:
 
 Pattern detection examples:
 
-- If task mentions "click" or "CLI" -> Load `references/cli-patterns.md`
-- If task mentions "subprocess" -> Load subprocess patterns from core-standards
+- If task mentions "click" or "CLI" -> Load `cli-patterns.md`
+- If task mentions "subprocess" -> Load `subprocess.md`
 
 ## Reference Documentation Structure
 
-The `references/` directory contains detailed guidance organized by topic:
+This skill's reference material is organized by topic:
 
 ### Core References
 
-- **`core-standards.md`** - Essential standards (always loaded)
+- **`dignified-python-core.md`** - Essential standards (always loaded)
 - **`cli-patterns.md`** - Command-line interface patterns (click, argparse)
 
-### Version-Specific References (`references/versions/`)
+### Version-Specific References (`versions/`)
 
 - **`python-3.10.md`** - Features available in Python 3.10+
 - **`python-3.11.md`** - Features available in Python 3.11+
@@ -143,7 +143,7 @@ The `references/` directory contains detailed guidance organized by topic:
 - Seeing Path() or computation at module level
 - Considering inline imports
 
-### `references/api-design.md`
+### `references/advanced/api-design.md`
 
 **Read when**:
 
@@ -162,7 +162,8 @@ The `references/` directory contains detailed guidance organized by topic:
 
 ## How to Use This Skill
 
-1. **Core knowledge** is loaded automatically (LBYL, pathlib, basic imports, anti-patterns)
+1. **Core knowledge** is loaded automatically (defaults, pathlib, imports,
+   anti-patterns)
 2. **Version detection** happens once - identify the minimum Python version and load the appropriate
    version file
 3. **Reference documents** are loaded on-demand based on the triggers above
