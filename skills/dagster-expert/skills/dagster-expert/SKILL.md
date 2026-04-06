@@ -59,7 +59,7 @@ For every question, identify which reference file(s) are relevant using the inde
 - [dg launch](./references/cli/launch.md) — materializing assets or executing jobs locally
 - [dg list components](./references/cli/list-components.md) — seeing available component types for scaffolding
 - [dg list defs](./references/cli/list-defs.md) — listing or filtering registered definitions
-- [Dagster Plus API](./references/cli/api/INDEX.md) — dg api, programmatically querying or managing Dagster Plus resources (assets, runs, deployments, code locations, schedules, sensors, secrets, etc.)
+- [Dagster Plus API](./references/cli/api/INDEX.md) — dg api, programmatically querying or managing Dagster Plus resources (assets, runs, deployments, code locations, schedules, sensors, secrets, issues, etc.)
 - [dg list](./references/cli/list/INDEX.md) — exploring project structure (component tree, environment variables, workspace projects)
 - [Dagster Plus CLI](./references/cli/plus/INDEX.md) — dg plus, Dagster Plus authentication, configuration, and deployment; logging in, setting config, creating API tokens, deploying code, pulling env vars, managing dbt manifests
 - [dg scaffold component](./references/cli/scaffold/component.md) — creating a custom reusable component type
@@ -73,5 +73,5 @@ For every question, identify which reference file(s) are relevant using the inde
 - [Creating State-Backed Components](./references/components/state-backed/creating.md) — building a component that fetches and caches external state
 - [Using State-Backed Components](./references/components/state-backed/using.md) — managing state-backed components in production, CI/CD, or refreshing state
 - [Integration libraries index for 40+ tools and technologies (dbt, Fivetran, Snowflake, AWS, etc.).](./references/integrations/INDEX.md) — integration, external tool, dagster-\*; dbt, fivetran, airbyte, snowflake, bigquery, sling, aws, gcp
-- [Migration Guides](./references/migration/INDEX.md) — migrating sensors to declarative automation, upgrading to modern Dagster patterns
+- [Migration Guides](./references/migration/INDEX.md) — sensor migration to declarative automation, sensor migration to automation condition
 <!-- END GENERATED INDEX -->

@@ -20,6 +20,6 @@ Commands for authenticating with Dagster Plus, managing configuration, and deplo
 - [dg plus create ci-api-token](./create/ci-api-token.md) — creating a CI/CD API token for Dagster Plus
 - [dg plus deploy configure](./deploy/configure.md) — Deploying to Dagster Plus, Github Actions, GitLab CI; CI/CD configuration
 - [dg plus deploy](./deploy/deploy.md) — ad-hoc deployment to Dagster Plus
-- [dg plus integrations dbt](./integrations/dbt.md) — managing dbt manifests with Dagster Plus; downloading dbt manifest from Dagster Plus; auto-managing dbt manifest uploads to Dagster Plus
+- [dg plus integrations dbt](./integrations/dbt.md) — managing dbt manifests with Dagster Plus; downloading dbt manifest for dbt --defer or slim CI
 - [dg plus pull env](./pull/env.md) — pulling environment variables from Dagster Plus into a local .env file
 <!-- END GENERATED INDEX -->

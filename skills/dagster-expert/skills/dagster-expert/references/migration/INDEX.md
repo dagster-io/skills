@@ -13,5 +13,5 @@ Dagster evolves its recommended patterns over time. These guides cover common mi
 
 <!-- BEGIN GENERATED INDEX -->
 
-- [Sensors to Declarative Automation](./sensors-to-declarative-automation.md) — replacing asset sensors or multi-asset sensors with AutomationCondition (eager, on_cron, on_missing); migrating run config, handling asset checks, external system polling
+- [Migrating Sensors to Declarative Automation](./sensors-to-declarative-automation.md) — replacing sensors with automation conditions, converting asset sensors to eager or on_cron
 <!-- END GENERATED INDEX -->
