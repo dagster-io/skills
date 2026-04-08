@@ -26,3 +26,10 @@ dg api issue get <ID>
 dg api issue list
 ```
 The response will contain a list of `limit` Issues in chronologically descending order. To fetch the next page of Issues, use the ID of the oldest Issue as the cursor.
+
+## Reference Files Index
+
+<!-- BEGIN GENERATED INDEX -->
+
+
+<!-- END GENERATED INDEX -->

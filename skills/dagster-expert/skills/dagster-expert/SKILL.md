@@ -72,6 +72,7 @@ For every question, identify which reference file(s) are relevant using the inde
 - [Template Variables](./references/components/template-variables.md) — using Jinja2 template variables in component YAML (env, dg, context, or custom scopes)
 - [Creating State-Backed Components](./references/components/state-backed/creating.md) — building a component that fetches and caches external state
 - [Using State-Backed Components](./references/components/state-backed/using.md) — managing state-backed components in production, CI/CD, or refreshing state
+- [Deployment Configuration Files](./references/deployment/config-files.md) — build.yaml, container_context.yaml, dagster_cloud.yaml; Dagster Plus deployment configuration; configuring Docker registry, container context, agent queue; Hybrid deployment files
 - [Integration libraries index for 40+ tools and technologies (dbt, Fivetran, Snowflake, AWS, etc.).](./references/integrations/INDEX.md) — integration, external tool, dagster-\*; dbt, fivetran, airbyte, snowflake, bigquery, sling, aws, gcp
 - [Migration Guides](./references/migration/INDEX.md) — sensor migration to declarative automation, sensor migration to automation condition
 <!-- END GENERATED INDEX -->
