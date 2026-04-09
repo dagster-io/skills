@@ -1,19 +1,20 @@
 # Dignified Python Reference Documentation
 
-Production-quality Python coding standards for writing clean, maintainable, modern Python code.
+Opinionated Python standards for writing clean, maintainable, modern Python code.
 
 ## Table of Contents
 
 ### Core Standards
 
-- **[core-standards.md](./core-standards.md)** - Essential Python standards (always apply)
+- **[dignified-python-core.md](../dignified-python-core.md)** - Essential Python standards (always
+  apply)
   - Modern type syntax (list[str], str | None)
   - LBYL exception handling patterns
   - Pathlib operations
   - Absolute imports
   - Error boundaries
 
-- **[cli-patterns.md](./cli-patterns.md)** - Command-line interface patterns
+- **[cli-patterns.md](../cli-patterns.md)** - Command-line interface patterns
   - Click usage patterns
   - Argparse best practices
   - CLI error handling
@@ -21,25 +22,25 @@ Production-quality Python coding standards for writing clean, maintainable, mode
 
 ### Version-Specific Features (`versions/`)
 
-- **[python-3.10.md](./versions/python-3.10.md)** - Python 3.10+ features
+- **[python-3.10.md](../versions/python-3.10.md)** - Python 3.10+ features
   - Structural pattern matching (match/case)
   - Parenthesized context managers
   - Better error messages
   - Type union operator (X | Y)
 
-- **[python-3.11.md](./versions/python-3.11.md)** - Python 3.11+ features
+- **[python-3.11.md](../versions/python-3.11.md)** - Python 3.11+ features
   - Exception groups (ExceptionGroup)
   - except\* syntax
   - Self type
   - Variadic generics
 
-- **[python-3.12.md](./versions/python-3.12.md)** - Python 3.12+ features
+- **[python-3.12.md](../versions/python-3.12.md)** - Python 3.12+ features
   - Type parameter syntax (Generic[T])
   - Override decorator
   - Per-interpreter GIL
   - f-string improvements
 
-- **[python-3.13.md](./versions/python-3.13.md)** - Python 3.13+ features
+- **[python-3.13.md](../versions/python-3.13.md)** - Python 3.13+ features
   - Experimental free-threading
   - JIT compilation
   - Improved error messages
@@ -69,7 +70,7 @@ Production-quality Python coding standards for writing clean, maintainable, mode
   - Function signatures
   - Parameter complexity
   - Code organization
-  - Production patterns from Dagster Labs
+  - Production application code examples
 
 ## Philosophy
 
@@ -88,7 +89,9 @@ def process(items: List[str]) -> Optional[str]:
     pass
 ```
 
-**LBYL Over EAFP**: Look Before You Leap, not Easier to Ask for Forgiveness than Permission
+**Prefer LBYL When It Is Cheap and Precise**: This skill leans toward explicit precondition
+checks for routine branching, while still using targeted `try/except` blocks when parsing or API
+calls are the authoritative test.
 
 ```python
 # Good (LBYL)
@@ -230,7 +233,7 @@ Based on detected version, appropriate version-specific features are recommended
 
 ## Navigation Tips
 
-- **Start with core-standards.md** for essential patterns that apply to all code
+- **Start with dignified-python-core.md** for essential patterns that apply to all code
 - **Check version-specific docs** based on your project's Python version
 - **Reference advanced topics** when dealing with specialized patterns
 - **Use cli-patterns.md** when building command-line tools
@@ -239,7 +242,7 @@ Based on detected version, appropriate version-specific features are recommended
 
 | Situation                  | Reference                      |
 | -------------------------- | ------------------------------ |
-| Writing any Python code    | core-standards.md              |
+| Writing any Python code    | dignified-python-core.md       |
 | Building a CLI tool        | cli-patterns.md                |
 | Using Python 3.10 features | versions/python-3.10.md        |
 | Using Python 3.11 features | versions/python-3.11.md        |
@@ -256,8 +259,9 @@ Based on detected version, appropriate version-specific features are recommended
 - **`/dg`** - Dagster CLI operations
 - **`/dagster-expert`** - Dagster expertise including integrations
 
-**Important**: `/dignified-python` is for **general Python standards**, not Dagster-specific
-patterns. For Dagster patterns, use `/dagster-best-practices`.
+**Important**: `/dignified-python` is for **general-purpose Python style guidance**, not
+Dagster-specific patterns. It is intentionally opinionated rather than universal. For Dagster
+patterns, use `/dagster-best-practices`.
 
 ## Cross-Skill Usage
 
@@ -268,7 +272,7 @@ it's for a Dagster project or any other Python project.
 
 ```
 User: "Is this good Python code?"
-→ /dignified-python (check core-standards.md)
+→ /dignified-python (check dignified-python-core.md)
 → Apply modern type syntax, LBYL, pathlib patterns
 → Check version-specific features based on project
 
@@ -279,7 +283,7 @@ User: "How should I structure my Dagster assets?"
 
 ## Production Patterns
 
-These standards are based on production-tested patterns from Dagster Labs:
+These standards reflect production-tested conventions:
 
 - ✅ **Modern type syntax** - Improves IDE support and type checking
 - ✅ **LBYL patterns** - More explicit and easier to debug than EAFP

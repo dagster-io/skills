@@ -15,12 +15,9 @@ For detailed reference material, see the "When to Read Each Reference" section i
 
 ---
 
-## The Cornerstone: LBYL Over EAFP
+## Default Stance: Prefer Explicit Preconditions
 
-**Look Before You Leap: Check conditions proactively, NEVER use exceptions for control flow.**
-
-This is the single most important rule in dignified Python. Every pattern below flows from this
-principle.
+This skill leans LBYL when a cheap, precise precondition keeps intent clearer than a `try/except`.
 
 ```python
 # CORRECT: Check first
@@ -42,10 +39,12 @@ except KeyError:
 
 ### Core Principle
 
-**ALWAYS use LBYL, NEVER EAFP for control flow**
+**Prefer LBYL for routine branching when the precondition is cheap and precise.**
 
 LBYL means checking conditions before acting. EAFP (Easier to Ask for Forgiveness than Permission)
-means trying operations and catching exceptions. In dignified Python, we strongly prefer LBYL.
+means trying operations and catching exceptions. In this skill, default to LBYL for ordinary
+branching, but use EAFP when the operation itself is the authoritative test or when you're
+translating failures at a boundary.
 
 ### Dictionary Access Patterns
 
@@ -74,16 +73,16 @@ except KeyError:
 
 ### When Exceptions ARE Acceptable
 
-Exceptions are ONLY acceptable at:
+Exceptions are a good fit at:
 
 1. **Error boundaries** (CLI/API level)
-2. **Third-party API compatibility** (when no alternative exists)
+2. **Operations where the action itself is the authoritative test**
 3. **Adding context before re-raising**
 
 **Default: Let exceptions bubble up**
 
 For detailed exception handling patterns including B904 chaining, third-party API examples, and
-anti-patterns, see `references/exception-handling.md`.
+anti-patterns, see `references/advanced/exception-handling.md`.
 
 ---
 
@@ -91,34 +90,42 @@ anti-patterns, see `references/exception-handling.md`.
 
 ### The Golden Rule
 
-**ALWAYS check `.exists()` BEFORE `.resolve()` or `.is_relative_to()`**
+Use `.exists()` when filesystem presence is part of your requirement, not as a blanket precondition
+for `.resolve()` or `.is_relative_to()`.
 
 ### Why This Matters
 
-- `.resolve()` raises `OSError` for non-existent paths
-- `.is_relative_to()` raises `ValueError` for invalid comparisons
-- Checking `.exists()` first avoids exceptions entirely (LBYL!)
+- `Path.resolve()` on Python 3.11 resolves non-existent paths unless you pass `strict=True`
+- `Path.is_relative_to()` returns `bool`; it does not raise `ValueError` when a path is not under
+  another path
+- Broad exception wrappers around these APIs usually hide intent instead of clarifying it
 
 ### Correct Patterns
 
 ```python
 from pathlib import Path
 
-# CORRECT: Check exists first
+# CORRECT: Check existence only when you need a real filesystem entry
 for wt_path in worktree_paths:
-    if wt_path.exists():
+    wt_path_resolved = wt_path.resolve()
+    if not wt_path_resolved.exists():
+        continue
+    if current_dir.is_relative_to(wt_path_resolved):
+        current_worktree = wt_path_resolved
+        break
+
+# ALSO CORRECT: Ask resolve() to fail when absence is an error
+config_dir = config_path.resolve(strict=True)
+
+# WRONG: Broad exception handling around APIs that already communicate the result directly
+for wt_path in worktree_paths:
+    try:
         wt_path_resolved = wt_path.resolve()
         if current_dir.is_relative_to(wt_path_resolved):
             current_worktree = wt_path_resolved
             break
-
-# WRONG: Using exceptions for path validation
-try:
-    wt_path_resolved = wt_path.resolve()
-    if current_dir.is_relative_to(wt_path_resolved):
-        current_worktree = wt_path_resolved
-except (OSError, ValueError):
-    continue
+    except OSError:
+        continue
 ```
 
 ### Pathlib Best Practices
@@ -165,13 +172,13 @@ content = path.read_text()  # Platform-dependent!
 import json
 import click
 from pathlib import Path
-from erk.config import load_config
+from myapp.config import load_config
 
 def my_function() -> None:
     data = json.loads(content)
 
 # CORRECT: Absolute import
-from erk.config import load_config
+from myapp.config import load_config
 
 # WRONG: Relative import
 from .config import load_config
@@ -337,9 +344,9 @@ Benefits:
 
 For detailed guidance on specialized topics:
 
-- **Exception chaining (B904)**: `references/exception-handling.md`
-- **ABC vs Protocol**: `references/interfaces.md`
-- **typing.cast() assertions**: `references/typing-advanced.md`
+- **Exception chaining (B904)**: `references/advanced/exception-handling.md`
+- **ABC vs Protocol**: `references/advanced/interfaces.md`
+- **typing.cast() assertions**: `references/advanced/typing-advanced.md`
 - **Import-time side effects, @cache**: `references/module-design.md`
-- **Default parameters, keyword-only args**: `references/api-design.md`
+- **Default parameters, keyword-only args**: `references/advanced/api-design.md`
 - **All decision checklists**: `references/checklists.md`
