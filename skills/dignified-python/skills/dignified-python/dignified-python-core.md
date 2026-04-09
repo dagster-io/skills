@@ -312,6 +312,27 @@ def process_children(children):
             process_descendants(child.descendants)
 ```
 
+### Keep Context Managers Inline in `with` Statements
+
+```python
+# CORRECT: Context manager stays in with statement
+with (cm_a if condition else nullcontext()):
+    do_work()
+
+# CORRECT: Multiple conditional context managers
+with (lock if thread_safe else nullcontext()):
+    process(data)
+
+# WRONG: Extracting to intermediate variable obscures lifecycle
+cm = cm_a if condition else nullcontext()
+with cm:
+    do_work()
+```
+
+Context managers belong in `with` statements where the `__enter__`/`__exit__` lifecycle is explicit.
+Do not extract them to intermediate variables. If the inline expression is genuinely overwhelming,
+extract the logic into a helper function that returns the context manager.
+
 ---
 
 ## Backwards Compatibility Philosophy
