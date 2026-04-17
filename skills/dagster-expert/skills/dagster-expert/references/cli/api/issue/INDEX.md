@@ -51,3 +51,22 @@ dg api issue update <ID>
 - `--title` (optional) - updates the title of the Issue
 - `--description` (optional) - updates the description of the Issue
 - `--context` (optional) - replaces the additional context stored about this Issue. If you want to append to the current context, fetch the Issue first, append to the context string with the new information, then call the `update` command with the resulting context.
+
+
+## Link a run or asset to an Issue
+ ```bash
+ dg api issue add-link <ID>
+ ```
+
+ - `<ID>` - The ID of the Issue
+ - `--run-id` (optional) - The run id of the run to link to the Issue
+ - `--asset-key` (optional) - The asset key of the asset to link to the Issue. The asset key should be slash-separated (e.g. `my/asset`)
+
+ ## Remove a linked run or asset from an Issue
+ ```bash
+ dg api issue remove-link <ID>
+ ```
+
+ - `<ID>` - The ID of the Issue
+ - `--run-id` (optional) - The run id of the run to remove from the Issue
+ - `--asset-key` (optional) - The asset key of the asset to remove from to the Issue. The asset key should be slash-separated (e.g. `my/asset`)
