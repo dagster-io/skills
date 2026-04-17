@@ -1,0 +1,28 @@
+{
+  "name": "dagster-expert",
+  "displayName": "Dagster Expert",
+  "version": "1.13.0",
+  "description": "Expert guidance for working with Dagster and the dg CLI.",
+  "author": {
+    "name": "Dagster"
+  },
+  "publisher": "Dagster",
+  "homepage": "https://github.com/dagster-io/skills",
+  "repository": "https://github.com/dagster-io/skills",
+  "license": "Apache-2.0",
+  "logo": "../../assets/dagster-reversed-mark.svg",
+  "keywords": [
+    "dagster",
+    "data-pipelines",
+    "assets",
+    "orchestration",
+    "dg-cli"
+  ],
+  "category": "developer-tools",
+  "tags": [
+    "data",
+    "orchestration",
+    "python"
+  ],
+  "skills": "./skills/"
+}

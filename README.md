@@ -6,7 +6,7 @@
 
 AI assistant skills for building workflows and data pipelines using Dagster.
 
-**Compatible with Claude Code, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible tools.**
+**Compatible with Claude Code, Cursor, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible tools.**
 
 ## Installation
 
@@ -22,6 +22,7 @@ Install using the
 
 /dagster-expert "What's an asset?"
 ```
+
 
 ### Using `npx skills`
 

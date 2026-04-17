@@ -189,7 +189,7 @@ The workflow will:
 
 1. ✓ Validate the version format
 2. ✓ Check that the tag doesn't already exist
-3. ✓ Update all plugin.json files with the new version
+3. ✓ Update all Cursor and Claude plugin.json files with the new version
 4. ✓ Update CHANGELOG.md (move [Unreleased] to versioned section)
 5. ✓ Extract changelog notes for the release
 6. ✓ Commit changes to master
@@ -210,8 +210,13 @@ After the workflow completes:
 
    ```bash
    git pull origin master
-   cat plugins/dg/.claude-plugin/plugin.json
-   # Check that "version" field matches the release
+   cat .claude-plugin/plugin.json
+   cat .cursor-plugin/marketplace.json
+   cat skills/dagster-expert/.claude-plugin/plugin.json
+   cat skills/dagster-expert/.cursor-plugin/plugin.json
+   cat skills/dignified-python/.claude-plugin/plugin.json
+   cat skills/dignified-python/.cursor-plugin/plugin.json
+   # Check that each plugin.json "version" field matches the release
    ```
 
 3. **Verify CHANGELOG.md**:
@@ -236,7 +241,8 @@ After a release, verify:
 
 - [ ] GitHub release created at https://github.com/dagster-io/skills/releases
 - [ ] Release notes match CHANGELOG.md section
-- [ ] All 4 plugin.json files updated to new version
+- [ ] All 5 plugin.json files updated to new version
+- [ ] Cursor marketplace manifest still points at the correct plugin directories
 - [ ] CHANGELOG.md has new version section with today's date
 - [ ] [Unreleased] section is reset with empty categories
 - [ ] Git tag `vX.Y.Z` exists and points to correct commit
@@ -300,7 +306,8 @@ git diff
 cat CHANGELOG.md
 
 # Verify plugin versions
-cat plugins/dg/.claude-plugin/plugin.json
+cat skills/dagster-expert/.claude-plugin/plugin.json
+cat skills/dagster-expert/.cursor-plugin/plugin.json
 
 # Clean up (don't commit)
 git checkout master

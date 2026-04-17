@@ -1,0 +1,28 @@
+{
+  "name": "dignified-python",
+  "displayName": "Dignified Python",
+  "version": "1.13.0",
+  "description": "Production Python coding standards for modern Python projects.",
+  "author": {
+    "name": "Dagster"
+  },
+  "publisher": "Dagster",
+  "homepage": "https://github.com/dagster-io/skills",
+  "repository": "https://github.com/dagster-io/skills",
+  "license": "Apache-2.0",
+  "logo": "../../assets/dagster-reversed-mark.svg",
+  "keywords": [
+    "python",
+    "typing",
+    "code-quality",
+    "pathlib",
+    "cli"
+  ],
+  "category": "developer-tools",
+  "tags": [
+    "python",
+    "standards",
+    "best-practices"
+  ],
+  "skills": "./skills/"
+}

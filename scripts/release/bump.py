@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Version bumping script for Dagster Skills monorepo.
 
-Updates version in all plugin.json files and CHANGELOG.md.
+Updates version in all Cursor and Claude plugin.json files and CHANGELOG.md.
 """
 
 import argparse
@@ -99,7 +99,7 @@ def update_changelog(repo_root: Path, version: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Bump version across all plugin.json files and CHANGELOG.md"
+        description="Bump version across all Cursor and Claude plugin.json files and CHANGELOG.md"
     )
     parser.add_argument(
         "version", help="Semantic version to bump to (e.g., 0.0.2, 1.0.0, 1.0.0-beta)"
@@ -120,8 +120,13 @@ def main() -> None:
     # Get repository root (script is in scripts/release/ subdirectory)
     repo_root = Path(__file__).parent.parent.parent
 
-    # Find all plugin.json files (root + per-skill)
-    plugin_files = sorted(repo_root.rglob(".claude-plugin/plugin.json"))
+    # Find all plugin.json files across supported marketplace formats.
+    plugin_files = sorted(
+        [
+            *repo_root.rglob(".claude-plugin/plugin.json"),
+            *repo_root.rglob(".cursor-plugin/plugin.json"),
+        ]
+    )
 
     if not plugin_files:
         print(
