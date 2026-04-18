@@ -126,14 +126,13 @@ response = fetch_data(api_url, 30.0, 3, {"Accept": "application/json"}, token)
 
 ```python
 # CORRECT: ctx stays positional, rest are keyword-only
-def create_worktree(
-    ctx: ErkContext,
+def build_report(
+    ctx: AppContext,
     *,
-    branch_name: str,
-    base_branch: str,
-    path: Path,
-    checkout: bool,
-) -> WorktreeInfo:
+    project_id: str,
+    output_path: Path,
+    include_drafts: bool,
+) -> Report:
     ...
 ```
 
