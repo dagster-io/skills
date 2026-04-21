@@ -91,7 +91,6 @@ See [Designing Component Integrations](../components/designing-component-integra
 - [dagster-duckdb-pandas](./dagster-duckdb-pandas/INDEX.md) — duckdb pandas, duckdb dataframe
 - [dagster-duckdb-polars](./dagster-duckdb-polars/INDEX.md) — duckdb polars, duckdb dataframe
 - [dagster-duckdb-pyspark](./dagster-duckdb-pyspark/INDEX.md) — duckdb pyspark, duckdb spark
-- [dagster-embedded-elt](./dagster-embedded-elt/INDEX.md) — embedded elt, sling, dlt, extract load transform
 - [dagster-fivetran](./dagster-fivetran/INDEX.md) — managed extract-load connectors with Fivetran
 - [dagster-gcp](./dagster-gcp/INDEX.md) — Google Cloud Platform (BigQuery, GCS) from Dagster
 - [dagster-gcp-pandas](./dagster-gcp-pandas/INDEX.md) — gcp pandas, bigquery pandas, bigquery dataframe
