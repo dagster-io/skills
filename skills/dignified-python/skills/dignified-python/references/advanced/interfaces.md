@@ -20,7 +20,8 @@ based on ownership and coupling needs.
 | Plugin systems with isinstance checks     | ABC         | Reliable runtime type validation                     |
 | Minimal interface contracts (1-2 methods) | Protocol    | Less boilerplate, focused contracts                  |
 
-**Default for erk internal code: ABC. Default for external library facades: Protocol.**
+**Default for internal application code you own: ABC. Default for external library facades:
+Protocol.**
 
 ---
 
@@ -180,4 +181,5 @@ Before defining an interface (ABC or Protocol):
 - [ ] Is this a minimal interface (1-2 methods)? -> Protocol may be simpler
 - [ ] Do I need shared method implementations? -> Use ABC
 
-**Default for erk internal code: ABC. Default for external library facades: Protocol.**
+**Default for internal application code you own: ABC. Default for external library facades:
+Protocol.**

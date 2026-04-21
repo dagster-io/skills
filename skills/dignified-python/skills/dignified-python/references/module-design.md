@@ -27,7 +27,7 @@ Module-level code runs when the module is imported. Side effects at import time 
 
 ```python
 # WRONG: Path computed at import time
-SESSION_ID_FILE = Path(".erk/scratch/current-session-id")
+SESSION_ID_FILE = Path(".app/scratch/current-session-id")
 
 def get_session_id() -> str | None:
     if SESSION_ID_FILE.exists():
@@ -54,7 +54,7 @@ from functools import cache
 @cache
 def _session_id_file_path() -> Path:
     """Return path to session ID file (cached after first call)."""
-    return Path(".erk/scratch/current-session-id")
+    return Path(".app/scratch/current-session-id")
 
 def get_session_id() -> str | None:
     session_file = _session_id_file_path()
