@@ -5,7 +5,7 @@
 
 ## Core Rule
 
-**ALWAYS use `check=True` with `subprocess.run()`**
+**ALWAYS set `check` explicitly on `subprocess.run()`** — either `check=True` (raise on non-zero exit) or `check=False` (handle the return code yourself). Never rely on the default.
 
 ## Basic Subprocess Pattern
 
@@ -22,7 +22,12 @@ result = subprocess.run(
 )
 print(result.stdout)
 
-# ❌ WRONG: No check - silently ignores errors
+# ✅ ALSO CORRECT: check=False when you intend to inspect returncode yourself
+result = subprocess.run(["git", "status"], check=False, capture_output=True, text=True)
+if result.returncode != 0:
+    ...
+
+# ❌ WRONG: check unset - intent is ambiguous
 result = subprocess.run(["git", "status"])
 ```
 
@@ -92,7 +97,7 @@ except subprocess.TimeoutExpired:
 
 ## Key Takeaways
 
-1. **Always check=True**: Ensure errors are not silently ignored
+1. **Always set `check` explicitly**: Use `check=True` to raise, or `check=False` when you'll handle `returncode` yourself — never leave it unset
 2. **Capture output**: Use `capture_output=True` for stdout/stderr
 3. **Text mode**: Use `text=True` for string output
 4. **Error context**: Wrap in try/except at boundaries
