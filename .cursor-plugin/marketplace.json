@@ -11,6 +11,6 @@
       "name": "dagster-expert",
       "source": "./skills/dagster-expert",
       "description": "Expert guidance for working with Dagster and the dg CLI."
-    },
+    }
   ]
 }
