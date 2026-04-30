@@ -35,11 +35,12 @@ The response will contain a list of `limit` Issues in chronologically descending
 ## Create a Dagster Plus Issue
 
 ```bash
-dg api issue create --title <title> --description <description>
+dg api issue create --title <title> --description <description> --status <status>
 ```
 
 - `<title>` - The title should be short and clearly state the problem to fix so that the reader quickly understands the cause of the problem. Do not mention specific run ids or other downstream impacts.
 - `<description>` - The description should be a total of 2-4 bullet points that outline the root cause of the problem and next steps.
+- `--status` (optional) - updates the status of the Issue. One of `OPEN`, `CLOSED`, `TRIAGE`, `CANCELED`
 
 ## Update a Dagster Plus Issue
 
@@ -47,7 +48,7 @@ dg api issue create --title <title> --description <description>
 dg api issue update <ID>
 ```
 - `<ID>` - The ID of the Issue to update
-- `--status` (optional) - updates the status of the Issue. One of `OPEN`, `CLOSED`, `TRIAGE`
+- `--status` (optional) - updates the status of the Issue. One of `OPEN`, `CLOSED`, `TRIAGE`, `CANCELED`
 - `--title` (optional) - updates the title of the Issue
 - `--description` (optional) - updates the description of the Issue
 - `--context` (optional) - replaces the additional context stored about this Issue. If you want to append to the current context, fetch the Issue first, append to the context string with the new information, then call the `update` command with the resulting context.
