@@ -86,3 +86,6 @@ ignore = [
 
 [tool.ruff.lint.isort]
 known-first-party = ["dagster_skills_evals"]
+
+[tool.uv]
+exclude-newer = "48h"
