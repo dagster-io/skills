@@ -9,6 +9,8 @@ triggers:
 
 Commands for querying information about assets in a Dagster Plus deployment.
 
+> To **materialize** an asset on a deployed Dagster Plus environment, see [`dg api run launch`](../run/launch.md). For local in-process materialization, see [`dg launch`](../../launch.md).
+
 ## Reference Files Index
 
 <!-- BEGIN GENERATED INDEX -->

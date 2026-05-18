@@ -23,3 +23,7 @@ dg api job get <JOB_NAME>
 ```
 
 Returns details for a specific job in the deployment.
+
+## Launching jobs
+
+To launch a job on a deployed Dagster Plus environment, see [`dg api run launch`](./run/launch.md). For local in-process execution during development, see [`dg launch`](../launch.md).
