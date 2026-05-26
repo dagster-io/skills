@@ -21,7 +21,7 @@ The framework controls when refresh happens based on the configured management s
 | ------------------------------ | ----------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------- |
 | `LOCAL_FILESYSTEM`             | `.local_defs_state/` in project dir             | `dg utils refresh-defs-state` in CI before building artifact | Most deployments                                   |
 | `VERSIONED_STATE_STORAGE`      | Cloud storage (S3 on Dagster+, or S3/GCS/Azure) | `dg utils refresh-defs-state` or independent of deploys      | Dagster+ (automatic); decoupling state from builds |
-| `LEGACY_CODE_SERVER_SNAPSHOTS` | In-memory                                       | Auto-refresh on every code server load                       | Not recommended; changing in 1.13.0                |
+| `LEGACY_CODE_SERVER_SNAPSHOTS` | In-memory                                       | Auto-refresh on every code server load                       | Not recommended; backwards-compat only             |
 
 ### LOCAL_FILESYSTEM
 
@@ -62,7 +62,7 @@ defs_state_storage:
 
 ### LEGACY_CODE_SERVER_SNAPSHOTS
 
-In-memory state that auto-refreshes on every code server load. This is the current default for backwards compatibility but is **not recommended**. The default will change in version 1.13.0. Explicitly set `management_type` to `LOCAL_FILESYSTEM` or `VERSIONED_STATE_STORAGE` instead.
+`LEGACY_CODE_SERVER_SNAPSHOTS` is retained for backwards compatibility only. As of 1.13.0, bundled state-backed components default to `LOCAL_FILESYSTEM`. Use `LOCAL_FILESYSTEM` or `VERSIONED_STATE_STORAGE` in new components.
 
 ### State Storage Availability
 
@@ -119,9 +119,23 @@ uv run dg utils refresh-defs-state
 
 This fetches current state from all external systems and persists it according to each component's configured strategy.
 
+### Prerequisites
+
+`dg utils refresh-defs-state` operates on **one Dagster project** at a time — the directory containing the project's `pyproject.toml` (with `[tool.dg.project]`) or `dg.toml`. It does not read `workspace.yaml` and has no notion of a multi-location workspace; run it from inside the project directory.
+
+To run successfully, the environment needs:
+
+- **The project installed locally** (e.g. via `uv sync` or `pip install -e .`). Installing only the integration libraries is insufficient — the full project must be importable so that components can be loaded and `write_state_to_path()` can execute.
+- **`dg`** (from `dagster-dg-cli`) installed in that same environment.
+- **`DAGSTER_HOME` + cloud credentials** — only required if any component uses `VERSIONED_STATE_STORAGE`. `DAGSTER_HOME` must point to a directory containing `dagster.yaml` with `defs_state_storage` configured.
+
+### Multi-code-location repos
+
+If a repo contains multiple code locations (each its own Dagster project, typically built into its own Docker image), refresh is per project. Run `dg utils refresh-defs-state` once per project, inside that project's directory, as part of that project's build. There is no top-level "workspace refresh"; the `workspace.yaml` that lives in the daemon/UI image is unrelated to state refresh.
+
 ### LOCAL_FILESYSTEM deployments
 
-Run `dg utils refresh-defs-state` **before** building your Docker image or PEX artifact. The `.local_defs_state/` directory must be included when copying project files into the image.
+Run `dg utils refresh-defs-state` **before** building your Docker image or PEX artifact. The `.local_defs_state/` directory must be included when copying project files into the image. Each project owns its own `.local_defs_state/`.
 
 ### VERSIONED_STATE_STORAGE deployments
 
