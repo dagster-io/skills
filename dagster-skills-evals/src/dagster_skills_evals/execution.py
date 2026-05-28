@@ -121,15 +121,15 @@ class ClaudeExecutionResult:
             if event.get("type") in ("assistant", "user") and "message" in event:
                 msg = event["message"]
                 content = msg.get("content", [])
-                for item in content:
-                    if isinstance(item, dict) and item.get("type") == "tool_use":
-                        result.append(
-                            {
-                                "id": item.get("id"),
-                                "name": item.get("name"),
-                                "input": item.get("input", {}),
-                            }
-                        )
+                result.extend(
+                    {
+                        "id": item.get("id"),
+                        "name": item.get("name"),
+                        "input": item.get("input", {}),
+                    }
+                    for item in content
+                    if isinstance(item, dict) and item.get("type") == "tool_use"
+                )
         return result
 
     @cached_property
