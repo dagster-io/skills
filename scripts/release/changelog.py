@@ -16,7 +16,7 @@ def extract_version_section(changelog_path: Path, version: str) -> str:
     Returns the content between the version header and the next version header,
     with empty category headers removed.
     """
-    with changelog_path.open() as f:
+    with changelog_path.open(encoding="utf-8") as f:
         content = f.read()
 
     # Pattern to match version section

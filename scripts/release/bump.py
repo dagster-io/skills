@@ -28,12 +28,12 @@ def update_plugin_version(plugin_path: Path, version: str) -> None:
 
     Preserves JSON formatting (2-space indent, trailing newline).
     """
-    with plugin_path.open() as f:
+    with plugin_path.open(encoding="utf-8") as f:
         data = json.load(f)
 
     data["version"] = version
 
-    with plugin_path.open("w") as f:
+    with plugin_path.open("w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
         f.write("\n")
 
