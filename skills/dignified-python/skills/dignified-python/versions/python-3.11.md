@@ -469,7 +469,11 @@ dev_config = config.with_override("debug", True)
 ### Running Type Checker
 
 ```bash
-uv run --locked --with pyright pyright
+# Add Pyright once as a development dependency
+uv add --dev pyright
+
+# Check all files
+uv run --locked pyright
 ```
 
 All code should pass type checking without errors.

@@ -555,11 +555,14 @@ def serialize(obj: Any) -> str:
 ## Type Checking with Pyright
 
 ```bash
+# Add Pyright once as a development dependency
+uv add --dev pyright
+
 # Check all files
-uv run --locked --with pyright pyright
+uv run --locked pyright
 
 # Check with a specific Python version
-uv run --locked --with pyright pyright --pythonversion 3.13
+uv run --locked pyright --pythonversion 3.13
 ```
 
 Configure Pyright in `pyproject.toml`:
