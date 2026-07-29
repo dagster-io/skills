@@ -11,6 +11,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- **dignified-python**: Recommend Pyright for static type checking and remove unsupported skill
+  frontmatter.
+
 ### Deprecated
 
 ### Removed

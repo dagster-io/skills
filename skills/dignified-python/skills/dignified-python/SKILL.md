@@ -5,17 +5,6 @@ description:
   writing, reviewing, or refactoring Python in repos that want modern type syntax, explicit
   condition checks where practical, pathlib operations, interface guidance, and pragmatic
   production patterns.
-references:
-  - dignified-python-core
-  - cli-patterns
-  - versions/python-3.10
-  - versions/python-3.11
-  - versions/python-3.12
-  - versions/python-3.13
-  - references/advanced/api-design
-  - references/advanced/exception-handling
-  - references/advanced/interfaces
-  - references/advanced/typing-advanced
 ---
 
 # Dignified Python

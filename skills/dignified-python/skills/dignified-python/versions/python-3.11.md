@@ -469,18 +469,19 @@ dev_config = config.with_override("debug", True)
 ### Running Type Checker
 
 ```bash
-uv run ty check
+uv run --locked --with pyright pyright
 ```
 
 All code should pass type checking without errors.
 
 ### Type Checking Configuration
 
-Configure ty in `pyproject.toml`:
+Configure Pyright in `pyproject.toml`:
 
 ```toml
-[tool.ty.environment]
-python-version = "3.11"
+[tool.pyright]
+pythonVersion = "3.11"
+reportMatchNotExhaustive = "error"
 ```
 
 ## Common Patterns
