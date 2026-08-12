@@ -79,9 +79,11 @@ Compose multiple `@op`s into a single asset. Each op is independently retriable 
 def fetch_data() -> dict:
     return {"raw": [1, 2, 3]}
 
+
 @dg.op
 def transform_data(data: dict) -> dict:
     return {"processed": [x * 2 for x in data["raw"]]}
+
 
 @dg.graph_asset
 def complex_asset():

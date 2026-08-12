@@ -44,17 +44,14 @@ daily_schedule = dg.ScheduleDefinition(
 For partitioned assets or jobs, use `build_schedule_from_partitioned_job` to automatically create a schedule matching the partition cadence:
 
 ```python
-
 @dg.asset(partitions_def=dg.DailyPartitionsDefinition(start_date="2024-01-01"))
 def daily_asset(context: dg.AssetExecutionContext):
     partition_date = context.partition_key
     # Process data for this partition
     ...
 
-partitioned_job = dg.define_asset_job(
-    name="daily_partitioned_job",
-    selection=[daily_asset]
-)
+
+partitioned_job = dg.define_asset_job(name="daily_partitioned_job", selection=[daily_asset])
 
 # Schedule automatically inherits daily cadence and timezone from partition definition
 schedule = dg.build_schedule_from_partitioned_job(partitioned_job)

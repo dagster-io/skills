@@ -17,12 +17,14 @@
 import click
 from pathlib import Path
 
+
 # ✅ CORRECT: Use click.echo for output
 @click.command()
 @click.argument("name")
 def greet(name: str) -> None:
     """Greet the user."""
     click.echo(f"Hello, {name}!")
+
 
 # ❌ WRONG: Using print()
 @click.command()
@@ -77,6 +79,7 @@ def cli(ctx: click.Context) -> None:
     ctx.ensure_object(dict)
     ctx.obj["config"] = load_config()
 
+
 @cli.command()
 @click.option("--dry-run", is_flag=True, help="Perform dry run")
 @click.argument("path", type=click.Path(exists=True))
@@ -117,25 +120,15 @@ name = click.prompt("Enter your name", default="User")
 password = click.prompt("Password", hide_input=True)
 
 # Choice selection
-choice = click.prompt(
-    "Select option",
-    type=click.Choice(["option1", "option2"]),
-    default="option1"
-)
+choice = click.prompt("Select option", type=click.Choice(["option1", "option2"]), default="option1")
 ```
 
 ## Path Handling
 
 ```python
 @click.command()
-@click.argument(
-    "input_file",
-    type=click.Path(exists=True, file_okay=True, dir_okay=False)
-)
-@click.argument(
-    "output_dir",
-    type=click.Path(exists=False, file_okay=False, dir_okay=True)
-)
+@click.argument("input_file", type=click.Path(exists=True, file_okay=True, dir_okay=False))
+@click.argument("output_dir", type=click.Path(exists=False, file_okay=False, dir_okay=True))
 def process(input_file: str, output_dir: str) -> None:
     """Process input file to output directory."""
     input_path = Path(input_file)

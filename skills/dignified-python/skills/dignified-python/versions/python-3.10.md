@@ -42,6 +42,7 @@ coordinates: tuple[int, int] = (0, 0)
 
 ```python
 from typing import List, Dict, Set, Tuple  # Don't do this
+
 names: List[str] = []
 mapping: Dict[str, int] = {}
 ```
@@ -56,8 +57,9 @@ mapping: Dict[str, int] = {}
 def process(value: str | int) -> str:
     return str(value)
 
-def find_config(name: str) -> dict[str, str] | dict[str, int]:
-    ...
+
+def find_config(name: str) -> dict[str, str] | dict[str, int]: ...
+
 
 # Multiple unions
 def parse(input: str | int | float) -> str:
@@ -68,6 +70,8 @@ def parse(input: str | int | float) -> str:
 
 ```python
 from typing import Union
+
+
 def process(value: Union[str, int]) -> str:  # Don't do this
     ...
 ```
@@ -83,6 +87,7 @@ def find_user(id: str) -> User | None:
         return users[id]
     return None
 
+
 def get_config(key: str) -> str | None:
     return config.get(key)
 ```
@@ -91,6 +96,8 @@ def get_config(key: str) -> str | None:
 
 ```python
 from typing import Optional
+
+
 def find_user(id: str) -> Optional[User]:  # Don't do this
     ...
 ```
@@ -104,11 +111,13 @@ from typing import TypeVar
 
 T = TypeVar("T")
 
+
 def first(items: list[T]) -> T | None:
     """Return first item or None if empty."""
     if not items:
         return None
     return items[0]
+
 
 def identity(value: T) -> T:
     """Return the value unchanged."""
@@ -126,6 +135,7 @@ from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
+
 class Stack(Generic[T]):
     """A generic stack data structure."""
 
@@ -139,6 +149,7 @@ class Stack(Generic[T]):
         if not self._items:
             return None
         return self._items.pop()
+
 
 # Usage
 int_stack = Stack[int]()
@@ -157,11 +168,14 @@ from typing import TypeVar
 # Constrained to specific types
 Numeric = TypeVar("Numeric", int, float)
 
+
 def add(a: Numeric, b: Numeric) -> Numeric:
     return a + b
 
+
 # Bounded to base class
 T = TypeVar("T", bound=BaseClass)
+
 
 def process(obj: T) -> T:
     return obj
@@ -196,6 +210,7 @@ Config = dict[str, str | int | bool]
 # Complex nested type
 JsonValue = dict[str, "JsonValue"] | list["JsonValue"] | str | int | float | bool | None
 
+
 def load_config() -> Config:
     return {"host": "localhost", "port": 8080}
 ```
@@ -210,6 +225,7 @@ Use `from __future__ import annotations` when you encounter:
 
 ```python
 from __future__ import annotations
+
 
 class Node:
     def __init__(self, value: int, parent: Node | None = None):
@@ -227,9 +243,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from b import B
 
+
 class A:
-    def method(self) -> B:
-        ...
+    def method(self) -> B: ...
 ```
 
 **Complex recursive types**:
@@ -247,6 +263,7 @@ JsonValue = dict[str, JsonValue] | list[JsonValue] | str | int | float | bool | 
 ```python
 from abc import ABC, abstractmethod
 
+
 class Repository(ABC):
     @abstractmethod
     def get(self, id: str) -> User | None:
@@ -262,8 +279,10 @@ class Repository(ABC):
 ```python
 from typing import Protocol
 
+
 class Drawable(Protocol):
     def draw(self) -> None: ...
+
 
 # Any object with draw() method matches
 def render(obj: Drawable) -> None:
@@ -279,6 +298,7 @@ def render(obj: Drawable) -> None:
 ```python
 from abc import ABC, abstractmethod
 
+
 class Repository(ABC):
     """Abstract base class for data repositories."""
 
@@ -293,6 +313,7 @@ class Repository(ABC):
     @abstractmethod
     def delete(self, id: str) -> bool:
         """Delete entity, return success."""
+
 
 class UserRepository(Repository):
     def __init__(self) -> None:
@@ -320,6 +341,7 @@ from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
+
 class Node(Generic[T]):
     """A node in a tree structure."""
 
@@ -340,6 +362,7 @@ class Node(Generic[T]):
                 return result
         return None
 
+
 # Usage
 from collections.abc import Callable
 
@@ -353,6 +376,7 @@ root.add_child(Node[int](3))
 ```python
 from dataclasses import dataclass
 
+
 @dataclass(frozen=True)
 class DatabaseConfig:
     host: str
@@ -361,12 +385,14 @@ class DatabaseConfig:
     password: str | None = None
     ssl_enabled: bool = False
 
+
 @dataclass(frozen=True)
 class AppConfig:
     app_name: str
     debug_mode: bool
     database: DatabaseConfig
     feature_flags: dict[str, bool]
+
 
 def load_config(path: str) -> AppConfig:
     """Load application configuration from file."""
@@ -393,6 +419,7 @@ from typing import TypeVar
 
 T = TypeVar("T")
 
+
 class ApiResponse(Generic[T]):
     """Container for API response with data or error."""
 
@@ -409,7 +436,9 @@ class ApiResponse(Generic[T]):
             return ApiResponse(data=func(self.data))
         return ApiResponse(error=self.error)
 
+
 U = TypeVar("U")
+
 
 def fetch_user(id: str) -> ApiResponse[dict[str, str]]:
     """Fetch user from API."""

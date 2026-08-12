@@ -89,8 +89,7 @@ If the external system already has a [Dagster integration](../integrations/INDEX
 
 ```python
 # Use StateBackedComponent instead of Component when external state is involved
-class MyApiComponent(dg.StateBackedComponent, dg.Model, dg.Resolvable):
-    ...
+class MyApiComponent(dg.StateBackedComponent, dg.Model, dg.Resolvable): ...
 ```
 
 See [State-Backed Components](./state-backed/creating.md) for full implementation details.

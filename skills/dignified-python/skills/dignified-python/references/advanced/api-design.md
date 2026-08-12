@@ -34,12 +34,15 @@ bugs.
 def process_file(path: Path, encoding: str = "utf-8") -> str:
     return path.read_text(encoding=encoding)
 
+
 # Caller forgets encoding, silently gets wrong behavior for legacy file
 content = process_file(legacy_latin1_file)  # Bug: should be encoding="latin-1"
+
 
 # SAFER: Require explicit choice
 def process_file(path: Path, encoding: str) -> str:
     return path.read_text(encoding=encoding)
+
 
 # Caller must think about encoding
 content = process_file(legacy_latin1_file, encoding="latin-1")
@@ -51,6 +54,7 @@ content = process_file(legacy_latin1_file, encoding="latin-1")
 # If every call site uses the default...
 activate_worktree(ctx, repo, path, script, "up", preserve_relative_path=True)  # Always True
 activate_worktree(ctx, repo, path, script, "down", preserve_relative_path=True)  # Always True
+
 
 # CORRECT: Remove the parameter entirely
 def activate_worktree(ctx, repo, path, script, command_name) -> None:
@@ -91,8 +95,8 @@ def fetch_data(
     retries: int,
     headers: dict[str, str],
     auth_token: str,
-) -> Response:
-    ...
+) -> Response: ...
+
 
 # Call site is self-documenting
 response = fetch_data(
@@ -103,6 +107,7 @@ response = fetch_data(
     auth_token=token,
 )
 
+
 # WRONG: All positional parameters
 def fetch_data(
     url,
@@ -110,8 +115,8 @@ def fetch_data(
     retries: int,
     headers: dict[str, str],
     auth_token: str,
-) -> Response:
-    ...
+) -> Response: ...
+
 
 # Call site is unreadable - what do these values mean?
 response = fetch_data(api_url, 30.0, 3, {"Accept": "application/json"}, token)
@@ -132,8 +137,7 @@ def build_report(
     project_id: str,
     output_path: Path,
     include_drafts: bool,
-) -> Report:
-    ...
+) -> Report: ...
 ```
 
 ---
@@ -178,13 +182,13 @@ class FakeGitHub:
     ) -> None:
         self._rate_limited = rate_limited  # Never set to True anywhere
 
+
 # CORRECT: Only add infrastructure when you need it
 class FakeGitHub:
     def __init__(
         self,
         prs: dict[str, PullRequestInfo] | None = None,
-    ) -> None:
-        ...
+    ) -> None: ...
 ```
 
 **The test for this:** If grep shows a parameter is only ever passed in test files, and those tests

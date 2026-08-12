@@ -66,6 +66,7 @@ from typing import TypeVar, Callable
 
 T = TypeVar("T")
 
+
 def try_parse(parse: Callable[[str], T], value: str, default: T) -> T:
     """Parse *value* with *parse*, returning *default* on ValueError."""
     try:
@@ -177,6 +178,7 @@ def process_text(text: str) -> dict:
         return llm_client.process(text)
     except Exception:
         return regex_parse_fallback(text)
+
 
 # CORRECT: Let error bubble to boundary
 def process_text(text: str) -> dict:

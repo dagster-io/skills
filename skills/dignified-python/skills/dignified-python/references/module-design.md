@@ -29,10 +29,12 @@ Module-level code runs when the module is imported. Side effects at import time 
 # WRONG: Path computed at import time
 SESSION_ID_FILE = Path(".app/scratch/current-session-id")
 
+
 def get_session_id() -> str | None:
     if SESSION_ID_FILE.exists():
         return SESSION_ID_FILE.read_text(encoding="utf-8")
     return None
+
 
 # WRONG: Config loaded at import time
 CONFIG = load_config()  # I/O at import!
@@ -50,11 +52,13 @@ DB_CLIENT = DatabaseClient(os.environ["DB_URL"])  # Side effect at import!
 ```python
 from functools import cache
 
+
 # CORRECT: Defer computation until first call
 @cache
 def _session_id_file_path() -> Path:
     """Return path to session ID file (cached after first call)."""
     return Path(".app/scratch/current-session-id")
+
 
 def get_session_id() -> str | None:
     session_file = _session_id_file_path()
@@ -71,6 +75,7 @@ def get_session_id() -> str | None:
 def get_config() -> Config:
     """Load config on first call, cache result."""
     return load_config()
+
 
 @cache
 def get_db_client() -> DatabaseClient:
@@ -110,6 +115,7 @@ SUPPORTED_FORMATS = frozenset({"json", "yaml", "toml"})
 def register_commands(cli_group):
     """Register commands with CLI group (avoids circular import)."""
     from myapp.cli import sync_command  # Breaks circular dependency
+
     cli_group.add_command(sync_command)
 ```
 
@@ -126,6 +132,7 @@ def process_data(data: dict, dry_run: bool = False) -> None:
     if dry_run:
         # Inline import: Only needed for dry-run mode
         from myapp.dry_run import NoopProcessor
+
         processor = NoopProcessor()
     else:
         processor = RealProcessor()
@@ -147,8 +154,8 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from myapp.models import User  # Only for type hints
 
-def process_user(user: "User") -> None:
-    ...
+
+def process_user(user: "User") -> None: ...
 ```
 
 **When to use:**
@@ -171,13 +178,16 @@ Deferring these imports can improve CLI startup time.
 # ACCEPTABLE: Measured heavy import (adds 800ms to startup)
 def run_spark_job(config: SparkConfig) -> None:
     from pyspark.sql import SparkSession  # Heavy: 800ms import time
+
     session = SparkSession.builder.getOrCreate()
     ...
+
 
 # WRONG: Speculative deferral without measurement
 def check_staleness(project_dir: Path) -> None:
     # Inline imports to avoid import-time side effects  <- WRONG: no evidence
     from myapp.staleness import get_version
+
     ...
 ```
 

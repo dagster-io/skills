@@ -19,6 +19,7 @@ Executes an asset whenever any dependency updates. Also materializes partitions 
 ```python
 import dagster as dg
 
+
 @dg.asset(automation_condition=dg.AutomationCondition.eager())
 def downstream_asset(upstream_asset):
     # Executes immediately when upstream_asset materializes
@@ -39,14 +40,13 @@ def downstream_asset(upstream_asset):
 
 ```python
 (
-    dg.AutomationCondition.in_latest_time_window()          # latest partition only (time-partitioned)
+    dg.AutomationCondition.in_latest_time_window()  # latest partition only (time-partitioned)
     & (
-        dg.AutomationCondition.newly_missing()
-        | dg.AutomationCondition.any_deps_updated()
-    ).since_last_handled()                                  # trigger event, persisted until handled
-    & ~dg.AutomationCondition.any_deps_missing()            # no deps missing
-    & ~dg.AutomationCondition.any_deps_in_progress()        # no deps currently running
-    & ~dg.AutomationCondition.in_progress()                 # asset itself not running
+        dg.AutomationCondition.newly_missing() | dg.AutomationCondition.any_deps_updated()
+    ).since_last_handled()  # trigger event, persisted until handled
+    & ~dg.AutomationCondition.any_deps_missing()  # no deps missing
+    & ~dg.AutomationCondition.any_deps_in_progress()  # no deps currently running
+    & ~dg.AutomationCondition.in_progress()  # asset itself not running
 ).with_label("eager")
 ```
 
@@ -59,9 +59,7 @@ The `~any_deps_in_progress()` guard is critical: it prevents the asset from firi
 Executes an asset on a cron schedule after all dependencies have updated since the latest cron tick.
 
 ```python
-@dg.asset(
-    automation_condition=dg.AutomationCondition.on_cron("0 9 * * *", "America/Los_Angeles")
-)
+@dg.asset(automation_condition=dg.AutomationCondition.on_cron("0 9 * * *", "America/Los_Angeles"))
 def daily_summary(hourly_data):
     # Executes at 9 AM only if hourly_data has updated since the previous 9 AM tick
     ...
@@ -80,9 +78,7 @@ cron_schedule = "0 1 * * *"
 cron_timezone = "US/Eastern"
 (
     dg.AutomationCondition.in_latest_time_window()
-    & dg.AutomationCondition.cron_tick_passed(
-        cron_schedule, cron_timezone
-    ).since_last_handled()
+    & dg.AutomationCondition.cron_tick_passed(cron_schedule, cron_timezone).since_last_handled()
     & dg.AutomationCondition.all_deps_updated_since_cron(cron_schedule, cron_timezone)
 ).with_label(f"on_cron({cron_schedule}, {cron_timezone})")
 ```
@@ -149,9 +145,7 @@ All three main conditions are built from smaller components and can be customize
 
 ```python
 # Remove sub-conditions
-condition = dg.AutomationCondition.eager().without(
-    ~dg.AutomationCondition.any_deps_missing()
-)
+condition = dg.AutomationCondition.eager().without(~dg.AutomationCondition.any_deps_missing())
 
 # Replace sub-conditions
 condition = dg.AutomationCondition.on_cron("0 9 * * *").replace(
@@ -164,16 +158,10 @@ condition = dg.AutomationCondition.on_cron("0 9 * * *").replace(
 
 ```python
 # AND: Both conditions must be true
-condition = (
-    dg.AutomationCondition.eager()
-    & ~dg.AutomationCondition.in_progress()
-)
+condition = dg.AutomationCondition.eager() & ~dg.AutomationCondition.in_progress()
 
 # OR: Either condition can be true
-condition = (
-    dg.AutomationCondition.on_cron("0 9 * * *")
-    | dg.AutomationCondition.any_deps_updated()
-)
+condition = dg.AutomationCondition.on_cron("0 9 * * *") | dg.AutomationCondition.any_deps_updated()
 ```
 
 See [customization.md](customization.md) for detailed patterns and examples.

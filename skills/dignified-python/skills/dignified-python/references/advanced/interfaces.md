@@ -31,6 +31,7 @@ Protocol.**
 # CORRECT: Use ABC for interfaces
 from abc import ABC, abstractmethod
 
+
 class Repository(ABC):
     @abstractmethod
     def save(self, entity: Entity) -> None:
@@ -41,6 +42,7 @@ class Repository(ABC):
     def load(self, id: str) -> Entity:
         """Load entity by ID."""
         ...
+
 
 class PostgresRepository(Repository):
     def save(self, entity: Entity) -> None:
@@ -78,6 +80,7 @@ class PostgresRepository(Repository):
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
+
 # Define the interface
 class DataStore(ABC):
     @abstractmethod
@@ -90,6 +93,7 @@ class DataStore(ABC):
         """Store value with key."""
         ...
 
+
 # Real implementation
 class RedisStore(DataStore):
     def get(self, key: str) -> str | None:
@@ -97,6 +101,7 @@ class RedisStore(DataStore):
 
     def set(self, key: str, value: str) -> None:
         self.client.set(key, value)
+
 
 # Fake for testing
 class FakeStore(DataStore):
@@ -110,6 +115,7 @@ class FakeStore(DataStore):
 
     def set(self, key: str, value: str) -> None:
         self._data[key] = value
+
 
 # Business logic accepts interface
 @dataclass
@@ -136,10 +142,13 @@ class Service:
 # CORRECT: Protocol for third-party library facade
 from typing import Protocol
 
+
 class HttpClient(Protocol):
     """Interface for HTTP operations - decouples from requests/httpx/aiohttp."""
+
     def get(self, url: str) -> Response: ...
     def post(self, url: str, data: dict) -> Response: ...
+
 
 # Any HTTP library that has these methods works - no inheritance needed
 def fetch_data(client: HttpClient, endpoint: str) -> dict:
@@ -153,8 +162,10 @@ def fetch_data(client: HttpClient, endpoint: str) -> dict:
 # CORRECT: Protocol for structural typing with minimal interface
 from typing import Protocol
 
+
 class Closeable(Protocol):
     def close(self) -> None: ...
+
 
 def cleanup_resources(resources: list[Closeable]) -> None:
     for r in resources:

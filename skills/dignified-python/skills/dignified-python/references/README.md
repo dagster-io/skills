@@ -83,8 +83,11 @@ Opinionated Python standards for writing clean, maintainable, modern Python code
 def process(items: list[str]) -> str | None:
     pass
 
+
 # Avoid (legacy)
 from typing import List, Optional
+
+
 def process(items: List[str]) -> Optional[str]:
     pass
 ```
@@ -110,12 +113,14 @@ except FileNotFoundError:
 ```python
 # Good
 from pathlib import Path
+
 config_path = Path("config.yaml")
 if config_path.exists():
     content = config_path.read_text()
 
 # Avoid
 import os
+
 if os.path.exists("config.yaml"):
     with open("config.yaml") as f:
         content = f.read()
@@ -143,13 +148,16 @@ from ..shared import helper
 def greet(name: str) -> str:
     return f"Hello, {name}"
 
+
 # Collections (modern syntax)
 def process(items: list[str], mapping: dict[str, int]) -> tuple[str, int]:
     pass
 
+
 # Optional/Union (modern syntax)
 def find(query: str) -> str | None:
     pass
+
 
 # Multiple types
 def parse(value: str | int | float) -> float:
@@ -208,6 +216,7 @@ name = full_path.name
 ```python
 import click
 
+
 @click.command()
 @click.option("--name", required=True, help="User name")
 @click.option("--count", default=1, help="Number of times")
@@ -215,6 +224,7 @@ def greet(name: str, count: int) -> None:
     """Greet a user multiple times."""
     for _ in range(count):
         click.echo(f"Hello, {name}!")
+
 
 if __name__ == "__main__":
     greet()

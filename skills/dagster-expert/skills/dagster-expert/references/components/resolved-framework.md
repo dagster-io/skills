@@ -83,7 +83,11 @@ def resolve_datetime(context: dg.ResolutionContext, raw: str) -> datetime:
     resolved = context.resolve_value(raw, as_type=str)  # process templates first
     return datetime.fromisoformat(resolved)
 
-ResolvedDatetime: TypeAlias = Annotated[datetime, dg.Resolver(resolve_datetime, model_field_type=str)]
+
+ResolvedDatetime: TypeAlias = Annotated[
+    datetime, dg.Resolver(resolve_datetime, model_field_type=str)
+]
+
 
 class MyComponent(dg.Component, dg.Resolvable, dg.Model):
     # In YAML this field accepts a string; at load time it becomes a datetime
@@ -101,14 +105,16 @@ In these cases, you can create a separate class that inherits from `dg.Resolvabl
 ```python
 from typing import Annotated, TypeAlias
 
+
 # ... defined elsewhere ...
 class SomeLibraryClass:
-
     def __init__(self, name: str, age: int): ...
+
 
 class SomeLibraryClassArgs(dg.Resolvable, dg.Model):
     name: str
     age: int
+
 
 def resolve_some_library_class(context: dg.ResolutionContext, model) -> SomeLibraryClass:
     # `model` will be an instance of SomeLibraryClassArgs.model()
@@ -117,7 +123,12 @@ def resolve_some_library_class(context: dg.ResolutionContext, model) -> SomeLibr
     # once the arguments are fully resolved, we can instantiate the target class using the resolved arguments
     return SomeLibraryClass(**args.model_dump())
 
-ResolvedSomeLibraryClass: TypeAlias = Annotated[SomeLibraryClass, dg.Resolver(resolve_some_library_class, model_field_type=SomeLibraryClassArgs.model())]
+
+ResolvedSomeLibraryClass: TypeAlias = Annotated[
+    SomeLibraryClass,
+    dg.Resolver(resolve_some_library_class, model_field_type=SomeLibraryClassArgs.model()),
+]
+
 
 class MyComponent(dg.Component, dg.Resolvable, dg.Model):
     some_library_class: ResolvedSomeLibraryClass

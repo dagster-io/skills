@@ -19,6 +19,7 @@ Override to change asset keys, groups, metadata, kinds, or dependencies.
 import dagster as dg
 from dagster_fivetran import FivetranAccountComponent
 
+
 class CustomFivetranComponent(FivetranAccountComponent):
     def get_asset_spec(self, data) -> dg.AssetSpec:
         spec = super().get_asset_spec(data)
@@ -36,6 +37,7 @@ Override to add pre/post logic around the standard sync, or to filter which sync
 import dagster as dg
 from dagster_fivetran import FivetranAccountComponent
 
+
 class CustomFivetranComponent(FivetranAccountComponent):
     def execute(self, context: dg.AssetExecutionContext, resource):
         context.log.info("Starting custom pre-sync validation")
@@ -51,9 +53,10 @@ For `StateBackedComponent` subclasses, override to transform or augment the pers
 ```python nocheckundefined
 from pathlib import Path
 
+
 class CustomComponent(ExistingStateBackedComponent):
     def write_state_to_path(self, state_path: Path) -> None:
-        state = ... # note: you may need to inspect the parent class to determine the specific state format for `write_state_to_path()`
+        state = ...  # note: you may need to inspect the parent class to determine the specific state format for `write_state_to_path()`
         state_path.write_text(dg.serialize_value(state))
 ```
 
@@ -66,6 +69,7 @@ Override to change how persisted state is translated into Dagster definitions (e
 
 ```python nocheckundefined
 import dagster as dg
+
 
 class CustomComponent(ExistingStateBackedComponent):
     def build_defs_from_state(self, context, state_path: Path) -> dg.Definitions:

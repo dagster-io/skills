@@ -33,9 +33,11 @@ Create a data class representing the raw data (for a specific asset) from the ex
 ```python
 from dagster_shared.record import record
 
+
 @record
 class MyConnectorTableProps:
     """Raw data from the external tool for a single asset."""
+
     connector_id: str
     table_name: str
     schema_name: str
@@ -49,6 +51,7 @@ Translation allows YAML users to customize asset properties without subclassing.
 ```python nocheck
 from typing import Annotated
 from dagster.components.utils.translation import TranslationFn, TranslationFnResolver
+
 
 class MyServiceComponent(dg.Component, dg.Model, dg.Resolvable):
     translation: (
@@ -84,19 +87,20 @@ A public method that converts external data into a Dagster `AssetSpec`. It shoul
 ```python nocheckundefined
 import dagster as dg
 
-class MyServiceComponent(dg.Component, dg.Resolvable, dg.Model):
-  translation: ...
 
-  def get_asset_spec(self, data: MyConnectorTableProps) -> dg.AssetSpec:
-      """Generates an AssetSpec for a given connector table."""
-      base_spec = dg.AssetSpec(
-          key=dg.AssetKey([data.schema_name, data.table_name]),
-          metadata={"connector_id": data.connector_id},
-          kinds={"myservice"},
-      )
-      if self.translation:
-          return self.translation(base_spec, data)
-      return base_spec
+class MyServiceComponent(dg.Component, dg.Resolvable, dg.Model):
+    translation: ...
+
+    def get_asset_spec(self, data: MyConnectorTableProps) -> dg.AssetSpec:
+        """Generates an AssetSpec for a given connector table."""
+        base_spec = dg.AssetSpec(
+            key=dg.AssetKey([data.schema_name, data.table_name]),
+            metadata={"connector_id": data.connector_id},
+            kinds={"myservice"},
+        )
+        if self.translation:
+            return self.translation(base_spec, data)
+        return base_spec
 ```
 
 Subclasses can override to customize defaults:
@@ -197,9 +201,8 @@ def build_defs(self, context: dg.ComponentLoadContext) -> dg.Definitions:
         new_events = self._poll_for_events(context)
         for event in new_events:
             context.instance.report_runless_asset_event(
-              dg.AssetObservation(asset_key=self.get_asset_spec(event).key)
+                dg.AssetObservation(asset_key=self.get_asset_spec(event).key)
             )
-
 
     return dg.Definitions(assets=asset_specs, sensors=[_sensor] if self.enable_sensor else None)
 ```

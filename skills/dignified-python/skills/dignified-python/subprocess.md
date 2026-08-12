@@ -14,12 +14,7 @@ import subprocess
 from pathlib import Path
 
 # ✅ CORRECT: check=True to raise on error
-result = subprocess.run(
-    ["git", "status"],
-    check=True,
-    capture_output=True,
-    text=True
-)
+result = subprocess.run(["git", "status"], check=True, capture_output=True, text=True)
 print(result.stdout)
 
 # ✅ ALSO CORRECT: check=False when you intend to inspect returncode yourself
@@ -39,10 +34,10 @@ def run_git_command(args: list[str], cwd: Path | None = None) -> str:
     try:
         result = subprocess.run(
             ["git"] + args,
-            check=True,          # Raise on non-zero exit
-            capture_output=True, # Capture stdout/stderr
-            text=True,          # Return strings, not bytes
-            cwd=cwd            # Working directory
+            check=True,  # Raise on non-zero exit
+            capture_output=True,  # Capture stdout/stderr
+            text=True,  # Return strings, not bytes
+            cwd=cwd,  # Working directory
         )
         return result.stdout.strip()
     except subprocess.CalledProcessError as e:
@@ -54,12 +49,7 @@ def run_git_command(args: list[str], cwd: Path | None = None) -> str:
 
 ```python
 try:
-    result = subprocess.run(
-        ["make", "test"],
-        check=True,
-        capture_output=True,
-        text=True
-    )
+    result = subprocess.run(["make", "test"], check=True, capture_output=True, text=True)
 except subprocess.CalledProcessError as e:
     # Access error details
     print(f"Command: {e.cmd}")
@@ -77,10 +67,7 @@ subprocess.run(["git", "fetch"], check=True, capture_output=True)
 
 # Stream output in real-time
 process = subprocess.Popen(
-    ["pytest", "-v"],
-    stdout=subprocess.PIPE,
-    stderr=subprocess.STDOUT,
-    text=True
+    ["pytest", "-v"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
 )
 for line in process.stdout:
     print(line, end="")

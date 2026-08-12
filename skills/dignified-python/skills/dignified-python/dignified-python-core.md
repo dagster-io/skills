@@ -142,6 +142,7 @@ if config_file.exists():
 
 # WRONG: Use os.path
 import os.path
+
 config_file = os.path.join(os.path.expanduser("~"), ".config", "app.yml")
 ```
 
@@ -174,14 +175,17 @@ import click
 from pathlib import Path
 from myapp.config import load_config
 
+
 def my_function() -> None:
     data = json.loads(content)
+
 
 # CORRECT: Absolute import
 from myapp.config import load_config
 
 # WRONG: Relative import
 from .config import load_config
+
 
 # WRONG: Inline imports without justification
 def my_function() -> None:
@@ -202,9 +206,11 @@ For detailed inline import patterns and when they're legitimate, see `references
 def size(self) -> int:
     return self._fetch_from_db()
 
+
 # CORRECT: Explicit method name
 def fetch_size_from_db(self) -> int:
     return self._fetch_from_db()
+
 
 # CORRECT: O(1) property
 @property
@@ -218,6 +224,7 @@ def size(self) -> int:
 # WRONG: __len__ doing iteration
 def __len__(self) -> int:
     return sum(1 for _ in self._items)
+
 
 # CORRECT: O(1) __len__
 def __len__(self) -> int:
@@ -237,6 +244,7 @@ def process_data(data: dict, legacy_format: bool = False) -> Result:
         return legacy_process(data)
     return new_process(data)
 
+
 # CORRECT: Break and migrate immediately
 def process_data(data: dict) -> Result:
     return new_process(data)
@@ -250,6 +258,7 @@ def process_data(data: dict) -> Result:
 # WRONG: __all__ exports create duplicate import paths
 # myapp/__init__.py
 from myapp.core import Process
+
 __all__ = ["Process"]
 
 # CORRECT: Empty __init__.py, import from canonical location
@@ -272,6 +281,7 @@ def process_data(ctx, items):
     # 20+ lines of other logic...
     save_to_path(transformed, result_path)  # ...used here
 
+
 # CORRECT: Inline at use site
 def process_data(ctx, items):
     validate_items(items)
@@ -284,8 +294,8 @@ def process_data(ctx, items):
 ```python
 # WRONG: Unnecessary field extraction
 result = fetch_user(user_id)
-name = result.name      # only used once below
-email = result.email    # only used once below
+name = result.name  # only used once below
+email = result.email  # only used once below
 send_notification(name, email, role)
 
 # CORRECT: Access fields directly
@@ -307,11 +317,13 @@ def process_items(items):
                     for grandchild in child.descendants:
                         pass  # 5 levels deep!
 
+
 # CORRECT: Extract helper functions
 def process_items(items):
     for item in items:
         if item.valid:
             process_children(item.children)
+
 
 def process_children(children):
     for child in children:
@@ -323,11 +335,11 @@ def process_children(children):
 
 ```python
 # CORRECT: Context manager stays in with statement
-with (cm_a if condition else nullcontext()):
+with cm_a if condition else nullcontext():
     do_work()
 
 # CORRECT: Multiple conditional context managers
-with (lock if thread_safe else nullcontext()):
+with lock if thread_safe else nullcontext():
     process(data)
 
 # WRONG: Extracting to intermediate variable obscures lifecycle

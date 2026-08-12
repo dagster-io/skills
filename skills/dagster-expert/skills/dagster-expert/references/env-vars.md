@@ -48,9 +48,11 @@ SNOWFLAKE_PASSWORD=secret
 ```python
 import dagster as dg
 
+
 class DatabaseResource(dg.ConfigurableResource):
     connection_string: str = dg.EnvVar("DATABASE_URL")
     timeout: int = dg.EnvVar.int("DB_TIMEOUT")
+
 
 # Dagster automatically loads DATABASE_URL and DB_TIMEOUT from .env
 ```

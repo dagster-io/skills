@@ -17,6 +17,7 @@ import os
 import json
 import dagster as dg
 
+
 @dg.sensor(job=my_job, minimum_interval_seconds=30)
 def file_sensor(context: dg.SensorEvaluationContext):
     # Load cursor (tracks files we've already processed)
@@ -63,10 +64,7 @@ def file_sensor(context: dg.SensorEvaluationContext):
 
 ```python nocheck
 # Option 1: Return SensorResult
-return dg.SensorResult(
-    run_requests=[...],
-    cursor=json.dumps(new_state)
-)
+return dg.SensorResult(run_requests=[...], cursor=json.dumps(new_state))
 
 # Option 2: Call update_cursor() directly
 context.update_cursor(json.dumps(new_state))
@@ -83,8 +81,7 @@ yield dg.RunRequest(...)
     minimum_interval_seconds=60,  # Minimum 60 seconds between evaluations
     default_status=dg.DefaultSensorStatus.RUNNING,  # Auto-enable when deployed
 )
-def my_sensor(context):
-    ...
+def my_sensor(context): ...
 ```
 
 **Important**: `minimum_interval_seconds` is a minimum, not exact. If sensor evaluation takes 10 seconds and the interval is 30 seconds, the next evaluation happens 30 seconds after the previous evaluation started (20 seconds after it completed).

@@ -15,19 +15,13 @@ Operators combine operands and other conditions into complex expressions using b
 ```python
 import dagster as dg
 
-condition = (
-    dg.AutomationCondition.newly_updated()
-    & ~dg.AutomationCondition.in_progress()
-)
+condition = dg.AutomationCondition.newly_updated() & ~dg.AutomationCondition.in_progress()
 ```
 
 **`|` (OR)**: Either condition must be true:
 
 ```python
-condition = (
-    dg.AutomationCondition.missing()
-    | dg.AutomationCondition.newly_updated()
-)
+condition = dg.AutomationCondition.missing() | dg.AutomationCondition.newly_updated()
 ```
 
 **`~` (NOT)**: Negates the condition:
@@ -81,9 +75,7 @@ True from when the condition becomes true until the asset is requested, updated,
 True if the condition is true for at least one partition of any upstream dependency.
 
 ```python
-condition = dg.AutomationCondition.any_deps_match(
-    dg.AutomationCondition.missing()
-)
+condition = dg.AutomationCondition.any_deps_match(dg.AutomationCondition.missing())
 ```
 
 Supports filtering with `.allow()` and `.ignore()`.
@@ -93,9 +85,7 @@ Supports filtering with `.allow()` and `.ignore()`.
 True if the condition is true for at least one partition of all upstream dependencies.
 
 ```python
-condition = dg.AutomationCondition.all_deps_match(
-    dg.AutomationCondition.newly_updated()
-)
+condition = dg.AutomationCondition.all_deps_match(dg.AutomationCondition.newly_updated())
 ```
 
 Requires every upstream asset to have at least one partition matching the condition.
@@ -108,9 +98,9 @@ Restricts which dependencies are checked to only those in the `AssetSelection`:
 
 ```python
 # Only consider dependencies in the "important" group
-condition = dg.AutomationCondition.any_deps_match(
-    dg.AutomationCondition.missing()
-).allow(dg.AssetSelection.groups("important"))
+condition = dg.AutomationCondition.any_deps_match(dg.AutomationCondition.missing()).allow(
+    dg.AssetSelection.groups("important")
+)
 ```
 
 Creates an intersection: `dep_keys & allowed_selection`
@@ -121,9 +111,7 @@ Excludes dependencies in the `AssetSelection` from being checked:
 
 ```python
 # Ignore the "foo" asset when checking for updates
-condition = dg.AutomationCondition.any_deps_updated().ignore(
-    dg.AssetSelection.assets("foo")
-)
+condition = dg.AutomationCondition.any_deps_updated().ignore(dg.AssetSelection.assets("foo"))
 ```
 
 Creates a subtraction: `dep_keys - ignored_selection`
@@ -134,9 +122,7 @@ When applied to `AND`/`OR` conditions, `.allow()` and `.ignore()` propagate to a
 
 ```python
 # Applies allow() to all dependency checks within eager()
-condition = dg.AutomationCondition.eager().allow(
-    dg.AssetSelection.groups("critical")
-)
+condition = dg.AutomationCondition.eager().allow(dg.AssetSelection.groups("critical"))
 ```
 
 ## Check Operators
@@ -176,8 +162,7 @@ Adds a human-readable label to a condition for debugging and UI display:
 
 ```python
 condition = (
-    dg.AutomationCondition.any_deps_updated()
-    .since(dg.AutomationCondition.newly_requested())
+    dg.AutomationCondition.any_deps_updated().since(dg.AutomationCondition.newly_requested())
 ).with_label("updated_since_requested")
 ```
 

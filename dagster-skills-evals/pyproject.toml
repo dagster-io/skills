@@ -29,7 +29,7 @@ test = [
     "pandas",
     "pyright",
     "pytest>=8.0.0",
-    "ruff==0.15.15",
+    "ruff==0.16.2",
 ]
 
 [tool.pytest.ini_options]
@@ -76,6 +76,7 @@ ignore = [
     "E501",    # Line too long (handled by formatter)
     "ISC001",  # Implicit string concatenation (conflicts with formatter)
     "PLR0913", # Too many arguments to function call
+    "PLR0917", # Too many positional arguments (typer CLI commands take many params)
     "TRY003",  # Avoid specifying long messages outside the exception class
 ]
 

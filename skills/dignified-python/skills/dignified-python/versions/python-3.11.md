@@ -49,6 +49,7 @@ coordinates: tuple[int, int] = (0, 0)
 
 ```python
 from typing import List, Dict, Set, Tuple  # Don't do this
+
 names: List[str] = []
 ```
 
@@ -60,8 +61,9 @@ names: List[str] = []
 def process(value: str | int) -> str:
     return str(value)
 
-def find_config(name: str) -> dict[str, str] | dict[str, int]:
-    ...
+
+def find_config(name: str) -> dict[str, str] | dict[str, int]: ...
+
 
 # Multiple unions
 def parse(input: str | int | float) -> str:
@@ -72,6 +74,8 @@ def parse(input: str | int | float) -> str:
 
 ```python
 from typing import Union
+
+
 def process(value: Union[str, int]) -> str:  # Don't do this
     ...
 ```
@@ -92,6 +96,8 @@ def find_user(id: str) -> User | None:
 
 ```python
 from typing import Optional
+
+
 def find_user(id: str) -> Optional[User]:  # Don't do this
     ...
 ```
@@ -103,6 +109,7 @@ def find_user(id: str) -> Optional[User]:  # Don't do this
 ```python
 from typing import Self
 
+
 class Builder:
     def set_name(self, name: str) -> Self:
         self.name = name
@@ -111,6 +118,7 @@ class Builder:
     def set_value(self, value: int) -> Self:
         self.value = value
         return self
+
 
 # Usage with type safety
 builder = Builder().set_name("app").set_value(42)
@@ -122,6 +130,7 @@ builder = Builder().set_name("app").set_value(42)
 from typing import TypeVar
 
 T = TypeVar("T", bound="Builder")
+
 
 class Builder:
     def set_name(self: T, name: str) -> T:  # Don't do this
@@ -140,6 +149,7 @@ class Builder:
 ```python
 from typing import Self
 
+
 class Config:
     def __init__(self, data: dict[str, str]) -> None:
         self.data = data
@@ -148,6 +158,7 @@ class Config:
     def from_file(cls, path: str) -> Self:
         """Load config from file."""
         import json
+
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
         return cls(data)
@@ -162,11 +173,13 @@ from typing import TypeVar
 
 T = TypeVar("T")
 
+
 def first(items: list[T]) -> T | None:
     """Return first item or None if empty."""
     if not items:
         return None
     return items[0]
+
 
 def identity(value: T) -> T:
     return value
@@ -183,6 +196,7 @@ from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
+
 class Stack(Generic[T]):
     """A generic stack data structure."""
 
@@ -197,6 +211,7 @@ class Stack(Generic[T]):
         if not self._items:
             return None
         return self._items.pop()
+
 
 # Usage
 int_stack = Stack[int]()
@@ -215,11 +230,14 @@ from typing import TypeVar
 # Constrained to specific types
 Numeric = TypeVar("Numeric", int, float)
 
+
 def add(a: Numeric, b: Numeric) -> Numeric:
     return a + b
 
+
 # Bounded to base class
 T = TypeVar("T", bound=BaseClass)
+
 
 def process(obj: T) -> T:
     return obj
@@ -254,6 +272,7 @@ Config = dict[str, str | int | bool]
 # Complex nested type
 JsonValue = dict[str, "JsonValue"] | list["JsonValue"] | str | int | float | bool | None
 
+
 def load_config() -> Config:
     return {"host": "localhost", "port": 8080}
 ```
@@ -268,6 +287,7 @@ Use `from __future__ import annotations` when you encounter:
 
 ```python
 from __future__ import annotations
+
 
 class Node:
     def __init__(self, value: int, parent: Node | None = None):
@@ -285,9 +305,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from b import B
 
+
 class A:
-    def method(self) -> B:
-        ...
+    def method(self) -> B: ...
 ```
 
 **Complex recursive types**:
@@ -305,6 +325,7 @@ JsonValue = dict[str, JsonValue] | list[JsonValue] | str | int | float | bool | 
 ```python
 from abc import ABC, abstractmethod
 
+
 class Repository(ABC):
     @abstractmethod
     def get(self, id: str) -> User | None:
@@ -320,8 +341,10 @@ class Repository(ABC):
 ```python
 from typing import Protocol
 
+
 class Drawable(Protocol):
     def draw(self) -> None: ...
+
 
 # Any object with draw() method matches
 def render(obj: Drawable) -> None:
@@ -336,6 +359,7 @@ def render(obj: Drawable) -> None:
 
 ```python
 from typing import Self
+
 
 class QueryBuilder:
     """SQL query builder with fluent interface."""
@@ -382,6 +406,7 @@ class QueryBuilder:
 
         return " ".join(parts)
 
+
 # Usage with type-safe method chaining
 query = (
     QueryBuilder()
@@ -400,6 +425,7 @@ query = (
 from typing import Self
 from pathlib import Path
 import json
+
 
 class Config:
     """Application configuration with multiple factory methods."""
@@ -421,11 +447,8 @@ class Config:
     def from_env(cls) -> Self:
         """Load configuration from environment variables."""
         import os
-        data = {
-            k.lower(): v
-            for k, v in os.environ.items()
-            if k.startswith("APP_")
-        }
+
+        data = {k.lower(): v for k, v in os.environ.items() if k.startswith("APP_")}
         return cls(data)
 
     @classmethod
@@ -438,6 +461,7 @@ class Config:
         new_data = self.data.copy()
         new_data[key] = value
         return type(self)(new_data)
+
 
 # All factory methods return correct type
 config = Config.from_json(Path("config.json"))

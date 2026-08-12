@@ -52,6 +52,7 @@ coordinates: tuple[int, int] = (0, 0)
 
 ```python
 from typing import List, Dict, Set, Tuple  # Don't do this
+
 names: List[str] = []
 ```
 
@@ -63,8 +64,9 @@ names: List[str] = []
 def process(value: str | int) -> str:
     return str(value)
 
-def find_config(name: str) -> dict[str, str] | dict[str, int]:
-    ...
+
+def find_config(name: str) -> dict[str, str] | dict[str, int]: ...
+
 
 # Multiple unions
 def parse(input: str | int | float) -> str:
@@ -75,6 +77,8 @@ def parse(input: str | int | float) -> str:
 
 ```python
 from typing import Union
+
+
 def process(value: Union[str, int]) -> str:  # Don't do this
     ...
 ```
@@ -95,6 +99,8 @@ def find_user(id: str) -> User | None:
 
 ```python
 from typing import Optional
+
+
 def find_user(id: str) -> Optional[User]:  # Don't do this
     ...
 ```
@@ -105,6 +111,7 @@ def find_user(id: str) -> Optional[User]:  # Don't do this
 
 ```python
 from typing import Self
+
 
 class Builder:
     def set_name(self, name: str) -> Self:
@@ -127,9 +134,11 @@ def first[T](items: list[T]) -> T | None:
         return None
     return items[0]
 
+
 def identity[T](value: T) -> T:
     """Return value unchanged."""
     return value
+
 
 # Multiple type parameters
 def zip_dicts[K, V](keys: list[K], values: list[V]) -> dict[K, V]:
@@ -143,6 +152,7 @@ def zip_dicts[K, V](keys: list[K], values: list[V]) -> dict[K, V]:
 from typing import TypeVar
 
 T = TypeVar("T")
+
 
 def first(items: list[T]) -> T | None:
     if not items:
@@ -172,6 +182,7 @@ class Stack[T]:
             return None
         return self._items.pop()
 
+
 # Usage
 int_stack = Stack[int]()
 int_stack.push(42).push(43)
@@ -184,9 +195,11 @@ from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
+
 class Stack(Generic[T]):
     def __init__(self) -> None:
         self._items: list[T] = []
+
     # ... rest of implementation
 ```
 
@@ -198,8 +211,8 @@ class Stack(Generic[T]):
 
 ```python
 class Comparable:
-    def compare(self, other: object) -> int:
-        ...
+    def compare(self, other: object) -> int: ...
+
 
 def max_value[T: Comparable](items: list[T]) -> T:
     """Get maximum value from comparable items."""
@@ -215,6 +228,7 @@ from typing import TypeVar
 
 # Constrained to specific types - must use TypeVar
 Numeric = TypeVar("Numeric", int, float)
+
 
 def add(a: Numeric, b: Numeric) -> Numeric:
     return a + b
@@ -239,6 +253,7 @@ type Config = dict[str, str | int | bool]
 
 # Generic type alias
 type Result[T] = tuple[T, str | None]
+
 
 def process(value: str) -> Result[int]:
     try:
@@ -282,6 +297,7 @@ Use `from __future__ import annotations` when you encounter:
 ```python
 from __future__ import annotations
 
+
 class Node:
     def __init__(self, value: int, parent: Node | None = None):
         self.value = value
@@ -298,9 +314,9 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from b import B
 
+
 class A:
-    def method(self) -> B:
-        ...
+    def method(self) -> B: ...
 ```
 
 **Complex recursive types**:
@@ -318,6 +334,7 @@ type JsonValue = dict[str, JsonValue] | list[JsonValue] | str | int | float | bo
 ```python
 from abc import ABC, abstractmethod
 
+
 class Repository(ABC):
     @abstractmethod
     def get(self, id: str) -> User | None:
@@ -333,8 +350,10 @@ class Repository(ABC):
 ```python
 from typing import Protocol
 
+
 class Drawable(Protocol):
     def draw(self) -> None: ...
+
 
 def render(obj: Drawable) -> None:
     obj.draw()
@@ -348,6 +367,7 @@ def render(obj: Drawable) -> None:
 
 ```python
 from typing import Self
+
 
 class Stack[T]:
     """Type-safe stack with PEP 695 syntax."""
@@ -376,6 +396,7 @@ class Stack[T]:
         """Check if stack is empty."""
         return len(self._items) == 0
 
+
 # Usage
 numbers = Stack[int]()
 numbers.push(1).push(2).push(3)
@@ -387,6 +408,7 @@ top = numbers.pop()  # Type checker knows this is int | None
 ```python
 from abc import ABC, abstractmethod
 from typing import Self
+
 
 class Repository[T]:
     """Abstract repository with generic type parameter."""
@@ -410,6 +432,7 @@ class Repository[T]:
             raise ValueError(f"Entity not found: {id}")
         return entity
 
+
 class InMemoryRepository[T](Repository[T]):
     """In-memory repository implementation."""
 
@@ -431,13 +454,16 @@ class InMemoryRepository[T](Repository[T]):
             return True
         return False
 
+
 # Usage
 from dataclasses import dataclass
+
 
 @dataclass
 class User:
     id: str
     name: str
+
 
 repo = InMemoryRepository[User]()
 repo.save(User("1", "Alice")).save(User("2", "Bob"))
@@ -458,12 +484,14 @@ type JsonValue = dict[str, JsonValue] | list[JsonValue] | str | int | float | bo
 type Result[T] = tuple[T, ErrorMessage | None]
 type AsyncResult[T] = tuple[T | None, ErrorMessage | None]
 
+
 def parse_int(value: str) -> Result[int]:
     """Parse string to int, return result with optional error."""
     try:
         return (int(value), None)
     except ValueError as e:
         return (0, str(e))
+
 
 def fetch_user(id: UserId) -> AsyncResult[dict[str, str]]:
     """Fetch user data asynchronously."""
@@ -475,6 +503,7 @@ def fetch_user(id: UserId) -> AsyncResult[dict[str, str]]:
 
 ```python
 from typing import Self
+
 
 class QueryBuilder[T]:
     """Generic query builder with fluent interface."""
@@ -501,20 +530,16 @@ class QueryBuilder[T]:
             query += f" LIMIT {self._limit}"
         return query
 
+
 # Usage
 @dataclass
 class User:
     name: str
     age: int
 
+
 builder = QueryBuilder[User](User)
-query = (
-    builder
-    .filter("active = true")
-    .filter("age > 18")
-    .limit(10)
-    .build()
-)
+query = builder.filter("active = true").filter("age > 18").limit(10).build()
 ```
 
 ### Generic Function Utilities
@@ -523,12 +548,16 @@ query = (
 def map_list[T, U](items: list[T], func: Callable[[T], U]) -> list[U]:
     """Map function over list items."""
     from collections.abc import Callable
+
     return [func(item) for item in items]
+
 
 def filter_list[T](items: list[T], predicate: Callable[[T], bool]) -> list[T]:
     """Filter list by predicate."""
     from collections.abc import Callable
+
     return [item for item in items if predicate(item)]
+
 
 def reduce_list[T, U](
     items: list[T],
@@ -537,10 +566,12 @@ def reduce_list[T, U](
 ) -> U:
     """Reduce list to single value."""
     from collections.abc import Callable
+
     result = initial
     for item in items:
         result = func(result, item)
     return result
+
 
 # Usage
 numbers = [1, 2, 3, 4, 5]

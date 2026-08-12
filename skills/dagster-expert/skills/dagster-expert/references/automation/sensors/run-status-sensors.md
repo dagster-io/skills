@@ -15,6 +15,7 @@ Use `@run_failure_sensor` to monitor run failures across all jobs:
 ```python nocheckundefined
 import dagster as dg
 
+
 @dg.run_failure_sensor
 def failure_alert_sensor(context: dg.RunFailureSensorContext):
     slack_client.chat_postMessage(
@@ -108,8 +109,7 @@ Set `monitor_all_code_locations=True` to enable deployment-wide monitoring.
 @dg.run_failure_sensor
 def slack_alert(context: dg.RunFailureSensorContext):
     slack_client.chat_postMessage(
-        channel="#alerts",
-        text=f"Job {context.dagster_run.job_name} failed"
+        channel="#alerts", text=f"Job {context.dagster_run.job_name} failed"
     )
 ```
 

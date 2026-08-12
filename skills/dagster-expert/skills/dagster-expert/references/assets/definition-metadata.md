@@ -51,8 +51,7 @@ For `@multi_asset`, set the same properties on each `AssetSpec`:
         ),
     ],
 )
-def load_data():
-    ...
+def load_data(): ...
 ```
 
 `AssetSpec` accepts the same metadata parameters as `@dg.asset`: `description`, `group_name`, `owners`, `tags`, `kinds`, `deps`, `code_version`, `automation_condition`, `key_prefix`, and more.

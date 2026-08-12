@@ -29,8 +29,7 @@ import dagster as dg
 
 # Define a job that selects specific assets
 analytics_job = dg.define_asset_job(
-    name="analytics_job",
-    selection=["sales_data", "customer_metrics"]
+    name="analytics_job", selection=["sales_data", "customer_metrics"]
 )
 ```
 
@@ -39,15 +38,11 @@ Jobs can also select assets by tags, groups, or patterns:
 ```python
 # Select all assets with a specific tag
 tagged_job = dg.define_asset_job(
-    name="daily_job",
-    selection=dg.AssetSelection.tag("priority", "high")
+    name="daily_job", selection=dg.AssetSelection.tag("priority", "high")
 )
 
 # Select all assets in a group
-group_job = dg.define_asset_job(
-    name="etl_job",
-    selection=dg.AssetSelection.groups("etl")
-)
+group_job = dg.define_asset_job(name="etl_job", selection=dg.AssetSelection.groups("etl"))
 ```
 
 ### Automation Approaches

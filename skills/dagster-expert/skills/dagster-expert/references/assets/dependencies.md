@@ -15,6 +15,7 @@ When an asset depends on another Dagster-managed asset, add it as a function par
 def upstream_asset() -> dict:
     return {"data": [1, 2, 3]}
 
+
 @dg.asset
 def downstream_asset(upstream_asset: dict) -> list:
     # upstream_asset is loaded into memory via IOManager

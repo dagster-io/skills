@@ -26,15 +26,11 @@ attributes:
 from dagster_dbt import DagsterDbtTranslator, DagsterDbtTranslatorSettings
 
 translator = DagsterDbtTranslator(
-    settings=DagsterDbtTranslatorSettings(
-        enable_source_tests_as_checks=True
-    )
+    settings=DagsterDbtTranslatorSettings(enable_source_tests_as_checks=True)
 )
 
-@dbt_assets(
-    manifest=my_dbt_project.manifest_path,
-    dagster_dbt_translator=translator
-)
+
+@dbt_assets(manifest=my_dbt_project.manifest_path, dagster_dbt_translator=translator)
 def my_dbt_assets(context, dbt: DbtCliResource):
     yield from dbt.cli(["build"], context=context).stream()
 ```

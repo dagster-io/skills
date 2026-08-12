@@ -83,6 +83,7 @@ coordinates: tuple[int, int] = (0, 0)
 
 ```python
 from typing import List, Dict, Set, Tuple  # Don't do this
+
 names: List[str] = []
 ```
 
@@ -97,8 +98,9 @@ names: List[str] = []
 def process(value: str | int) -> str:
     return str(value)
 
-def find_config(name: str) -> dict[str, str] | dict[str, int]:
-    ...
+
+def find_config(name: str) -> dict[str, str] | dict[str, int]: ...
+
 
 # Multiple unions
 def parse(input: str | int | float) -> str:
@@ -109,6 +111,8 @@ def parse(input: str | int | float) -> str:
 
 ```python
 from typing import Union
+
+
 def process(value: Union[str, int]) -> str:  # Don't do this
     ...
 ```
@@ -129,6 +133,8 @@ def find_user(id: str) -> User | None:
 
 ```python
 from typing import Optional
+
+
 def find_user(id: str) -> Optional[User]:  # Don't do this
     ...
 ```
@@ -157,6 +163,7 @@ validator: Callable[[str, int], bool] = lambda s, i: len(s) > i
 ```python
 from abc import ABC, abstractmethod
 
+
 class Repository(ABC):
     @abstractmethod
     def get(self, id: str) -> User | None:
@@ -172,8 +179,10 @@ class Repository(ABC):
 ```python
 from typing import Protocol
 
+
 class Drawable(Protocol):
     def draw(self) -> None: ...
+
 
 def render(obj: Drawable) -> None:
     obj.draw()
@@ -187,6 +196,7 @@ def render(obj: Drawable) -> None:
 
 ```python
 from typing import Self
+
 
 class Builder:
     def set_name(self, name: str) -> Self:
@@ -209,9 +219,11 @@ def first[T](items: list[T]) -> T | None:
         return None
     return items[0]
 
+
 def identity[T](value: T) -> T:
     """Return value unchanged."""
     return value
+
 
 # Multiple type parameters
 def zip_dicts[K, V](keys: list[K], values: list[V]) -> dict[K, V]:
@@ -225,6 +237,7 @@ def zip_dicts[K, V](keys: list[K], values: list[V]) -> dict[K, V]:
 from typing import TypeVar
 
 T = TypeVar("T")
+
 
 def first(items: list[T]) -> T | None:
     if not items:
@@ -254,6 +267,7 @@ class Stack[T]:
             return None
         return self._items.pop()
 
+
 # Usage
 int_stack = Stack[int]()
 int_stack.push(42).push(43)
@@ -266,9 +280,11 @@ from typing import Generic, TypeVar
 
 T = TypeVar("T")
 
+
 class Stack(Generic[T]):
     def __init__(self) -> None:
         self._items: list[T] = []
+
     # ... rest of implementation
 ```
 
@@ -280,8 +296,8 @@ class Stack(Generic[T]):
 
 ```python
 class Comparable:
-    def compare(self, other: object) -> int:
-        ...
+    def compare(self, other: object) -> int: ...
+
 
 def max_value[T: Comparable](items: list[T]) -> T:
     """Get maximum value from comparable items."""
@@ -297,6 +313,7 @@ from typing import TypeVar
 
 # Constrained to specific types - must use TypeVar
 Numeric = TypeVar("Numeric", int, float)
+
 
 def add(a: Numeric, b: Numeric) -> Numeric:
     return a + b
@@ -321,6 +338,7 @@ type Config = dict[str, str | int | bool]
 
 # Generic type alias
 type Result[T] = tuple[T, str | None]
+
 
 def process(value: str) -> Result[int]:
     try:
@@ -349,20 +367,23 @@ class Node:
         self.value = value
         self.parent = parent
 
+
 # Circular imports - just works!
 # a.py
 from b import B
 
+
 class A:
-    def method(self) -> B:
-        ...
+    def method(self) -> B: ...
+
 
 # b.py
 from a import A
 
+
 class B:
-    def method(self) -> A:
-        ...
+    def method(self) -> A: ...
+
 
 # Recursive types - no future needed!
 type JsonValue = dict[str, JsonValue] | list[JsonValue] | str | int | float | bool | None
@@ -373,9 +394,9 @@ type JsonValue = dict[str, JsonValue] | list[JsonValue] | str | int | float | bo
 ```python
 from __future__ import annotations  # DON'T DO THIS in Python 3.13
 
+
 class Node:
-    def __init__(self, value: int, parent: Node | None = None):
-        ...
+    def __init__(self, value: int, parent: Node | None = None): ...
 ```
 
 **Why avoid `from __future__ import annotations` in 3.13:**
@@ -392,6 +413,7 @@ class Node:
 ```python
 from typing import Self
 from collections.abc import Callable
+
 
 class Node[T]:
     """Tree node - forward reference works naturally in 3.13!"""
@@ -424,6 +446,7 @@ class Node[T]:
 
         return None
 
+
 # Usage - all type-safe with no __future__ import!
 root = Node[int](1)
 root.add_child(Node[int](2)).add_child(Node[int](3))
@@ -435,11 +458,13 @@ root.add_child(Node[int](2)).add_child(Node[int](3))
 from abc import ABC, abstractmethod
 from typing import Self
 
+
 class Entity[T]:
     """Base class for entities."""
 
     def __init__(self, id: T) -> None:
         self.id = id
+
 
 class Repository[T](ABC):
     """Generic repository interface."""
@@ -456,10 +481,12 @@ class Repository[T](ABC):
     def delete(self, id: str) -> bool:
         """Delete entity, return True if deleted."""
 
+
 class User(Entity[str]):
     def __init__(self, id: str, name: str) -> None:
         super().__init__(id)
         self.name = name
+
 
 class UserRepository(Repository[User]):
     def __init__(self) -> None:
@@ -486,32 +513,30 @@ class UserRepository(Repository[User]):
 
 ```python
 # ✅ GOOD - Specific
-def get_config() -> dict[str, str | int]:
-    ...
+def get_config() -> dict[str, str | int]: ...
+
 
 # ❌ WRONG - Too vague
-def get_config() -> dict:
-    ...
+def get_config() -> dict: ...
 ```
 
 **Use Union sparingly:**
 
 ```python
 # ✅ GOOD - Union only when necessary
-def process(value: str | int) -> str:
-    ...
+def process(value: str | int) -> str: ...
+
 
 # ❌ WRONG - Too permissive
-def process(value: str | int | list | dict) -> str | None | list:
-    ...
+def process(value: str | int | list | dict) -> str | None | list: ...
 ```
 
 **Be explicit with None:**
 
 ```python
 # ✅ GOOD - Explicit optional
-def find_user(id: str) -> User | None:
-    ...
+def find_user(id: str) -> User | None: ...
+
 
 # ❌ WRONG - Implicit None return
 def find_user(id: str) -> User:
@@ -522,13 +547,14 @@ def find_user(id: str) -> User:
 
 ```python
 # ✅ GOOD - Specific type
-def serialize(obj: User | Config) -> str:
-    ...
+def serialize(obj: User | Config) -> str: ...
+
 
 # ❌ WRONG - Defeats purpose of types
 from typing import Any
-def serialize(obj: Any) -> str:
-    ...
+
+
+def serialize(obj: Any) -> str: ...
 ```
 
 ## When to Use Types
@@ -590,12 +616,11 @@ result: Expected = cast(Expected, unsafe_function())
 
 ```python
 # ❌ WRONG - No value from typing exception
-def risky() -> str | Exception:
-    ...
+def risky() -> str | Exception: ...
+
 
 # ✅ CORRECT - Let exceptions bubble
-def risky() -> str:
-    ...  # Raises ValueError on error
+def risky() -> str: ...  # Raises ValueError on error
 ```
 
 **❌ Don't over-type simple cases**
@@ -605,6 +630,7 @@ def risky() -> str:
 def add_numbers(a: int, b: int) -> int:
     result: int = a + b  # Unnecessary type annotation
     return result
+
 
 # ✅ CORRECT - Type only signature
 def add_numbers(a: int, b: int) -> int:
@@ -628,16 +654,17 @@ from typing import TypeVar, Generic
 
 T = TypeVar("T")
 
+
 class Node(Generic[T]):
-    def __init__(self, value: T, parent: "Node[T] | None" = None):
-        ...
+    def __init__(self, value: T, parent: "Node[T] | None" = None): ...
+
 
 # Python 3.13
 from typing import Self
 
+
 class Node[T]:
-    def __init__(self, value: T, parent: Node[T] | None = None):
-        ...
+    def __init__(self, value: T, parent: Node[T] | None = None): ...
 ```
 
 ## What typing imports are still needed?

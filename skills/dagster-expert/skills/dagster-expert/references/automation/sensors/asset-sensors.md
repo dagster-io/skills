@@ -28,10 +28,11 @@ Asset sensors enable dependencies across different jobs:
 ```python nocheckundefined
 # Job A contains upstream_asset
 @dg.asset
-def upstream_asset():
-    ...
+def upstream_asset(): ...
+
 
 job_a = dg.define_asset_job("job_a", selection=[upstream_asset])
+
 
 # Job B is triggered when upstream_asset materializes
 @dg.asset_sensor(asset_key=dg.AssetKey("upstream_asset"), job=job_b)

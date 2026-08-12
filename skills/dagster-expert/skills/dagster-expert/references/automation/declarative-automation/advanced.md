@@ -53,9 +53,7 @@ condition = dg.AutomationCondition.missing().newly_true()
 ```python
 # Both newly_updated() and newly_requested() are events
 # since() converts them to a status: "updated more recently than requested"
-condition = dg.AutomationCondition.newly_updated().since(
-    dg.AutomationCondition.newly_requested()
-)
+condition = dg.AutomationCondition.newly_updated().since(dg.AutomationCondition.newly_requested())
 ```
 
 **Use case**: Create persistent states from transient events. This condition becomes true when an update occurs and stays true until a request is made.
@@ -66,8 +64,7 @@ The default `eager()` condition uses this pattern:
 
 ```python
 (
-    dg.AutomationCondition.newly_missing()
-    | dg.AutomationCondition.any_deps_updated()
+    dg.AutomationCondition.newly_missing() | dg.AutomationCondition.any_deps_updated()
 ).since_last_handled()
 ```
 
@@ -96,10 +93,7 @@ The `will_be_requested()` operand is true for assets that will be requested in t
 ```python
 # From any_deps_updated() definition:
 dg.AutomationCondition.any_deps_match(
-    (
-        dg.AutomationCondition.newly_updated()
-        & ~dg.AutomationCondition.executed_with_root_target()
-    )
+    (dg.AutomationCondition.newly_updated() & ~dg.AutomationCondition.executed_with_root_target())
     | dg.AutomationCondition.will_be_requested()  # Enables run grouping
 )
 ```
@@ -130,9 +124,9 @@ Dependency operators (`any_deps_match()`, `all_deps_match()`) check conditions o
 Only dependencies in the selection are checked:
 
 ```python
-condition = dg.AutomationCondition.any_deps_match(
-    dg.AutomationCondition.missing()
-).allow(dg.AssetSelection.groups("critical"))
+condition = dg.AutomationCondition.any_deps_match(dg.AutomationCondition.missing()).allow(
+    dg.AssetSelection.groups("critical")
+)
 ```
 
 If the asset has 10 upstreams but only 2 are in the "critical" group, only those 2 are checked.
@@ -155,9 +149,7 @@ When applied to composite conditions (AND/OR), filtering propagates to all sub-c
 
 ```python
 # Applies to both any_deps_missing() and any_deps_in_progress() within eager()
-condition = dg.AutomationCondition.eager().allow(
-    dg.AssetSelection.groups("production")
-)
+condition = dg.AutomationCondition.eager().allow(dg.AssetSelection.groups("production"))
 ```
 
 **What gets filtered**: All `any_deps_match()` and `all_deps_match()` calls

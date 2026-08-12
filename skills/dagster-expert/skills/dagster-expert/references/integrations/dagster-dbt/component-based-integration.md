@@ -224,9 +224,7 @@ class ConfigurableDbtComponent(DbtProjectComponent):
 
         return DbtConfig
 
-    def execute(
-        self, context: dg.AssetExecutionContext, dbt: DbtCliResource
-    ) -> Iterator:
+    def execute(self, context: dg.AssetExecutionContext, dbt: DbtCliResource) -> Iterator:
         if context.op_config.get("full_refresh"):
             args = ["build", "--full-refresh"]
         else:

@@ -155,9 +155,7 @@ def my_dbt_assets(context: dg.AssetExecutionContext, dbt: DbtCliResource):
         "max_date": time_window.end.strftime("%Y-%m-%d"),
     }
 
-    yield from dbt.cli(
-        ["build", "--vars", json.dumps(dbt_vars)], context=context
-    ).stream()
+    yield from dbt.cli(["build", "--vars", json.dumps(dbt_vars)], context=context).stream()
 ```
 
 Reference these vars in your dbt SQL:
@@ -183,10 +181,7 @@ Enable automatic metadata fetching by chaining methods on the event iterator:
 @dbt_assets(manifest=my_dbt_project.manifest_path)
 def my_dbt_assets(context, dbt: DbtCliResource):
     yield from (
-        dbt.cli(["build"], context=context)
-        .stream()
-        .fetch_row_counts()
-        .fetch_column_metadata()
+        dbt.cli(["build"], context=context).stream().fetch_row_counts().fetch_column_metadata()
     )
 ```
 
@@ -261,9 +256,7 @@ Configure AutomationConditions via custom `get_asset_spec()` implementation in y
 class AutomatedDbtTranslator(DagsterDbtTranslator):
     def get_asset_spec(self, manifest, unique_id, project) -> dg.AssetSpec:
         base_spec = super().get_asset_spec(manifest, unique_id, project)
-        return base_spec.replace_attributes(
-            automation_condition=dg.AutomationCondition.eager()
-        )
+        return base_spec.replace_attributes(automation_condition=dg.AutomationCondition.eager())
 ```
 
 ## Runtime Configuration

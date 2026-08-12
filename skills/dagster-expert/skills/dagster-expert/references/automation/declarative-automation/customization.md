@@ -57,9 +57,7 @@ import datetime
 
 condition = dg.AutomationCondition.on_missing().replace(
     old=dg.AutomationCondition.in_latest_time_window(),
-    new=dg.AutomationCondition.in_latest_time_window(
-        lookback_delta=datetime.timedelta(hours=24)
-    ),
+    new=dg.AutomationCondition.in_latest_time_window(lookback_delta=datetime.timedelta(hours=24)),
 )
 ```
 
@@ -70,17 +68,13 @@ Control which dependencies are considered.
 **Only specific dependencies**: Only trigger on updates from assets in the "abc" group:
 
 ```python
-condition = dg.AutomationCondition.eager().allow(
-    dg.AssetSelection.groups("abc")
-)
+condition = dg.AutomationCondition.eager().allow(dg.AssetSelection.groups("abc"))
 ```
 
 **Exclude specific dependencies**: Ignore updates from the "foo" asset:
 
 ```python
-condition = dg.AutomationCondition.eager().ignore(
-    dg.AssetSelection.assets("foo")
-)
+condition = dg.AutomationCondition.eager().ignore(dg.AssetSelection.assets("foo"))
 ```
 
 ## Pattern 4: Boolean Composition
@@ -94,27 +88,21 @@ daily_success_condition = dg.AutomationCondition.newly_updated().since(
     dg.AutomationCondition.cron_tick_passed("0 0 * * *")
 )
 
-condition = (
-    dg.AutomationCondition.cron_tick_passed("*/5 * * * *")
-    | (
-        dg.AutomationCondition.any_deps_updated()
-        & daily_success_condition
-        & ~dg.AutomationCondition.any_deps_missing()
-        & ~dg.AutomationCondition.any_deps_in_progress()
-    )
+condition = dg.AutomationCondition.cron_tick_passed("*/5 * * * *") | (
+    dg.AutomationCondition.any_deps_updated()
+    & daily_success_condition
+    & ~dg.AutomationCondition.any_deps_missing()
+    & ~dg.AutomationCondition.any_deps_in_progress()
 )
 ```
 
 **Only execute when checks pass**: Ensure all blocking checks on dependencies pass:
 
 ```python
-condition = (
-    dg.AutomationCondition.eager()
-    & dg.AutomationCondition.all_deps_match(
-        dg.AutomationCondition.all_checks_match(
-            dg.AutomationCondition.check_passed(),
-            blocking_only=True,
-        )
+condition = dg.AutomationCondition.eager() & dg.AutomationCondition.all_deps_match(
+    dg.AutomationCondition.all_checks_match(
+        dg.AutomationCondition.check_passed(),
+        blocking_only=True,
     )
 )
 ```
@@ -136,9 +124,8 @@ condition = (
 
 ```python
 condition = (
-    dg.AutomationCondition.any_deps_match(
-        dg.AutomationCondition.newly_updated()
-    ).allow(dg.AssetSelection.assets("critical_upstream"))
+    dg.AutomationCondition.any_deps_match(dg.AutomationCondition.newly_updated())
+    .allow(dg.AssetSelection.assets("critical_upstream"))
     .since_last_handled()
 )
 ```
@@ -151,8 +138,8 @@ Multiple patterns can be combined for complex requirements:
 condition = (
     dg.AutomationCondition.eager()
     .without(dg.AutomationCondition.in_latest_time_window())  # Pattern 1
-    .ignore(dg.AssetSelection.assets("staging_data"))         # Pattern 3
-    & dg.AutomationCondition.all_checks_match(                # Pattern 4
+    .ignore(dg.AssetSelection.assets("staging_data"))  # Pattern 3
+    & dg.AutomationCondition.all_checks_match(  # Pattern 4
         dg.AutomationCondition.check_passed(),
         blocking_only=True,
     )
