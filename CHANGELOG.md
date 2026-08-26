@@ -15,6 +15,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Removed
 
+- **dignified-python**: Removed from this repository. The skill is now maintained privately
+  by Dagster Labs and is no longer published to the `dagster` plugin marketplace.
+
 ### Fixed
 
 ### Security

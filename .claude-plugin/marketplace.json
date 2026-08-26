@@ -8,11 +8,6 @@
       "name": "dagster-expert",
       "source": "./skills/dagster-expert",
       "description": "Comprehensive Dagster development conventions and best practices"
-    },
-    {
-      "name": "dignified-python",
-      "source": "./skills/dignified-python",
-      "description": "Production-tested Python coding standards with version-aware type annotations, LBYL exception handling, and modern typing patterns. Includes guides for CLI patterns, subprocess handling, and Python 3.10-3.13 features."
     }
   ]
 }

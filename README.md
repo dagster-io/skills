@@ -90,32 +90,6 @@ How should I structure my project for multiple pipelines?
 Launch all assets tagged with priority=high
 ```
 
-### `dignified-python`
-
-Production-quality Python coding standards for modern Python.
-
-Use for general Python code quality, not Dagster-specific patterns.
-
-**What's included:**
-
-- Modern type syntax (list[str], str | None)
-- LBYL exception handling patterns
-- Pathlib operations
-- Python version-specific features (3.10-3.13)
-- CLI patterns (Click, argparse)
-- Advanced typing patterns
-- Interface design (ABC, Protocol)
-- API design principles
-
-**Example questions:**
-
-```
-Is this good Python code?
-How should I annotate this function?
-What's the difference between LBYL and EAFP?
-Should I use pathlib or os.path?
-```
-
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md).

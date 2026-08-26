@@ -9,7 +9,6 @@ This repository contains AI assistant skills for Dagster development. Each skill
 `plugins/` directory:
 
 - `dagster-expert` - Comprehensive Dagster development guidance (includes integrations)
-- `dignified-python` - Python coding standards
 
 These skills work with Claude Code, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible
 tools.
@@ -214,8 +213,6 @@ After the workflow completes:
    cat .cursor-plugin/marketplace.json
    cat skills/dagster-expert/.claude-plugin/plugin.json
    cat skills/dagster-expert/.cursor-plugin/plugin.json
-   cat skills/dignified-python/.claude-plugin/plugin.json
-   cat skills/dignified-python/.cursor-plugin/plugin.json
    # Check that each plugin.json "version" field matches the release
    ```
 
@@ -429,7 +426,7 @@ You can view the linting workflow status in the "Checks" tab of your pull reques
 
 ### Python Code
 
-For Python code in skills, follow the **dignified-python** standards:
+For Python code in skills, follow these standards:
 
 - Use type annotations with modern syntax (`list[str]`, `str | None`)
 - Follow LBYL (Look Before You Leap) exception handling
