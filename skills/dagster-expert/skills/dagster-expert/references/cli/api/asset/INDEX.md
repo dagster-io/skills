@@ -9,7 +9,16 @@ triggers:
 
 Commands for querying information about assets in a Dagster Plus deployment.
 
-> To **materialize** an asset on a deployed Dagster Plus environment, see [`dg api run launch`](../run/launch.md). For local in-process materialization, see [`dg launch`](../../launch.md).
+> To **materialize** an asset on a deployed Dagster Plus environment, use the MCP server's `launch_asset_run` tool when it is connected, or [`dg api run launch`](../run/launch.md) otherwise. For local in-process materialization, see [`dg launch`](../../launch.md).
+
+When the Dagster Plus MCP server is connected, prefer its tools for the operations it covers: `get_assets` (list) and `get_asset` (metadata plus a coarse health summary). `get_asset` fully replaces [`get`](./get.md), but only partially replaces [`get-health`](./get-health.md) — it reports each health status without the partition counts, check counts, or freshness lag behind it. See [general.md](../general.md) for how to choose. Note that MCP tools take asset keys as path segment lists (`["my_prefix", "my_asset"]`), not slash-separated strings.
+
+The MCP server also resolves an asset's code location, which no `dg api asset` command does:
+
+- `get_asset_location` — code location and repository for one asset
+- `get_assets_locations` — the same for a list of assets
+
+These answer "which code location defines this asset", and are distinct from [`dg api code-location`](../code-location/INDEX.md), which manages code locations themselves.
 
 ## Reference Files Index
 

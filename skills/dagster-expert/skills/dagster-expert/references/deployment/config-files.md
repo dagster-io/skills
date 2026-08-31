@@ -34,8 +34,8 @@ All platforms support a top-level `env_vars` list. Platform-specific settings ar
 
 ```yaml
 env_vars:
-  - KEY=VALUE     # set a value
-  - KEY           # pulled from agent environment
+  - KEY=VALUE # set a value
+  - KEY # pulled from agent environment
 k8s:
   namespace: my-namespace
   env_secrets:

@@ -26,4 +26,4 @@ Returns details for a specific job in the deployment.
 
 ## Launching jobs
 
-To launch a job on a deployed Dagster Plus environment, see [`dg api run launch`](./run/launch.md). For local in-process execution during development, see [`dg launch`](../launch.md).
+To launch a job on a deployed Dagster Plus environment, use the MCP server's `launch_job_run` tool when it is connected, or [`dg api run launch`](./run/launch.md) otherwise. For local in-process execution during development, see [`dg launch`](../launch.md).

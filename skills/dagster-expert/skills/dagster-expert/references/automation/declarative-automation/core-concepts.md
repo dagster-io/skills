@@ -121,7 +121,7 @@ def backfill_asset(upstream):
 
 ## Identifying Built-in vs Custom Conditions from the API
 
-When debugging DA behavior via `dg api asset get`, the `automation_condition.expanded_label` field shows the condition tree as a list of strings. Compare this against the full expanded forms above to determine if the asset is using a built-in condition or a custom one with missing guards. When you see a condition that looks similar to but doesn't match a built-in, always identify the missing sub-conditions and explain how their absence changes behavior.
+When debugging DA behavior — via the Dagster Plus MCP server's `get_asset` tool when it is connected, or `dg api asset get` otherwise — the `automation_condition.expanded_label` field shows the condition tree as a list of strings. Compare this against the full expanded forms above to determine if the asset is using a built-in condition or a custom one with missing guards. When you see a condition that looks similar to but doesn't match a built-in, always identify the missing sub-conditions and explain how their absence changes behavior.
 
 ## Evaluation by Sensor
 

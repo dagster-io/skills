@@ -23,7 +23,6 @@ Install using the
 /dagster-expert "What's an asset?"
 ```
 
-
 ### Using `npx skills`
 
 Install using the [`npx skills`](https://skills.sh/) command-line:

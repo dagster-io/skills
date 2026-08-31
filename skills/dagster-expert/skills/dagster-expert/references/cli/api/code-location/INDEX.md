@@ -9,6 +9,10 @@ triggers:
 
 Commands for managing code locations in a Dagster Plus deployment.
 
+When the Dagster Plus MCP server is connected, prefer `list_code_locations` over `dg api code-location list`. See [general.md](../general.md) for how to choose.
+
+To find which code location defines a given **asset**, use the MCP server's `get_asset_location` or `get_assets_locations` instead; those answer a different question and have no CLI counterpart.
+
 ## Reference Files Index
 
 <!-- BEGIN GENERATED INDEX -->

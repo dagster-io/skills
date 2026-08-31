@@ -17,9 +17,14 @@ Brief definitions only (see reference files for detailed examples):
 
 When integrating with ANY external tool or service, read the [Integration libraries index](./references/integrations/INDEX.md). This contains information about which integration libraries exist, and references on how to create new custom integrations for tools that do not have a published library.
 
-## dg CLI
+## Programmatic Access: `dg` CLI and the Dagster Plus MCP server
 
-The `dg` CLI is the recommended way to programmatically interact with Dagster (adding definitions, launching runs, exploring project structure, etc.). It is installed as part of the `dagster-dg-cli` package. If a relevant CLI command for a given task exists, always attempt to use it.
+There are two ways to interact with Dagster programmatically. Pick by where the work happens:
+
+- **The `dg` CLI** — everything in the local project: adding definitions, scaffolding, validating, exploring project structure, and launching runs locally. Installed as part of the `dagster-dg-cli` package. If a relevant CLI command for a local task exists, always attempt to use it.
+- **The Dagster Plus MCP server** — querying and managing a deployed Dagster Plus organization: runs, assets, deployments, code locations, alert policies, Issues, and insights metrics. When it is connected, prefer its tools over the equivalent `dg api` commands.
+
+`dg api` covers the same deployed resources as the MCP server from the command line, and remains the way to reach the parts the server does not expose. Before doing anything against a deployed Dagster Plus environment, read [Dagster Plus API: General](./references/cli/api/general.md) — it covers how to choose between the two and how to fall back safely.
 
 ONLY explore the existing project structure if it is strictly necessary to accomplish the user's goal. In many cases, existing CLI tools will have sufficient understanding of the project structure, meaning listing and reading existing files is wasteful and unnecessary.
 
@@ -59,12 +64,12 @@ For every question, identify which reference file(s) are relevant using the inde
 - [dg launch](./references/cli/launch.md) — materializing assets or executing jobs locally
 - [dg list components](./references/cli/list-components.md) — seeing available component types for scaffolding
 - [dg list defs](./references/cli/list-defs.md) — listing or filtering registered definitions
-- [Dagster Plus API](./references/cli/api/INDEX.md) — dg api, programmatically querying or managing Dagster Plus resources (assets, runs, deployments, code locations, schedules, sensors, secrets, issues, etc.)
+- [Dagster Plus API](./references/cli/api/INDEX.md) — dg api or the Dagster Plus MCP server, programmatically querying or managing Dagster Plus resources (assets, runs, deployments, code locations, schedules, sensors, secrets, issues, alert policies, etc.); Dagster credits, compute or warehouse cost, usage, and other insights metrics for an asset, job, or deployment; retrying or re-executing a failed run or backfill; terminating a run
 - [dg list](./references/cli/list/INDEX.md) — exploring project structure (component tree, environment variables, workspace projects)
 - [Dagster Plus CLI](./references/cli/plus/INDEX.md) — dg plus, Dagster Plus authentication, configuration, and deployment; logging in, setting config, creating API tokens, deploying code, pulling env vars, managing dbt manifests
 - [dg scaffold component](./references/cli/scaffold/component.md) — creating a custom reusable component type
 - [dg scaffold defs](./references/cli/scaffold/defs.md) — adding new definitions (assets, schedules, sensors, components) to a project
-- [dg utilities](./references/cli/utils/INDEX.md) — dg utils, inspecting component types, viewing integrations, refreshing state-backed component cache
+- [dg utilities](./references/cli/utils/INDEX.md) — dg utils, inspecting component types, refreshing state-backed component cache
 - [Creating Components](./references/components/creating-components.md) — building a new custom component from scratch
 - [Designing Component Integrations](./references/components/designing-component-integrations.md) — designing a component that wraps an external service or tool; custom integrations
 - [Resolved Framework](./references/components/resolved-framework.md) — defining custom YAML schema types using Resolver, Model, or Resolvable

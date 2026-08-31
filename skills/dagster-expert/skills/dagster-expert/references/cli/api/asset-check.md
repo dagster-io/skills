@@ -16,6 +16,12 @@ dg api asset-check list --asset-key <ASSET_KEY>
 
 - `--asset-key` (required) — slash-separated asset key (e.g. `my/asset`)
 
+### MCP equivalent
+
+`list_asset_checks` — prefer it when the Dagster Plus MCP server is connected.
+
+Params: `asset_key` (path segment list, e.g. `["my", "asset"]`), `deployment_name` (both required), `limit`.
+
 ## dg api asset-check get-executions
 
 ```bash
