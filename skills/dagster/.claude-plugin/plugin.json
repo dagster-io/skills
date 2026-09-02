@@ -1,0 +1,5 @@
+{
+    "name": "dagster",
+    "description": "Comprehensive Dagster development conventions and best practices",
+    "version": "1.13.1"
+  }
