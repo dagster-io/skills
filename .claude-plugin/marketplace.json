@@ -5,7 +5,7 @@
   },
   "plugins": [
     {
-      "name": "dagster-expert",
+      "name": "dagster",
       "source": "./skills/dagster-expert",
       "description": "Comprehensive Dagster development conventions and best practices"
     }
