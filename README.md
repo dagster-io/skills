@@ -18,7 +18,7 @@ Install using the
 ```
 /plugin marketplace add dagster-io/skills
 
-/plugin install dagster-expert@dagster
+/plugin install dagster@dagster
 
 /dagster-expert "What's an asset?"
 ```
@@ -60,24 +60,43 @@ Clone the repository and copy skills to your tool's skills directory:
 
 ```bash
 git clone https://github.com/dagster-io/skills.git
-cp -r skills/skills/* ~/.config/opencode/skill/
+cp -r skills/plugins/dagster/skills/* ~/.config/opencode/skill/
 ```
 
 **OpenAI Codex:**
 
 ```bash
 git clone https://github.com/dagster-io/skills.git
-cp -r skills/skills/* ~/.codex/skills/
+cp -r skills/plugins/dagster/skills/* ~/.codex/skills/
 ```
 
 **Pi Agent:**
 
 ```bash
 git clone https://github.com/dagster-io/skills.git
-cp -r skills/skills/* ~/.pi/agent/skills/
+cp -r skills/plugins/dagster/skills/* ~/.pi/agent/skills/
 ```
 
 </details>
+
+## Upgrading from `dagster-expert`
+
+The Dagster skill now ships in a plugin named `dagster` rather than `dagster-expert`. The skill
+itself is unchanged and is still invoked with `/dagster-expert`.
+
+`dagster-expert` remains installable for now, but has become a stub that carries no Dagster guidance and only points here. To migrate:
+
+```
+/plugin install dagster@dagster
+
+/plugin uninstall dagster-expert
+```
+
+If you install `dagster` without uninstalling `dagster-expert`, two plugins
+provide a skill named `dagster-expert` and the deprecated stub may be used instead of the real one.
+
+The `dagster-expert` plugin will be removed in a future release. After that, installations of it
+report `Plugin dagster-expert not found in marketplace dagster` and stop loading.
 
 ## Skills
 

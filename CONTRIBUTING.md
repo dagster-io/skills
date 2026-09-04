@@ -211,8 +211,8 @@ After the workflow completes:
    git pull origin master
    cat .claude-plugin/marketplace.json
    cat .cursor-plugin/marketplace.json
-   cat skills/dagster-expert/.claude-plugin/plugin.json
-   cat skills/dagster-expert/.cursor-plugin/plugin.json
+   cat plugins/dagster/.claude-plugin/plugin.json
+   cat plugins/dagster/.cursor-plugin/plugin.json
    # Check that each plugin.json "version" field matches the release
    ```
 
@@ -303,8 +303,8 @@ git diff
 cat CHANGELOG.md
 
 # Verify plugin versions
-cat skills/dagster-expert/.claude-plugin/plugin.json
-cat skills/dagster-expert/.cursor-plugin/plugin.json
+cat plugins/dagster/.claude-plugin/plugin.json
+cat plugins/dagster/.cursor-plugin/plugin.json
 
 # Clean up (don't commit)
 git checkout master

@@ -1,0 +1,28 @@
+{
+  "name": "dagster-expert",
+  "displayName": "Dagster",
+  "version": "1.13.1",
+  "description": "Deprecated. The Dagster skill now ships in the dagster plugin — install dagster and uninstall this one.",
+  "author": {
+    "name": "Dagster"
+  },
+  "publisher": "Dagster",
+  "homepage": "https://github.com/dagster-io/skills",
+  "repository": "https://github.com/dagster-io/skills",
+  "license": "Apache-2.0",
+  "logo": "../../assets/dagster-reversed-mark.svg",
+  "keywords": [
+    "dagster",
+    "data-pipelines",
+    "assets",
+    "orchestration",
+    "dg-cli"
+  ],
+  "category": "developer-tools",
+  "tags": [
+    "data",
+    "orchestration",
+    "python"
+  ],
+  "skills": "./skills/"
+}

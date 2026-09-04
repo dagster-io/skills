@@ -28,41 +28,47 @@ from markdown_it import MarkdownIt
 
 from dagster_skills_evals.markdown import extract_local_links
 
-SKILLS_DIR = Path(__file__).resolve().parent.parent.parent / "skills"
+PLUGINS_DIR = Path(__file__).resolve().parent.parent.parent / "plugins"
 
 # Focused rule for doc code blocks — undefined names.
 # Syntax errors are always reported by ruff regardless of selection.
 RUFF_SELECT = "F821"
 
 
-def _discover_skill_dirs() -> list[str]:
-    """Find all skill directories under skills/ that contain a SKILL.md."""
-    if not SKILLS_DIR.is_dir():
+def _discover_skills() -> list[tuple[str, str]]:
+    """Find every (plugin, skill) pair under plugins/<plugin>/skills/<skill>/SKILL.md."""
+    if not PLUGINS_DIR.is_dir():
         return []
-    return sorted(
-        d.name
-        for d in SKILLS_DIR.iterdir()
-        if d.is_dir() and (d / "skills" / d.name / "SKILL.md").is_file()
-    )
+    pairs: list[tuple[str, str]] = []
+    for plugin_dir in sorted(PLUGINS_DIR.iterdir()):
+        skills_root = plugin_dir / "skills"
+        if not skills_root.is_dir():
+            continue
+        pairs.extend(
+            (plugin_dir.name, skill_dir.name)
+            for skill_dir in sorted(skills_root.iterdir())
+            if (skill_dir / "SKILL.md").is_file()
+        )
+    return pairs
 
 
-_ALL_SKILL_DIRS = _discover_skill_dirs()
+_ALL_SKILLS = _discover_skills()
 
 # Skills must pass link validation and have annotated code blocks before being included.
-# Add new skills here after auditing. See _discover_skill_dirs() for auto-detection.
-SKILL_DIRS = [d for d in _ALL_SKILL_DIRS if d in {"dagster-expert"}]
+# Add new skills here after auditing. See _discover_skills() for auto-detection.
+SKILLS = [(p, s) for p, s in _ALL_SKILLS if s in {"dagster-expert"}]
 
 
 def _collect_python_blocks() -> list[tuple[str, str, bool]]:
     """Yield (label, code, nocheckundefined) for each python fence block not marked nocheck."""
-    if not SKILLS_DIR.is_dir():
+    if not PLUGINS_DIR.is_dir():
         return []
 
     md = MarkdownIt()
     blocks: list[tuple[str, str, bool]] = []
 
-    for skill_name in SKILL_DIRS:
-        skill_dir = SKILLS_DIR / skill_name
+    for plugin_name, skill_name in SKILLS:
+        skill_dir = PLUGINS_DIR / plugin_name / "skills" / skill_name
         if not skill_dir.is_dir():
             continue
         for md_path in sorted(skill_dir.rglob("*.md")):
@@ -80,7 +86,7 @@ def _collect_python_blocks() -> list[tuple[str, str, bool]]:
 
                 # token.map is formatted as [start_line, end_line] (0-indexed)
                 line_number = (token.map[0] + 1) if token.map else 0
-                rel_path = md_path.relative_to(SKILLS_DIR)
+                rel_path = md_path.relative_to(PLUGINS_DIR)
                 label = f"{rel_path}:{line_number}"
                 blocks.append((label, token.content, nocheckundefined))
 
@@ -196,13 +202,13 @@ def test_python_code_block_pyright(label: str, pyright_errors: dict[str, list[st
 def _collect_link_cases() -> list[tuple[str, str, Path]]:
     """Collect all (label, raw_link, resolved_path) for parametrized link validation."""
     cases: list[tuple[str, str, Path]] = []
-    for skill_name in SKILL_DIRS:
-        skill_dir = SKILLS_DIR / skill_name / "skills" / skill_name
+    for plugin_name, skill_name in SKILLS:
+        skill_dir = PLUGINS_DIR / plugin_name / "skills" / skill_name
         if not skill_dir.is_dir():
             continue
         for md_path in sorted(skill_dir.rglob("*.md")):
             for link in extract_local_links(md_path):
-                rel = link.source_file.relative_to(SKILLS_DIR)
+                rel = link.source_file.relative_to(PLUGINS_DIR)
                 label = f"{rel}:{link.line_number}"
                 cases.append((label, link.raw_target, link.resolved_path))
     return cases
@@ -222,11 +228,11 @@ def test_skill_reference_links_valid(label: str, raw_link: str, resolved: Path) 
     )
 
 
-def _compute_reachable_files() -> dict[str, set[Path]]:
+def _compute_reachable_files() -> dict[tuple[str, str], set[Path]]:
     """BFS from SKILL.md to find all transitively reachable files per skill."""
-    result: dict[str, set[Path]] = {}
-    for skill_name in SKILL_DIRS:
-        skill_dir = SKILLS_DIR / skill_name / "skills" / skill_name
+    result: dict[tuple[str, str], set[Path]] = {}
+    for plugin_name, skill_name in SKILLS:
+        skill_dir = PLUGINS_DIR / plugin_name / "skills" / skill_name
         skill_md = skill_dir / "SKILL.md"
         if not skill_md.is_file():
             continue
@@ -249,7 +255,7 @@ def _compute_reachable_files() -> dict[str, set[Path]]:
                     if resolved.suffix == ".md" and resolved not in visited:
                         queue.append(resolved)
 
-        result[skill_name] = reachable
+        result[plugin_name, skill_name] = reachable
     return result
 
 
@@ -259,15 +265,15 @@ _REACHABLE = _compute_reachable_files()
 def _collect_reachability_cases() -> list[tuple[str, Path, set[Path]]]:
     """Collect all (label, file_path, reachable_set) for parametrized reachability test."""
     cases: list[tuple[str, Path, set[Path]]] = []
-    for skill_name in SKILL_DIRS:
-        skill_dir = SKILLS_DIR / skill_name / "skills" / skill_name
+    for plugin_name, skill_name in SKILLS:
+        skill_dir = PLUGINS_DIR / plugin_name / "skills" / skill_name
         if not skill_dir.is_dir():
             continue
-        reachable = _REACHABLE.get(skill_name, set())
+        reachable = _REACHABLE.get((plugin_name, skill_name), set())
         for file_path in sorted(skill_dir.rglob("*")):
             if not file_path.is_file():
                 continue
-            rel = file_path.relative_to(SKILLS_DIR)
+            rel = file_path.relative_to(PLUGINS_DIR)
             cases.append((str(rel), file_path.resolve(), reachable))
     return cases
 

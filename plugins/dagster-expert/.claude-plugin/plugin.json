@@ -1,0 +1,13 @@
+{
+  "name": "dagster-expert",
+  "description": "Deprecated. The Dagster skill now ships in the dagster plugin — install dagster@dagster and uninstall this one.",
+  "version": "1.13.1",
+  "author": {
+    "name": "Dagster",
+    "url": "https://github.com/dagster-io/skills"
+  },
+  "homepage": "https://docs.dagster.io/getting-started/ai-tools/skills",
+  "repository": "https://github.com/dagster-io/skills",
+  "license": "Apache-2.0",
+  "keywords": ["dagster", "deprecated"]
+}

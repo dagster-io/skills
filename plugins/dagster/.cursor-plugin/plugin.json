@@ -1,6 +1,6 @@
 {
-  "name": "dagster-expert",
-  "displayName": "Dagster Expert",
+  "name": "dagster",
+  "displayName": "Dagster",
   "version": "1.13.1",
   "description": "Expert guidance for working with Dagster and the dg CLI.",
   "author": {

@@ -4,12 +4,12 @@
     "name": "Dagster"
   },
   "metadata": {
-    "description": "Dagster and Python agent skills packaged for the Cursor marketplace."
+    "description": "Dagster skills packaged for the Cursor marketplace."
   },
   "plugins": [
     {
-      "name": "dagster-expert",
-      "source": "./skills/dagster-expert",
+      "name": "dagster",
+      "source": "./plugins/dagster",
       "description": "Expert guidance for working with Dagster and the dg CLI."
     }
   ]

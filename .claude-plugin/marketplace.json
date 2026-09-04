@@ -6,9 +6,14 @@
   "description": "Dagster skills for CLI operations, best practices, and integrations. Dagster+ MCP server included for direct access to your deployment data.",
   "plugins": [
     {
-      "name": "dagster-expert",
-      "source": "./skills/dagster-expert",
+      "name": "dagster",
+      "source": "./plugins/dagster",
       "description": "Comprehensive Dagster development conventions and best practices, with the Dagster+ MCP server bundled for querying your deployment."
+    },
+    {
+      "name": "dagster-expert",
+      "source": "./plugins/dagster-expert",
+      "description": "Deprecated. Install dagster@dagster instead, then uninstall this plugin."
     }
   ]
 }

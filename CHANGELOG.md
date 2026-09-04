@@ -10,22 +10,44 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - **Dagster+ MCP Server**: Added configuration for the Dagster+ MCP server to bundle it with the plugin.
-- **Plugin metadata**: The `dagster-expert` plugin manifest now declares `author`, `license`,
-  `homepage`, `repository`, and `keywords` so marketplace listings show full attribution.
+- **Plugin metadata**: The plugin manifest now declares `author`, `license`, `homepage`,
+  `repository`, and `keywords` so marketplace listings show full attribution.
 
 ### Changed
 
+- **BREAKING**: The Dagster skill now ships in a plugin named `dagster` rather than
+  `dagster-expert`. Claude users can migrate with:
+
+  ```
+  /plugin install dagster@dagster
+
+  /plugin uninstall dagster-expert
+  ```
+  
+  See [Upgrading from `dagster-expert`](./README.md#upgrading-from-dagster-expert).
+
+- **Repository layout**: Plugin sources now live under `plugins/` instead of `skills/`, so the
+  marketplace root and the plugin root are no longer both named `skills`. The skill is unchanged at
+  `plugins/dagster/skills/dagster-expert/`.
+
 ### Deprecated
+
+- **`dagster-expert` plugin**: Kept as a stub so existing installations keep loading rather than
+  failing outright. It carries no Dagster guidance — updating it replaces the skill with a notice
+  pointing at the `dagster` plugin. It will be removed in a future release.
 
 ### Removed
 
 - **dignified-python**: Removed from this repository. The skill is now maintained privately
   by Dagster Labs and is no longer published to the `dagster` plugin marketplace.
 - **Root plugin manifest**: Removed the unused root-level `.claude-plugin/plugin.json`. The
-  `dagster` marketplace installs `dagster-expert` from `skills/dagster-expert`, so the root
+  `dagster` marketplace installs `dagster-expert` from its own plugin directory, so the root
   manifest declared a plugin that was never installable.
 
 ### Fixed
+
+- **docs**: Corrected the manual installation commands for OpenCode, Codex, and Pi. They copied the
+  plugin directory, which has no `SKILL.md` at its top level, so no skill was discoverable.
 
 ### Security
 
