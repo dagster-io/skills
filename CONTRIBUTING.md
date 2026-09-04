@@ -5,8 +5,8 @@ instructions for contributing to this monorepo.
 
 ## Development Setup
 
-This repository contains AI assistant skills for Dagster development. Each skill is located in the
-`plugins/` directory:
+This repository contains AI assistant skills for Dagster development. Each plugin is located in
+the `plugins/` directory:
 
 - `dagster` - Comprehensive Dagster development guidance (includes integrations)
 - `dagster-expert` - Deprecated stub that points users at the `dagster` plugin
