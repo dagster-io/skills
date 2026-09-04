@@ -10,6 +10,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - **Dagster+ MCP Server**: Added configuration for the Dagster+ MCP server to bundle it with the plugin.
+- **Plugin metadata**: The `dagster-expert` plugin manifest now declares `author`, `license`,
+  `homepage`, `repository`, and `keywords` so marketplace listings show full attribution.
 
 ### Changed
 
@@ -19,6 +21,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - **dignified-python**: Removed from this repository. The skill is now maintained privately
   by Dagster Labs and is no longer published to the `dagster` plugin marketplace.
+- **Root plugin manifest**: Removed the unused root-level `.claude-plugin/plugin.json`. The
+  `dagster` marketplace installs `dagster-expert` from `skills/dagster-expert`, so the root
+  manifest declared a plugin that was never installable.
 
 ### Fixed
 

@@ -1,13 +1,14 @@
 {
   "name": "dagster",
   "owner": {
-    "name": "Colton Padden"
+    "name": "Dagster"
   },
+  "description": "Dagster skills for CLI operations, best practices, and integrations. Dagster+ MCP server included for direct access to your deployment data.",
   "plugins": [
     {
       "name": "dagster-expert",
       "source": "./skills/dagster-expert",
-      "description": "Comprehensive Dagster development conventions and best practices"
+      "description": "Comprehensive Dagster development conventions and best practices, with the Dagster+ MCP server bundled for querying your deployment."
     }
   ]
 }

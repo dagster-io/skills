@@ -143,7 +143,7 @@ As you make changes, add entries to the `[Unreleased]` section of CHANGELOG.md:
 
 ### Fixed
 
-- **dignified-python**: Fixed type annotation examples for Python 3.13
+- **dagster-expert**: Fixed type annotation examples for Python 3.13
 
 ### Changed
 
@@ -209,7 +209,7 @@ After the workflow completes:
 
    ```bash
    git pull origin master
-   cat .claude-plugin/plugin.json
+   cat .claude-plugin/marketplace.json
    cat .cursor-plugin/marketplace.json
    cat skills/dagster-expert/.claude-plugin/plugin.json
    cat skills/dagster-expert/.cursor-plugin/plugin.json
