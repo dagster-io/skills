@@ -31,6 +31,7 @@ When you do fall back, keep both paths pointed at the same place:
 ## When an MCP tool fails
 
 - **Authentication or authorization errors** mean the server's session is not valid for the request. Return to the user to ask if they want to execute the equivalent `dg api` command if one exists; otherwise tell the user the Dagster Plus MCP server needs to be reconnected.
+- **A region mismatch presents as an authentication failure.** The bundled server URL is the US region. If the user's organization is in the EU, have them set `DAGSTER_CLOUD_MCP_URL=https://mcp.agent.eu.dagster.cloud/mcp` and reconnect; the US server has no record of an EU organization.
 - **Entitlement errors** ("not available for your organization") mean the feature is disabled for that organization, not that the call was malformed. The CLI reaches the same backend and will fail identically, so report it rather than retrying there.
 
 ## Using the MCP tools

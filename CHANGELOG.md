@@ -9,6 +9,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- **Dagster+ MCP Server**: Added configuration for the Dagster+ MCP server to bundle it with the plugin.
+
 ### Changed
 
 ### Deprecated
