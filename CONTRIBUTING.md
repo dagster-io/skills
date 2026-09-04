@@ -8,7 +8,8 @@ instructions for contributing to this monorepo.
 This repository contains AI assistant skills for Dagster development. Each skill is located in the
 `plugins/` directory:
 
-- `dagster-expert` - Comprehensive Dagster development guidance (includes integrations)
+- `dagster` - Comprehensive Dagster development guidance (includes integrations)
+- `dagster-expert` - Deprecated stub that points users at the `dagster` plugin
 
 These skills work with Claude Code, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible
 tools.
