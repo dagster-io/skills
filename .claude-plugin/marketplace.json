@@ -7,7 +7,12 @@
   "plugins": [
     {
       "name": "dagster",
-      "source": "./plugins/dagster",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/dagster-io/skills.git",
+        "path": "plugins/dagster",
+        "ref": "release-stable"
+      },
       "description": "Comprehensive Dagster development conventions and best practices, with the Dagster+ MCP server bundled for querying your deployment."
     },
     {

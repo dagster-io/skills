@@ -6,7 +6,11 @@
 
 AI assistant skills for building workflows and data pipelines using Dagster. It bundles the `dagster-expert` skill for authoring pipelines and the [Dagster+ MCP server](https://docs.dagster.io/getting-started/ai-tools/dagster-mcp) for access to your Dagster+ deployment.
 
-**Compatible with Claude Code, Cursor, OpenCode, OpenAI Codex, Pi, and other Agent Skills-compatible tools.**
+**Compatible with Claude Code, Cursor, OpenAI Codex, GitHub Copilot, OpenCode, Pi, and other Agent Skills-compatible tools.**
+
+All install paths below deliver the `release-stable` branch, which moves to each weekly Dagster
+release. The `dagster` marketplace entry itself points at that branch, so the marketplace can be
+added from `master` and still install released content.
 
 ## Installation
 
@@ -22,6 +26,9 @@ Install using the
 
 /dagster-expert "What's an asset?"
 ```
+
+Auto-update is off by default for third-party marketplaces. To pick up new releases without
+reinstalling, run `/plugin`, open **Marketplaces**, select `dagster`, and enable auto-update.
 
 The plugin includes the
 [Dagster+ MCP server](https://docs.dagster.io/getting-started/ai-tools/dagster-mcp), giving the skill direct
@@ -46,8 +53,30 @@ export DAGSTER_CLOUD_MCP_URL=https://mcp.agent.eu.dagster.cloud/mcp
 Install using the [`npx skills`](https://skills.sh/) command-line:
 
 ```bash
-npx skills add dagster-io/skills
+npx skills add dagster-io/skills#release-stable
 ```
+
+This installs the skill into every agent it detects (Claude Code, Codex, Cursor, Copilot, OpenCode,
+Pi, and others). It copies skills only; the bundled MCP server is not configured this way.
+
+### OpenAI Codex
+
+Codex reads the same marketplace manifest as Claude Code:
+
+```bash
+codex plugin marketplace add dagster-io/skills --ref release-stable
+codex plugin add dagster@dagster
+```
+
+### GitHub Copilot CLI
+
+Copilot's marketplace schema has no `git-subdir` source, so install the plugin directly:
+
+```bash
+copilot plugin install dagster-io/skills:plugins/dagster
+```
+
+This tracks `master`; Copilot has no documented way to target a branch.
 
 ### Manual Installation
 
@@ -59,21 +88,14 @@ Clone the repository and copy skills to your tool's skills directory:
 **OpenCode:**
 
 ```bash
-git clone https://github.com/dagster-io/skills.git
+git clone --branch release-stable https://github.com/dagster-io/skills.git
 cp -r skills/plugins/dagster/skills/* ~/.config/opencode/skill/
-```
-
-**OpenAI Codex:**
-
-```bash
-git clone https://github.com/dagster-io/skills.git
-cp -r skills/plugins/dagster/skills/* ~/.codex/skills/
 ```
 
 **Pi Agent:**
 
 ```bash
-git clone https://github.com/dagster-io/skills.git
+git clone --branch release-stable https://github.com/dagster-io/skills.git
 cp -r skills/plugins/dagster/skills/* ~/.pi/agent/skills/
 ```
 
@@ -149,7 +171,6 @@ What is the materialization success rate over the past month?
 How often has the customer_returns_job failed in the past quarter?
 What assets in my deployment are not covered by an alert policy?
 ```
-
 
 ## Contributing
 
