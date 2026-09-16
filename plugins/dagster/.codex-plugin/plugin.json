@@ -1,6 +1,6 @@
 {
   "name": "dagster",
-  "version": "1.13.1",
+  "version": "1.13.23",
   "description": "Comprehensive Dagster development conventions and best practices, with the Dagster+ MCP server bundled for querying your deployment.",
   "author": {
     "name": "Dagster",
@@ -9,7 +9,14 @@
   "homepage": "https://github.com/dagster-io/skills",
   "repository": "https://github.com/dagster-io/skills",
   "license": "Apache-2.0",
-  "keywords": ["dagster", "data-pipelines", "assets", "orchestration", "dg-cli", "mcp"],
+  "keywords": [
+    "dagster",
+    "data-pipelines",
+    "assets",
+    "orchestration",
+    "dg-cli",
+    "mcp"
+  ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",
   "interface": {
