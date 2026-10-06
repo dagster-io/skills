@@ -11,7 +11,7 @@
   "license": "Apache-2.0",
   "keywords": ["dagster", "data-pipelines", "assets", "orchestration", "dg-cli", "mcp"],
   "skills": "./skills/",
-  "mcpServers": "./.mcp.json",
+  "mcpServers": "./.codex-mcp.json",
   "interface": {
     "displayName": "Dagster"
   }
