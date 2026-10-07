@@ -9,5 +9,6 @@
   "homepage": "https://github.com/dagster-io/skills",
   "repository": "https://github.com/dagster-io/skills",
   "license": "Apache-2.0",
+  "privacyPolicyUrl": "https://dagster.io/privacy",
   "keywords": ["dagster", "data-pipelines", "assets", "orchestration", "dg-cli", "mcp"]
 }

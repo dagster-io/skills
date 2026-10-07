@@ -9,6 +9,8 @@
   "homepage": "https://github.com/dagster-io/skills",
   "repository": "https://github.com/dagster-io/skills",
   "license": "Apache-2.0",
+  "privacyPolicyUrl": "https://dagster.io/privacy",
+  "logo": "./assets/icon.png",
   "keywords": ["dagster", "data-pipelines", "assets", "orchestration", "dg-cli", "mcp"],
   "skills": "./skills/",
   "mcpServers": "./.codex-mcp.json",
