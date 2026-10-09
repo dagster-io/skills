@@ -1,8 +1,8 @@
 {
   "name": "dagster-expert",
   "displayName": "Dagster",
-  "version": "1.13.1",
-  "description": "Deprecated. The Dagster skill now ships in the dagster plugin — install dagster and uninstall this one.",
+  "version": "1.13.26",
+  "description": "Deprecated. The Dagster skill now ships in the dagster plugin \u2014 install dagster and uninstall this one.",
   "author": {
     "name": "Dagster"
   },
