@@ -17,6 +17,79 @@
   "skills": "./skills/",
   "mcpServers": "./.codex-mcp.json",
   "interface": {
-    "displayName": "Dagster"
+    "displayName": "Dagster",
+    "shortDescription": "Build and run data pipelines",
+    "longDescription": "Build and operate data pipelines with Dagster. The dagster-expert skill provides guidance on assets, components, integrations, schedules, sensors, declarative automation, and the dg CLI. Connect your Dagster+ account with the Dagster MCP server to inspect deployments, assets, runs, logs, alert policies, and Insights metrics, and perform supported actions such as launching, re-executing, and terminating runs.",
+    "developerName": "Prefect Technologies",
+    "category": "Developer Tools",
+    "defaultPrompt": [
+      "Help me scaffold a Dagster asset in this project.",
+      "Investigate the most recent failed run in my Dagster+ deployment.",
+      "Show asset materialization trends for the past seven days."
+    ],
+    "websiteURL": "https://github.com/dagster-io/skills",
+    "supportURL": "https://dagster.io/support",
+    "privacyPolicyURL": "https://dagster.io/privacy",
+    "termsOfServiceURL": "https://dagster.io/terms",
+    "logo": "./assets/icon.png",
+    "composerIcon": "./assets/icon.png"
+  },
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List the deployments accessible to the test account.",
+              "prompt": "What are the names of the Dagster+ deployments can I access?",
+              "tools_triggered": "list_deployments",
+              "expected_behavior": "Return the deployment names provided by the tool."
+            },
+            {
+              "description": "Get the most recent run failure and analyze why it failed.",
+              "prompt": "What is the most recent run failure in the prod deployment? Why did it fail?",
+              "tools_triggered": "list_runs, get_run_logs",
+              "expected_behavior": "Return information about the run that failed and an analysis of why it failed."
+            },
+            {
+              "description": "Analyze data platform performance.",
+              "prompt": "What is the week-over-week asset materialization success rate for the prod deployment?",
+              "tools_triggered": "list_asset_metric_types, list_deployment_metric_types, get_deployment_metrics",
+              "expected_behavior": "Return the rate of asset materializations over the past week."
+            },
+            {
+              "description": "Launch a run.",
+              "prompt": "Launch a run of the hello_goodbye_job job in the prod deployment.",
+              "tools_triggered": "launch_job_run",
+              "expected_behavior": "Successfully launch a new run and report the run information to the user."
+            },
+            {
+              "description": "List the alert policies that have been set up.",
+              "prompt": "What alert policies does the prod deployment have?",
+              "tools_triggered": "get_alert_policies_as_document",
+              "expected_behavior": "Return a list of the alert policies in the deployment."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Billing is unsupported; explain the limitation without invoking tools.",
+              "prompt": "Refund my Dagster+ invoice."
+            },
+            {
+              "description": "Editing user permissions is not permitted; explain the limitation without invoking tools.",
+              "prompt": "Give me admin access in the prod deployment."
+            },
+            {
+              "description": "Deleting a run is not permitted; explain the limitation. Tool to list runs may be invoked.",
+              "prompt": "Delete the most recent run in the prod deployment."
+            }
+          ]
+        },
+        "demo_recording_url": "https://youtu.be/i-1UbJ_QzCo"
+      },
+      "publication": {
+        "release_notes": "Initial OpenAI directory release with Dagster development guidance and a Dagster+ connection for inspecting deployments, assets, runs, logs, alerts, and metrics, and launching, re-executing, and terminating runs."
+      }
+    }
   }
 }
