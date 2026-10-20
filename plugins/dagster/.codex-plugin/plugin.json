@@ -22,6 +22,7 @@
     "longDescription": "Build and operate data pipelines with Dagster. The dagster-expert skill provides guidance on assets, components, integrations, schedules, sensors, declarative automation, and the dg CLI. Connect your Dagster+ account with the Dagster MCP server to inspect deployments, assets, runs, logs, alert policies, and Insights metrics, and perform supported actions such as launching, re-executing, and terminating runs.",
     "developerName": "Prefect Technologies",
     "category": "Developer Tools",
+    "capabilities": ["Read Dagster+ data", "Write data pipelines", "Launch runs", "Update Dagster+ alerts"],
     "defaultPrompt": [
       "Help me scaffold a Dagster asset in this project.",
       "Investigate the most recent failed run in my Dagster+ deployment.",
