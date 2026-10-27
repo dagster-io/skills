@@ -29,7 +29,7 @@ test = [
     "pandas",
     "pyright",
     "pytest>=8.0.0",
-    "ruff==0.16.2",
+    "ruff==0.17.2",
 ]
 
 [tool.pytest.ini_options]
