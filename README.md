@@ -42,10 +42,10 @@ Issues, and insights metrics. Run `/mcp` to authenticate.
 Fetch the run logs for the most recent run failure.
 ```
 
-The MCP URL points at the US region by default. If your organization is in the EU region, set the following environment variable before launching Claude Code:
+The MCP URL points at the US region by default. If your organization is in the EU region, run the following before launching Claude Code to configure the Dagster+ MCP server to use the EU region:
 
 ```bash
-export DAGSTER_CLOUD_MCP_URL=https://mcp.agent.eu.dagster.cloud/mcp
+claude mcp add --transport http dagster-plus https://mcp.agent.eu.dagster.cloud/mcp
 ```
 
 ### Using `npx skills`

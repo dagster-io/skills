@@ -2,7 +2,7 @@
   "mcpServers": {
     "dagster-plus": {
       "type": "http",
-      "url": "${DAGSTER_CLOUD_MCP_URL:-https://mcp.agent.dagster.cloud/mcp}"
+      "url": "https://mcp.agent.dagster.cloud/mcp"
     }
   }
 }
